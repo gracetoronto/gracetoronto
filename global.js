@@ -1,3 +1,5 @@
+console.log('This is a test');
+
 <script src="https://unpkg.com/swup@4"></script>
 
 const swup = new Swup({
@@ -16,4 +18,3 @@ const swup = new Swup({
     example();
   });
 
-  console.log('This is a test')
