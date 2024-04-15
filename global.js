@@ -1,4 +1,4 @@
-console.log('New Test');
+console.log("New Test");
 
 var swupScript = document.createElement('script');  
 swupScript.setAttribute('src','https://unpkg.com/swup@4');
