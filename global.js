@@ -1,4 +1,4 @@
-console.log('This is a test');
+console.log('New Test');
 
 
 const swup = new Swup({
