@@ -1,0 +1,5 @@
+/* Define a Swup transition duration during page visits */
+html.is-changing .transition-fade {
+    transition: opacity 0.25s;
+    opacity: 1;
+  }
