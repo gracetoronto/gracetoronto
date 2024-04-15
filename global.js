@@ -1,8 +1,8 @@
 console.log("With index page");
 
-// var swupScript = document.createElement('script');  
-// swupScript.setAttribute('src','https://unpkg.com/swup@4');
-// document.head.appendChild(swupScript);
+var swupScript = document.createElement('script');  
+swupScript.setAttribute('src','https://unpkg.com/swup@4');
+document.head.appendChild(swupScript);
 
 
 const swup = new Swup({
