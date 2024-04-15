@@ -1,5 +1,9 @@
 console.log('New Test');
 
+var swupScript = document.createElement('script');  
+swupScript.setAttribute('src','https://unpkg.com/swup@4');
+document.head.appendChild(swupScript);
+
 
 const swup = new Swup({
     plugins: [new SwupProgressPlugin()]
