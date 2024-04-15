@@ -1,8 +1,10 @@
-console.log("V1.01");
+console.log("V1.02");
 
-var swupScript = document.createElement('script');  
-swupScript.setAttribute('src','https://unpkg.com/swup@4');
-document.head.appendChild(swupScript);
+// var swupScript = document.createElement('script');  
+// swupScript.setAttribute('src','https://unpkg.com/swup@4');
+// document.head.appendChild(swupScript);
+
+import Swup from 'https://unpkg.com/swup@4?module';
 
 
 const swup = new Swup({
