@@ -1,4 +1,4 @@
-console.log("V1.0");
+console.log("V1.01");
 
 var swupScript = document.createElement('script');  
 swupScript.setAttribute('src','https://unpkg.com/swup@4');
@@ -6,7 +6,7 @@ document.head.appendChild(swupScript);
 
 
 const swup = new Swup({
-    plugins: [new SwupProgressPlugin()]
+    // plugins: [new SwupProgressPlugin()]
   });
   
   swup.hooks.on('page:view', () => {
