@@ -1,4 +1,4 @@
-console.log("With index page");
+console.log("V1.0");
 
 var swupScript = document.createElement('script');  
 swupScript.setAttribute('src','https://unpkg.com/swup@4');
@@ -11,13 +11,12 @@ const swup = new Swup({
   
   swup.hooks.on('page:view', () => {
     // This runs after every page change
-  
-    example();  
+    // example();  
   });
   
   swup.hooks.on('visit:end', () => {
     // This runs after each Swup transition completes
     console.log('Transition completed. Initializing slideshows...');
-    example();
+    // example();
   });
 
