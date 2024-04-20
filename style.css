@@ -9,3 +9,7 @@ html.is-changing .transition-fade {
   * {
     -webkit-tap-highlight-color: transparent;
   }
+
+  .scroll--disabled {
+    overflow: hidden;
+  }

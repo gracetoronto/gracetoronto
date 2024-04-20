@@ -1,4 +1,4 @@
-console.log("V1.07");
+console.log("V1.08");
 
 
 const swup = new Swup({
