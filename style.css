@@ -13,3 +13,7 @@ html.is-changing .transition-fade {
   .scroll--disabled {
     overflow: hidden;
   }
+
+  .mobile__subpage::-webkit-scrollbar {
+    display: none;
+}
