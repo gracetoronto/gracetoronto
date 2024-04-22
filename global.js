@@ -1,4 +1,4 @@
-console.log("V1.11");
+console.log("V1.12");
 
 
 const swup = new Swup({
@@ -37,18 +37,22 @@ function scrollEnable() {
 
  document.getElementById('menu-close').addEventListener('click', function () {
   scrollEnable();
-  document.getElementById('subpage-1').scrollTop = 0;
-  document.getElementById('subpage-2').scrollTop = 0;
+  setTimeout(function() {
+    document.getElementById('subpage-1').scrollTop = 0;
+    document.getElementById('subpage-2').scrollTop = 0;
+  }, 500);
  });
 
  document.getElementById('return-1').addEventListener('click', function () {
-  scrollDisable();
-  document.getElementById('subpage-1').scrollTop = 0;
+  setTimeout(function() {
+    document.getElementById('subpage-1').scrollTop = 0;
+  }, 500);
  });
 
  document.getElementById('return-2').addEventListener('click', function () {
-  scrollDisable();
-  document.getElementById('subpage-2').scrollTop = 0;
+  setTimeout(function() {
+    document.getElementById('subpage-2').scrollTop = 0;
+  }, 500);
  });
   
 
@@ -56,40 +60,7 @@ function scrollEnable() {
 
 
 
-  // //Simulate click on shadow link to delay navigation until menu is closed
-  // document.getElementById('mobile__link1').addEventListener('click', function () {
-  //   mobileNavClose();
-  //   setTimeout(function () {
-  //     document.getElementById('shadow__link1').click();
-  //   }, 400);
-  // });
   
-  // document.getElementById('mobile__link2').addEventListener('click', function () {
-  //   mobileNavClose();
-  //   setTimeout(function () {
-  //     document.getElementById('shadow__link2').click();
-  //   }, 400);
-  // });
-  
-
-
-  // //Simulate click on logo and close mobile nav if needed
-  // document.getElementById('wordmark').addEventListener('click', function () {
-  //   if (mobileNav.classList.contains('is--hidden')) {
-  //     document.getElementById('shadow__link0').click();
-  //   } else {
-  //     mobileNavClose();
-  //     setTimeout(function () {
-  //       document.getElementById('shadow__link0').click();
-  //     }, 400);
-  //   }
-  // });
-  
-  // //simulate click on contact link
-  // document.getElementById('mobile__link4').addEventListener('click', function () {
-  //   mobileNavClose();
-  //   showContact();
-  // });
   
   
   
