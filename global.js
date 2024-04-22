@@ -1,4 +1,4 @@
-console.log("V1.10");
+console.log("V1.11");
 
 
 const swup = new Swup({
@@ -33,22 +33,22 @@ function scrollEnable() {
 
  document.getElementById('menu-open').addEventListener('click', function () {
   scrollDisable();
-  document.getElementById('subpage-1').window.scrollTo(0, 0);
-  document.getElementById('subpage-2').window.scrollTo(0, 0);
  });
 
  document.getElementById('menu-close').addEventListener('click', function () {
   scrollEnable();
+  document.getElementById('subpage-1').scrollTop = 0;
+  document.getElementById('subpage-2').scrollTop = 0;
  });
 
  document.getElementById('return-1').addEventListener('click', function () {
   scrollDisable();
-  document.getElementById('subpage-1').window.scrollTo(0, 0);
+  document.getElementById('subpage-1').scrollTop = 0;
  });
 
  document.getElementById('return-2').addEventListener('click', function () {
   scrollDisable();
-  document.getElementById('subpage-2').window.scrollTo(0, 0);
+  document.getElementById('subpage-2').scrollTop = 0;
  });
   
 
