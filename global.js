@@ -1,4 +1,4 @@
-console.log("V1.08");
+console.log("V1.09");
 
 
 const swup = new Swup({
@@ -33,10 +33,13 @@ function scrollEnable() {
 
  document.getElementById('menu-open').addEventListener('click', function () {
   scrollDisable();
+  document.getElementById('subpage-1').scrollTo(0, 0);
+  document.getElementById('subpage-2').scrollTo(0, 0);
  });
 
  document.getElementById('menu-close').addEventListener('click', function () {
   scrollEnable();
+  window.scrollTo(0, 0);
  });
   
 
