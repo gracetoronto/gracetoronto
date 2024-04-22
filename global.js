@@ -1,4 +1,4 @@
-console.log("V1.13");
+console.log("V1.14");
 
 
 const swup = new Swup({
@@ -46,13 +46,13 @@ function scrollEnable() {
  document.getElementById('return-1').addEventListener('click', function () {
   setTimeout(function() {
     document.getElementById('subpage-1').scrollTop = 0;
-  }, 500);
+  }, 250);
  });
 
  document.getElementById('return-2').addEventListener('click', function () {
   setTimeout(function() {
     document.getElementById('subpage-2').scrollTop = 0;
-  }, 500);
+  }, 250);
  });
   
 
