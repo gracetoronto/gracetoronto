@@ -1,9 +1,7 @@
 console.log("V1.15");
 
 
-const swup = new Swup({
-  // plugins: [new SwupProgressPlugin()]
-});
+const swup = new Swup();
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
