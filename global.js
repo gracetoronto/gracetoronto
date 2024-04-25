@@ -1,4 +1,4 @@
-console.log("V1.15");
+console.log("V1.16");
 
 
 const swup = new Swup();
@@ -116,13 +116,11 @@ document.getElementById('return-2').addEventListener('click', function () {
 
 //Close nav menu if device width is greater than 479px
 
-function checkWindowWidth() {
-  const windowWidth = window.innerWidth;
-
-  if (windowWidth > 479) {
-    document.getElementById('menu-close').click();
-  }
-}
-
 window.addEventListener('resize', checkWindowWidth);
 
+var navMobile = document.querySelector('.nav__mobile');
+var windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+if (navMobile.style.display === 'block' && windowWidth > 479) {
+  document.getElementById('menu-close').click();
+}
