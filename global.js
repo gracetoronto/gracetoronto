@@ -1,4 +1,4 @@
-console.log("V1.19");
+console.log("V1.20");
 
 
 const swup = new Swup();
@@ -8,6 +8,7 @@ swup.hooks.on('page:view', () => {
   // example(); 
   Webflow.require('ix2').init()
   document.getElementById('page-change').click();
+  movePageDownAndUp();
 });
 
 swup.hooks.on('visit:end', () => {
@@ -39,6 +40,20 @@ document.addEventListener('click', (event) => {
     swup.setTransition(swup.defaultTransitions);
   }
 });
+
+
+
+
+function movePageDownAndUp() {
+  // Move the page down by 1 pixel
+  window.scrollBy(0, 1);
+  
+  // Wait for a short duration to allow the scroll to take effect
+  setTimeout(function() {
+      // Move the page up by 1 pixel
+      window.scrollBy(0, -1);
+  }, 10); // Adjust the timeout value as needed
+}
 
 
 
