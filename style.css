@@ -1,3 +1,5 @@
+/* Swup transitions */
+
 html.is-changing .transition-fade {
     transition: opacity 0.25s;
     opacity: 1;
@@ -10,6 +12,8 @@ html.is-changing .transition-fade {
     -webkit-tap-highlight-color: transparent;
   }
 
+/* Other stuff */
+
   .scroll--disabled {
     overflow: hidden;
   }
@@ -17,3 +21,4 @@ html.is-changing .transition-fade {
   .mobile__subpage::-webkit-scrollbar {
     display: none;
 }
+

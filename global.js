@@ -1,7 +1,25 @@
-console.log("V1.20");
+console.log("V1.21");
 
 
-const swup = new Swup();
+const swup = new Swup({
+  animateHistoryBrowsing: false,
+  animationSelector: '[class*="transition-"]',
+  animationScope: 'html',
+  cache: true,
+  containers: ['#swup'],
+  ignoreVisit: (url, { el } = {}) => el?.closest('[data-no-swup]'),
+  linkSelector: 'a[href]',
+  linkToSelf: 'scroll',
+  native: false,
+  plugins: [],
+  resolveUrl: (url) => url,
+  requestHeaders: {
+    'X-Requested-With': 'swup',
+    'Accept': 'text/html, application/xhtml+xml'
+  },
+  skipPopStateHandling: (event) => event.state?.source !== 'swup',
+  timeout: 0
+});
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
