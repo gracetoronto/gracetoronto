@@ -1,11 +1,12 @@
-console.log("V1.17");
+console.log("V1.18");
 
 
 const swup = new Swup();
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
-  // example();  
+  // example(); 
+  Webflow.require('ix2').init() 
 });
 
 swup.hooks.on('visit:end', () => {
