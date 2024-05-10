@@ -1,4 +1,4 @@
-console.log("V1.21");
+console.log("V1.22");
 
 
 const swup = new Swup({
@@ -25,14 +25,13 @@ swup.hooks.on('page:view', () => {
   // This runs after every page change
   // example(); 
   Webflow.require('ix2').init()
-  document.getElementById('page-change').click();
-  movePageDownAndUp();
+  
 });
 
 swup.hooks.on('visit:end', () => {
   // This runs after each Swup transition completes
   console.log('Transition completed. Initializing slideshows...');
-  // example();
+  document.getElementById('page-change').click();
 });
 
 
@@ -61,17 +60,6 @@ document.addEventListener('click', (event) => {
 
 
 
-
-function movePageDownAndUp() {
-  // Move the page down by 1 pixel
-  window.scrollBy(0, 1);
-  
-  // Wait for a short duration to allow the scroll to take effect
-  setTimeout(function() {
-      // Move the page up by 1 pixel
-      window.scrollBy(0, -1);
-  }, 10); // Adjust the timeout value as needed
-}
 
 
 
