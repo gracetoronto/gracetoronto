@@ -1,4 +1,4 @@
-console.log("V1.25");
+console.log("V1.26");
 
 
 const swup = new Swup({
@@ -31,6 +31,8 @@ swup.hooks.on('page:view', () => {
 
 swup.hooks.on('visit:end', () => {
   document.getElementById('page-change-dark').click();
+  Webflow.destroy();
+  Webflow.ready();
   Webflow.require('ix2').init();
   // This runs after each Swup transition completes
 });
