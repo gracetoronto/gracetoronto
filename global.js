@@ -1,4 +1,4 @@
-console.log("V1.26");
+console.log("V1.27");
 
 
 const swup = new Swup({
@@ -23,17 +23,14 @@ const swup = new Swup({
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
-  // example(); 
-  
+  Webflow.destroy();
+  Webflow.ready();
+  Webflow.require('ix2').init(); 
   document.getElementById('page-change').click();
-  
+  document.getElementById('page-change-dark').click();
 });
 
 swup.hooks.on('visit:end', () => {
-  document.getElementById('page-change-dark').click();
-  Webflow.destroy();
-  Webflow.ready();
-  Webflow.require('ix2').init();
   // This runs after each Swup transition completes
 });
 
