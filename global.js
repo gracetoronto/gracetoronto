@@ -1,4 +1,4 @@
-console.log("V1.23");
+console.log("V1.24");
 
 
 const swup = new Swup({
@@ -26,6 +26,7 @@ swup.hooks.on('page:view', () => {
   // example(); 
   Webflow.require('ix2').init()
   document.getElementById('page-change').click();
+  document.getElementById('page-change-dark').click();
 });
 
 swup.hooks.on('visit:end', () => {
