@@ -1,4 +1,4 @@
-console.log("V1.24");
+console.log("V1.25");
 
 
 const swup = new Swup({
@@ -24,12 +24,14 @@ const swup = new Swup({
 swup.hooks.on('page:view', () => {
   // This runs after every page change
   // example(); 
-  Webflow.require('ix2').init()
+  
   document.getElementById('page-change').click();
-  document.getElementById('page-change-dark').click();
+  
 });
 
 swup.hooks.on('visit:end', () => {
+  document.getElementById('page-change-dark').click();
+  Webflow.require('ix2').init();
   // This runs after each Swup transition completes
 });
 
@@ -43,19 +45,19 @@ function customTransition() {
   });
 }
 
-// Listen for 'click' event on links
-document.addEventListener('click', (event) => {
-  const target = event.target;
+// // Listen for 'click' event on links
+// document.addEventListener('click', (event) => {
+//   const target = event.target;
 
-  // Check if the clicked element has the specific class name
-  if (target.classList.contains('transition-delay')) {
-    // Apply custom transition
-    swup.setTransition(customTransition);
-  } else {
-    // If not, use the default transition
-    swup.setTransition(swup.defaultTransitions);
-  }
-});
+//   // Check if the clicked element has the specific class name
+//   if (target.classList.contains('transition-delay')) {
+//     // Apply custom transition
+//     swup.setTransition(customTransition);
+//   } else {
+//     // If not, use the default transition
+//     swup.setTransition(swup.defaultTransitions);
+//   }
+// });
 
 
 
