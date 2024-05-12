@@ -1,6 +1,17 @@
-console.log("V1.27");
+console.log("V1.28");
 
+//reset Webflow interactions when switching pages
+function resetWebflow(data) {
+  let parser = new DOMParser();
+  let dom = parser.parseFromString(data.next.html, "text/html");
+  let webflowPageId = $(dom).find("html").attr("data-wf-page");
+  $("html").attr("data-wf-page", webflowPageId);
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+  window.Webflow && window.Webflow.require("ix2").init();
+}
 
+//SWUP main code
 const swup = new Swup({
   animateHistoryBrowsing: false,
   animationSelector: '[class*="transition-"]',
@@ -23,9 +34,7 @@ const swup = new Swup({
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
-  Webflow.destroy();
-  Webflow.ready();
-  Webflow.require('ix2').init(); 
+  resetWebflow(data);
   document.getElementById('page-change').click();
   document.getElementById('page-change-dark').click();
 });
@@ -44,19 +53,8 @@ function customTransition() {
   });
 }
 
-// // Listen for 'click' event on links
-// document.addEventListener('click', (event) => {
-//   const target = event.target;
 
-//   // Check if the clicked element has the specific class name
-//   if (target.classList.contains('transition-delay')) {
-//     // Apply custom transition
-//     swup.setTransition(customTransition);
-//   } else {
-//     // If not, use the default transition
-//     swup.setTransition(swup.defaultTransitions);
-//   }
-// });
+
 
 
 
