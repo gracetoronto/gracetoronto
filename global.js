@@ -1,4 +1,4 @@
-console.log("V1.29");
+console.log("V1.30");
 
 //reset Webflow interactions when switching pages
 function resetWebflow(data) {
@@ -34,13 +34,14 @@ const swup = new Swup({
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
-  resetWebflow();
+  resetWebflow(data);
   document.getElementById('page-change').click();
   document.getElementById('page-change-dark').click();
 });
 
 swup.hooks.on('visit:end', () => {
   // This runs after each Swup transition completes
+  resetWebflow(data);
 });
 
 
