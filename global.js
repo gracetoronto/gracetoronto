@@ -1,15 +1,5 @@
-console.log("V1.30");
+console.log("V1.31");
 
-//reset Webflow interactions when switching pages
-function resetWebflow(data) {
-  let parser = new DOMParser();
-  let dom = parser.parseFromString(data.next.html, "text/html");
-  let webflowPageId = $(dom).find("html").attr("data-wf-page");
-  $("html").attr("data-wf-page", webflowPageId);
-  window.Webflow && window.Webflow.destroy();
-  window.Webflow && window.Webflow.ready();
-  window.Webflow && window.Webflow.require("ix2").init();
-}
 
 //SWUP main code
 const swup = new Swup({
@@ -34,14 +24,18 @@ const swup = new Swup({
 
 swup.hooks.on('page:view', () => {
   // This runs after every page change
-  resetWebflow(data);
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+  window.Webflow && window.Webflow.require("ix2").init();
   document.getElementById('page-change').click();
   document.getElementById('page-change-dark').click();
 });
 
 swup.hooks.on('visit:end', () => {
   // This runs after each Swup transition completes
-  resetWebflow(data);
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+  window.Webflow && window.Webflow.require("ix2").init();
 });
 
 
