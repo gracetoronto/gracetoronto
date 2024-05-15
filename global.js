@@ -1,4 +1,4 @@
-console.log("V1.44");
+console.log("V1.45");
 
 
 /// Initialize Swup
@@ -6,29 +6,20 @@ const swup = new Swup();
 
 // Listen for content replaced event
 swup.hooks.on('content:replace', () => {
-    // Get the current URL
-    const currentUrl = window.location.href;
+    // Get the current pathname of the URL
+    const pathname = window.location.pathname;
 
-    // Check if the current URL matches the specific URL you want to target
-    if (currentUrl.includes('/about/staff')) {
-      // Run your function here
-      myFunction();
-  }
+    // Check if the pathname is either '/' or an empty string
+    if (pathname === '/' || pathname === '') {
+        // Run your function here
+        myFunction();
+    }
 });
 
 // Define your function to run when navigating to the specific URL
 function myFunction() {
     // Your code here
     console.log('Function executed when navigating to specific URL.');
-}
-
-
-
-
-
-function myFunction() {
-  // Your code here
-  console.log('Function executed when navigating to URL containing "/about/staff".');
 }
 
 
