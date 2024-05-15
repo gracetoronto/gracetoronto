@@ -1,4 +1,4 @@
-console.log("V1.45");
+console.log("V1.46");
 
 
 /// Initialize Swup
@@ -12,15 +12,90 @@ swup.hooks.on('content:replace', () => {
     // Check if the pathname is either '/' or an empty string
     if (pathname === '/' || pathname === '') {
         // Run your function here
-        myFunction();
+        navTransparent();
+    } else {
+      navWhite();
     }
 });
 
 // Define your function to run when navigating to the specific URL
-function myFunction() {
-    // Your code here
-    console.log('Function executed when navigating to specific URL.');
+function navTransparent() {
+    console.log('Nav is transparent');
 }
+
+function navWhite() {
+  console.log('Nav is white');
+}
+
+
+
+
+
+function navTransparent() {
+  // Select the elements
+  const containerBlur = document.querySelector('.container__blur');
+  const navLinks = document.querySelector('.nav__links');
+  const logoLarge = document.querySelector('.logo.is--large');
+  const logoWhite = document.querySelector('.logo.is--white');
+
+  // Apply styles to invert colors with transition
+  if (containerBlur) {
+      containerBlur.style.transition = 'filter 0.2s ease';
+      containerBlur.style.filter = 'invert(100%)';
+  }
+
+  if (navLinks) {
+      navLinks.style.transition = 'filter 0.2s ease';
+      navLinks.style.filter = 'invert(100%)';
+  }
+
+  // Hide the large logo
+  if (logoLarge) {
+      logoLarge.style.display = 'none';
+  }
+
+  // Show the white logo
+  if (logoWhite) {
+      logoWhite.style.display = 'block';
+  }
+}  
+
+
+
+
+  function navWhite() {
+    // Select the elements
+    const containerBlur = document.querySelector('.container__blur');
+    const navLinks = document.querySelector('.nav__links');
+    const logoLarge = document.querySelector('.logo.is--large');
+    const logoWhite = document.querySelector('.logo.is--white');
+
+    // Reset styles
+    if (containerBlur) {
+        containerBlur.style.transition = 'none';
+        containerBlur.style.filter = 'invert(0)';
+    }
+
+    if (navLinks) {
+        navLinks.style.transition = 'none';
+        navLinks.style.filter = 'invert(0)';
+    }
+
+    // Show the large logo
+    if (logoLarge) {
+        logoLarge.style.display = 'block';
+    }
+
+    // Hide the white logo
+    if (logoWhite) {
+        logoWhite.style.display = 'none';
+    }
+}
+
+
+
+
+
 
 
 
