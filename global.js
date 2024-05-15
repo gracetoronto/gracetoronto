@@ -1,4 +1,4 @@
-console.log("V1.32");
+console.log("V1.33");
 
 
 //SWUP main code
@@ -36,6 +36,8 @@ swup.hooks.on('content:replace', () => {
   window.Webflow && window.Webflow.destroy();
   window.Webflow && window.Webflow.ready();
   window.Webflow && window.Webflow.require("ix2").init();
+  document.getElementById('page-change').click();
+  document.getElementById('page-change-dark').click();
 });
 
 
