@@ -1,6 +1,6 @@
-console.log("V1.34");
+console.log("V1.35");
 
-//SWUP main code
+// SWUP main code
 const swup = new Swup({
   animateHistoryBrowsing: false,
   animationSelector: '[class*="transition-"]',
@@ -22,18 +22,39 @@ const swup = new Swup({
 });
 
 function reinitializeWebflow() {
-  if (window.Webflow) {
-    window.Webflow.destroy();
-    window.Webflow.ready();
-    window.Webflow.require("ix2").init();
+  try {
+    if (window.Webflow) {
+      window.Webflow.destroy();
+      window.Webflow.ready();
+      window.Webflow.require("ix2").init();
+      console.log("Webflow reinitialized");
+    } else {
+      console.error("Webflow is not defined");
+    }
+  } catch (error) {
+    console.error("Error reinitializing Webflow:", error);
   }
 }
 
 function triggerPageChangeClicks() {
-  const pageChangeElement = document.getElementById('page-change');
-  const pageChangeDarkElement = document.getElementById('page-change-dark');
-  if (pageChangeElement) pageChangeElement.click();
-  if (pageChangeDarkElement) pageChangeDarkElement.click();
+  try {
+    const pageChangeElement = document.getElementById('page-change');
+    const pageChangeDarkElement = document.getElementById('page-change-dark');
+    if (pageChangeElement) {
+      pageChangeElement.click();
+      console.log("Clicked #page-change");
+    } else {
+      console.error("#page-change element not found");
+    }
+    if (pageChangeDarkElement) {
+      pageChangeDarkElement.click();
+      console.log("Clicked #page-change-dark");
+    } else {
+      console.error("#page-change-dark element not found");
+    }
+  } catch (error) {
+    console.error("Error triggering page change clicks:", error);
+  }
 }
 
 swup.hooks.on('page:view', () => {
@@ -58,6 +79,7 @@ function customTransition() {
     }, 1000); // 1 second delay
   });
 }
+
 
 
 
