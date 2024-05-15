@@ -1,4 +1,4 @@
-cconsole.log("V1.38");
+console.log("V1.39");
 
 // SWUP main code
 const swup = new Swup({
@@ -79,7 +79,8 @@ function customTransition() {
     setTimeout(() => {
       resolve();
     }, 1000); // 1 second
-
+  });
+}
 
 
 
