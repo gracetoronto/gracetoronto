@@ -1,87 +1,26 @@
-console.log("V1.41");
+console.log("V1.42");
 
-// SWUP main code
-const swup = new Swup({
-  animateHistoryBrowsing: false,
-  animationSelector: '[class*="transition-"]',
-  animationScope: 'html',
-  cache: true,
-  containers: ['#swup'],
-  ignoreVisit: (url, { el } = {}) => el?.closest('[data-no-swup]'),
-  linkSelector: 'a[href]',
-  linkToSelf: 'scroll',
-  native: false,
-  plugins: [],
-  resolveUrl: (url) => url,
-  requestHeaders: {
-    'X-Requested-With': 'swup',
-    'Accept': 'text/html, application/xhtml+xml'
-  },
-  skipPopStateHandling: (event) => event.state?.source !== 'swup',
-  timeout: 0
+/// Initialize Swup
+const swup = new Swup();
+
+// Listen for content replaced event
+swup.on('contentReplaced', () => {
+    // Get the current URL
+    const currentUrl = window.location.href;
+
+    // Check if the current URL matches the specific URL you want to target
+    if (currentUrl === 'http://example.com/specific-url') {
+        // Run your function here
+        // myFunction();
+        console.log('The function has run successfully');
+    }
 });
 
-function reinitializeWebflow() {
-  try {
-    if (window.Webflow) {
-      console.log("Reinitializing Webflow...");
-      window.Webflow.destroy(); // Destroy the current instance
-      window.Webflow.ready();   // Reinitialize Webflow
-      window.Webflow.require("ix2").init(); // Reinitialize Interactions 2.0
-      console.log("Webflow reinitialized successfully.");
-    } else {
-      console.error("Webflow is not defined.");
-    }
-  } catch (error) {
-    console.error("Error reinitializing Webflow:", error);
-  }
+// Define your function to run when navigating to the specific URL
+function myFunction() {
+    // Your code here
+    console.log('Function executed when navigating to specific URL.');
 }
-
-function triggerPageChangeClicks() {
-  try {
-    const pageChangeElement = document.getElementById('page-change');
-    const pageChangeDarkElement = document.getElementById('page-change-dark');
-    if (pageChangeElement) {
-      pageChangeElement.click();
-      console.log("Clicked #page-change.");
-    } else {
-      console.error("#page-change element not found.");
-    }
-    if (pageChangeDarkElement) {
-      pageChangeDarkElement.click();
-      console.log("Clicked #page-change-dark.");
-    } else {
-      console.error("#page-change-dark element not found.");
-    }
-  } catch (error) {
-    console.error("Error triggering page change clicks:", error);
-  }
-}
-
-// Use Swup hooks correctly
-swup.hooks.on('content:replace', () => {
-  console.log("Swup content replaced.");
-  reinitializeWebflow();
-  triggerPageChangeClicks();
-});
-
-swup.hooks.on('page:view', () => {
-  console.log("Swup page view.");
-  setTimeout(() => {
-    reinitializeWebflow();
-    triggerPageChangeClicks();
-  }, 100); // Slight delay to ensure DOM is ready
-});
-
-// Define custom transition function with delay
-function customTransition() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000); // 1 second delay
-  });
-}
-
 
 
 
