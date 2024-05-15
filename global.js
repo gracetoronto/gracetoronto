@@ -1,4 +1,4 @@
-console.log("V1.35");
+console.log("V1.36");
 
 // SWUP main code
 const swup = new Swup({
@@ -21,15 +21,18 @@ const swup = new Swup({
   timeout: 0
 });
 
-function reinitializeWebflow() {
+function reinitializeWebflow(retries = 3) {
   try {
     if (window.Webflow) {
       window.Webflow.destroy();
       window.Webflow.ready();
       window.Webflow.require("ix2").init();
       console.log("Webflow reinitialized");
+    } else if (retries > 0) {
+      console.warn("Webflow is not defined, retrying...");
+      setTimeout(() => reinitializeWebflow(retries - 1), 100); // Retry after 100ms
     } else {
-      console.error("Webflow is not defined");
+      console.error("Webflow is not defined and retries exhausted");
     }
   } catch (error) {
     console.error("Error reinitializing Webflow:", error);
@@ -79,6 +82,7 @@ function customTransition() {
     }, 1000); // 1 second delay
   });
 }
+
 
 
 
