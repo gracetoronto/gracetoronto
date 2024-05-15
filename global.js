@@ -1,4 +1,4 @@
-console.log("V1.40");
+console.log("V1.41");
 
 // SWUP main code
 const swup = new Swup({
@@ -59,13 +59,13 @@ function triggerPageChangeClicks() {
 }
 
 // Use Swup hooks correctly
-swup.hooks.on('contentReplaced', () => {
+swup.hooks.on('content:replace', () => {
   console.log("Swup content replaced.");
   reinitializeWebflow();
   triggerPageChangeClicks();
 });
 
-swup.hooks.on('pageView', () => {
+swup.hooks.on('page:view', () => {
   console.log("Swup page view.");
   setTimeout(() => {
     reinitializeWebflow();
@@ -81,7 +81,6 @@ function customTransition() {
     }, 1000); // 1 second delay
   });
 }
-
 
 
 
