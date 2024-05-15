@@ -1,4 +1,4 @@
-console.log("V1.36");
+console.log("V1.37");
 
 // SWUP main code
 const swup = new Swup({
@@ -21,18 +21,16 @@ const swup = new Swup({
   timeout: 0
 });
 
-function reinitializeWebflow(retries = 3) {
+function reinitializeWebflow() {
   try {
     if (window.Webflow) {
+      console.log("Reinitializing Webflow...");
       window.Webflow.destroy();
       window.Webflow.ready();
       window.Webflow.require("ix2").init();
-      console.log("Webflow reinitialized");
-    } else if (retries > 0) {
-      console.warn("Webflow is not defined, retrying...");
-      setTimeout(() => reinitializeWebflow(retries - 1), 100); // Retry after 100ms
+      console.log("Webflow reinitialized successfully.");
     } else {
-      console.error("Webflow is not defined and retries exhausted");
+      console.error("Webflow is not defined.");
     }
   } catch (error) {
     console.error("Error reinitializing Webflow:", error);
@@ -45,33 +43,25 @@ function triggerPageChangeClicks() {
     const pageChangeDarkElement = document.getElementById('page-change-dark');
     if (pageChangeElement) {
       pageChangeElement.click();
-      console.log("Clicked #page-change");
+      console.log("Clicked #page-change.");
     } else {
-      console.error("#page-change element not found");
+      console.error("#page-change element not found.");
     }
     if (pageChangeDarkElement) {
       pageChangeDarkElement.click();
-      console.log("Clicked #page-change-dark");
+      console.log("Clicked #page-change-dark.");
     } else {
-      console.error("#page-change-dark element not found");
+      console.error("#page-change-dark element not found.");
     }
   } catch (error) {
     console.error("Error triggering page change clicks:", error);
   }
 }
 
-swup.hooks.on('page:view', () => {
-  setTimeout(() => {
-    reinitializeWebflow();
-    triggerPageChangeClicks();
-  }, 100); // Slight delay to ensure DOM is ready
-});
-
-swup.hooks.on('content:replace', () => {
-  setTimeout(() => {
-    reinitializeWebflow();
-    triggerPageChangeClicks();
-  }, 100); // Slight delay to ensure DOM is ready
+swup.on('contentReplaced', () => {
+  console.log("Swup content replaced.");
+  reinitializeWebflow();
+  triggerPageChangeClicks();
 });
 
 // Define custom transition function with delay
@@ -82,6 +72,7 @@ function customTransition() {
     }, 1000); // 1 second delay
   });
 }
+
 
 
 
