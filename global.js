@@ -1,15 +1,15 @@
-console.log("V1.42");
+console.log("V1.43");
 
 /// Initialize Swup
 const swup = new Swup();
 
 // Listen for content replaced event
-swup.on('contentReplaced', () => {
+swup.hooks.on('content:replace', () => {
     // Get the current URL
     const currentUrl = window.location.href;
 
     // Check if the current URL matches the specific URL you want to target
-    if (currentUrl === 'http://example.com/specific-url') {
+    if (currentUrl === 'http://example.com/about/staff') {
         // Run your function here
         // myFunction();
         console.log('The function has run successfully');
