@@ -1,4 +1,4 @@
-console.log("V1.46");
+console.log("V1.47");
 
 
 /// Initialize Swup
@@ -40,8 +40,9 @@ function navTransparent() {
 
   // Apply styles to invert colors with transition
   if (containerBlur) {
-      containerBlur.style.transition = 'filter 0.2s ease';
+      containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
       containerBlur.style.filter = 'invert(100%)';
+      containerBlur.style.opacity = '0';
   }
 
   if (navLinks) {
@@ -58,39 +59,42 @@ function navTransparent() {
   if (logoWhite) {
       logoWhite.style.display = 'block';
   }
-}  
-
-
-
-
-  function navWhite() {
-    // Select the elements
-    const containerBlur = document.querySelector('.container__blur');
-    const navLinks = document.querySelector('.nav__links');
-    const logoLarge = document.querySelector('.logo.is--large');
-    const logoWhite = document.querySelector('.logo.is--white');
-
-    // Reset styles
-    if (containerBlur) {
-        containerBlur.style.transition = 'none';
-        containerBlur.style.filter = 'invert(0)';
-    }
-
-    if (navLinks) {
-        navLinks.style.transition = 'none';
-        navLinks.style.filter = 'invert(0)';
-    }
-
-    // Show the large logo
-    if (logoLarge) {
-        logoLarge.style.display = 'block';
-    }
-
-    // Hide the white logo
-    if (logoWhite) {
-        logoWhite.style.display = 'none';
-    }
 }
+
+
+
+
+
+function navWhite() {
+  // Select the elements
+  const containerBlur = document.querySelector('.container__blur');
+  const navLinks = document.querySelector('.nav__links');
+  const logoLarge = document.querySelector('.logo.is--large');
+  const logoWhite = document.querySelector('.logo.is--white');
+
+  // Reset styles
+  if (containerBlur) {
+      containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+      containerBlur.style.filter = 'invert(0)';
+      containerBlur.style.opacity = '1';
+  }
+
+  if (navLinks) {
+      navLinks.style.transition = 'none';
+      navLinks.style.filter = 'invert(0)';
+  }
+
+  // Show the large logo
+  if (logoLarge) {
+      logoLarge.style.display = 'block';
+  }
+
+  // Hide the white logo
+  if (logoWhite) {
+      logoWhite.style.display = 'none';
+  }
+}
+
 
 
 
