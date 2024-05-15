@@ -1,4 +1,4 @@
-console.log("V1.39");
+console.log("V1.40");
 
 // SWUP main code
 const swup = new Swup({
@@ -25,9 +25,9 @@ function reinitializeWebflow() {
   try {
     if (window.Webflow) {
       console.log("Reinitializing Webflow...");
-      window.Webflow.destroy();
-      window.Webflow.ready();
-      window.Webflow.require("ix2").init();
+      window.Webflow.destroy(); // Destroy the current instance
+      window.Webflow.ready();   // Reinitialize Webflow
+      window.Webflow.require("ix2").init(); // Reinitialize Interactions 2.0
       console.log("Webflow reinitialized successfully.");
     } else {
       console.error("Webflow is not defined.");
@@ -58,7 +58,7 @@ function triggerPageChangeClicks() {
   }
 }
 
-// Use hooks correctly for Swup
+// Use Swup hooks correctly
 swup.hooks.on('contentReplaced', () => {
   console.log("Swup content replaced.");
   reinitializeWebflow();
@@ -78,9 +78,10 @@ function customTransition() {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve();
-    }, 1000); // 1 second
+    }, 1000); // 1 second delay
   });
 }
+
 
 
 
