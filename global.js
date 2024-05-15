@@ -1,5 +1,4 @@
-console.log("V1.33");
-
+console.log("V1.34");
 
 //SWUP main code
 const swup = new Swup({
@@ -22,24 +21,34 @@ const swup = new Swup({
   timeout: 0
 });
 
+function reinitializeWebflow() {
+  if (window.Webflow) {
+    window.Webflow.destroy();
+    window.Webflow.ready();
+    window.Webflow.require("ix2").init();
+  }
+}
+
+function triggerPageChangeClicks() {
+  const pageChangeElement = document.getElementById('page-change');
+  const pageChangeDarkElement = document.getElementById('page-change-dark');
+  if (pageChangeElement) pageChangeElement.click();
+  if (pageChangeDarkElement) pageChangeDarkElement.click();
+}
+
 swup.hooks.on('page:view', () => {
-  // This runs after every page change
-  window.Webflow && window.Webflow.destroy();
-  window.Webflow && window.Webflow.ready();
-  window.Webflow && window.Webflow.require("ix2").init();
-  document.getElementById('page-change').click();
-  document.getElementById('page-change-dark').click();
+  setTimeout(() => {
+    reinitializeWebflow();
+    triggerPageChangeClicks();
+  }, 100); // Slight delay to ensure DOM is ready
 });
 
 swup.hooks.on('content:replace', () => {
-  // This runs after each Swup transition completes
-  window.Webflow && window.Webflow.destroy();
-  window.Webflow && window.Webflow.ready();
-  window.Webflow && window.Webflow.require("ix2").init();
-  document.getElementById('page-change').click();
-  document.getElementById('page-change-dark').click();
+  setTimeout(() => {
+    reinitializeWebflow();
+    triggerPageChangeClicks();
+  }, 100); // Slight delay to ensure DOM is ready
 });
-
 
 // Define custom transition function with delay
 function customTransition() {
