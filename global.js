@@ -1,4 +1,5 @@
-console.log("V1.43");
+console.log("V1.44");
+
 
 /// Initialize Swup
 const swup = new Swup();
@@ -9,11 +10,10 @@ swup.hooks.on('content:replace', () => {
     const currentUrl = window.location.href;
 
     // Check if the current URL matches the specific URL you want to target
-    if (currentUrl === 'http://example.com/about/staff') {
-        // Run your function here
-        // myFunction();
-        console.log('The function has run successfully');
-    }
+    if (currentUrl.includes('/about/staff')) {
+      // Run your function here
+      myFunction();
+  }
 });
 
 // Define your function to run when navigating to the specific URL
@@ -26,33 +26,10 @@ function myFunction() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function myFunction() {
+  // Your code here
+  console.log('Function executed when navigating to URL containing "/about/staff".');
+}
 
 
 
@@ -95,12 +72,6 @@ document.getElementById('return-2').addEventListener('click', function () {
     document.getElementById('subpage-2').scrollTop = 0;
   }, 250);
 });
-
-
-
-
-
-
 
 
 
