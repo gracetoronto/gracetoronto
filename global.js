@@ -1,4 +1,4 @@
-console.log("V1.52");
+console.log("V1.53");
 
 
 /// Initialize Swup
@@ -18,19 +18,16 @@ swup.hooks.on('content:replace', () => {
     }
 });
 
-// Define your function to run when navigating to the specific URL
-function navTransparent() {
-    console.log('Nav is transparent');
+
+
+// Function to check if the current URL is the homepage
+function isHomePage() {
+  const currentUrl = window.location.pathname;
+  return currentUrl === '/' || currentUrl === '';
 }
 
-function navWhite() {
-  console.log('Nav is white');
-}
 
-
-
-
-
+// Function to apply the transparent navigation styles
 function navTransparent() {
   // Select the elements
   const containerBlur = document.querySelector('.container__blur');
@@ -39,13 +36,9 @@ function navTransparent() {
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
-  // Check if the current URL is the homepage
-  const currentUrl = window.location.pathname;
-  const isHomePage = currentUrl === '/' || currentUrl === '';
-
   // Apply styles to invert colors without transition if it's the homepage
   if (containerBlur) {
-      if (isHomePage) {
+      if (isHomePage()) {
           containerBlur.style.transition = 'none';
       } else {
           containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
@@ -56,25 +49,25 @@ function navTransparent() {
 
   if (navDropdowns) {
       navDropdowns.forEach((dropdown) => {
-          dropdown.style.transition = isHomePage ? 'none' : 'filter 0.2s ease';
-          dropdown.style.filter = 'invert(100%)';
+          dropdown.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+          dropdown.style.filter = 'invert(85%)';
       });
   }
 
   // Hide the large logo
   if (logoLarge) {
-      logoLarge.style.display = isHomePage ? 'none' : 'block';
+      logoLarge.style.display = isHomePage() ? 'none' : 'block';
   }
 
   // Show the white logo
   if (logoWhite) {
-      logoWhite.style.display = isHomePage ? 'block' : 'none';
+      logoWhite.style.display = isHomePage() ? 'block' : 'none';
   }
 
   // Invert and increase brightness of buttons
   if (buttons) {
       buttons.forEach((button) => {
-          button.style.transition = isHomePage ? 'none' : 'filter 0.2s ease';
+          button.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
           button.style.filter = 'invert(100%) brightness(200%)';
       });
   }
@@ -125,6 +118,13 @@ function navWhite() {
       });
   }
 }
+
+
+
+// Call navTransparent() when the document is ready
+document.addEventListener('DOMContentLoaded', function () {
+  navTransparent();
+});
 
 
 
