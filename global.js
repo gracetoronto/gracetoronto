@@ -39,7 +39,7 @@ function navTransparent() {
   // Apply filter styles to invert colors
   if (containerBlurs) {
       containerBlurs.forEach((containerBlur) => {
-          containerBlur.style.filter = 'invert(90%)';
+          containerBlur.style.filter = 'invert(93%)';
       });
   }
 
