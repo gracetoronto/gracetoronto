@@ -1,4 +1,4 @@
-console.log("V1.51");
+console.log("V1.52");
 
 
 /// Initialize Swup
@@ -50,7 +50,7 @@ function navTransparent() {
       } else {
           containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
       }
-      containerBlur.style.filter = 'invert(100%) brightness(200%)';
+      containerBlur.style.filter = 'invert(85%)';
       containerBlur.style.opacity = '0';
   }
 
@@ -92,17 +92,17 @@ function navWhite() {
   // Reset styles
   if (containerBlur) {
       containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
-      containerBlur.style.filter = 'invert(0) brightness(100%)';
+      containerBlur.style.filter = 'invert(0)';
       
       // Delay opacity reset by 0.1 seconds
       setTimeout(() => {
           containerBlur.style.opacity = '1';
-      }, 100);
+      }, 50);
   }
 
   if (navDropdowns) {
       navDropdowns.forEach((dropdown) => {
-          dropdown.style.transition = 'filter 0.2s ease';
+          dropdown.style.transition = 'filter 0.1s ease';
           dropdown.style.filter = 'invert(0)';
       });
   }
