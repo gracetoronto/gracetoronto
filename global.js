@@ -1,4 +1,4 @@
-console.log("V1.58");
+console.log("V1.59");
 
 
 /// Initialize Swup
@@ -38,7 +38,7 @@ function navTransparent() {
   // Apply filter styles to invert colors
   if (containerBlurs) {
       containerBlurs.forEach((containerBlur) => {
-          containerBlur.style.filter = 'invert(100%)';
+          containerBlur.style.filter = 'invert(90%)';
       });
   }
 
@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navTransparent();
   }
 });
+
 
 
 
