@@ -1,4 +1,4 @@
-console.log("V1.47");
+console.log("V1.48");
 
 
 /// Initialize Swup
@@ -34,9 +34,8 @@ function navWhite() {
 function navTransparent() {
   // Select the elements
   const containerBlur = document.querySelector('.container__blur');
-  const navLinks = document.querySelector('.nav__links');
-  const logoLarge = document.querySelector('.logo.is--large');
-  const logoWhite = document.querySelector('.logo.is--white');
+  const navDropdowns = document.querySelectorAll('.nav__dropdown');
+  const textElements = document.querySelectorAll('.button--text.is--nav');
 
   // Apply styles to invert colors with transition
   if (containerBlur) {
@@ -45,32 +44,26 @@ function navTransparent() {
       containerBlur.style.opacity = '0';
   }
 
-  if (navLinks) {
-      navLinks.style.transition = 'filter 0.2s ease';
-      navLinks.style.filter = 'invert(100%)';
+  if (navDropdowns) {
+      navDropdowns.forEach((dropdown) => {
+          dropdown.style.transition = 'filter 0.2s ease';
+          dropdown.style.filter = 'invert(100%)';
+      });
   }
 
-  // Hide the large logo
-  if (logoLarge) {
-      logoLarge.style.display = 'none';
-  }
-
-  // Show the white logo
-  if (logoWhite) {
-      logoWhite.style.display = 'block';
+  // Change text color to white
+  if (textElements) {
+      textElements.forEach((textElement) => {
+          textElement.style.color = '#FFFFFF'; // White color
+      });
   }
 }
-
-
-
-
 
 function navWhite() {
   // Select the elements
   const containerBlur = document.querySelector('.container__blur');
-  const navLinks = document.querySelector('.nav__links');
-  const logoLarge = document.querySelector('.logo.is--large');
-  const logoWhite = document.querySelector('.logo.is--white');
+  const navDropdowns = document.querySelectorAll('.nav__dropdown');
+  const textElements = document.querySelectorAll('.button--text.is--nav');
 
   // Reset styles
   if (containerBlur) {
@@ -79,19 +72,51 @@ function navWhite() {
       containerBlur.style.opacity = '1';
   }
 
-  if (navLinks) {
-      navLinks.style.transition = 'none';
-      navLinks.style.filter = 'invert(0)';
+  if (navDropdowns) {
+      navDropdowns.forEach((dropdown) => {
+          dropdown.style.transition = 'filter 0.2s ease';
+          dropdown.style.filter = 'invert(0)';
+      });
   }
 
-  // Show the large logo
-  if (logoLarge) {
-      logoLarge.style.display = 'block';
+  // Change text color back to #606060
+  if (textElements) {
+      textElements.forEach((textElement) => {
+          textElement.style.color = '#606060'; // #606060 color
+      });
+  }
+}
+
+
+
+
+
+
+function navWhite() {
+  // Select the elements
+  const containerBlur = document.querySelector('.container__blur');
+  const navDropdowns = document.querySelectorAll('.nav__dropdown');
+  const textElements = document.querySelectorAll('.button--text.is--nav');
+
+  // Reset styles
+  if (containerBlur) {
+      containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+      containerBlur.style.filter = 'invert(0)';
+      containerBlur.style.opacity = '1';
   }
 
-  // Hide the white logo
-  if (logoWhite) {
-      logoWhite.style.display = 'none';
+  if (navDropdowns) {
+      navDropdowns.forEach((dropdown) => {
+          dropdown.style.transition = 'filter 0.2s ease';
+          dropdown.style.filter = 'invert(0)';
+      });
+  }
+
+  // Change text color back to #606060
+  if (textElements) {
+      textElements.forEach((textElement) => {
+          textElement.style.color = '#606060'; // #606060 color
+      });
   }
 }
 
