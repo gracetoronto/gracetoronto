@@ -1,4 +1,4 @@
-console.log("V1.60");
+console.log("V1.61");
 
 
 /// Initialize Swup
@@ -147,7 +147,97 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+// Function to shrink the navigation
+function navShrink() {
+  // Select the elements
+  const primaryContainers = document.querySelectorAll('.primary__container');
+  const navBanners = document.querySelectorAll('.nav__banner');
+  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoSmall = document.querySelectorAll('.logo__small');
 
+  // Decrease height of primary container on devices greater than 479px
+  if (primaryContainers) {
+    primaryContainers.forEach((container) => {
+      if (window.innerWidth > 479) {
+        container.style.height = '70px';
+        container.style.transition = 'height 0.3s ease';
+      }
+    });
+  }
+
+  // Decrease height of nav banner
+  if (navBanners) {
+    navBanners.forEach((banner) => {
+      banner.style.height = '0px';
+      banner.style.transition = 'height 0.3s ease';
+    });
+  }
+
+  // Hide large logos
+  if (logoLarge) {
+    logoLarge.forEach((logo) => {
+      logo.style.display = 'none';
+    });
+  }
+
+  // Show small logos
+  if (logoSmall) {
+    logoSmall.forEach((logo) => {
+      logo.style.display = 'block';
+    });
+  }
+
+  // If homepage, fire navWhite() when scrolled past 200px
+  if (isHomePage()) {
+    navWhite();
+  }
+}
+
+// Function to expand the navigation
+function navExpand() {
+  // Select the elements
+  const primaryContainers = document.querySelectorAll('.primary__container');
+  const navBanners = document.querySelectorAll('.nav__banner');
+  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoSmall = document.querySelectorAll('.logo__small');
+
+  // Increase height of primary container on devices greater than 479px
+  if (primaryContainers) {
+    primaryContainers.forEach((container) => {
+      if (window.innerWidth > 479) {
+        container.style.height = '100px';
+        container.style.transition = 'height 0.3s ease';
+      }
+    });
+  }
+
+  // Increase height of nav banner
+  if (navBanners) {
+    navBanners.forEach((banner) => {
+      banner.style.height = '40px';
+      banner.style.transition = 'height 0.3s ease';
+    });
+  }
+
+  // Show large logos
+  if (logoLarge) {
+    logoLarge.forEach((logo) => {
+      logo.style.display = 'block';
+    });
+  }
+
+  // Hide small logos
+  if (logoSmall) {
+    logoSmall.forEach((logo) => {
+      logo.style.display = 'none';
+    });
+  }
+
+  // If homepage, fire navTransparent() when scrolled less than 200px
+  if (isHomePage()) {
+    navTransparent();
+  }
+}
 
 
 
