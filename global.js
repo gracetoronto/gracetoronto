@@ -1,4 +1,4 @@
-console.log("V1.62");
+console.log("V1.63");
 
 
 /// Initialize Swup
@@ -32,120 +32,122 @@ function navTransparent() {
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelector('.logo.is--large');
-  const logoWhite = document.querySelector('.logo.is--white');
+  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
-      containerBlurs.forEach((containerBlur) => {
-          containerBlur.style.filter = 'invert(93%)';
-      });
+    containerBlurs.forEach((containerBlur) => {
+      containerBlur.style.filter = 'invert(95%)';
+    });
   }
 
-  // Apply opacity styles
+  // Apply opacity styles with a slight delay
   if (mainContainerBlurs) {
-      mainContainerBlurs.forEach((containerBlur) => {
-          if (isHomePage()) {
-              containerBlur.style.transition = 'none';
-          } else {
-              containerBlur.style.transition = 'opacity 0.2s ease';
-          }
+    mainContainerBlurs.forEach((containerBlur) => {
+      if (isHomePage()) {
+        containerBlur.style.transition = 'none';
+        containerBlur.style.opacity = '0';
+      } else {
+        containerBlur.style.transition = 'opacity 0.2s ease';
+        setTimeout(() => {
           containerBlur.style.opacity = '0';
-      });
+        }, 10);
+      }
+    });
   }
 
   // Hide the large logo
   if (logoLarge) {
-      logoLarge.style.display = isHomePage() ? 'none' : 'block';
+    logoLarge.forEach((logo) => {
+      logo.style.display = isHomePage() ? 'none' : 'block';
+    });
   }
 
   // Show the white logo
   if (logoWhite) {
-      logoWhite.style.display = isHomePage() ? 'block' : 'none';
+    logoWhite.forEach((logo) => {
+      logo.style.display = isHomePage() ? 'block' : 'none';
+    });
   }
 
   // Invert and increase brightness of buttons
   if (buttons) {
-      buttons.forEach((button) => {
-          button.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
-          button.style.filter = 'invert(100%) brightness(200%)';
-      });
+    buttons.forEach((button) => {
+      button.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+      button.style.filter = 'invert(100%) brightness(200%)';
+    });
   }
 
   // Invert and increase brightness of dropdown texts
   if (dropdownTexts) {
-      dropdownTexts.forEach((dropdownText) => {
-          dropdownText.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
-          dropdownText.style.filter = 'invert(100%) brightness(200%)';
-      });
+    dropdownTexts.forEach((dropdownText) => {
+      dropdownText.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+      dropdownText.style.filter = 'invert(100%) brightness(200%)';
+    });
   }
 }
 
+// Function to expand the navigation
 function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelector('.logo.is--large');
-  const logoWhite = document.querySelector('.logo.is--white');
+  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
   // Reset filter styles
   if (containerBlurs) {
-      containerBlurs.forEach((containerBlur) => {
-          containerBlur.style.filter = 'invert(0)';
-      });
+    containerBlurs.forEach((containerBlur) => {
+      containerBlur.style.filter = 'invert(0)';
+    });
   }
 
   // Reset opacity styles
   if (mainContainerBlurs) {
-      mainContainerBlurs.forEach((containerBlur) => {
-          containerBlur.style.transition = 'opacity 0.2s ease';
-      
-          // Delay opacity reset by 0.1 seconds
-          setTimeout(() => {
-              containerBlur.style.opacity = '1';
-          }, 50);
-      });
+    mainContainerBlurs.forEach((containerBlur) => {
+      containerBlur.style.transition = 'opacity 0.2s ease';
+
+      // Delay opacity reset by 0.1 seconds
+      setTimeout(() => {
+        containerBlur.style.opacity = '1';
+      }, 50);
+    });
   }
 
   // Show the large logo
   if (logoLarge) {
-      logoLarge.style.display = 'block';
+    logoLarge.forEach((logo) => {
+      logo.style.display = 'block';
+    });
   }
 
   // Hide the white logo
   if (logoWhite) {
-      logoWhite.style.display = 'none';
+    logoWhite.forEach((logo) => {
+      logo.style.display = 'none';
+    });
   }
 
   // Reset buttons
   if (buttons) {
-      buttons.forEach((button) => {
-          button.style.transition = 'filter 0.2s ease';
-          button.style.filter = 'invert(0) brightness(100%)';
-      });
+    buttons.forEach((button) => {
+      button.style.transition = 'filter 0.2s ease';
+      button.style.filter = 'invert(0) brightness(100%)';
+    });
   }
 
   // Reset dropdown texts
   if (dropdownTexts) {
-      dropdownTexts.forEach((dropdownText) => {
-          dropdownText.style.transition = 'filter 0.2s ease';
-          dropdownText.style.filter = 'invert(0) brightness(100%)';
-      });
+    dropdownTexts.forEach((dropdownText) => {
+      dropdownText.style.transition = 'filter 0.2s ease';
+      dropdownText.style.filter = 'invert(0) brightness(100%)';
+    });
   }
 }
-
-// Call navTransparent() when the document is ready and URL is the homepage
-document.addEventListener('DOMContentLoaded', function () {
-  if (isHomePage()) {
-      navTransparent();
-  }
-});
-
-
-
 
 // Function to shrink the navigation
 function navShrink() {
@@ -238,7 +240,6 @@ function navExpand() {
     navTransparent();
   }
 }
-
 
 // Event listener to handle scroll event
 window.addEventListener('scroll', function() {
