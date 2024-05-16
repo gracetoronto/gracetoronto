@@ -1,4 +1,4 @@
-console.log("V1.64");
+console.log("V1.65");
 
 
 /// Initialize Swup
@@ -32,7 +32,7 @@ function navTransparent() {
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
@@ -58,7 +58,7 @@ function navTransparent() {
     });
   }
 
-  // Hide the large logo
+  // Hide the dark logo
   if (logoLarge) {
     logoLarge.forEach((logo) => {
       logo.style.display = isHomePage() ? 'none' : 'block';
@@ -89,13 +89,13 @@ function navTransparent() {
   }
 }
 
-// Function to expand the navigation
+// Function to revert to default white nav
 function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
@@ -118,7 +118,7 @@ function navWhite() {
     });
   }
 
-  // Show the large logo
+  // Show the dark logo
   if (logoLarge) {
     logoLarge.forEach((logo) => {
       logo.style.display = 'block';
