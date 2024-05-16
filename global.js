@@ -1,4 +1,4 @@
-console.log("V1.57");
+console.log("V1.58");
 
 
 /// Initialize Swup
@@ -30,19 +30,26 @@ function isHomePage() {
 function navTransparent() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
+  const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
-  // Apply styles to invert colors without transition if it's the homepage
+  // Apply filter styles to invert colors
   if (containerBlurs) {
       containerBlurs.forEach((containerBlur) => {
+          containerBlur.style.filter = 'invert(100%)';
+      });
+  }
+
+  // Apply opacity styles
+  if (mainContainerBlurs) {
+      mainContainerBlurs.forEach((containerBlur) => {
           if (isHomePage()) {
               containerBlur.style.transition = 'none';
           } else {
-              containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+              containerBlur.style.transition = 'opacity 0.2s ease';
           }
-          containerBlur.style.filter = 'invert(100%)';
           containerBlur.style.opacity = '0';
       });
   }
@@ -69,15 +76,22 @@ function navTransparent() {
 function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
+  const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
-  // Reset styles
+  // Reset filter styles
   if (containerBlurs) {
       containerBlurs.forEach((containerBlur) => {
-          containerBlur.style.transition = 'opacity 0.2s ease';
           containerBlur.style.filter = 'invert(0)';
+      });
+  }
+
+  // Reset opacity styles
+  if (mainContainerBlurs) {
+      mainContainerBlurs.forEach((containerBlur) => {
+          containerBlur.style.transition = 'opacity 0.2s ease';
       
           // Delay opacity reset by 0.1 seconds
           setTimeout(() => {
@@ -111,6 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navTransparent();
   }
 });
+
 
 
 
