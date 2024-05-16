@@ -1,4 +1,4 @@
-console.log("V1.55");
+console.log("V1.56");
 
 
 /// Initialize Swup
@@ -43,14 +43,14 @@ function navTransparent() {
       } else {
           containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
       }
-      containerBlur.style.filter = 'invert(85%)';
+      containerBlur.style.filter = 'invert(100%)';
       containerBlur.style.opacity = '0';
   }
 
   if (navDropdowns) {
       navDropdowns.forEach((dropdown) => {
           dropdown.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
-          dropdown.style.filter = 'invert(85%)';
+          dropdown.style.filter = 'invert(100%)';
       });
   }
 
