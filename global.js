@@ -1,4 +1,4 @@
-console.log("V1.50");
+console.log("V1.51");
 
 
 /// Initialize Swup
@@ -39,38 +39,47 @@ function navTransparent() {
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
-  // Apply styles to invert colors with transition
+  // Check if the current URL is the homepage
+  const currentUrl = window.location.pathname;
+  const isHomePage = currentUrl === '/' || currentUrl === '';
+
+  // Apply styles to invert colors without transition if it's the homepage
   if (containerBlur) {
-      containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+      if (isHomePage) {
+          containerBlur.style.transition = 'none';
+      } else {
+          containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+      }
       containerBlur.style.filter = 'invert(100%) brightness(200%)';
       containerBlur.style.opacity = '0';
   }
 
   if (navDropdowns) {
       navDropdowns.forEach((dropdown) => {
-          dropdown.style.transition = 'filter 0.2s ease';
+          dropdown.style.transition = isHomePage ? 'none' : 'filter 0.2s ease';
           dropdown.style.filter = 'invert(100%)';
       });
   }
 
   // Hide the large logo
   if (logoLarge) {
-      logoLarge.style.display = 'none';
+      logoLarge.style.display = isHomePage ? 'none' : 'block';
   }
 
   // Show the white logo
   if (logoWhite) {
-      logoWhite.style.display = 'block';
+      logoWhite.style.display = isHomePage ? 'block' : 'none';
   }
 
   // Invert and increase brightness of buttons
   if (buttons) {
       buttons.forEach((button) => {
-          button.style.transition = 'filter 0.2s ease';
+          button.style.transition = isHomePage ? 'none' : 'filter 0.2s ease';
           button.style.filter = 'invert(100%) brightness(200%)';
       });
   }
 }
+
 
 function navWhite() {
   // Select the elements
