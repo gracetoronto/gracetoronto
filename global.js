@@ -1,4 +1,4 @@
-console.log("V1.65");
+console.log("V1.66");
 
 
 /// Initialize Swup
@@ -32,14 +32,14 @@ function navTransparent() {
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo.is--large');
+  const logoLarge = document.querySelectorAll('.logo__large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
     containerBlurs.forEach((containerBlur) => {
-      containerBlur.style.filter = 'invert(95%)';
+      containerBlur.style.filter = 'invert(93%)';
     });
   }
 
@@ -58,17 +58,18 @@ function navTransparent() {
     });
   }
 
-  // Hide the dark logo
+  // Hide the large logo and show the white logo using CSS classes
   if (logoLarge) {
     logoLarge.forEach((logo) => {
-      logo.style.display = isHomePage() ? 'none' : 'block';
+      logo.classList.add('hidden');
+      logo.classList.remove('visible');
     });
   }
 
-  // Show the white logo
   if (logoWhite) {
     logoWhite.forEach((logo) => {
-      logo.style.display = isHomePage() ? 'block' : 'none';
+      logo.classList.add('visible');
+      logo.classList.remove('hidden');
     });
   }
 
@@ -89,13 +90,13 @@ function navTransparent() {
   }
 }
 
-// Function to revert to default white nav
+// Function to expand the navigation
 function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo.is--large');
+  const logoLarge = document.querySelectorAll('.logo__large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
@@ -118,17 +119,18 @@ function navWhite() {
     });
   }
 
-  // Show the dark logo
+  // Show the large logo and hide the white logo using CSS classes
   if (logoLarge) {
     logoLarge.forEach((logo) => {
-      logo.style.display = 'block';
+      logo.classList.add('visible');
+      logo.classList.remove('hidden');
     });
   }
 
-  // Hide the white logo
   if (logoWhite) {
     logoWhite.forEach((logo) => {
-      logo.style.display = 'none';
+      logo.classList.add('hidden');
+      logo.classList.remove('visible');
     });
   }
 
@@ -175,17 +177,18 @@ function navShrink() {
     });
   }
 
-  // Hide large logos
+  // Hide large logos and show small logos using CSS classes
   if (logoLarge) {
     logoLarge.forEach((logo) => {
-      logo.style.display = 'none';
+      logo.classList.add('hidden');
+      logo.classList.remove('visible');
     });
   }
 
-  // Show small logos
   if (logoSmall) {
     logoSmall.forEach((logo) => {
-      logo.style.display = 'block';
+      logo.classList.add('visible');
+      logo.classList.remove('hidden');
     });
   }
 
@@ -221,17 +224,18 @@ function navExpand() {
     });
   }
 
-  // Show large logos
+  // Show large logos and hide small logos using CSS classes
   if (logoLarge) {
     logoLarge.forEach((logo) => {
-      logo.style.display = 'block';
+      logo.classList.add('visible');
+      logo.classList.remove('hidden');
     });
   }
 
-  // Hide small logos
   if (logoSmall) {
     logoSmall.forEach((logo) => {
-      logo.style.display = 'none';
+      logo.classList.add('hidden');
+      logo.classList.remove('visible');
     });
   }
 
@@ -256,6 +260,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navTransparent();
   }
 });
+
 
 
 
