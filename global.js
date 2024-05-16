@@ -1,4 +1,4 @@
-console.log("V1.61");
+console.log("V1.62");
 
 
 /// Initialize Swup
@@ -238,6 +238,16 @@ function navExpand() {
     navTransparent();
   }
 }
+
+
+// Event listener to handle scroll event
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 200) {
+    navShrink();
+  } else {
+    navExpand();
+  }
+});
 
 
 
