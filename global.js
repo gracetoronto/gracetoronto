@@ -1,4 +1,4 @@
-console.log("V1.70");
+console.log("V1.71");
 
 
 /// Initialize Swup
@@ -37,6 +37,7 @@ function navTransparent() {
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
+  const menuIcons = document.querySelectorAll('.menu__icon');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
@@ -99,11 +100,19 @@ function navTransparent() {
     });
   }
 
-  // Increase brightness of banner content with transition
+  // Decrease brightness of banner content with transition
   if (bannerContents) {
     bannerContents.forEach((bannerContent) => {
       bannerContent.style.transition = 'filter 0.3s ease';
       bannerContent.style.filter = 'brightness(0%)';
+    });
+  }
+
+  // Invert menu icons with transition
+  if (menuIcons) {
+    menuIcons.forEach((menuIcon) => {
+      menuIcon.style.transition = 'filter 0.3s ease';
+      menuIcon.style.filter = 'invert(100%)';
     });
   }
 }
@@ -119,6 +128,7 @@ function navWhite() {
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
+  const menuIcons = document.querySelectorAll('.menu__icon');
 
   // Reset filter styles
   if (containerBlurs) {
@@ -183,6 +193,14 @@ function navWhite() {
     bannerContents.forEach((bannerContent) => {
       bannerContent.style.transition = 'filter 0.3s ease';
       bannerContent.style.filter = 'brightness(100%)';
+    });
+  }
+
+  // Reset menu icons with transition
+  if (menuIcons) {
+    menuIcons.forEach((menuIcon) => {
+      menuIcon.style.transition = 'filter 0.3s ease';
+      menuIcon.style.filter = 'invert(0)';
     });
   }
 }
@@ -296,6 +314,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navTransparent();
   }
 });
+
 
 
 
