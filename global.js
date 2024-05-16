@@ -1,4 +1,4 @@
-console.log("V1.59");
+console.log("V1.60");
 
 
 /// Initialize Swup
@@ -34,6 +34,7 @@ function navTransparent() {
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
+  const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
@@ -71,6 +72,14 @@ function navTransparent() {
           button.style.filter = 'invert(100%) brightness(200%)';
       });
   }
+
+  // Invert and increase brightness of dropdown texts
+  if (dropdownTexts) {
+      dropdownTexts.forEach((dropdownText) => {
+          dropdownText.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+          dropdownText.style.filter = 'invert(100%) brightness(200%)';
+      });
+  }
 }
 
 function navWhite() {
@@ -80,6 +89,7 @@ function navWhite() {
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
+  const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
   // Reset filter styles
   if (containerBlurs) {
@@ -117,6 +127,14 @@ function navWhite() {
           button.style.filter = 'invert(0) brightness(100%)';
       });
   }
+
+  // Reset dropdown texts
+  if (dropdownTexts) {
+      dropdownTexts.forEach((dropdownText) => {
+          dropdownText.style.transition = 'filter 0.2s ease';
+          dropdownText.style.filter = 'invert(0) brightness(100%)';
+      });
+  }
 }
 
 // Call navTransparent() when the document is ready and URL is the homepage
@@ -125,6 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
       navTransparent();
   }
 });
+
 
 
 
