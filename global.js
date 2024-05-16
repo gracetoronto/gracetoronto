@@ -1,4 +1,4 @@
-console.log("V1.69");
+console.log("V1.70");
 
 
 /// Initialize Swup
@@ -103,7 +103,7 @@ function navTransparent() {
   if (bannerContents) {
     bannerContents.forEach((bannerContent) => {
       bannerContent.style.transition = 'filter 0.3s ease';
-      bannerContent.style.filter = 'brightness(200%)';
+      bannerContent.style.filter = 'brightness(0%)';
     });
   }
 }
