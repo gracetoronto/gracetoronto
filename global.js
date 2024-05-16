@@ -1,4 +1,4 @@
-console.log("V1.49");
+console.log("V1.50");
 
 
 /// Initialize Swup
@@ -84,7 +84,11 @@ function navWhite() {
   if (containerBlur) {
       containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
       containerBlur.style.filter = 'invert(0) brightness(100%)';
-      containerBlur.style.opacity = '1';
+      
+      // Delay opacity reset by 0.1 seconds
+      setTimeout(() => {
+          containerBlur.style.opacity = '1';
+      }, 100);
   }
 
   if (navDropdowns) {
@@ -112,6 +116,7 @@ function navWhite() {
       });
   }
 }
+
 
 
 
