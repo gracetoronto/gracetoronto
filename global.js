@@ -1,4 +1,4 @@
-console.log("V1.67");
+console.log("V1.68");
 
 
 /// Initialize Swup
@@ -35,6 +35,7 @@ function navTransparent() {
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
+  const bannerContainers = document.querySelectorAll('.banner__container');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
@@ -88,6 +89,14 @@ function navTransparent() {
       dropdownText.style.filter = 'invert(100%) brightness(200%)';
     });
   }
+
+  // Invert banner container with transition
+  if (bannerContainers) {
+    bannerContainers.forEach((bannerContainer) => {
+      bannerContainer.style.transition = 'filter 0.3s ease';
+      bannerContainer.style.filter = 'invert(95%)';
+    });
+  }
 }
 
 // Function to change nav back to default white
@@ -99,6 +108,7 @@ function navWhite() {
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
+  const bannerContainers = document.querySelectorAll('.banner__container');
 
   // Reset filter styles
   if (containerBlurs) {
@@ -147,6 +157,14 @@ function navWhite() {
     dropdownTexts.forEach((dropdownText) => {
       dropdownText.style.transition = 'filter 0.2s ease';
       dropdownText.style.filter = 'invert(0) brightness(100%)';
+    });
+  }
+
+  // Reset banner container with transition
+  if (bannerContainers) {
+    bannerContainers.forEach((bannerContainer) => {
+      bannerContainer.style.transition = 'filter 0.3s ease';
+      bannerContainer.style.filter = 'invert(0)';
     });
   }
 }
@@ -260,6 +278,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navTransparent();
   }
 });
+
 
 
 
