@@ -1,4 +1,4 @@
-console.log("V1.53");
+console.log("V1.55");
 
 
 /// Initialize Swup
@@ -84,7 +84,7 @@ function navWhite() {
 
   // Reset styles
   if (containerBlur) {
-      containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+      containerBlur.style.transition = 'opacity 0.2s ease';
       containerBlur.style.filter = 'invert(0)';
       
       // Delay opacity reset by 0.1 seconds
@@ -121,9 +121,11 @@ function navWhite() {
 
 
 
-// Call navTransparent() when the document is ready
+// Call navTransparent() when the document is ready and URL is the homepage
 document.addEventListener('DOMContentLoaded', function () {
-  navTransparent();
+  if (isHomePage()) {
+      navTransparent();
+  }
 });
 
 
