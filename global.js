@@ -1,4 +1,4 @@
-console.log("V1.68");
+console.log("V1.69");
 
 
 /// Initialize Swup
@@ -35,7 +35,8 @@ function navTransparent() {
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
-  const bannerContainers = document.querySelectorAll('.banner__container');
+  const bannerContainers = document.querySelectorAll('.banner__container.is--default');
+  const bannerContents = document.querySelectorAll('.banner__content');
 
   // Apply filter styles to invert colors
   if (containerBlurs) {
@@ -97,6 +98,14 @@ function navTransparent() {
       bannerContainer.style.filter = 'invert(95%)';
     });
   }
+
+  // Increase brightness of banner content with transition
+  if (bannerContents) {
+    bannerContents.forEach((bannerContent) => {
+      bannerContent.style.transition = 'filter 0.3s ease';
+      bannerContent.style.filter = 'brightness(200%)';
+    });
+  }
 }
 
 // Function to change nav back to default white
@@ -108,7 +117,8 @@ function navWhite() {
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
-  const bannerContainers = document.querySelectorAll('.banner__container');
+  const bannerContainers = document.querySelectorAll('.banner__container.is--default');
+  const bannerContents = document.querySelectorAll('.banner__content');
 
   // Reset filter styles
   if (containerBlurs) {
@@ -165,6 +175,14 @@ function navWhite() {
     bannerContainers.forEach((bannerContainer) => {
       bannerContainer.style.transition = 'filter 0.3s ease';
       bannerContainer.style.filter = 'invert(0)';
+    });
+  }
+
+  // Reset brightness of banner content with transition
+  if (bannerContents) {
+    bannerContents.forEach((bannerContent) => {
+      bannerContent.style.transition = 'filter 0.3s ease';
+      bannerContent.style.filter = 'brightness(100%)';
     });
   }
 }
@@ -278,6 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
     navTransparent();
   }
 });
+
 
 
 
