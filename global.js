@@ -1,4 +1,4 @@
-console.log("V1.63");
+console.log("V1.64");
 
 
 /// Initialize Swup
@@ -110,7 +110,7 @@ function navWhite() {
   if (mainContainerBlurs) {
     mainContainerBlurs.forEach((containerBlur) => {
       containerBlur.style.transition = 'opacity 0.2s ease';
-
+      
       // Delay opacity reset by 0.1 seconds
       setTimeout(() => {
         containerBlur.style.opacity = '1';
@@ -249,6 +249,15 @@ window.addEventListener('scroll', function() {
     navExpand();
   }
 });
+
+// Ensure navTransparent is called on initial load if it's the homepage
+document.addEventListener('DOMContentLoaded', function () {
+  if (isHomePage()) {
+    navTransparent();
+  }
+});
+
+
 
 
 
