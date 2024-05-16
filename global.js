@@ -1,4 +1,4 @@
-console.log("V1.66");
+console.log("V1.67");
 
 
 /// Initialize Swup
@@ -32,7 +32,7 @@ function navTransparent() {
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
@@ -90,13 +90,13 @@ function navTransparent() {
   }
 }
 
-// Function to expand the navigation
+// Function to change nav back to default white
 function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
   const buttons = document.querySelectorAll('.button.is--nav');
-  const logoLarge = document.querySelectorAll('.logo__large');
+  const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
   const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
 
