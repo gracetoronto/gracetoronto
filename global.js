@@ -1,4 +1,4 @@
-console.log("V1.56");
+console.log("V1.57");
 
 
 /// Initialize Swup
@@ -26,31 +26,24 @@ function isHomePage() {
   return currentUrl === '/' || currentUrl === '';
 }
 
-
 // Function to apply the transparent navigation styles
 function navTransparent() {
   // Select the elements
-  const containerBlur = document.querySelector('.container__blur');
-  const navDropdowns = document.querySelectorAll('.nav__dropdown');
+  const containerBlurs = document.querySelectorAll('.container__blur');
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
   // Apply styles to invert colors without transition if it's the homepage
-  if (containerBlur) {
-      if (isHomePage()) {
-          containerBlur.style.transition = 'none';
-      } else {
-          containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
-      }
-      containerBlur.style.filter = 'invert(100%)';
-      containerBlur.style.opacity = '0';
-  }
-
-  if (navDropdowns) {
-      navDropdowns.forEach((dropdown) => {
-          dropdown.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
-          dropdown.style.filter = 'invert(100%)';
+  if (containerBlurs) {
+      containerBlurs.forEach((containerBlur) => {
+          if (isHomePage()) {
+              containerBlur.style.transition = 'none';
+          } else {
+              containerBlur.style.transition = 'filter 0.2s ease, opacity 0.2s ease';
+          }
+          containerBlur.style.filter = 'invert(100%)';
+          containerBlur.style.opacity = '0';
       });
   }
 
@@ -73,30 +66,23 @@ function navTransparent() {
   }
 }
 
-
 function navWhite() {
   // Select the elements
-  const containerBlur = document.querySelector('.container__blur');
-  const navDropdowns = document.querySelectorAll('.nav__dropdown');
+  const containerBlurs = document.querySelectorAll('.container__blur');
   const buttons = document.querySelectorAll('.button.is--nav');
   const logoLarge = document.querySelector('.logo.is--large');
   const logoWhite = document.querySelector('.logo.is--white');
 
   // Reset styles
-  if (containerBlur) {
-      containerBlur.style.transition = 'opacity 0.2s ease';
-      containerBlur.style.filter = 'invert(0)';
+  if (containerBlurs) {
+      containerBlurs.forEach((containerBlur) => {
+          containerBlur.style.transition = 'opacity 0.2s ease';
+          containerBlur.style.filter = 'invert(0)';
       
-      // Delay opacity reset by 0.1 seconds
-      setTimeout(() => {
-          containerBlur.style.opacity = '1';
-      }, 50);
-  }
-
-  if (navDropdowns) {
-      navDropdowns.forEach((dropdown) => {
-          dropdown.style.transition = 'filter 0.1s ease';
-          dropdown.style.filter = 'invert(0)';
+          // Delay opacity reset by 0.1 seconds
+          setTimeout(() => {
+              containerBlur.style.opacity = '1';
+          }, 50);
       });
   }
 
@@ -119,14 +105,13 @@ function navWhite() {
   }
 }
 
-
-
 // Call navTransparent() when the document is ready and URL is the homepage
 document.addEventListener('DOMContentLoaded', function () {
   if (isHomePage()) {
       navTransparent();
   }
 });
+
 
 
 
