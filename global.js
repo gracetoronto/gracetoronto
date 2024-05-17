@@ -1,4 +1,4 @@
-console.log("V1.71");
+console.log("V1.72");
 
 
 /// Initialize Swup
@@ -88,7 +88,7 @@ function navTransparent() {
   if (dropdownTexts) {
     dropdownTexts.forEach((dropdownText) => {
       dropdownText.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
-      dropdownText.style.filter = 'invert(100%) brightness(200%)';
+      dropdownText.style.filter = 'invert(100%)';
     });
   }
 
