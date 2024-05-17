@@ -1,4 +1,4 @@
-console.log("V1.74");
+console.log("V1.75");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
