@@ -1,4 +1,4 @@
-console.log("V1.75");
+console.log("V1.76");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -422,9 +422,16 @@ document.addEventListener('DOMContentLoaded', () => {
               const otherContent = otherItem.querySelector('.accordion__content');
               const otherPlusIcon = otherItem.querySelector('.accordion__plus');
               const otherMinusIcon = otherItem.querySelector('.accordion__minus');
-              otherContent.style.height = '0';
-              otherPlusIcon.style.display = 'block';
-              otherMinusIcon.style.display = 'none';
+              
+              // Trigger the height transition for closing
+              if (otherContent.style.height !== '0px') {
+                otherContent.style.height = otherContent.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
+                setTimeout(() => {
+                  otherContent.style.height = '0';
+                }, 10); // Slight delay to ensure the height change is registered
+                otherPlusIcon.style.display = 'block';
+                otherMinusIcon.style.display = 'none';
+              }
             }
           });
 
