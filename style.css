@@ -31,3 +31,9 @@ html.is-changing .transition-fade {
 }
 
 
+/* Accordion component animation classes */
+
+.accordion__content {
+  transition: height 0.3s ease;
+}
+
