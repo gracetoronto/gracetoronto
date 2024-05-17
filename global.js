@@ -1,4 +1,4 @@
-console.log("V1.73");
+console.log("V1.74");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -396,67 +396,64 @@ window.addEventListener('resize', function() {
 //----ACCORDION FUNCTIONALITY----
 
 document.addEventListener('DOMContentLoaded', () => {
-  const accordions = document.querySelectorAll('.accordion');
+  const initializeAccordions = () => {
+    const accordions = document.querySelectorAll('.accordion');
 
-  accordions.forEach(accordion => {
-    const items = accordion.querySelectorAll('.accordion__item');
-    
-    items.forEach(item => {
-      const title = item.querySelector('.accordion__title');
-      const content = item.querySelector('.accordion__content');
-      const plusIcon = item.querySelector('.accordion__plus');
-      const minusIcon = item.querySelector('.accordion__minus');
-
-      // Initially hide all content and show plus icons
-      content.style.height = '0';
-      content.style.overflow = 'hidden';
-      plusIcon.style.display = 'block';
-      minusIcon.style.display = 'none';
-
-      // Add click event to the title
-      title.addEventListener('click', () => {
-        // Close all other items
-        items.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.querySelector('.accordion__content').style.height = '0';
-            otherItem.querySelector('.accordion__plus').style.display = 'block';
-            otherItem.querySelector('.accordion__minus').style.display = 'none';
-          }
-        });
-
-        // Toggle the clicked item
-        if (content.style.height === '0px' || content.style.height === '') {
-          content.style.height = content.scrollHeight + 'px';
-          plusIcon.style.display = 'none';
-          minusIcon.style.display = 'block';
-        } else {
-          content.style.height = '0';
-          plusIcon.style.display = 'block';
-          minusIcon.style.display = 'none';
-        }
-      });
-
-      // For smooth transitions
-      content.addEventListener('transitionend', () => {
-        if (content.style.height !== '0px') {
-          content.style.height = 'auto';
-        }
-      });
-    });
-  });
-
-  // Swup event listener to close all accordions on page transition
-  swup.hooks.on('content:replace', () => {
     accordions.forEach(accordion => {
       const items = accordion.querySelectorAll('.accordion__item');
+      
       items.forEach(item => {
+        const title = item.querySelector('.accordion__title');
         const content = item.querySelector('.accordion__content');
         const plusIcon = item.querySelector('.accordion__plus');
         const minusIcon = item.querySelector('.accordion__minus');
+
+        // Initially hide all content and show plus icons
         content.style.height = '0';
+        content.style.overflow = 'hidden';
         plusIcon.style.display = 'block';
         minusIcon.style.display = 'none';
+
+        // Add click event to the title
+        title.addEventListener('click', () => {
+          // Close all other items
+          items.forEach(otherItem => {
+            if (otherItem !== item) {
+              const otherContent = otherItem.querySelector('.accordion__content');
+              const otherPlusIcon = otherItem.querySelector('.accordion__plus');
+              const otherMinusIcon = otherItem.querySelector('.accordion__minus');
+              otherContent.style.height = '0';
+              otherPlusIcon.style.display = 'block';
+              otherMinusIcon.style.display = 'none';
+            }
+          });
+
+          // Toggle the clicked item
+          if (content.style.height === '0px' || content.style.height === '') {
+            content.style.height = content.scrollHeight + 'px';
+            content.addEventListener('transitionend', () => {
+              if (content.style.height !== '0px') {
+                content.style.height = 'auto';
+              }
+            }, { once: true });
+            plusIcon.style.display = 'none';
+            minusIcon.style.display = 'block';
+          } else {
+            content.style.height = content.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
+            setTimeout(() => {
+              content.style.height = '0';
+            }, 10); // Slight delay to ensure the height change is registered
+            plusIcon.style.display = 'block';
+            minusIcon.style.display = 'none';
+          }
+        });
       });
     });
-  });
+  };
+
+  // Initialize accordions on DOMContentLoaded
+  initializeAccordions();
+
+  // Swup event listener to reinitialize accordions on page transition
+  swup.hooks.on('content:replace', initializeAccordions);
 });
