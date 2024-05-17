@@ -34,6 +34,6 @@ html.is-changing .transition-fade {
 /* Accordion component animation classes */
 
 .accordion__content {
-  transition: height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition: height 0.5s ease ease-out;
 }
 
