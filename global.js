@@ -1,5 +1,6 @@
-console.log("V1.72");
+console.log("V1.73");
 
+//----PAGE TRANSITION FUNCTIONALITY----
 
 /// Initialize Swup
 const swup = new Swup();
@@ -19,6 +20,13 @@ swup.hooks.on('content:replace', () => {
 });
 
 
+
+
+
+
+
+
+//----NAVIGATION FUNCTIONALITY----
 
 // Function to check if the current URL is the homepage
 function isHomePage() {
@@ -320,17 +328,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 //Scroll Enable/Disable
 
 let scrollPos = 0;
@@ -386,4 +383,80 @@ window.addEventListener('resize', function() {
 
     // Update the previous window width
     previousWindowWidth = currentWindowWidth;
+});
+
+
+
+
+
+
+
+
+
+//----ACCORDION FUNCTIONALITY----
+
+document.addEventListener('DOMContentLoaded', () => {
+  const accordions = document.querySelectorAll('.accordion');
+
+  accordions.forEach(accordion => {
+    const items = accordion.querySelectorAll('.accordion__item');
+    
+    items.forEach(item => {
+      const title = item.querySelector('.accordion__title');
+      const content = item.querySelector('.accordion__content');
+      const plusIcon = item.querySelector('.accordion__plus');
+      const minusIcon = item.querySelector('.accordion__minus');
+
+      // Initially hide all content and show plus icons
+      content.style.height = '0';
+      content.style.overflow = 'hidden';
+      plusIcon.style.display = 'block';
+      minusIcon.style.display = 'none';
+
+      // Add click event to the title
+      title.addEventListener('click', () => {
+        // Close all other items
+        items.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.querySelector('.accordion__content').style.height = '0';
+            otherItem.querySelector('.accordion__plus').style.display = 'block';
+            otherItem.querySelector('.accordion__minus').style.display = 'none';
+          }
+        });
+
+        // Toggle the clicked item
+        if (content.style.height === '0px' || content.style.height === '') {
+          content.style.height = content.scrollHeight + 'px';
+          plusIcon.style.display = 'none';
+          minusIcon.style.display = 'block';
+        } else {
+          content.style.height = '0';
+          plusIcon.style.display = 'block';
+          minusIcon.style.display = 'none';
+        }
+      });
+
+      // For smooth transitions
+      content.addEventListener('transitionend', () => {
+        if (content.style.height !== '0px') {
+          content.style.height = 'auto';
+        }
+      });
+    });
+  });
+
+  // Swup event listener to close all accordions on page transition
+  swup.hooks.on('content:replace', () => {
+    accordions.forEach(accordion => {
+      const items = accordion.querySelectorAll('.accordion__item');
+      items.forEach(item => {
+        const content = item.querySelector('.accordion__content');
+        const plusIcon = item.querySelector('.accordion__plus');
+        const minusIcon = item.querySelector('.accordion__minus');
+        content.style.height = '0';
+        plusIcon.style.display = 'block';
+        minusIcon.style.display = 'none';
+      });
+    });
+  });
 });
