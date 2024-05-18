@@ -1,4 +1,4 @@
-console.log("V1.76");
+console.log("V1.77");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -10,28 +10,21 @@ swup.hooks.on('content:replace', () => {
     // Get the current pathname of the URL
     const pathname = window.location.pathname;
 
-    // Check if the pathname is either '/' or an empty string
-    if (pathname === '/' || pathname === '') {
+    // Check if the pathname should have a transparent background
+    if (isTransparentBg(pathname)) {
         // Run your function here
         navTransparent();
     } else {
-      navWhite();
+        navWhite();
     }
 });
 
-
-
-
-
-
-
-
 //----NAVIGATION FUNCTIONALITY----
 
-// Function to check if the current URL is the homepage
-function isHomePage() {
-  const currentUrl = window.location.pathname;
-  return currentUrl === '/' || currentUrl === '';
+// Function to check if the current URL should have a transparent background
+function isTransparentBg(pathname) {
+    const transparentSlugs = ['/', '', '/about/beliefs']; // Add more slugs here as needed
+    return transparentSlugs.includes(pathname);
 }
 
 // Function to apply the transparent navigation styles
@@ -57,7 +50,7 @@ function navTransparent() {
   // Apply opacity styles with a slight delay
   if (mainContainerBlurs) {
     mainContainerBlurs.forEach((containerBlur) => {
-      if (isHomePage()) {
+      if (isTransparentBg(window.location.pathname)) {
         containerBlur.style.transition = 'none';
         containerBlur.style.opacity = '0';
       } else {
@@ -87,7 +80,7 @@ function navTransparent() {
   // Invert and increase brightness of buttons
   if (buttons) {
     buttons.forEach((button) => {
-      button.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+      button.style.transition = isTransparentBg(window.location.pathname) ? 'none' : 'filter 0.2s ease';
       button.style.filter = 'invert(100%) brightness(200%)';
     });
   }
@@ -95,7 +88,7 @@ function navTransparent() {
   // Invert and increase brightness of dropdown texts
   if (dropdownTexts) {
     dropdownTexts.forEach((dropdownText) => {
-      dropdownText.style.transition = isHomePage() ? 'none' : 'filter 0.2s ease';
+      dropdownText.style.transition = isTransparentBg(window.location.pathname) ? 'none' : 'filter 0.2s ease';
       dropdownText.style.filter = 'invert(100%)';
     });
   }
@@ -255,7 +248,7 @@ function navShrink() {
   }
 
   // If homepage, fire navWhite() when scrolled past 200px
-  if (isHomePage()) {
+  if (isTransparentBg(window.location.pathname)) {
     navWhite();
   }
 }
@@ -302,7 +295,7 @@ function navExpand() {
   }
 
   // If homepage, fire navTransparent() when scrolled less than 200px
-  if (isHomePage()) {
+  if (isTransparentBg(window.location.pathname)) {
     navTransparent();
   }
 }
@@ -318,17 +311,12 @@ window.addEventListener('scroll', function() {
 
 // Ensure navTransparent is called on initial load if it's the homepage
 document.addEventListener('DOMContentLoaded', function () {
-  if (isHomePage()) {
+  if (isTransparentBg(window.location.pathname)) {
     navTransparent();
   }
 });
 
-
-
-
-
-
-//Scroll Enable/Disable
+// Scroll Enable/Disable
 
 let scrollPos = 0;
 
@@ -366,11 +354,7 @@ document.getElementById('return-2').addEventListener('click', function () {
   }, 250);
 });
 
-
-
-
-
-//Close nav menu if device width is greater than 479px
+// Close nav menu if device width is greater than 479px
 
 var previousWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
@@ -384,6 +368,7 @@ window.addEventListener('resize', function() {
     // Update the previous window width
     previousWindowWidth = currentWindowWidth;
 });
+
 
 
 
