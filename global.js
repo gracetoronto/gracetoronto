@@ -1,4 +1,4 @@
-console.log("V1.88");
+console.log("V1.89");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Use Swup hooks to re-initialize the calendars after content is replaced
-swup.hooks.on('contentReplaced', showCal);
+swup.hooks.on('content:replace', showCal);
 
   
 
