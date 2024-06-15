@@ -1,4 +1,4 @@
-console.log("V1.84");
+console.log("V1.85");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -10,6 +10,7 @@ swup.hooks.on('content:replace', () => {
   // Get the current pathname of the URL
   const pathname = window.location.pathname;
 
+  showCal();
   // Check if the pathname should have a transparent background
   if (isTransparentBg(pathname)) {
     // Run your function here
