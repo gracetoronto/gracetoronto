@@ -1,4 +1,4 @@
-console.log("V1.94");
+console.log("V1.95");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -473,12 +473,12 @@ function showCal() {
 
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
-      // plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
-      initialView: 'dayGridMonth',
+      plugins: [dayGridPlugin, listPlugin],
+      initialView: 'listMonth', // Set list view as the default
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,listPlugin',
+        right: 'dayGridMonth,listMonth', // Provide options to switch between month and list views
       },
       events: events,
       eventClick: function (data) {
@@ -522,4 +522,3 @@ swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
-
