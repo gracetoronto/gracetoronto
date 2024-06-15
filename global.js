@@ -1,4 +1,4 @@
-console.log("V1.92");
+console.log("V1.93");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -496,24 +496,29 @@ function showCal() {
 function getEvents() {
   const scripts = document.querySelectorAll('[data-element="event-data"]');
   const events = Array.prototype.slice.call(scripts).map(function (script) {
-    const event = JSON.parse(script.textContent);
-    event.start = new Date(event.start);
-    event.end = new Date(event.end);
+    try {
+      const event = JSON.parse(script.textContent.trim());
+      event.start = new Date(event.start);
+      event.end = new Date(event.end);
 
-    return event;
-  });
+      return event;
+    } catch (error) {
+      console.error('Error parsing event data:', script.textContent, error);
+      return null; // or handle error appropriately
+    }
+  }).filter(event => event !== null); // Filter out null values resulting from parse errors
 
   return events;
 }
 
 // Initial call to render the calendars on first page load
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
   console.log("DOMContentLoaded event fired");
-  showCal();
+  showCal(); 
 });
 
 // Use Swup hooks to re-initialize the calendars after content is replaced
-swup.hooks.on('content:replace', function () {
+swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
