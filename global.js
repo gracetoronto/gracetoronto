@@ -1,4 +1,4 @@
-console.log("V1.82");
+console.log("V1.83");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -460,4 +460,9 @@ document.addEventListener('DOMContentLoaded', () => {
       initialView: 'dayGridMonth'
     });
     calendar.render();
+    swup.hooks.on('content:replace', calendar.render());
   });
+
+  
+
+  
