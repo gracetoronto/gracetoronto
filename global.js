@@ -1,4 +1,4 @@
-console.log("V1.89");
+console.log("V1.90");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -455,29 +455,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   //----CALENDAR INTEGRATION----
-let calendars = []; // Array to store multiple calendar instances
+  let calendars = []; // Array to store multiple calendar instances
 
-function showCal() {
-  var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
-  calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
-  calendars = []; // Reset the calendar instances array
-  
-  calendarEls.forEach(calendarEl => {
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
+  function showCal() {
+    console.log("showCal called");
+    
+    var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
+    console.log("Found calendar elements: ", calendarEls.length);
+    
+    calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
+    calendars = []; // Reset the calendar instances array
+    
+    calendarEls.forEach(calendarEl => {
+      let calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+      calendars.push(calendar); // Store the calendar instance
+      console.log("Calendar initialized and rendered");
     });
-    calendar.render();
-    calendars.push(calendar); // Store the calendar instance
+  }
+  
+  // Initial call to render the calendars on first page load
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOMContentLoaded event fired");
+    showCal(); 
   });
-}
-
-// Initial call to render the calendars on first page load
-document.addEventListener('DOMContentLoaded', function() {
-  showCal(); 
-});
-
-// Use Swup hooks to re-initialize the calendars after content is replaced
-swup.hooks.on('content:replace', showCal);
+  
+  // Use Swup hooks to re-initialize the calendars after content is replaced
+  swup.hooks.on('content:replace', function() {
+    console.log("Swup content replaced");
+    showCal();
+  });
 
   
 
