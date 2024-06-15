@@ -1,4 +1,4 @@
-console.log("V1.90");
+console.log("V1.91");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //----CALENDAR INTEGRATION----
   let calendars = []; // Array to store multiple calendar instances
-
+  
   function showCal() {
     console.log("showCal called");
     
@@ -487,6 +487,50 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log("Swup content replaced");
     showCal();
   });
+
+
+  //Get events from CMS and populate to calendar
+
+  window.Webflow = window.Webflow || [];
+  window.Webflow.push(() => {
+    const calendarElement = document.querySelector('[data-element="calendar"]');
+    if (!calendarElement) return;
+  
+    const events = getEvents();
+    console.log({ events });
+  
+    const calendar = new Calendar(calendarElement, {
+      plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+      initialView: 'dayGridMonth',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,listPlugin',
+      },
+  
+      events: events,
+      eventClick: function (data) {
+        alert(`User clicked the event ${data.event.title}`);
+      },
+    });
+  
+    calendar.render();
+  });
+  
+  function getEvents() {
+    const scripts = document.querySelectorAll('[data-element="event-data"]');
+    const events = Array.prototype.slice.call(scripts).map(function (script) {
+      const event = JSON.parse(script.textContent);
+      event.start = new Date(event.start);
+      event.end = new Date(event.end);
+  
+      return event;
+    });
+  
+    return events;
+  }
+  
+  
 
   
 
