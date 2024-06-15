@@ -1,4 +1,4 @@
-console.log("V1.85");
+console.log("V1.86");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -455,19 +455,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   //----CALENDAR INTEGRATION----
+  let calendar; // Define calendar variable in a broader scope
+
   function showCal() {
-  document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
-    calendar.render();
+    if (calendarEl) {
+      // Check if the calendar already exists and destroy it before re-initializing
+      if (calendar) {
+        calendar.destroy();
+      }
+      calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth'
+      });
+      calendar.render();
+    }
+  }
+  
+  // Initial call to render the calendar on first page load
+  document.addEventListener('DOMContentLoaded', function() {
+    showCal(); 
   });
-}
-
-showCal();
-swup.hooks.on('content:replace', showCal);
-
+  
+  // Use Swup hooks to re-initialize the calendar after content is replaced
+  swup.on('contentReplaced', showCal);
   
 
   
