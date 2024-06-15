@@ -1,4 +1,4 @@
-console.log("V1.93");
+console.log("V1.94");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -473,7 +473,7 @@ function showCal() {
 
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
+      // plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
       initialView: 'dayGridMonth',
       headerToolbar: {
         left: 'prev,next today',
