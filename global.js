@@ -1,4 +1,4 @@
-console.log("V1.79");
+console.log("V1.80");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -20,6 +20,7 @@ function showCalendar() {
     calendar.render();
   });
   }
+  showCalendar();
 
     // Check if the pathname should have a transparent background
     if (isTransparentBg(pathname)) {
