@@ -52,8 +52,8 @@ html.is-changing .transition-fade {
   --fc-button-border-color: #F4C449;
   --fc-button-hover-bg-color: #F9D26D;
   --fc-button-hover-border-color: #F9D26D;
-  --fc-button-active-bg-color: #1a252f;
-  --fc-button-active-border-color: #151e27;
+  --fc-button-active-bg-color: #F9D26D;
+  --fc-button-active-border-color: #F9D26D;
 
   --fc-event-bg-color: #F4C449;
   --fc-event-border-color: #F4C449;
