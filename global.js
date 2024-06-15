@@ -1,4 +1,4 @@
-console.log("V1.78");
+console.log("V1.79");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -10,7 +10,16 @@ swup.hooks.on('content:replace', () => {
     // Get the current pathname of the URL
     const pathname = window.location.pathname;
 
+    //----CALENDAR INTEGRATION----
+function showCalendar() {
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
     calendar.render();
+  });
+  }
 
     // Check if the pathname should have a transparent background
     if (isTransparentBg(pathname)) {
@@ -21,14 +30,7 @@ swup.hooks.on('content:replace', () => {
     }
 });
 
-//----CALENDAR INTEGRATION----
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth'
-  });
-  calendar.render();
-});
+
 
 //----NAVIGATION FUNCTIONALITY----
 
