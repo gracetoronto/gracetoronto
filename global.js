@@ -1,4 +1,4 @@
-console.log("V1.91");
+console.log("V1.92");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -454,52 +454,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-  //----CALENDAR INTEGRATION----
-  let calendars = []; // Array to store multiple calendar instances
-  
-  function showCal() {
-    console.log("showCal called");
-    
-    var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
-    console.log("Found calendar elements: ", calendarEls.length);
-    
-    calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
-    calendars = []; // Reset the calendar instances array
-    
-    calendarEls.forEach(calendarEl => {
-      let calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth'
-      });
-      calendar.render();
-      calendars.push(calendar); // Store the calendar instance
-      console.log("Calendar initialized and rendered");
-    });
-  }
-  
-  // Initial call to render the calendars on first page load
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log("DOMContentLoaded event fired");
-    showCal(); 
-  });
-  
-  // Use Swup hooks to re-initialize the calendars after content is replaced
-  swup.hooks.on('content:replace', function() {
-    console.log("Swup content replaced");
-    showCal();
-  });
 
 
-  //Get events from CMS and populate to calendar
+//----CALENDAR INTEGRATION----
+let calendars = []; // Array to store multiple calendar instances
 
-  window.Webflow = window.Webflow || [];
-  window.Webflow.push(() => {
-    const calendarElement = document.querySelector('[data-element="calendar"]');
-    if (!calendarElement) return;
-  
-    const events = getEvents();
-    console.log({ events });
-  
-    const calendar = new Calendar(calendarElement, {
+function showCal() {
+  console.log("showCal called");
+
+  var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
+  console.log("Found calendar elements: ", calendarEls.length);
+
+  calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
+  calendars = []; // Reset the calendar instances array
+
+  const events = getEvents();
+  console.log({ events });
+
+  calendarEls.forEach(calendarEl => {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
       initialView: 'dayGridMonth',
       headerToolbar: {
@@ -507,31 +480,41 @@ document.addEventListener('DOMContentLoaded', () => {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,listPlugin',
       },
-  
       events: events,
       eventClick: function (data) {
         alert(`User clicked the event ${data.event.title}`);
-      },
+      }
     });
-  
+
     calendar.render();
+    calendars.push(calendar); // Store the calendar instance
+    console.log("Calendar initialized and rendered");
   });
-  
-  function getEvents() {
-    const scripts = document.querySelectorAll('[data-element="event-data"]');
-    const events = Array.prototype.slice.call(scripts).map(function (script) {
-      const event = JSON.parse(script.textContent);
-      event.start = new Date(event.start);
-      event.end = new Date(event.end);
-  
-      return event;
-    });
-  
-    return events;
-  }
-  
-  
+}
 
-  
+// Function to get events from the Webflow CMS
+function getEvents() {
+  const scripts = document.querySelectorAll('[data-element="event-data"]');
+  const events = Array.prototype.slice.call(scripts).map(function (script) {
+    const event = JSON.parse(script.textContent);
+    event.start = new Date(event.start);
+    event.end = new Date(event.end);
 
-  
+    return event;
+  });
+
+  return events;
+}
+
+// Initial call to render the calendars on first page load
+document.addEventListener('DOMContentLoaded', function () {
+  console.log("DOMContentLoaded event fired");
+  showCal();
+});
+
+// Use Swup hooks to re-initialize the calendars after content is replaced
+swup.hooks.on('content:replace', function () {
+  console.log("Swup content replaced");
+  showCal();
+});
+
