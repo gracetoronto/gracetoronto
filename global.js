@@ -1,4 +1,4 @@
-console.log("V1.80");
+console.log("V1.81");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -7,28 +7,28 @@ const swup = new Swup();
 
 // Listen for content replaced event
 swup.hooks.on('content:replace', () => {
-    // Get the current pathname of the URL
-    const pathname = window.location.pathname;
+  // Get the current pathname of the URL
+  const pathname = window.location.pathname;
 
-    //----CALENDAR INTEGRATION----
-function showCalendar() {
-  document.addEventListener('DOMContentLoaded', function() {
+  //----CALENDAR INTEGRATION----
+
+  document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth'
     });
     calendar.render();
   });
-  }
-  showCalendar();
 
-    // Check if the pathname should have a transparent background
-    if (isTransparentBg(pathname)) {
-        // Run your function here
-        navTransparent();
-    } else {
-        navWhite();
-    }
+
+
+  // Check if the pathname should have a transparent background
+  if (isTransparentBg(pathname)) {
+    // Run your function here
+    navTransparent();
+  } else {
+    navWhite();
+  }
 });
 
 
@@ -37,8 +37,8 @@ function showCalendar() {
 
 // Function to check if the current URL should have a transparent background
 function isTransparentBg(pathname) {
-    const transparentSlugs = ['/', '', '/about/beliefs']; // Add more slugs here as needed
-    return transparentSlugs.includes(pathname);
+  const transparentSlugs = ['/', '', '/about/beliefs']; // Add more slugs here as needed
+  return transparentSlugs.includes(pathname);
 }
 
 // Function to apply the transparent navigation styles
@@ -156,7 +156,7 @@ function navWhite() {
   if (mainContainerBlurs) {
     mainContainerBlurs.forEach((containerBlur) => {
       containerBlur.style.transition = 'opacity 0.2s ease';
-      
+
       // Delay opacity reset by 0.1 seconds
       setTimeout(() => {
         containerBlur.style.opacity = '1';
@@ -315,7 +315,7 @@ function navExpand() {
 }
 
 // Event listener to handle scroll event
-window.addEventListener('scroll', function() {
+window.addEventListener('scroll', function () {
   if (window.scrollY > 200) {
     navShrink();
   } else {
@@ -372,15 +372,15 @@ document.getElementById('return-2').addEventListener('click', function () {
 
 var previousWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-window.addEventListener('resize', function() {
-    var currentWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-    
-    if (previousWindowWidth < 479 && currentWindowWidth >= 479) {
-      document.getElementById('menu-close').click();
-    }
+window.addEventListener('resize', function () {
+  var currentWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
 
-    // Update the previous window width
-    previousWindowWidth = currentWindowWidth;
+  if (previousWindowWidth < 479 && currentWindowWidth >= 479) {
+    document.getElementById('menu-close').click();
+  }
+
+  // Update the previous window width
+  previousWindowWidth = currentWindowWidth;
 });
 
 
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     accordions.forEach(accordion => {
       const items = accordion.querySelectorAll('.accordion__item');
-      
+
       items.forEach(item => {
         const title = item.querySelector('.accordion__title');
         const content = item.querySelector('.accordion__content');
@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
               const otherContent = otherItem.querySelector('.accordion__content');
               const otherPlusIcon = otherItem.querySelector('.accordion__plus');
               const otherMinusIcon = otherItem.querySelector('.accordion__minus');
-              
+
               // Trigger the height transition for closing
               if (otherContent.style.height !== '0px') {
                 otherContent.style.height = otherContent.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
