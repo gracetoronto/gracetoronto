@@ -1,4 +1,4 @@
-console.log("V1.83");
+console.log("V1.84");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -454,14 +454,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   //----CALENDAR INTEGRATION----
+  function showCal() {
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: 'dayGridMonth'
     });
     calendar.render();
-    swup.hooks.on('content:replace', calendar.render());
   });
+}
+
+showCal();
+swup.hooks.on('content:replace', showCal);
 
   
 
