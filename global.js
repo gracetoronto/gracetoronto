@@ -1,4 +1,4 @@
-console.log("V1.81");
+console.log("V1.82");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -9,18 +9,6 @@ const swup = new Swup();
 swup.hooks.on('content:replace', () => {
   // Get the current pathname of the URL
   const pathname = window.location.pathname;
-
-  //----CALENDAR INTEGRATION----
-
-  document.addEventListener('DOMContentLoaded', function () {
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth'
-    });
-    calendar.render();
-  });
-
-
 
   // Check if the pathname should have a transparent background
   if (isTransparentBg(pathname)) {
@@ -463,3 +451,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // Swup event listener to reinitialize accordions on page transition
   swup.hooks.on('content:replace', initializeAccordions);
 });
+
+
+  //----CALENDAR INTEGRATION----
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth'
+    });
+    calendar.render();
+  });
