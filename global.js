@@ -1,4 +1,4 @@
-console.log("V1.97");
+console.log("V1.98");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -474,12 +474,20 @@ function showCal() {
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
       // plugins: [dayGridPlugin, listPlugin],
-      initialView: 'listMonth', // Set list view as the default
+      initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,listMonth', // Provide options to switch between month and list views
+        right: 'listThreeMonth, dayGridMonth', // Provide options to switch between month and 3-month list views
       },
+      views: {
+        listThreeMonth: {
+          type: 'list',
+          duration: { months: 3 }, // Set the duration to 3 months
+          buttonText: '3 months'
+        }
+      },
+      height: 'auto', // Adjust the calendar height based on the content
       events: events,
       eventClick: function (data) {
         alert(`User clicked the event ${data.event.title}`);
@@ -522,3 +530,4 @@ swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
+
