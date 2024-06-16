@@ -1,4 +1,4 @@
-console.log("V1.98");
+console.log("V1.99");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -473,18 +473,21 @@ function showCal() {
 
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
-      // plugins: [dayGridPlugin, listPlugin],
+      // plugins: [dayGridPlugin, listPlugin], // Commented out as requested
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
-        right: 'listThreeMonth, dayGridMonth', // Provide options to switch between month and 3-month list views
+        right: 'dayGridMonth,listThreeMonth', // Provide options to switch between month and 3-month list views
       },
       views: {
         listThreeMonth: {
           type: 'list',
           duration: { months: 3 }, // Set the duration to 3 months
-          buttonText: '3 months'
+          buttonText: 'List'
+        },
+        dayGridMonth: {
+          buttonText: 'Calendar'
         }
       },
       height: 'auto', // Adjust the calendar height based on the content
