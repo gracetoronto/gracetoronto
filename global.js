@@ -1,4 +1,4 @@
-console.log("V1.99");
+console.log("V1.100");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -476,15 +476,15 @@ function showCal() {
       // plugins: [dayGridPlugin, listPlugin], // Commented out as requested
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
-        left: 'prev,next today',
+        left: 'listThreeMonth,dayGridMonth', // Move List View to the left
         center: 'title',
-        right: 'dayGridMonth,listThreeMonth', // Provide options to switch between month and 3-month list views
+        right: 'prev,next today',
       },
       views: {
         listThreeMonth: {
           type: 'list',
           duration: { months: 3 }, // Set the duration to 3 months
-          buttonText: 'List'
+          buttonText: 'List View'
         },
         dayGridMonth: {
           buttonText: 'Calendar'
@@ -511,6 +511,21 @@ function getEvents() {
       const event = JSON.parse(script.textContent.trim());
       event.start = new Date(event.start);
       event.end = new Date(event.end);
+
+      // Set event color based on the type
+      switch (event.type) {
+        case 'Regular or recurring':
+          event.color = '#F4C449';
+          break;
+        case 'Special on-site':
+          event.color = '#47FF7B';
+          break;
+        case 'Special off-site':
+          event.color = '#9974C9';
+          break;
+        default:
+          event.color = '#3788d8'; // Default color if type is not recognized
+      }
 
       return event;
     } catch (error) {
