@@ -518,7 +518,7 @@ function getEvents() {
           event.color = '#F4C449';
           break;
         case 'Special on-site':
-          event.color = '#47FF7B';
+          event.color = '#24C150';
           break;
         case 'Special off-site':
           event.color = '#9974C9';
