@@ -102,6 +102,7 @@ html.is-changing .transition-fade {
   .fc-header-toolbar .fc-toolbar-chunk:first-child {
     order: 2; /* Move controls below the title */
     justify-content: flex-start;
+    align-items: flex-end;
   }
 
   /* Mobile-specific styling for right controls */
@@ -109,12 +110,12 @@ html.is-changing .transition-fade {
     order: 3; /* Move controls below the title */
     justify-content: flex-end;
     margin-left: auto; /* Push to the far right */
+    align-items: flex-end;
   }
 
   .fc-header-toolbar .fc-button {
     margin-right: 5px;
-    padding: 5px 10px; /* Ensure consistent padding */
-    line-height: 1.2; /* Ensure consistent line height */
+    margin-bottom: 5px;
   }
 
   .fc-header-toolbar .fc-center h2 {
