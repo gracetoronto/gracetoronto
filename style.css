@@ -92,7 +92,7 @@ html.is-changing .transition-fade {
   /* Align the left and right controls on the same line */
   .fc-header-toolbar .fc-toolbar-chunk {
     display: flex;
-    align-items: center;
+    align-items: flex-end; /* Align items to the bottom */
     width: 100%; /* Ensure chunks take full width in mobile view */
     justify-content: space-between; /* Distribute space between chunks */
   }
@@ -119,4 +119,5 @@ html.is-changing .transition-fade {
     font-size: 1.2em;
   }
 }
+
 
