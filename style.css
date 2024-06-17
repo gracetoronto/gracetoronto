@@ -77,7 +77,7 @@ html.is-changing .transition-fade {
 
 
 /* Mobile view adjustments */
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .fc-header-toolbar {
     flex-wrap: wrap;
   }
