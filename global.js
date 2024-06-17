@@ -1,4 +1,4 @@
-console.log("V1.100");
+console.log("V1.101");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -548,4 +548,5 @@ swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
+
 
