@@ -48,12 +48,12 @@ html.is-changing .transition-fade {
   --fc-border-color: #ddd;
 
   --fc-button-text-color: #000000;
-  --fc-button-bg-color: #F4C449;
-  --fc-button-border-color: #F4C449;
+  --fc-button-bg-color: #e0e0e0;
+  --fc-button-border-color: #e0e0e0;
   --fc-button-hover-bg-color: #F9D26D;
   --fc-button-hover-border-color: #F9D26D;
-  --fc-button-active-bg-color: #F9D26D;
-  --fc-button-active-border-color: #F9D26D;
+  --fc-button-active-bg-color: #F4C449;
+  --fc-button-active-border-color: #F4C449;
 
   --fc-event-bg-color: #F4C449;
   --fc-event-border-color: #F4C449;
