@@ -48,7 +48,7 @@ html.is-changing .transition-fade {
   --fc-border-color: #ddd;
 
   --fc-button-text-color: #000000;
-  --fc-button-bg-color: #e0e0e0;
+  --fc-button-bg-color: #f0f0f0;
   --fc-button-border-color: #e0e0e0;
   --fc-button-hover-bg-color: #F9D26D;
   --fc-button-hover-border-color: #F9D26D;
@@ -74,6 +74,7 @@ html.is-changing .transition-fade {
   --fc-today-bg-color: rgba(255, 220, 40, 0.15);
   --fc-now-indicator-color: red;
 }
+
 
 /* Mobile view adjustments */
 @media (max-width: 600px) {
@@ -112,12 +113,12 @@ html.is-changing .transition-fade {
 
   .fc-header-toolbar .fc-button {
     margin-right: 5px;
-    margin-bottom: 5px;
+    padding: 5px 10px; /* Ensure consistent padding */
+    line-height: 1.2; /* Ensure consistent line height */
   }
 
   .fc-header-toolbar .fc-center h2 {
     font-size: 1.2em;
   }
 }
-
 
