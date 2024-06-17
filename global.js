@@ -1,4 +1,4 @@
-console.log("V1.101");
+console.log("V1.102");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -473,12 +473,11 @@ function showCal() {
 
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
-      // plugins: [dayGridPlugin, listPlugin], // Commented out as requested
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
-        left: 'listThreeMonth,dayGridMonth', // Move List View to the left
-        center: 'title',
-        right: 'prev,next today',
+        left: 'listThreeMonth,dayGridMonth', // List and Calendar buttons are left aligned
+        center: 'title', // Title is centered
+        right: 'prev,next today' // Navigation buttons are right aligned
       },
       views: {
         listThreeMonth: {
@@ -548,5 +547,6 @@ swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
+
 
 
