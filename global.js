@@ -1,4 +1,4 @@
-console.log("V1.109");
+console.log("V1.112");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -554,4 +554,88 @@ document.addEventListener('DOMContentLoaded', function() {
 swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
+});
+
+
+
+
+
+
+//----ARROW FUNCTIONALITY FOR MINISTRY NAV BAR----
+
+// Function to initialize the scroll arrows
+function initializeScrollArrows() {
+  const ministryContainer = document.querySelector(".ministry__container");
+  const ministryOptions = document.querySelector(".ministry__options");
+  const leftArrow = document.querySelector(".ministry__arrows.is--left");
+  const rightArrow = document.querySelector(".ministry__arrows.is--right");
+  const scrollAmount = ministryContainer.offsetWidth; // Double the container width
+
+  function updateArrows() {
+    const containerWidth = ministryContainer.offsetWidth;
+    const optionsWidth = ministryOptions.scrollWidth;
+    const scrollLeft = ministryContainer.scrollLeft;
+
+    if (containerWidth < optionsWidth) {
+      rightArrow.style.display = "flex"; // Display as flex
+      if (scrollLeft > 0) {
+        leftArrow.style.display = "flex"; // Display as flex
+      } else {
+        leftArrow.style.display = "none";
+      }
+
+      // Check if scrolled to the end
+      if (scrollLeft + containerWidth >= optionsWidth) {
+        // Use CSS transition for fade effect
+        rightArrow.style.opacity = 0;
+        rightArrow.style.pointerEvents = "none"; // Disable click events
+      } else {
+        rightArrow.style.opacity = 1;
+        rightArrow.style.pointerEvents = "auto"; // Enable click events
+      }
+    } else {
+      leftArrow.style.display = "none";
+      rightArrow.style.display = "none";
+    }
+  }
+
+  function scrollContainer(direction) {
+    const currentScrollLeft = ministryContainer.scrollLeft;
+    let newScrollLeft;
+
+    if (direction === 'left') {
+      newScrollLeft = Math.max(0, currentScrollLeft - scrollAmount);
+    } else {
+      newScrollLeft = Math.min(ministryContainer.scrollWidth, currentScrollLeft + scrollAmount);
+    }
+
+    ministryContainer.scrollTo({
+      top: 0,
+      left: newScrollLeft,
+      behavior: 'smooth' // Smooth scrolling animation
+    });
+  }
+
+  leftArrow.addEventListener("click", function() {
+    scrollContainer('left');
+  });
+
+  rightArrow.addEventListener("click", function() {
+    scrollContainer('right');
+  });
+
+  // Update arrows on container scroll
+  ministryContainer.addEventListener("scroll", updateArrows);
+
+  // Initial check
+  updateArrows();
+}
+
+// Initialize scroll arrows when DOM is ready
+document.addEventListener("DOMContentLoaded", function() {
+  initializeScrollArrows();
+});
+
+swup.hooks.on('content:replace', function() {
+  initializeScrollArrows();
 });
