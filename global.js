@@ -1,4 +1,4 @@
-console.log("V1.108");
+console.log("V1.109");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -494,7 +494,7 @@ function showCal() {
       eventTimeFormat: { // Specify time format for events
         hour: '2-digit',
         minute: '2-digit',
-        meridiem: false // Use 24-hour format
+        meridiem: 'short' // Use 12-hour format with AM/PM
       },
       eventClick: function (data) {
         alert(`User clicked the event ${data.event.title}`);
