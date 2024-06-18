@@ -1,4 +1,4 @@
-console.log("V1.105");
+console.log("V1.106");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -508,8 +508,8 @@ function getEvents() {
   const events = Array.prototype.slice.call(scripts).map(function (script) {
     try {
       const event = JSON.parse(script.textContent.trim());
-      event.start = new Date(event.start);
-      event.end = new Date(event.end);
+      event.start = new Date(event.start); // Ensure start time is parsed as a Date object
+      event.end = new Date(event.end); // Ensure end time is parsed as a Date object
 
       // Set event color based on the type
       switch (event.type) {
