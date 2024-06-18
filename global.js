@@ -1,4 +1,4 @@
-console.log("V1.107");
+console.log("V1.108");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -491,6 +491,11 @@ function showCal() {
       },
       height: 'auto', // Adjust the calendar height based on the content
       events: events,
+      eventTimeFormat: { // Specify time format for events
+        hour: '2-digit',
+        minute: '2-digit',
+        meridiem: false // Use 24-hour format
+      },
       eventClick: function (data) {
         alert(`User clicked the event ${data.event.title}`);
       }
