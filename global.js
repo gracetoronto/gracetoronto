@@ -665,6 +665,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replaced', function() {
+swup.hooks.on('content:replace', function() {
   initializeScrollArrowsAndScrollToCurrent();
 });
