@@ -1,4 +1,4 @@
-console.log("V1.113");
+console.log("V1.114");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -571,7 +571,11 @@ function initializeScrollArrowsAndScrollToCurrent() {
   const currentNavLink = document.querySelector(".ministry__options .current"); // Adjust this selector as per your HTML structure
   const leftArrow = document.querySelector(".ministry__arrows.is--left");
   const rightArrow = document.querySelector(".ministry__arrows.is--right");
-  const scrollAmount = ministryContainer.offsetWidth; // Double the container width
+
+  // Function to calculate scroll amount based on screen width
+  function getScrollAmount() {
+    return window.innerWidth >= 768 ? ministryContainer.offsetWidth * 2 : 75; // Adjust breakpoint and scroll amounts as needed
+  }
 
   function updateArrows() {
     const containerWidth = ministryContainer.offsetWidth;
@@ -603,6 +607,8 @@ function initializeScrollArrowsAndScrollToCurrent() {
 
   function scrollContainer(direction) {
     const currentScrollLeft = ministryContainer.scrollLeft;
+    const scrollAmount = getScrollAmount();
+
     let newScrollLeft;
 
     if (direction === 'left') {
