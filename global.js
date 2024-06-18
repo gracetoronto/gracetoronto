@@ -1,4 +1,4 @@
-console.log("V1.112");
+console.log("V1.113");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -563,10 +563,12 @@ swup.hooks.on('content:replace', function() {
 
 //----ARROW FUNCTIONALITY FOR MINISTRY NAV BAR----
 
-// Function to initialize the scroll arrows
-function initializeScrollArrows() {
+// Function to initialize the scroll arrows and scroll to current page link
+function initializeScrollArrowsAndScrollToCurrent() {
+  const ministryNav = document.querySelector(".ministry__nav");
   const ministryContainer = document.querySelector(".ministry__container");
   const ministryOptions = document.querySelector(".ministry__options");
+  const currentNavLink = document.querySelector(".ministry__options .current"); // Adjust this selector as per your HTML structure
   const leftArrow = document.querySelector(".ministry__arrows.is--left");
   const rightArrow = document.querySelector(".ministry__arrows.is--right");
   const scrollAmount = ministryContainer.offsetWidth; // Double the container width
@@ -616,6 +618,29 @@ function initializeScrollArrows() {
     });
   }
 
+  // Function to scroll to current nav link
+  function scrollToCurrentNavLink() {
+    if (currentNavLink) {
+      const navLinkRect = currentNavLink.getBoundingClientRect();
+      const navContainerRect = ministryContainer.getBoundingClientRect();
+      const scrollLeft = ministryContainer.scrollLeft;
+
+      // Check if current nav link is outside the view to the right
+      if (navLinkRect.right > navContainerRect.right) {
+        ministryContainer.scrollTo({
+          left: scrollLeft + (navLinkRect.right - navContainerRect.right),
+          behavior: 'smooth'
+        });
+      } else if (navLinkRect.left < navContainerRect.left) {
+        // Check if current nav link is outside the view to the left
+        ministryContainer.scrollTo({
+          left: scrollLeft - (navContainerRect.left - navLinkRect.left),
+          behavior: 'smooth'
+        });
+      }
+    }
+  }
+
   leftArrow.addEventListener("click", function() {
     scrollContainer('left');
   });
@@ -629,13 +654,17 @@ function initializeScrollArrows() {
 
   // Initial check
   updateArrows();
+
+  // Scroll to current nav link after page load or swup navigation
+  scrollToCurrentNavLink();
 }
 
-// Initialize scroll arrows when DOM is ready
+// Initialize scroll arrows and scroll to current nav link when DOM is ready
 document.addEventListener("DOMContentLoaded", function() {
-  initializeScrollArrows();
+  initializeScrollArrowsAndScrollToCurrent();
 });
 
-swup.hooks.on('content:replace', function() {
-  initializeScrollArrows();
+// Initialize scroll arrows and scroll to current nav link after swup.js page transition
+swup.hooks.on('content:replaced', function() {
+  initializeScrollArrowsAndScrollToCurrent();
 });
