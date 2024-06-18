@@ -1,4 +1,4 @@
-console.log("V1.106");
+console.log("V1.107");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -511,6 +511,9 @@ function getEvents() {
       event.start = new Date(event.start); // Ensure start time is parsed as a Date object
       event.end = new Date(event.end); // Ensure end time is parsed as a Date object
 
+      console.log("Parsed event start:", event.start);
+      console.log("Parsed event end:", event.end);
+
       // Set event color based on the type
       switch (event.type) {
         case 'Regular or recurring':
@@ -547,6 +550,3 @@ swup.hooks.on('content:replace', function() {
   console.log("Swup content replaced");
   showCal();
 });
-
-
-
