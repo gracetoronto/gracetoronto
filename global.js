@@ -772,7 +772,7 @@ swup.hooks.on('content:replace', function() {
 
       // Only show dots if there is more than one image
       if (totalItems > 1) {
-        document.querySelector('.anc__dots').style.display = 'block';
+        document.querySelector('.anc__dots').style.display = 'flexs';
       } else {
         document.querySelector('.anc__dots').style.display = 'none';
       }
