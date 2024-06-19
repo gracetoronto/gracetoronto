@@ -1,4 +1,4 @@
-console.log("V1.117");
+console.log("V1.118");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -725,42 +725,42 @@ swup.hooks.on('content:replace', function() {
 
 //---ANNOUNCEMENT IMAGE SLIDER---
 
-document.addEventListener("DOMContentLoaded", function() {
-  const initSlider = () => {
-    let currentIndex = 0;
-    const items = document.querySelectorAll('.anc__item');
-    const totalItems = items.length;
+  document.addEventListener("DOMContentLoaded", function() {
+    const initSlider = () => {
+      let currentIndex = 0;
+      const items = document.querySelectorAll('.anc__item');
+      const totalItems = items.length;
 
-    function showItem(index) {
-      items.forEach((item, i) => {
-        item.style.opacity = i === index ? '1' : '0';
-        item.style.transition = 'opacity 0.5s ease-in-out';
-      });
-    }
+      function showItem(index) {
+        items.forEach((item, i) => {
+          item.style.opacity = i === index ? '1' : '0';
+          item.style.transition = 'opacity 0.5s ease-in-out';
+        });
+      }
 
-    function nextItem() {
-      currentIndex = (currentIndex + 1) % totalItems;
+      function nextItem() {
+        currentIndex = (currentIndex + 1) % totalItems;
+        showItem(currentIndex);
+      }
+
+      function prevItem() {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        showItem(currentIndex);
+      }
+
+      document.querySelector('.arrow.is--next').addEventListener('click', nextItem);
+      document.querySelector('.arrow.is--prev').addEventListener('click', prevItem);
+
+      // Initially show the first item
       showItem(currentIndex);
-    }
+    };
 
-    function prevItem() {
-      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-      showItem(currentIndex);
-    }
-
-    document.querySelector('.anc__next').addEventListener('click', nextItem);
-    document.querySelector('.anc__prev').addEventListener('click', prevItem);
-
-    // Initially show the first item
-    showItem(currentIndex);
-  };
-
-  // Initialize slider on initial load
-  initSlider();
-
-  // Reinitialize slider on every Swup content replacement
-  swup.hooks.on('content:replace', function() {
+    // Initialize slider on initial load
     initSlider();
+
+    // Reinitialize slider on every Swup content replacement
+    swup.hooks.on('content:replace', function() {
+      initSlider();
+    });
   });
-});
 
