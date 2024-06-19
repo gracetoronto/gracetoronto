@@ -1,4 +1,4 @@
-console.log("V1.124");
+console.log("V1.125");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -795,7 +795,7 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   const initializeSliders = () => {
-    const sliderContainers = document.querySelectorAll('.slider-container');
+    const sliderContainers = document.querySelectorAll('.anc__slider');
     sliderContainers.forEach((sliderContainer) => {
       initSlider(sliderContainer);
     });
