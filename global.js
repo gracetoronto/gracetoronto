@@ -1,4 +1,4 @@
-console.log("V1.126");
+console.log("V1.127");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -805,7 +805,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Initially display alt text for first item
-    const initialAltText = items[currentIndex].querySelector('img').getAttribute('alt');
+    const initialAltText = items[currentIndex].querySelector('.anc__bgimg').getAttribute('alt');
     captionContainer.textContent = initialAltText;
   };
 
