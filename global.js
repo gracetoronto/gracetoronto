@@ -1,4 +1,4 @@
-console.log("V1.121");
+console.log("V1.122");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -775,8 +775,8 @@ swup.hooks.on('content:replace', function() {
       // Only show dots and arrows if there is more than one image
       if (totalItems > 1) {
         document.querySelector('.anc__dots').style.display = 'flex';
-        nextArrow.style.display = 'block';
-        prevArrow.style.display = 'block';
+        nextArrow.style.display = 'flex';
+        prevArrow.style.display = 'flex';
       } else {
         document.querySelector('.anc__dots').style.display = 'none';
         nextArrow.style.display = 'none';
