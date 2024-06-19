@@ -1,4 +1,4 @@
-console.log("V1.114");
+console.log("V1.115");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -673,4 +673,44 @@ document.addEventListener("DOMContentLoaded", function() {
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
 swup.hooks.on('content:replace', function() {
   initializeScrollArrowsAndScrollToCurrent();
+});
+
+
+
+
+
+
+//---UPDATE CALENDAR EVENT COUNT ON MINISTRY PAGES---
+
+function updateEventCount() {
+  // Get the number of elements with class "calendar__item"
+  var numberOfEvents = document.getElementsByClassName('calendar__item').length;
+
+  // Create a new div element for displaying the count
+  var countElement = document.createElement('div');
+  countElement.classList.add('subtitle', 'is--2');
+  countElement.textContent = numberOfEvents + " upcoming events";
+
+  // Select the .ministry__events container
+  var ministryEventsContainer = document.querySelector('.ministry__events');
+
+  // Remove any existing count elements (if any)
+  var existingCountElement = ministryEventsContainer.querySelector('.subtitle.is--2');
+  if (existingCountElement) {
+      ministryEventsContainer.removeChild(existingCountElement);
+  }
+
+  // Append the count element to the ministryEventsContainer
+  ministryEventsContainer.appendChild(countElement);
+}
+
+// Wait for the DOM content to be fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Initial update on page load
+  updateEventCount();
+});
+
+// Initialize scroll arrows and scroll to current nav link after swup.js page transition
+swup.hooks.on('content:replace', function() {
+  updateEventCount();
 });
