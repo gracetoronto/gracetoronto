@@ -1,4 +1,4 @@
-console.log("V1.127");
+console.log("V1.128");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -731,7 +731,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const items = sliderContainer.querySelectorAll('.anc__item');
     const totalItems = items.length;
     const dotsContainer = sliderContainer.querySelector('.anc__dots');
-    const captionContainer = sliderContainer.querySelector('.anc__caption');
     const nextArrow = sliderContainer.querySelector('.arrow.is--next');
     const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
 
@@ -745,7 +744,7 @@ document.addEventListener("DOMContentLoaded", function() {
       dotsContainer.children[currentIndex].classList.add('is--current');
     }
 
-    // Function to show item and caption
+    // Function to show current item and update dots
     function showItem(index) {
       items.forEach((item, i) => {
         if (i === index) {
@@ -756,14 +755,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       });
 
-      // Update dots
       dotsContainer.children[currentIndex].classList.remove('is--current');
       dotsContainer.children[index].classList.add('is--current');
-
-      // Update caption
-      const altText = items[index].querySelector('img').getAttribute('alt');
-      captionContainer.textContent = altText;
-
       currentIndex = index;
     }
 
@@ -803,10 +796,6 @@ document.addEventListener("DOMContentLoaded", function() {
       if (nextArrow) nextArrow.style.display = 'none';
       if (prevArrow) prevArrow.style.display = 'none';
     }
-
-    // Initially display alt text for first item
-    const initialAltText = items[currentIndex].querySelector('.anc__bgimg').getAttribute('alt');
-    captionContainer.textContent = initialAltText;
   };
 
   const initializeSliders = () => {
