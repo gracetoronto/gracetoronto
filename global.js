@@ -1,4 +1,4 @@
-console.log("V1.122");
+console.log("V1.123");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -726,13 +726,13 @@ swup.hooks.on('content:replace', function() {
 //---ANNOUNCEMENT IMAGE SLIDER---
 
   document.addEventListener("DOMContentLoaded", function() {
-    const initSlider = () => {
+    const initSlider = (sliderContainer) => {
       let currentIndex = 0;
-      const items = document.querySelectorAll('.anc__item');
+      const items = sliderContainer.querySelectorAll('.anc__item');
       const totalItems = items.length;
-      const dots = document.querySelectorAll('.anc__dots .dot');
-      const nextArrow = document.querySelector('.arrow.is--next');
-      const prevArrow = document.querySelector('.arrow.is--prev');
+      const dots = sliderContainer.querySelectorAll('.anc__dots .dot');
+      const nextArrow = sliderContainer.querySelector('.arrow.is--next');
+      const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
 
       function showItem(index) {
         items.forEach((item, i) => {
@@ -759,8 +759,8 @@ swup.hooks.on('content:replace', function() {
         showItem(currentIndex);
       }
 
-      nextArrow.addEventListener('click', nextItem);
-      prevArrow.addEventListener('click', prevItem);
+      if (nextArrow) nextArrow.addEventListener('click', nextItem);
+      if (prevArrow) prevArrow.addEventListener('click', prevItem);
 
       dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
@@ -774,21 +774,28 @@ swup.hooks.on('content:replace', function() {
 
       // Only show dots and arrows if there is more than one image
       if (totalItems > 1) {
-        document.querySelector('.anc__dots').style.display = 'flex';
-        nextArrow.style.display = 'flex';
-        prevArrow.style.display = 'flex';
+        sliderContainer.querySelector('.anc__dots').style.display = 'flex';
+        if (nextArrow) nextArrow.style.display = 'flex';
+        if (prevArrow) prevArrow.style.display = 'flex';
       } else {
-        document.querySelector('.anc__dots').style.display = 'none';
-        nextArrow.style.display = 'none';
-        prevArrow.style.display = 'none';
+        sliderContainer.querySelector('.anc__dots').style.display = 'none';
+        if (nextArrow) nextArrow.style.display = 'none';
+        if (prevArrow) prevArrow.style.display = 'none';
       }
     };
 
-    // Initialize slider on initial load
-    initSlider();
+    const initializeSliders = () => {
+      const sliderContainers = document.querySelectorAll('.anc__slider');
+      sliderContainers.forEach((sliderContainer) => {
+        initSlider(sliderContainer);
+      });
+    };
 
-    // Reinitialize slider on every Swup content replacement
+    // Initialize sliders on initial load
+    initializeSliders();
+
+    // Reinitialize sliders on every Swup content replacement
     swup.hooks.on('content:replace', function() {
-      initSlider();
+      initializeSliders();
     });
   });
