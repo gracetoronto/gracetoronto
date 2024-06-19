@@ -1,4 +1,4 @@
-console.log("V1.120");
+console.log("V1.121");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -731,6 +731,8 @@ swup.hooks.on('content:replace', function() {
       const items = document.querySelectorAll('.anc__item');
       const totalItems = items.length;
       const dots = document.querySelectorAll('.anc__dots .dot');
+      const nextArrow = document.querySelector('.arrow.is--next');
+      const prevArrow = document.querySelector('.arrow.is--prev');
 
       function showItem(index) {
         items.forEach((item, i) => {
@@ -757,8 +759,8 @@ swup.hooks.on('content:replace', function() {
         showItem(currentIndex);
       }
 
-      document.querySelector('.arrow.is--next').addEventListener('click', nextItem);
-      document.querySelector('.arrow.is--prev').addEventListener('click', prevItem);
+      nextArrow.addEventListener('click', nextItem);
+      prevArrow.addEventListener('click', prevItem);
 
       dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
@@ -770,11 +772,15 @@ swup.hooks.on('content:replace', function() {
       // Initially show the first item
       showItem(currentIndex);
 
-      // Only show dots if there is more than one image
+      // Only show dots and arrows if there is more than one image
       if (totalItems > 1) {
-        document.querySelector('.anc__dots').style.display = 'flexs';
+        document.querySelector('.anc__dots').style.display = 'flex';
+        nextArrow.style.display = 'block';
+        prevArrow.style.display = 'block';
       } else {
         document.querySelector('.anc__dots').style.display = 'none';
+        nextArrow.style.display = 'none';
+        prevArrow.style.display = 'none';
       }
     };
 
