@@ -1,4 +1,4 @@
-console.log("V1.118");
+console.log("V1.120");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -730,11 +730,20 @@ swup.hooks.on('content:replace', function() {
       let currentIndex = 0;
       const items = document.querySelectorAll('.anc__item');
       const totalItems = items.length;
+      const dots = document.querySelectorAll('.anc__dots .dot');
 
       function showItem(index) {
         items.forEach((item, i) => {
           item.style.opacity = i === index ? '1' : '0';
           item.style.transition = 'opacity 0.5s ease-in-out';
+        });
+
+        dots.forEach((dot, i) => {
+          if (i === index) {
+            dot.classList.add('is--current');
+          } else {
+            dot.classList.remove('is--current');
+          }
         });
       }
 
@@ -751,8 +760,22 @@ swup.hooks.on('content:replace', function() {
       document.querySelector('.arrow.is--next').addEventListener('click', nextItem);
       document.querySelector('.arrow.is--prev').addEventListener('click', prevItem);
 
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          currentIndex = index;
+          showItem(currentIndex);
+        });
+      });
+
       // Initially show the first item
       showItem(currentIndex);
+
+      // Only show dots if there is more than one image
+      if (totalItems > 1) {
+        document.querySelector('.anc__dots').style.display = 'block';
+      } else {
+        document.querySelector('.anc__dots').style.display = 'none';
+      }
     };
 
     // Initialize slider on initial load
@@ -763,4 +786,3 @@ swup.hooks.on('content:replace', function() {
       initSlider();
     });
   });
-
