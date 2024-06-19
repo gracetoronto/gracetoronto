@@ -1,4 +1,4 @@
-console.log("V1.128");
+console.log("V1.129");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -734,65 +734,67 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextArrow = sliderContainer.querySelector('.arrow.is--next');
     const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
 
-    // Function to create dots
-    function createDots() {
+    function showItem(index) {
+      items.forEach((item, i) => {
+        item.style.opacity = i === index ? '1' : '0';
+        item.style.transition = 'opacity 0.5s ease-in-out';
+      });
+
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (totalItems > 1) {
+          if (i === index) {
+            dot.classList.add('is--current');
+          } else {
+            dot.classList.remove('is--current');
+          }
+        } else {
+          dot.classList.remove('is--current');
+        }
+      });
+    }
+
+    function nextItem() {
+      currentIndex = (currentIndex + 1) % totalItems;
+      showItem(currentIndex);
+    }
+
+    function prevItem() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      showItem(currentIndex);
+    }
+
+    // Generate dots based on the number of items
+    if (totalItems > 1) {
       for (let i = 0; i < totalItems; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
+        if (i === 0) dot.classList.add('is--current'); // Make the first dot active
         dotsContainer.appendChild(dot);
       }
-      dotsContainer.children[currentIndex].classList.add('is--current');
+    } else {
+      dotsContainer.style.display = 'none'; // Hide dots if there's only one item
     }
 
-    // Function to show current item and update dots
-    function showItem(index) {
-      items.forEach((item, i) => {
-        if (i === index) {
-          item.style.opacity = '1';
-          item.style.transition = 'opacity 0.5s ease-in-out';
-        } else {
-          item.style.opacity = '0';
-        }
-      });
+    const dots = dotsContainer.querySelectorAll('.dot');
 
-      dotsContainer.children[currentIndex].classList.remove('is--current');
-      dotsContainer.children[index].classList.add('is--current');
-      currentIndex = index;
-    }
-
-    // Function to handle next item
-    function nextItem() {
-      const nextIndex = (currentIndex + 1) % totalItems;
-      showItem(nextIndex);
-    }
-
-    // Function to handle previous item
-    function prevItem() {
-      const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
-      showItem(prevIndex);
-    }
-
-    // Initialize slider
-    createDots();
-    showItem(currentIndex);
-
-    // Add event listeners to arrows
-    if (nextArrow) {
-      nextArrow.addEventListener('click', nextItem);
-    }
-    if (prevArrow) {
-      prevArrow.addEventListener('click', prevItem);
-    }
-
-    // Add event listeners to dots
-    dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
+    // Add event listeners for dots
+    dots.forEach((dot, index) => {
       dot.addEventListener('click', () => {
-        showItem(index);
+        currentIndex = index;
+        showItem(currentIndex);
       });
     });
 
-    // Show/hide arrows based on total items
+    if (nextArrow) nextArrow.addEventListener('click', nextItem);
+    if (prevArrow) prevArrow.addEventListener('click', prevItem);
+
+    // Initially show the first item
+    showItem(currentIndex);
+
+    // Only show dots and arrows if there is more than one image
     if (totalItems <= 1) {
+      dotsContainer.style.display = 'none';
       if (nextArrow) nextArrow.style.display = 'none';
       if (prevArrow) prevArrow.style.display = 'none';
     }
