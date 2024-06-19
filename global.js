@@ -1,4 +1,4 @@
-console.log("V1.125");
+console.log("V1.126");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -731,67 +731,82 @@ document.addEventListener("DOMContentLoaded", function() {
     const items = sliderContainer.querySelectorAll('.anc__item');
     const totalItems = items.length;
     const dotsContainer = sliderContainer.querySelector('.anc__dots');
+    const captionContainer = sliderContainer.querySelector('.anc__caption');
     const nextArrow = sliderContainer.querySelector('.arrow.is--next');
     const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
 
-    function showItem(index) {
-      items.forEach((item, i) => {
-        item.style.opacity = i === index ? '1' : '0';
-        item.style.transition = 'opacity 0.5s ease-in-out';
-      });
-
-      // Update dots
-      dots.forEach((dot, i) => {
-        if (i === index) {
-          dot.classList.add('is--current');
-        } else {
-          dot.classList.remove('is--current');
-        }
-      });
-    }
-
-    function nextItem() {
-      currentIndex = (currentIndex + 1) % totalItems;
-      showItem(currentIndex);
-    }
-
-    function prevItem() {
-      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-      showItem(currentIndex);
-    }
-
-    // Generate dots based on the number of items
-    if (totalItems > 1) {
+    // Function to create dots
+    function createDots() {
       for (let i = 0; i < totalItems; i++) {
         const dot = document.createElement('div');
         dot.classList.add('dot');
-        if (i === 0) dot.classList.add('is--current'); // Make the first dot active
         dotsContainer.appendChild(dot);
       }
+      dotsContainer.children[currentIndex].classList.add('is--current');
     }
 
-    const dots = dotsContainer.querySelectorAll('.dot');
+    // Function to show item and caption
+    function showItem(index) {
+      items.forEach((item, i) => {
+        if (i === index) {
+          item.style.opacity = '1';
+          item.style.transition = 'opacity 0.5s ease-in-out';
+        } else {
+          item.style.opacity = '0';
+        }
+      });
 
-    // Add event listeners for dots
-    dots.forEach((dot, index) => {
+      // Update dots
+      dotsContainer.children[currentIndex].classList.remove('is--current');
+      dotsContainer.children[index].classList.add('is--current');
+
+      // Update caption
+      const altText = items[index].querySelector('img').getAttribute('alt');
+      captionContainer.textContent = altText;
+
+      currentIndex = index;
+    }
+
+    // Function to handle next item
+    function nextItem() {
+      const nextIndex = (currentIndex + 1) % totalItems;
+      showItem(nextIndex);
+    }
+
+    // Function to handle previous item
+    function prevItem() {
+      const prevIndex = (currentIndex - 1 + totalItems) % totalItems;
+      showItem(prevIndex);
+    }
+
+    // Initialize slider
+    createDots();
+    showItem(currentIndex);
+
+    // Add event listeners to arrows
+    if (nextArrow) {
+      nextArrow.addEventListener('click', nextItem);
+    }
+    if (prevArrow) {
+      prevArrow.addEventListener('click', prevItem);
+    }
+
+    // Add event listeners to dots
+    dotsContainer.querySelectorAll('.dot').forEach((dot, index) => {
       dot.addEventListener('click', () => {
-        currentIndex = index;
-        showItem(currentIndex);
+        showItem(index);
       });
     });
 
-    if (nextArrow) nextArrow.addEventListener('click', nextItem);
-    if (prevArrow) prevArrow.addEventListener('click', prevItem);
-
-    // Initially show the first item
-    showItem(currentIndex);
-
-    // Only show dots and arrows if there is more than one image
+    // Show/hide arrows based on total items
     if (totalItems <= 1) {
-      dotsContainer.style.display = 'none';
       if (nextArrow) nextArrow.style.display = 'none';
       if (prevArrow) prevArrow.style.display = 'none';
     }
+
+    // Initially display alt text for first item
+    const initialAltText = items[currentIndex].querySelector('img').getAttribute('alt');
+    captionContainer.textContent = initialAltText;
   };
 
   const initializeSliders = () => {
