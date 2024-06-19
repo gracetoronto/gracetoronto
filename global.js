@@ -1,4 +1,4 @@
-console.log("V1.115");
+console.log("V1.116");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -689,7 +689,13 @@ function updateEventCount() {
   // Create a new div element for displaying the count
   var countElement = document.createElement('div');
   countElement.classList.add('subtitle', 'is--2');
-  countElement.textContent = numberOfEvents + " upcoming events";
+
+  // Update text content based on number of events
+  if (numberOfEvents === 1) {
+      countElement.textContent = "1 upcoming event";
+  } else {
+      countElement.textContent = numberOfEvents + " upcoming events";
+  }
 
   // Select the .ministry__events container
   var ministryEventsContainer = document.querySelector('.ministry__events');
