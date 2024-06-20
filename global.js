@@ -1,4 +1,4 @@
-console.log("V1.129");
+console.log("V1.130");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -815,3 +815,52 @@ document.addEventListener("DOMContentLoaded", function() {
     initializeSliders();
   });
 });
+
+
+
+
+
+//---SHOW IMAGE ONLY ON FIRST INSTANCE OF ANNOUNCEMENT SLIDER---
+
+  // Function to process each collection list individually
+  function processCollectionList(collectionListWrapper) {
+    // Select all collection items within this specific collection list
+    var collectionItems = collectionListWrapper.querySelectorAll('.w-dyn-item');
+
+    // Check if there are any collection items
+    if (collectionItems.length > 0) {
+      // Iterate over all collection items
+      collectionItems.forEach(function(item, index) {
+        // Find the special element within each collection item
+        var specialElement = item.querySelector('.anc__first');
+
+        // Hide the special element if it's not the first item
+        if (specialElement) {
+          if (index !== 0) {
+            specialElement.style.display = 'none';
+          }
+        }
+      });
+    }
+  }
+
+  // Function to initialize the script
+  function initializeShowFirstImage() {
+    // Select all collection list wrappers on the page
+    var collectionListWrappers = document.querySelectorAll('.w-dyn-list');
+
+    // Process each collection list wrapper
+    collectionListWrappers.forEach(function(wrapper) {
+      processCollectionList(wrapper);
+    });
+  }
+
+  // Initialize when the page is fully loaded
+  document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
+
+  // Initialize when navigating to the page with swup.js
+  document.addEventListener('swup:contentReplaced', initializeShowFirstImage);
+
+  swup.hooks.on('content:replace', function() {
+    initializeShowFirstImage();
+  });
