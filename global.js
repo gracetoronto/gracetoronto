@@ -922,7 +922,7 @@ function updateLinkedUpdate() {
   // Create a new div element for displaying the count
   var countElement = document.createElement('div');
   countElement.classList.add('subtitle');
-  countElement.textContent =  "(" +numberOfEvents + ")";
+  countElement.textContent =  numberOfEvents;
 
   // Select the .ministry__events container
   var eventCardHeader = document.querySelector('.eventcard__header');
