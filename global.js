@@ -1,4 +1,4 @@
-console.log("V1.133");
+console.log("V1.134");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -878,7 +878,7 @@ function hideMatchingEndDates() {
     // Iterate over each collection list item
     collectionListItems.forEach(function(item) {
         // Get the start and end date elements within this item
-        const startDateElement = item.querySelector('.is--start');
+        const startDateElement = item.querySelector('.date--start');
         const endDateElement = item.querySelector('.date--end');
         const dateDash = item.querySelector('.date--dash');
 
