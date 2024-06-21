@@ -1,4 +1,4 @@
-console.log("V1.134");
+console.log("V1.135");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -723,6 +723,8 @@ swup.hooks.on('content:replace', function() {
 
 
 
+
+
 //---ANNOUNCEMENT IMAGE SLIDER---
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -905,4 +907,39 @@ document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
 
 swup.hooks.on('content:replace', function() {
   hideMatchingEndDates();
+});
+
+
+
+
+
+//---UPDATE EVENT COUNT ON ANNOUNCEMENT PAGES---
+
+function updateLinkedUpdate() {
+  // Get the number of elements with class "calendar__item"
+  var numberOfEvents = document.getElementsByClassName('eventcard__item').length;
+
+  // Create a new div element for displaying the count
+  var countElement = document.createElement('div');
+  countElement.classList.add('subtitle');
+  countElement.textContent =  "(" +numberOfEvents + ")";
+
+  // Select the .ministry__events container
+  var eventCardHeader = document.querySelector('.eventcard__header');
+  var eventCardButton = document.querySelector('.eventcard__num');
+
+  // Append the count element to the ministryEventsContainer
+  eventCardHeader.appendChild(countElement);
+  eventCardButton.appendChild(countElement);
+}
+
+// Wait for the DOM content to be fully loaded
+document.addEventListener("DOMContentLoaded", function() {
+  // Initial update on page load
+  updateLinkedUpdate();
+});
+
+// Initialize scroll arrows and scroll to current nav link after swup.js page transition
+swup.hooks.on('content:replace', function() {
+  updateLinkedUpdate();
 });
