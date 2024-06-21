@@ -1,4 +1,4 @@
-console.log("V1.131");
+console.log("V1.132");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -878,7 +878,8 @@ document.addEventListener("DOMContentLoaded", function() {
     // Iterate over each start date element
     startDateElements.forEach(function(startDateElement) {
         // Find the sibling end date element
-        const endDateElement = startDateElement.parentElement.querySelector('.is--end');
+        const endDateElement = startDateElement.parentElement.querySelector('.date--end');
+        const dateDash = startDateElement.parentElement.querySelector('.date--dash');
 
         // Get the text content of the elements
         const startDateText = startDateElement.textContent.trim();
@@ -888,6 +889,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (startDateText === endDateText) {
             // Hide the end date element if they are the same
             endDateElement.style.display = 'none';
+            dateDash.style.display = 'none';
         }
     });
 }
