@@ -1,4 +1,4 @@
-console.log("V1.135");
+console.log("V1.136");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -871,7 +871,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-  //-- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
+  //--- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
 
 function hideMatchingEndDates() {
     // Select all collection list items with the class 'eventcard__list'
@@ -942,4 +942,64 @@ document.addEventListener("DOMContentLoaded", function() {
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
 swup.hooks.on('content:replace', function() {
   updateLinkedUpdate();
+});
+
+
+
+
+
+//---EVENT CARD EXPANDING AND COLLAPSING---
+
+document.addEventListener('DOMContentLoaded', function() {
+  function initializeToggle() {
+    const button = document.querySelector('.eventcard__button');
+    const list = document.querySelector('.eventcard__list');
+    const openClass = document.querySelector('.eventcard__open');
+    const closeClass = document.querySelector('.eventcard__close');
+    const items = list.querySelectorAll('.eventcard__item');
+    
+    if (!button || !list || !openClass || !closeClass) return;
+
+    // Function to calculate the height of the first two items
+    function calculateInitialHeight() {
+      let height = 0;
+      for (let i = 0; i < Math.min(2, items.length); i++) {
+        height += items[i].offsetHeight;
+      }
+      return height;
+    }
+
+    // Set initial max-height based on the height of the first two items
+    list.style.maxHeight = `${calculateInitialHeight()}px`;
+
+    // Hide or show button based on the number of items
+    if (items.length <= 2) {
+      button.style.display = 'none';
+      closeClass.style.display = 'none'; // Also hide the close button if needed
+    } else {
+      button.style.display = 'flex';
+      closeClass.style.display = 'none'; // Ensure close button is hidden initially
+    }
+
+    button.addEventListener('click', function() {
+      list.classList.toggle('expanded');
+      if (list.classList.contains('expanded')) {
+        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+        openClass.style.display = 'none'; 
+        closeClass.style.display = 'flex';
+      } else {
+        list.style.maxHeight = `${calculateInitialHeight()}px`; // Collapse to initial height
+        openClass.style.display = 'flex'; 
+        closeClass.style.display = 'none';
+      }
+    });
+  }
+
+  // Initialize on page load
+  initializeToggle();
+
+  // Initialize after swup content replace
+  swup.hooks.on('content:replace', function() {
+    initializeToggle();
+  });
 });
