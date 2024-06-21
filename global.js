@@ -1,4 +1,4 @@
-console.log("V1.132");
+console.log("V1.133");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -871,25 +871,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
   //-- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
 
-  function hideMatchingEndDates() {
-    // Select all elements with the class 'is--start'
-    const startDateElements = document.querySelectorAll('.is--start');
+function hideMatchingEndDates() {
+    // Select all collection list items with the class 'eventcard__list'
+    const collectionListItems = document.querySelectorAll('.eventcard__list .eventcard__item');
 
-    // Iterate over each start date element
-    startDateElements.forEach(function(startDateElement) {
-        // Find the sibling end date element
-        const endDateElement = startDateElement.parentElement.querySelector('.date--end');
-        const dateDash = startDateElement.parentElement.querySelector('.date--dash');
+    // Iterate over each collection list item
+    collectionListItems.forEach(function(item) {
+        // Get the start and end date elements within this item
+        const startDateElement = item.querySelector('.is--start');
+        const endDateElement = item.querySelector('.date--end');
+        const dateDash = item.querySelector('.date--dash');
 
-        // Get the text content of the elements
-        const startDateText = startDateElement.textContent.trim();
-        const endDateText = endDateElement.textContent.trim();
+        // Check if both start and end date elements exist to avoid errors
+        if (startDateElement && endDateElement) {
+            // Get the text content of the elements
+            const startDateText = startDateElement.textContent.trim();
+            const endDateText = endDateElement.textContent.trim();
 
-        // Check if the start date is the same as the end date
-        if (startDateText === endDateText) {
-            // Hide the end date element if they are the same
-            endDateElement.style.display = 'none';
-            dateDash.style.display = 'none';
+            // Check if the start date is the same as the end date
+            if (startDateText === endDateText) {
+                // Hide the end date element and date dash if they are the same
+                endDateElement.style.display = 'none';
+                if (dateDash) {
+                    dateDash.style.display = 'none';
+                }
+            }
         }
     });
 }
@@ -897,7 +903,6 @@ document.addEventListener("DOMContentLoaded", function() {
 // Run the function after the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
 
-// Run the function after swup content is replaced
 swup.hooks.on('content:replace', function() {
   hideMatchingEndDates();
 });
