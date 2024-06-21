@@ -1,4 +1,4 @@
-console.log("V1.130");
+console.log("V1.131");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -864,3 +864,38 @@ document.addEventListener("DOMContentLoaded", function() {
   swup.hooks.on('content:replace', function() {
     initializeShowFirstImage();
   });
+
+
+
+
+
+  //-- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
+
+  function hideMatchingEndDates() {
+    // Select all elements with the class 'is--start'
+    const startDateElements = document.querySelectorAll('.is--start');
+
+    // Iterate over each start date element
+    startDateElements.forEach(function(startDateElement) {
+        // Find the sibling end date element
+        const endDateElement = startDateElement.parentElement.querySelector('.is--end');
+
+        // Get the text content of the elements
+        const startDateText = startDateElement.textContent.trim();
+        const endDateText = endDateElement.textContent.trim();
+
+        // Check if the start date is the same as the end date
+        if (startDateText === endDateText) {
+            // Hide the end date element if they are the same
+            endDateElement.style.display = 'none';
+        }
+    });
+}
+
+// Run the function after the DOM content is fully loaded
+document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
+
+// Run the function after swup content is replaced
+swup.hooks.on('content:replace', function() {
+  hideMatchingEndDates();
+});
