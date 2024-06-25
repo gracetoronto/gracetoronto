@@ -1,10 +1,23 @@
-console.log("V1.140");
+console.log("V1.141");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
 /// Initialize Swup
 const swup = new Swup({
-  animateHistoryBrowsing: true
+  animateHistoryBrowsing: true,
+
+  plugins: [
+    new SwupFragmentPlugin({
+      rules: [
+        {
+          from: '/ministries/',
+          to: '/ministries/',
+          containers: ['#ministries']
+        }
+      ]
+    })
+  ]
+
 });
 
 // Listen for content replaced event
