@@ -1,4 +1,4 @@
-console.log("V1.143");
+console.log("V1.144");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -15,8 +15,13 @@ const swup = new Swup({
           containers: ['#fragment-ministries']
         }
       ]
+    }),
+    new SwupScriptsPlugin({
+      head: true,
+      body: true
     })
-  ]
+  ],
+
 
 });
 
@@ -598,13 +603,13 @@ function getEvents() {
 }
 
 // Initial call to render the calendars on first page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   console.log("DOMContentLoaded event fired");
-  showCal(); 
+  showCal();
 });
 
 // Use Swup hooks to re-initialize the calendars after content is replaced
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   console.log("Swup content replaced");
   showCal();
 });
@@ -700,11 +705,11 @@ function initializeScrollArrowsAndScrollToCurrent() {
     }
   }
 
-  leftArrow.addEventListener("click", function() {
+  leftArrow.addEventListener("click", function () {
     scrollContainer('left');
   });
 
-  rightArrow.addEventListener("click", function() {
+  rightArrow.addEventListener("click", function () {
     scrollContainer('right');
   });
 
@@ -719,12 +724,12 @@ function initializeScrollArrowsAndScrollToCurrent() {
 }
 
 // Initialize scroll arrows and scroll to current nav link when DOM is ready
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   initializeScrollArrowsAndScrollToCurrent();
 });
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   initializeScrollArrowsAndScrollToCurrent();
 });
 
@@ -745,9 +750,9 @@ function updateEventCount() {
 
   // Update text content based on number of events
   if (numberOfEvents === 1) {
-      countElement.textContent = "1 upcoming event";
+    countElement.textContent = "1 upcoming event";
   } else {
-      countElement.textContent = numberOfEvents + " upcoming events";
+    countElement.textContent = numberOfEvents + " upcoming events";
   }
 
   // Select the .ministry__events container
@@ -756,7 +761,7 @@ function updateEventCount() {
   // Remove any existing count elements (if any)
   var existingCountElement = ministryEventsContainer.querySelector('.subtitle.is--2');
   if (existingCountElement) {
-      ministryEventsContainer.removeChild(existingCountElement);
+    ministryEventsContainer.removeChild(existingCountElement);
   }
 
   // Append the count element to the ministryEventsContainer
@@ -764,13 +769,13 @@ function updateEventCount() {
 }
 
 // Wait for the DOM content to be fully loaded
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   updateEventCount();
 });
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   updateEventCount();
 });
 
@@ -780,7 +785,7 @@ swup.hooks.on('content:replace', function() {
 
 //---ANNOUNCEMENT IMAGE SLIDER---
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const initSlider = (sliderContainer) => {
     let currentIndex = 0;
     const items = sliderContainer.querySelectorAll('.anc__item');
@@ -866,7 +871,7 @@ document.addEventListener("DOMContentLoaded", function() {
   initializeSliders();
 
   // Reinitialize sliders on every Swup content replacement
-  swup.hooks.on('content:replace', function() {
+  swup.hooks.on('content:replace', function () {
     initializeSliders();
   });
 });
@@ -877,88 +882,88 @@ document.addEventListener("DOMContentLoaded", function() {
 
 //---SHOW IMAGE ONLY ON FIRST INSTANCE OF ANNOUNCEMENT SLIDER---
 
-  // Function to process each collection list individually
-  function processCollectionList(collectionListWrapper) {
-    // Select all collection items within this specific collection list
-    var collectionItems = collectionListWrapper.querySelectorAll('.w-dyn-item');
+// Function to process each collection list individually
+function processCollectionList(collectionListWrapper) {
+  // Select all collection items within this specific collection list
+  var collectionItems = collectionListWrapper.querySelectorAll('.w-dyn-item');
 
-    // Check if there are any collection items
-    if (collectionItems.length > 0) {
-      // Iterate over all collection items
-      collectionItems.forEach(function(item, index) {
-        // Find the special element within each collection item
-        var specialElement = item.querySelector('.anc__first');
+  // Check if there are any collection items
+  if (collectionItems.length > 0) {
+    // Iterate over all collection items
+    collectionItems.forEach(function (item, index) {
+      // Find the special element within each collection item
+      var specialElement = item.querySelector('.anc__first');
 
-        // Hide the special element if it's not the first item
-        if (specialElement) {
-          if (index !== 0) {
-            specialElement.style.display = 'none';
-          }
+      // Hide the special element if it's not the first item
+      if (specialElement) {
+        if (index !== 0) {
+          specialElement.style.display = 'none';
         }
-      });
-    }
-  }
-
-  // Function to initialize the script
-  function initializeShowFirstImage() {
-    // Select all collection list wrappers on the page
-    var collectionListWrappers = document.querySelectorAll('.w-dyn-list');
-
-    // Process each collection list wrapper
-    collectionListWrappers.forEach(function(wrapper) {
-      processCollectionList(wrapper);
+      }
     });
   }
+}
 
-  // Initialize when the page is fully loaded
-  document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
+// Function to initialize the script
+function initializeShowFirstImage() {
+  // Select all collection list wrappers on the page
+  var collectionListWrappers = document.querySelectorAll('.w-dyn-list');
 
-  // Initialize when navigating to the page with swup.js
-  document.addEventListener('swup:contentReplaced', initializeShowFirstImage);
-
-  swup.hooks.on('content:replace', function() {
-    initializeShowFirstImage();
+  // Process each collection list wrapper
+  collectionListWrappers.forEach(function (wrapper) {
+    processCollectionList(wrapper);
   });
+}
+
+// Initialize when the page is fully loaded
+document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
+
+// Initialize when navigating to the page with swup.js
+document.addEventListener('swup:contentReplaced', initializeShowFirstImage);
+
+swup.hooks.on('content:replace', function () {
+  initializeShowFirstImage();
+});
 
 
 
 
 
-  //--- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
+//--- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
 
 function hideMatchingEndDates() {
-    // Select all collection list items with the class 'eventcard__list'
-    const collectionListItems = document.querySelectorAll('.eventcard__list .eventcard__item');
+  // Select all collection list items with the class 'eventcard__list'
+  const collectionListItems = document.querySelectorAll('.eventcard__list .eventcard__item');
 
-    // Iterate over each collection list item
-    collectionListItems.forEach(function(item) {
-        // Get the start and end date elements within this item
-        const startDateElement = item.querySelector('.date--start');
-        const endDateElement = item.querySelector('.date--end');
-        const dateDash = item.querySelector('.date--dash');
+  // Iterate over each collection list item
+  collectionListItems.forEach(function (item) {
+    // Get the start and end date elements within this item
+    const startDateElement = item.querySelector('.date--start');
+    const endDateElement = item.querySelector('.date--end');
+    const dateDash = item.querySelector('.date--dash');
 
-        // Check if both start and end date elements exist to avoid errors
-        if (startDateElement && endDateElement) {
-            // Get the text content of the elements
-            const startDateText = startDateElement.textContent.trim();
-            const endDateText = endDateElement.textContent.trim();
+    // Check if both start and end date elements exist to avoid errors
+    if (startDateElement && endDateElement) {
+      // Get the text content of the elements
+      const startDateText = startDateElement.textContent.trim();
+      const endDateText = endDateElement.textContent.trim();
 
-            // Check if the start date is the same as the end date
-            if (startDateText === endDateText) {
-                // Hide the end date element and date dash if they are the same
-                endDateElement.style.display = 'none';
-                if (dateDash) {
-                    dateDash.style.display = 'none';
-                }
-            }
+      // Check if the start date is the same as the end date
+      if (startDateText === endDateText) {
+        // Hide the end date element and date dash if they are the same
+        endDateElement.style.display = 'none';
+        if (dateDash) {
+          dateDash.style.display = 'none';
         }
-    });
+      }
+    }
+  });
 }
 
 // Run the function after the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
 
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   hideMatchingEndDates();
 });
 
@@ -975,7 +980,7 @@ function updateLinkedUpdate() {
   // Create a new div element for displaying the count
   var countElement = document.createElement('div');
   countElement.classList.add('subtitle', 'is--2');
-  countElement.textContent =  numberOfEvents;
+  countElement.textContent = numberOfEvents;
 
   // Select the .ministry__events container
   var eventCardHeader = document.querySelector('.eventcard__header');
@@ -987,13 +992,13 @@ function updateLinkedUpdate() {
 }
 
 // Wait for the DOM content to be fully loaded
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   updateLinkedUpdate();
 });
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   updateLinkedUpdate();
 });
 
@@ -1003,14 +1008,14 @@ swup.hooks.on('content:replace', function() {
 
 //---EVENT CARD EXPANDING AND COLLAPSING---
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   function initializeToggle() {
     const button = document.querySelector('.eventcard__button');
     const list = document.querySelector('.eventcard__list');
     const openClass = document.querySelector('.eventcard__open');
     const closeClass = document.querySelector('.eventcard__close');
     const items = list.querySelectorAll('.eventcard__item');
-    
+
     if (!button || !list || !openClass || !closeClass) return;
 
     // Function to calculate the height of the first two items
@@ -1034,15 +1039,15 @@ document.addEventListener('DOMContentLoaded', function() {
       closeClass.style.display = 'none'; // Ensure close button is hidden initially
     }
 
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
       list.classList.toggle('expanded');
       if (list.classList.contains('expanded')) {
         list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-        openClass.style.display = 'none'; 
+        openClass.style.display = 'none';
         closeClass.style.display = 'flex';
       } else {
         list.style.maxHeight = `${calculateInitialHeight()}px`; // Collapse to initial height
-        openClass.style.display = 'flex'; 
+        openClass.style.display = 'flex';
         closeClass.style.display = 'none';
       }
     });
@@ -1052,7 +1057,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initializeToggle();
 
   // Initialize after swup content replace
-  swup.hooks.on('content:replace', function() {
+  swup.hooks.on('content:replace', function () {
     initializeToggle();
   });
 });
