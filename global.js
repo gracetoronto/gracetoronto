@@ -1,9 +1,11 @@
-console.log("V1.139");
+console.log("V1.140");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
 /// Initialize Swup
-const swup = new Swup();
+const swup = new Swup({
+  animateHistoryBrowsing: true
+});
 
 // Listen for content replaced event
 swup.hooks.on('content:replace', () => {
