@@ -1,4 +1,4 @@
-console.log("V1.144");
+console.log("V1.145");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -20,10 +20,11 @@ const swup = new Swup({
       head: true,
       body: true
     })
-  ],
-
-
+  ]
 });
+
+
+
 
 // Listen for content replaced event
 swup.hooks.on('content:replace', () => {
@@ -42,38 +43,6 @@ swup.hooks.on('content:replace', () => {
 
 
 
-
-// //---REINITIALIZE JETBOSOT---
-
-// // Function to reinitialize Jetboost
-// function reinitializeJetboost() {
-//   // Remove existing Jetboost script if it exists
-//   const existingScript = document.getElementById('jetboost-script');
-//   if (existingScript) {
-//       existingScript.remove();
-//   }
-
-//   // Re-create the Jetboost script
-//   const script = document.createElement('script');
-//   script.id = 'jetboost-script';
-//   script.type = 'text/javascript';
-//   script.innerHTML = `
-//       window.JETBOOST_SITE_ID = "clxqcr7ss005h0rsl9j0tdyba";
-//       (function(d) {
-//           var s = d.createElement("script");
-//           s.src = "https://cdn.jetboost.io/jetboost.js";
-//           s.async = 1;
-//           d.getElementsByTagName("head")[0].appendChild(s);
-//       })(document);
-//   `;
-//   document.head.appendChild(script);
-// }
-
-// // Attach event listener to Swup
-// swup.on('content:replace', reinitializeJetboost);
-
-// // Initial Jetboost initialization
-// reinitializeJetboost();
 
 
 
