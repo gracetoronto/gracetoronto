@@ -1,25 +1,41 @@
 /* Swup transitions */
 
 html.is-changing .transition-fade {
-    transition: opacity 0.25s;
-    opacity: 1;
-  }
-  html.is-animating .transition-fade {
-    opacity: 0;
-  }
+  transition: opacity 0.25s;
+  opacity: 1;
+}
 
-  * {
-    -webkit-tap-highlight-color: transparent;
-  }
+html.is-animating .transition-fade {
+  opacity: 0;
+}
+
+#fragment-ministries.is-changing .transition-fade {
+  transition: opacity 0.25s;
+  opacity: 1;
+}
+
+#fragment-ministries.is-animating .transition-fade {
+  opacity: 0;
+}
+
+
+
+
+
+
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* Other stuff */
 
-  .scroll--disabled {
-    overflow: hidden;
-  }
+.scroll--disabled {
+  overflow: hidden;
+}
 
-  .mobile__subpage::-webkit-scrollbar {
-    display: none;
+.mobile__subpage::-webkit-scrollbar {
+  display: none;
 }
 
 .hidden {
@@ -87,29 +103,36 @@ html.is-changing .transition-fade {
     text-align: left;
     width: 100%;
     order: 1;
-    padding-bottom: 10px; /* Add some space below the title */
+    padding-bottom: 10px;
+    /* Add some space below the title */
   }
 
   /* Align the left and right controls on the same line */
   .fc-header-toolbar .fc-toolbar-chunk {
     display: flex;
-    align-items: flex-end; /* Align items to the bottom */
-    width: 100%; /* Ensure chunks take full width in mobile view */
-    justify-content: space-between; /* Distribute space between chunks */
+    align-items: flex-end;
+    /* Align items to the bottom */
+    width: 100%;
+    /* Ensure chunks take full width in mobile view */
+    justify-content: space-between;
+    /* Distribute space between chunks */
   }
 
   /* Mobile-specific styling for left controls */
   .fc-header-toolbar .fc-toolbar-chunk:first-child {
-    order: 2; /* Move controls below the title */
+    order: 2;
+    /* Move controls below the title */
     justify-content: flex-start;
     align-items: flex-end;
   }
 
   /* Mobile-specific styling for right controls */
   .fc-header-toolbar .fc-toolbar-chunk:last-child {
-    order: 3; /* Move controls below the title */
+    order: 3;
+    /* Move controls below the title */
     justify-content: flex-end;
-    margin-left: auto; /* Push to the far right */
+    margin-left: auto;
+    /* Push to the far right */
     margin-top: -40px !important;
     align-items: flex-end;
   }
@@ -123,4 +146,3 @@ html.is-changing .transition-fade {
     font-size: 1.2em;
   }
 }
-
