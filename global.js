@@ -1,4 +1,4 @@
-console.log("V1.146");
+console.log("V1.147");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -10,8 +10,8 @@ const swup = new Swup({
     new SwupFragmentPlugin({
       rules: [
         {
-          from: '/ministries/parents',
-          to: '/ministries/young-adults',
+          from: '/ministries',
+          to: '/ministries',
           containers: ['#fragment-ministries']
         }
       ]
