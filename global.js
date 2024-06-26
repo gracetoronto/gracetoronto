@@ -1,4 +1,4 @@
-console.log("V1.145");
+console.log("V1.146");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -6,12 +6,12 @@ console.log("V1.145");
 const swup = new Swup({
   animateHistoryBrowsing: true,
 
-  plugins: [
+  plugins: [ 
     new SwupFragmentPlugin({
       rules: [
         {
-          from: '/ministries/',
-          to: '/ministries/',
+          from: '/ministries/parents',
+          to: '/ministries/young-adults',
           containers: ['#fragment-ministries']
         }
       ]
