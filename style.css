@@ -9,25 +9,16 @@ html.is-animating .transition-fade {
   opacity: 0;
 }
 
-/* Apply transition when the page is changing */
-html.is-changing #fragment-ministries.transition-fade {
-  transition: opacity 0.25s;
-  opacity: 0;
-}
 
 /* Ensure the opacity is set back to 1 when the animation is done */
-#fragment-ministries.transition-fade {
-  opacity: 1;
-}
 
-/* Apply specific transition rules for entering and leaving */
-html.is-leaving #fragment-ministries.transition-fade {
-  opacity: 0;
-}
-
-html.is-animating #fragment-ministries.transition-fade {
+#fragment-ministries.is-changing .transition-fade  {
   transition: opacity 0.25s;
   opacity: 1;
+}
+
+#fragment-ministries.is-animating .transition-fade {
+  opacity: 0;
 }
 
 
