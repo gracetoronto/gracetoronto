@@ -1,4 +1,4 @@
-console.log("V1.151");
+console.log("V1.152");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1073,9 +1073,12 @@ document.addEventListener("DOMContentLoaded", function() {
   handleScroll();
 
   // Ensure the 1992 timeline card is current by default
-  document.getElementById('card-1992').querySelector('.timeline__date').classList.add('is--current');
-  document.getElementById('card-1992').querySelector('.timeline__number').classList.add('is--current');
-  document.getElementById('card-1992').querySelector('.timeline__dot').classList.add('is--current');
+  const defaultCard = document.getElementById('card-1992');
+  if (defaultCard) {
+      defaultCard.querySelector('.timeline__date').classList.add('is--current');
+      defaultCard.querySelector('.timeline__number').classList.add('is--current');
+      defaultCard.querySelector('.timeline__dot').classList.add('is--current');
+  }
 
   // Attach the scroll event listener
   window.addEventListener('scroll', handleScroll);
@@ -1084,8 +1087,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const swup = new Swup();
   swup.on('content:replace', () => {
       handleScroll();
-      document.getElementById('card-1992').querySelector('.timeline__date').classList.add('is--current');
-      document.getElementById('card-1992').querySelector('.timeline__number').classList.add('is--current');
-      document.getElementById('card-1992').querySelector('.timeline__dot').classList.add('is--current');
+      const defaultCard = document.getElementById('card-1992');
+      if (defaultCard) {
+          defaultCard.querySelector('.timeline__date').classList.add('is--current');
+          defaultCard.querySelector('.timeline__number').classList.add('is--current');
+          defaultCard.querySelector('.timeline__dot').classList.add('is--current');
+      }
   });
 });
