@@ -1,4 +1,4 @@
-console.log("V1.150");
+console.log("V1.151");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1028,5 +1028,64 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initialize after swup content replace
   swup.hooks.on('content:replace', function () {
     initializeToggle();
+  });
+});
+
+
+
+
+
+
+//---HISTORY TIMELINE FUNCTIONALITY---
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Array of dates
+  const dates = [1992, 2005, 2006, 2009, 2017];
+
+  // Function to handle scroll events
+  const handleScroll = () => {
+      dates.forEach(date => {
+          // Get the content block and timeline card elements
+          const contentBlock = document.getElementById(`content-${date}`);
+          const timelineCard = document.getElementById(`card-${date}`);
+
+          if (contentBlock && timelineCard) {
+              // Get the bounding rectangle of the content block
+              const rect = contentBlock.getBoundingClientRect();
+
+              // Check if the content block is in the viewport
+              if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
+                  // Add the .is--current class to the timeline elements
+                  timelineCard.querySelector('.timeline__date').classList.add('is--current');
+                  timelineCard.querySelector('.timeline__number').classList.add('is--current');
+                  timelineCard.querySelector('.timeline__dot').classList.add('is--current');
+              } else {
+                  // Remove the .is--current class if the content block is not in the viewport
+                  timelineCard.querySelector('.timeline__date').classList.remove('is--current');
+                  timelineCard.querySelector('.timeline__number').classList.remove('is--current');
+                  timelineCard.querySelector('.timeline__dot').classList.remove('is--current');
+              }
+          }
+      });
+  };
+
+  // Initial check to apply the class when the page is loaded
+  handleScroll();
+
+  // Ensure the 1992 timeline card is current by default
+  document.getElementById('card-1992').querySelector('.timeline__date').classList.add('is--current');
+  document.getElementById('card-1992').querySelector('.timeline__number').classList.add('is--current');
+  document.getElementById('card-1992').querySelector('.timeline__dot').classList.add('is--current');
+
+  // Attach the scroll event listener
+  window.addEventListener('scroll', handleScroll);
+
+  // Swup event listener
+  const swup = new Swup();
+  swup.on('content:replace', () => {
+      handleScroll();
+      document.getElementById('card-1992').querySelector('.timeline__date').classList.add('is--current');
+      document.getElementById('card-1992').querySelector('.timeline__number').classList.add('is--current');
+      document.getElementById('card-1992').querySelector('.timeline__dot').classList.add('is--current');
   });
 });
