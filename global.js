@@ -1,4 +1,4 @@
-console.log("V1.153");
+console.log("V1.154");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1044,33 +1044,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // Function to handle scroll events
   const handleScroll = () => {
-      console.log("Scroll event triggered"); // Debug log
+      let maxVisibleArea = 0;
+      let currentDate = null;
+
       dates.forEach(date => {
           // Get the content block and timeline card elements
           const contentBlock = document.getElementById(`content-${date}`);
           const timelineCard = document.getElementById(`card-${date}`);
 
           if (contentBlock && timelineCard) {
-              console.log(`Found content block and card for ${date}`); // Debug log
               // Get the bounding rectangle of the content block
               const rect = contentBlock.getBoundingClientRect();
 
-              // Check if the content block is in the viewport
-              if (rect.top >= 0 && rect.bottom <= window.innerHeight) {
-                  console.log(`Content block ${date} is in viewport`); // Debug log
-                  // Add the .is--current class to the timeline elements
+              // Calculate the visible area of the content block
+              const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+              const visibleArea = visibleHeight * contentBlock.offsetWidth;
+
+              if (visibleArea > maxVisibleArea) {
+                  maxVisibleArea = visibleArea;
+                  currentDate = date;
+              }
+          }
+      });
+
+      // Update the timeline cards to reflect the most visible content block
+      dates.forEach(date => {
+          const timelineCard = document.getElementById(`card-${date}`);
+          if (timelineCard) {
+              if (date === currentDate) {
                   timelineCard.querySelector('.timeline__date').classList.add('is--current');
                   timelineCard.querySelector('.timeline__number').classList.add('is--current');
                   timelineCard.querySelector('.timeline__dot').classList.add('is--current');
               } else {
-                  console.log(`Content block ${date} is not in viewport`); // Debug log
-                  // Remove the .is--current class if the content block is not in the viewport
                   timelineCard.querySelector('.timeline__date').classList.remove('is--current');
                   timelineCard.querySelector('.timeline__number').classList.remove('is--current');
                   timelineCard.querySelector('.timeline__dot').classList.remove('is--current');
               }
-          } else {
-              console.log(`Could not find content block or card for ${date}`); // Debug log
           }
       });
   };
@@ -1081,7 +1090,6 @@ document.addEventListener("DOMContentLoaded", function() {
   // Ensure the 1992 timeline card is current by default
   const defaultCard = document.getElementById('card-1992');
   if (defaultCard) {
-      console.log("Setting default card for 1992"); // Debug log
       defaultCard.querySelector('.timeline__date').classList.add('is--current');
       defaultCard.querySelector('.timeline__number').classList.add('is--current');
       defaultCard.querySelector('.timeline__dot').classList.add('is--current');
@@ -1093,11 +1101,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // Swup event listener
   const swup = new Swup();
   swup.on('content:replace', () => {
-      console.log("Swup content replaced"); // Debug log
       handleScroll();
       const defaultCard = document.getElementById('card-1992');
       if (defaultCard) {
-          console.log("Resetting default card for 1992 after swup"); // Debug log
           defaultCard.querySelector('.timeline__date').classList.add('is--current');
           defaultCard.querySelector('.timeline__number').classList.add('is--current');
           defaultCard.querySelector('.timeline__dot').classList.add('is--current');
