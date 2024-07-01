@@ -1040,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function() {
   // Array of dates
-  const dates = [1992, 2005, 2006, 2009, 2017, 1878, 2012, 2017-2];
+  const dates = [1992, 2005, 2006, 2009, 2017, 1878, 2012, 20172];
 
   // Function to handle scroll events
   const handleScroll = () => {
