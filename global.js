@@ -1,4 +1,4 @@
-console.log("V1.154");
+console.log("V1.155");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1040,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener("DOMContentLoaded", function() {
   // Array of dates
-  const dates = [1992, 2005, 2006, 2009, 2017];
+  const dates = [1992, 2005, 2006, 2009, 2017, 1872, 2012, 2017-2];
 
   // Function to handle scroll events
   const handleScroll = () => {
