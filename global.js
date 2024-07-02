@@ -1,4 +1,4 @@
-console.log("V1.157");
+console.log("V1.158");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1089,8 +1089,9 @@ leftButton.addEventListener('click', () => {
 
 rightButton.addEventListener('click', () => {
   currentScrollPosition -= cardFullWidth;
-  if (currentScrollPosition < -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth) {
-    currentScrollPosition = -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth;
+  const maxScrollPosition = -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth;
+  if (currentScrollPosition < maxScrollPosition) {
+    currentScrollPosition = maxScrollPosition;
   }
   updateCarousel();
 });
