@@ -53,7 +53,7 @@ swup.hooks.on('content:replace', () => {
 
 // Function to check if the current URL should have a transparent background
 function isTransparentBg(pathname) {
-  const transparentSlugs = ['/', '', '/about/beliefs']; // Add more slugs here as needed
+  const transparentSlugs = ['/', '']; // Add more slugs here as needed
   return transparentSlugs.includes(pathname);
 }
 
