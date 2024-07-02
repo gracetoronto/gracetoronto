@@ -1,4 +1,4 @@
-console.log("V1.155");
+console.log("V1.156");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1109,4 +1109,50 @@ document.addEventListener("DOMContentLoaded", function() {
           defaultCard.querySelector('.timeline__dot').classList.add('is--current');
       }
   });
+});
+
+
+
+
+
+
+//---CAROUSEL FUNCTIONALITY---
+
+const carousel = document.querySelector('.carousel');
+const leftButton = document.getElementById('carousel-left');
+const rightButton = document.getElementById('carousel-right');
+
+let currentScrollPosition = 0;
+const cardWidth = document.querySelector('.carousel-card').offsetWidth;
+const gap = parseInt(window.getComputedStyle(carousel).gap);
+const cardFullWidth = cardWidth + gap;
+
+leftButton.addEventListener('click', () => {
+  currentScrollPosition += cardFullWidth;
+  if (currentScrollPosition > 0) {
+    currentScrollPosition = 0;
+  }
+  updateCarousel();
+});
+
+rightButton.addEventListener('click', () => {
+  currentScrollPosition -= cardFullWidth;
+  if (currentScrollPosition < -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth) {
+    currentScrollPosition = -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth;
+  }
+  updateCarousel();
+});
+
+function updateCarousel() {
+  carousel.style.transform = `translateX(${currentScrollPosition}px)`;
+}
+
+// Ensure the initial state respects the max width and margin
+document.addEventListener('DOMContentLoaded', () => {
+  const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+  const totalCarouselWidth = carousel.scrollWidth;
+
+  if (totalCarouselWidth < containerWidth) {
+    carousel.style.justifyContent = 'flex-start';
+  }
 });
