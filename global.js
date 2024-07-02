@@ -1,4 +1,4 @@
-console.log("V1.158");
+console.log("V1.159");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1071,38 +1071,44 @@ document.addEventListener("DOMContentLoaded", function () {
 //---CAROUSEL FUNCTIONALITY---
 
 const carousel = document.querySelector('.carousel');
+const container = document.querySelector('.carousel-container');
 const leftButton = document.getElementById('carousel-left');
 const rightButton = document.getElementById('carousel-right');
 
-let currentScrollPosition = 0;
 const cardWidth = document.querySelector('.carousel-card').offsetWidth;
 const gap = parseInt(window.getComputedStyle(carousel).gap);
 const cardFullWidth = cardWidth + gap;
 
 leftButton.addEventListener('click', () => {
-  currentScrollPosition += cardFullWidth;
-  if (currentScrollPosition > 0) {
+  adjustScrollToNearestCard();
+  let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
+  currentScrollPosition -= cardFullWidth;
+  if (currentScrollPosition < 0) {
     currentScrollPosition = 0;
   }
-  updateCarousel();
+  container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
 });
 
 rightButton.addEventListener('click', () => {
-  currentScrollPosition -= cardFullWidth;
-  const maxScrollPosition = -carousel.scrollWidth + document.querySelector('.carousel-container').offsetWidth;
-  if (currentScrollPosition < maxScrollPosition) {
+  adjustScrollToNearestCard();
+  let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
+  currentScrollPosition += cardFullWidth;
+  const maxScrollPosition = carousel.scrollWidth - container.offsetWidth;
+  if (currentScrollPosition > maxScrollPosition) {
     currentScrollPosition = maxScrollPosition;
   }
-  updateCarousel();
+  container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
 });
 
-function updateCarousel() {
-  carousel.style.transform = `translateX(${currentScrollPosition}px)`;
+function adjustScrollToNearestCard() {
+  const currentScrollPosition = container.scrollLeft;
+  const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
+  container.scrollTo({ left: nearestCardPosition, behavior: 'smooth' });
 }
 
 // Ensure the initial state respects the max width and margin
 document.addEventListener('DOMContentLoaded', () => {
-  const containerWidth = document.querySelector('.carousel-container').offsetWidth;
+  const containerWidth = container.offsetWidth;
   const totalCarouselWidth = carousel.scrollWidth;
 
   if (totalCarouselWidth < containerWidth) {
