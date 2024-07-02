@@ -1,4 +1,4 @@
-console.log("V1.156");
+console.log("V1.157");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -6,7 +6,7 @@ console.log("V1.156");
 const swup = new Swup({
   animateHistoryBrowsing: true,
 
-  plugins: [ 
+  plugins: [
     new SwupFragmentPlugin({
       rules: [
         {
@@ -487,16 +487,13 @@ document.addEventListener('DOMContentLoaded', () => {
 let calendars = []; // Array to store multiple calendar instances
 
 function showCal() {
-  console.log("showCal called");
 
   var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
-  console.log("Found calendar elements: ", calendarEls.length);
 
   calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
   calendars = []; // Reset the calendar instances array
 
   const events = getEvents();
-  console.log({ events });
 
   calendarEls.forEach(calendarEl => {
     let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -530,7 +527,6 @@ function showCal() {
 
     calendar.render();
     calendars.push(calendar); // Store the calendar instance
-    console.log("Calendar initialized and rendered");
   });
 }
 
@@ -543,8 +539,6 @@ function getEvents() {
       event.start = new Date(event.start); // Ensure start time is parsed as a Date object
       event.end = new Date(event.end); // Ensure end time is parsed as a Date object
 
-      console.log("Parsed event start:", event.start);
-      console.log("Parsed event end:", event.end);
 
       // Set event color based on the type
       switch (event.type) {
@@ -573,13 +567,11 @@ function getEvents() {
 
 // Initial call to render the calendars on first page load
 document.addEventListener('DOMContentLoaded', function () {
-  console.log("DOMContentLoaded event fired");
   showCal();
 });
 
 // Use Swup hooks to re-initialize the calendars after content is replaced
 swup.hooks.on('content:replace', function () {
-  console.log("Swup content replaced");
   showCal();
 });
 
@@ -650,46 +642,6 @@ function initializeScrollArrowsAndScrollToCurrent() {
       behavior: 'smooth' // Smooth scrolling animation
     });
   }
-
-  // Function to scroll to current nav link
-  function scrollToCurrentNavLink() {
-    if (currentNavLink) {
-      const navLinkRect = currentNavLink.getBoundingClientRect();
-      const navContainerRect = ministryContainer.getBoundingClientRect();
-      const scrollLeft = ministryContainer.scrollLeft;
-
-      // Check if current nav link is outside the view to the right
-      if (navLinkRect.right > navContainerRect.right) {
-        ministryContainer.scrollTo({
-          left: scrollLeft + (navLinkRect.right - navContainerRect.right),
-          behavior: 'smooth'
-        });
-      } else if (navLinkRect.left < navContainerRect.left) {
-        // Check if current nav link is outside the view to the left
-        ministryContainer.scrollTo({
-          left: scrollLeft - (navContainerRect.left - navLinkRect.left),
-          behavior: 'smooth'
-        });
-      }
-    }
-  }
-
-  leftArrow.addEventListener("click", function () {
-    scrollContainer('left');
-  });
-
-  rightArrow.addEventListener("click", function () {
-    scrollContainer('right');
-  });
-
-  // Update arrows on container scroll
-  ministryContainer.addEventListener("scroll", updateArrows);
-
-  // Initial check
-  updateArrows();
-
-  // Scroll to current nav link after page load or swup navigation
-  scrollToCurrentNavLink();
 }
 
 // Initialize scroll arrows and scroll to current nav link when DOM is ready
@@ -1038,50 +990,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //---HISTORY TIMELINE FUNCTIONALITY---
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   // Array of dates
   const dates = [1992, 2005, 2006, 2009, 2017, 1878, 2012, 20172];
 
   // Function to handle scroll events
   const handleScroll = () => {
-      let maxVisibleArea = 0;
-      let currentDate = null;
+    let maxVisibleArea = 0;
+    let currentDate = null;
 
-      dates.forEach(date => {
-          // Get the content block and timeline card elements
-          const contentBlock = document.getElementById(`content-${date}`);
-          const timelineCard = document.getElementById(`card-${date}`);
+    dates.forEach(date => {
+      // Get the content block and timeline card elements
+      const contentBlock = document.getElementById(`content-${date}`);
+      const timelineCard = document.getElementById(`card-${date}`);
 
-          if (contentBlock && timelineCard) {
-              // Get the bounding rectangle of the content block
-              const rect = contentBlock.getBoundingClientRect();
+      if (contentBlock && timelineCard) {
+        // Get the bounding rectangle of the content block
+        const rect = contentBlock.getBoundingClientRect();
 
-              // Calculate the visible area of the content block
-              const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
-              const visibleArea = visibleHeight * contentBlock.offsetWidth;
+        // Calculate the visible area of the content block
+        const visibleHeight = Math.max(0, Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0));
+        const visibleArea = visibleHeight * contentBlock.offsetWidth;
 
-              if (visibleArea > maxVisibleArea) {
-                  maxVisibleArea = visibleArea;
-                  currentDate = date;
-              }
-          }
-      });
+        if (visibleArea > maxVisibleArea) {
+          maxVisibleArea = visibleArea;
+          currentDate = date;
+        }
+      }
+    });
 
-      // Update the timeline cards to reflect the most visible content block
-      dates.forEach(date => {
-          const timelineCard = document.getElementById(`card-${date}`);
-          if (timelineCard) {
-              if (date === currentDate) {
-                  timelineCard.querySelector('.timeline__date').classList.add('is--current');
-                  timelineCard.querySelector('.timeline__number').classList.add('is--current');
-                  timelineCard.querySelector('.timeline__dot').classList.add('is--current');
-              } else {
-                  timelineCard.querySelector('.timeline__date').classList.remove('is--current');
-                  timelineCard.querySelector('.timeline__number').classList.remove('is--current');
-                  timelineCard.querySelector('.timeline__dot').classList.remove('is--current');
-              }
-          }
-      });
+    // Update the timeline cards to reflect the most visible content block
+    dates.forEach(date => {
+      const timelineCard = document.getElementById(`card-${date}`);
+      if (timelineCard) {
+        if (date === currentDate) {
+          timelineCard.querySelector('.timeline__date').classList.add('is--current');
+          timelineCard.querySelector('.timeline__number').classList.add('is--current');
+          timelineCard.querySelector('.timeline__dot').classList.add('is--current');
+        } else {
+          timelineCard.querySelector('.timeline__date').classList.remove('is--current');
+          timelineCard.querySelector('.timeline__number').classList.remove('is--current');
+          timelineCard.querySelector('.timeline__dot').classList.remove('is--current');
+        }
+      }
+    });
   };
 
   // Initial check to apply the class when the page is loaded
@@ -1090,9 +1042,9 @@ document.addEventListener("DOMContentLoaded", function() {
   // Ensure the 1992 timeline card is current by default
   const defaultCard = document.getElementById('card-1992');
   if (defaultCard) {
-      defaultCard.querySelector('.timeline__date').classList.add('is--current');
-      defaultCard.querySelector('.timeline__number').classList.add('is--current');
-      defaultCard.querySelector('.timeline__dot').classList.add('is--current');
+    defaultCard.querySelector('.timeline__date').classList.add('is--current');
+    defaultCard.querySelector('.timeline__number').classList.add('is--current');
+    defaultCard.querySelector('.timeline__dot').classList.add('is--current');
   }
 
   // Attach the scroll event listener
@@ -1101,13 +1053,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // Swup event listener
   const swup = new Swup();
   swup.on('content:replace', () => {
-      handleScroll();
-      const defaultCard = document.getElementById('card-1992');
-      if (defaultCard) {
-          defaultCard.querySelector('.timeline__date').classList.add('is--current');
-          defaultCard.querySelector('.timeline__number').classList.add('is--current');
-          defaultCard.querySelector('.timeline__dot').classList.add('is--current');
-      }
+    handleScroll();
+    const defaultCard = document.getElementById('card-1992');
+    if (defaultCard) {
+      defaultCard.querySelector('.timeline__date').classList.add('is--current');
+      defaultCard.querySelector('.timeline__number').classList.add('is--current');
+      defaultCard.querySelector('.timeline__dot').classList.add('is--current');
+    }
   });
 });
 
