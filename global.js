@@ -1,4 +1,4 @@
-console.log("V1.160");
+console.log("V1.161");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1124,7 +1124,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener("DOMContentLoaded", initSlideshow);
 
-// Initialize after swup content replace
 swup.hooks.on('content:replace', function () {
   initSlideshow();
 });
@@ -1132,9 +1131,9 @@ swup.hooks.on('content:replace', function () {
 function initSlideshow() {
   const list = document.querySelector('.slideshow__list');
   const items = document.querySelectorAll('.slideshow__item');
-
+  
   if (!list || items.length === 0) return;
-
+  
   // Remove previously cloned items to avoid duplicates
   list.querySelectorAll('.cloned').forEach(clone => clone.remove());
 
@@ -1145,11 +1144,20 @@ function initSlideshow() {
     list.appendChild(clone);
   });
 
+  // Calculate total width of the list
+  let totalWidth = 0;
+  items.forEach(item => {
+    totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
+  });
+
+  // Update the width of the list to fit the cloned items
+  list.style.width = `${totalWidth * 2}px`; // *2 for the cloned items
+
   // Function to handle the scrolling
   let scrollAmount = 0;
   function scroll() {
     scrollAmount -= 1; // Adjust the speed by changing the decrement value
-    if (scrollAmount <= -list.offsetWidth / 2) {
+    if (scrollAmount <= -totalWidth) {
       scrollAmount = 0;
     }
     list.style.transform = `translateX(${scrollAmount}px)`;
