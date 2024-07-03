@@ -1,4 +1,4 @@
-console.log("V1.162");
+console.log("V1.163");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1143,7 +1143,7 @@ function initSlideshow() {
   const items = document.querySelectorAll('.slideshow__item');
   
   if (!list || items.length === 0) return;
-  
+
   // Remove previously cloned items to avoid duplicates
   list.querySelectorAll('.cloned').forEach(clone => clone.remove());
 
@@ -1159,9 +1159,6 @@ function initSlideshow() {
   items.forEach(item => {
     totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
   });
-
-  // Update the width of the list to fit the cloned items
-  list.style.width = `${totalWidth * 2}px`; // *2 for the cloned items
 
   // Function to handle the scrolling
   let scrollAmount = 0;
