@@ -1,4 +1,4 @@
-console.log("V1.159");
+console.log("V1.160");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1115,3 +1115,47 @@ document.addEventListener('DOMContentLoaded', () => {
     carousel.style.justifyContent = 'flex-start';
   }
 });
+
+
+
+
+
+//---MINISTRY PAGE SLIDESHOW INFINITE SCROLLILNG---
+
+document.addEventListener("DOMContentLoaded", initSlideshow);
+
+// Initialize after swup content replace
+swup.hooks.on('content:replace', function () {
+  initSlideshow();
+});
+
+function initSlideshow() {
+  const list = document.querySelector('.slideshow__list');
+  const items = document.querySelectorAll('.slideshow__item');
+
+  if (!list || items.length === 0) return;
+
+  // Remove previously cloned items to avoid duplicates
+  list.querySelectorAll('.cloned').forEach(clone => clone.remove());
+
+  // Clone items to ensure smooth looping
+  items.forEach(item => {
+    const clone = item.cloneNode(true);
+    clone.classList.add('cloned'); // Mark clones to identify them later
+    list.appendChild(clone);
+  });
+
+  // Function to handle the scrolling
+  let scrollAmount = 0;
+  function scroll() {
+    scrollAmount -= 1; // Adjust the speed by changing the decrement value
+    if (scrollAmount <= -list.offsetWidth / 2) {
+      scrollAmount = 0;
+    }
+    list.style.transform = `translateX(${scrollAmount}px)`;
+    requestAnimationFrame(scroll);
+  }
+
+  // Start scrolling
+  scroll();
+}
