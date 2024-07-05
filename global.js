@@ -1,4 +1,4 @@
-console.log("V1.164");
+console.log("V1.165");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -412,7 +412,7 @@ window.addEventListener('resize', function () {
 
 document.addEventListener('DOMContentLoaded', () => {
   const initializeAccordions = () => {
-    const accordions = document.querySelectorAll('.accordion');
+    const accordions = document.querySelectorAll('.base__accordion');
 
     accordions.forEach(accordion => {
       const items = accordion.querySelectorAll('.accordion__item');
