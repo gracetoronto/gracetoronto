@@ -156,7 +156,7 @@ function navWhite() {
   const buttons = document.querySelectorAll('.base__button.is--nav');
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
-  const dropdownTexts = document.querySelectorAll('.base__button--text.is--dropdown');
+  const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
