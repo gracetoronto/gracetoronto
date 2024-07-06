@@ -1,4 +1,4 @@
-console.log("V1.165");
+console.log("V1.166");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -62,10 +62,10 @@ function navTransparent() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
-  const buttons = document.querySelectorAll('.button.is--nav');
+  const buttons = document.querySelectorAll('.base__button.is--nav');
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
-  const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
+  const dropdownTexts = document.querySelectorAll('.base__button--text.is--dropdown');
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
@@ -153,10 +153,10 @@ function navWhite() {
   // Select the elements
   const containerBlurs = document.querySelectorAll('.container__blur');
   const mainContainerBlurs = document.querySelectorAll('.container__blur.is--main');
-  const buttons = document.querySelectorAll('.button.is--nav');
+  const buttons = document.querySelectorAll('.base__button.is--nav');
   const logoLarge = document.querySelectorAll('.logo.is--large');
   const logoWhite = document.querySelectorAll('.logo.is--white');
-  const dropdownTexts = document.querySelectorAll('.button--text.is--dropdown');
+  const dropdownTexts = document.querySelectorAll('.base__button--text.is--dropdown');
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
