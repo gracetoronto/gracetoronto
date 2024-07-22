@@ -1,4 +1,4 @@
-console.log("V1.173");
+console.log("V1.174");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -437,7 +437,7 @@ window.addEventListener('resize', function () {
 document.addEventListener('DOMContentLoaded', function() {
   if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
     // Assuming '.w-background-video' is the class for Webflow's background video
-    const bgVideos = document.querySelectorAll('.w-background-video');
+    const bgVideos = document.querySelectorAll('w-background-video-atom"');
 
     bgVideos.forEach(bgVideo => {
       // Attempt to find and play the video within the background video container
