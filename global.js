@@ -1,4 +1,4 @@
-console.log("V1.169");
+console.log("V1.170");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -424,6 +424,44 @@ window.addEventListener('resize', function () {
   previousWindowWidth = currentWindowWidth;
 });
 
+
+
+
+
+
+
+
+
+//VIDEO AUTPLAY ON PAGE CHANGE
+
+// Detect if the browser is Safari
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+// Function to reinitialize videos for Safari
+function reinitializeVideosForSafari() {
+  if (isSafari) {
+    // Find all video elements
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+      // Ensure the video is muted or meets Safari's autoplay policy
+      video.muted = true;
+      // Attempt to play the video
+      video.play().catch(error => {
+        console.error('Video play failed:', error);
+      });
+    });
+  }
+}
+
+// Listen for Swup.js content replace event
+swup.hooks.on('content:replace', () => {
+  reinitializeVideosForSafari();
+});
+
+// Also, consider calling this function on initial page load if necessary
+document.addEventListener('DOMContentLoaded', function() {
+  reinitializeVideosForSafari();
+});
 
 
 
