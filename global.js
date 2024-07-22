@@ -1,4 +1,4 @@
-console.log("V1.167");
+console.log("V1.168");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Assuming swup is initialized and assigned to a variable named 'swup'
-swup.on('contentReplaced', function() {
+swup.hooks.on('content:replace', function() {
   updateNavAppearance();
 });
 
