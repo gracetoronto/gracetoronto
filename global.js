@@ -1,4 +1,4 @@
-console.log("V1.170");
+console.log("V1.171");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -434,34 +434,44 @@ window.addEventListener('resize', function () {
 
 //VIDEO AUTPLAY ON PAGE CHANGE
 
-// Detect if the browser is Safari
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-// Function to reinitialize videos for Safari
 function reinitializeVideosForSafari() {
   if (isSafari) {
-    // Find all video elements
     const videos = document.querySelectorAll('video');
     videos.forEach(video => {
-      // Ensure the video is muted or meets Safari's autoplay policy
-      video.muted = true;
-      // Attempt to play the video
-      video.play().catch(error => {
-        console.error('Video play failed:', error);
+      // Function to attempt video play
+      const tryPlayVideo = (videoElement) => {
+        videoElement.play().then(() => {
+          console.log('Video playback started successfully');
+        }).catch(error => {
+          if (error.name === 'AbortError') {
+            console.log('Playback was aborted, retrying...');
+            // Retry playing the video after a short delay
+            setTimeout(() => tryPlayVideo(videoElement), 500);
+          } else {
+            console.error('Video play failed:', error);
+          }
+        });
+      };
+
+      // Check if the video can autoplay with sound
+      const canAutoplayWithSound = video.play().then(() => true).catch(() => false);
+
+      canAutoplayWithSound.then(canPlay => {
+        if (!canPlay) {
+          video.muted = true; // Mute if it cannot autoplay with sound
+        }
+        video.pause(); // Pause the video to reset its state
+
+        // Wait for the video to be ready before attempting to play
+        if (video.readyState >= 2) { // readyState 2 means current data is available, but not enough data to play next frame when paused
+          tryPlayVideo(video);
+        } else {
+          video.addEventListener('loadeddata', () => tryPlayVideo(video), { once: true });
+        }
       });
     });
   }
 }
-
-// Listen for Swup.js content replace event
-swup.hooks.on('content:replace', () => {
-  reinitializeVideosForSafari();
-});
-
-// Also, consider calling this function on initial page load if necessary
-document.addEventListener('DOMContentLoaded', function() {
-  reinitializeVideosForSafari();
-});
 
 
 
