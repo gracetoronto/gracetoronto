@@ -1,4 +1,4 @@
-console.log("V1.171");
+console.log("V1.172");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -434,44 +434,33 @@ window.addEventListener('resize', function () {
 
 //VIDEO AUTPLAY ON PAGE CHANGE
 
+// Ensure this variable is declared to track the previous window width
+var previousWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+// Detect if the browser is Safari
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 function reinitializeVideosForSafari() {
   if (isSafari) {
     const videos = document.querySelectorAll('video');
     videos.forEach(video => {
-      // Function to attempt video play
-      const tryPlayVideo = (videoElement) => {
-        videoElement.play().then(() => {
-          console.log('Video playback started successfully');
-        }).catch(error => {
-          if (error.name === 'AbortError') {
-            console.log('Playback was aborted, retrying...');
-            // Retry playing the video after a short delay
-            setTimeout(() => tryPlayVideo(videoElement), 500);
-          } else {
-            console.error('Video play failed:', error);
-          }
-        });
-      };
+      // Mute the video to ensure autoplay is allowed
+      video.muted = true;
 
-      // Check if the video can autoplay with sound
-      const canAutoplayWithSound = video.play().then(() => true).catch(() => false);
-
-      canAutoplayWithSound.then(canPlay => {
-        if (!canPlay) {
-          video.muted = true; // Mute if it cannot autoplay with sound
-        }
-        video.pause(); // Pause the video to reset its state
-
-        // Wait for the video to be ready before attempting to play
-        if (video.readyState >= 2) { // readyState 2 means current data is available, but not enough data to play next frame when paused
-          tryPlayVideo(video);
-        } else {
-          video.addEventListener('loadeddata', () => tryPlayVideo(video), { once: true });
-        }
+      // Attempt to play the video
+      video.play().catch(error => {
+        console.error('Video play failed:', error);
       });
     });
   }
 }
+
+// Example of calling the function after Swup finishes page transition
+// Adjust this to match how you're using Swup or dynamically loading content
+document.addEventListener('swup:contentReplaced', reinitializeVideosForSafari);
+
+// Also call on initial load
+document.addEventListener('DOMContentLoaded', reinitializeVideosForSafari);
 
 
 
