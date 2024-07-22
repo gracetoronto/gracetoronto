@@ -1,4 +1,4 @@
-console.log("V1.166");
+console.log("V1.167");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -51,9 +51,26 @@ swup.hooks.on('content:replace', () => {
 
 //----NAVIGATION FUNCTIONALITY----
 
-// Function to check if the current URL should have a transparent background
+document.addEventListener('DOMContentLoaded', function() {
+  updateNavAppearance();
+});
+
+// Assuming swup is initialized and assigned to a variable named 'swup'
+swup.on('contentReplaced', function() {
+  updateNavAppearance();
+});
+
+function updateNavAppearance() {
+  const pathname = window.location.pathname;
+  if (isTransparentBg(pathname)) {
+    // Logic to make the nav transparent
+  } else {
+    // Logic to revert the nav back to its default state
+  }
+}
+
 function isTransparentBg(pathname) {
-  const transparentSlugs = ['/', '']; // Add more slugs here as needed
+  const transparentSlugs = ['/', ''];
   return transparentSlugs.includes(pathname);
 }
 
