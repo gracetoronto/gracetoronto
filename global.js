@@ -1,4 +1,4 @@
-console.log("V1.168");
+console.log("V1.169");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -52,26 +52,34 @@ swup.hooks.on('content:replace', () => {
 //----NAVIGATION FUNCTIONALITY----
 
 document.addEventListener('DOMContentLoaded', function() {
-  updateNavAppearance();
+  updateNavAppearance(); // Initial load
 });
 
-// Assuming swup is initialized and assigned to a variable named 'swup'
+// Adjusted to ensure DOM readiness after swup transition
 swup.hooks.on('content:replace', function() {
-  updateNavAppearance();
+  setTimeout(updateNavAppearance, 50); // Slight delay to ensure DOM readiness
 });
 
 function updateNavAppearance() {
   const pathname = window.location.pathname;
   if (isTransparentBg(pathname)) {
-    // Logic to make the nav transparent
+    navTransparent();
   } else {
-    // Logic to revert the nav back to its default state
+    navWhite();
   }
 }
 
 function isTransparentBg(pathname) {
-  const transparentSlugs = ['/', ''];
-  return transparentSlugs.includes(pathname);
+  // Example condition for transparent background
+  return pathname === '/' || pathname === '/home';
+}
+
+function navTransparent() {
+  // Implement the logic to make the navigation transparent
+}
+
+function navWhite() {
+  // Implement the logic to revert the navigation to white
 }
 
 // Function to apply the transparent navigation styles
