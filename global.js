@@ -1,4 +1,4 @@
-console.log("V1.172");
+console.log("V1.173");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -434,34 +434,22 @@ window.addEventListener('resize', function () {
 
 //VIDEO AUTPLAY ON PAGE CHANGE
 
-// Ensure this variable is declared to track the previous window width
-var previousWindowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+document.addEventListener('DOMContentLoaded', function() {
+  if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+    // Assuming '.w-background-video' is the class for Webflow's background video
+    const bgVideos = document.querySelectorAll('.w-background-video');
 
-// Detect if the browser is Safari
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-function reinitializeVideosForSafari() {
-  if (isSafari) {
-    const videos = document.querySelectorAll('video');
-    videos.forEach(video => {
-      // Mute the video to ensure autoplay is allowed
-      video.muted = true;
-
-      // Attempt to play the video
-      video.play().catch(error => {
-        console.error('Video play failed:', error);
-      });
+    bgVideos.forEach(bgVideo => {
+      // Attempt to find and play the video within the background video container
+      // This is a hypothetical approach; actual implementation may vary
+      const video = bgVideo.querySelector('video');
+      if (video) {
+        video.muted = true; // Mute the video to comply with autoplay policies
+        video.play().catch(error => console.error('Background video play failed:', error));
+      }
     });
   }
-}
-
-// Example of calling the function after Swup finishes page transition
-// Adjust this to match how you're using Swup or dynamically loading content
-document.addEventListener('swup:contentReplaced', reinitializeVideosForSafari);
-
-// Also call on initial load
-document.addEventListener('DOMContentLoaded', reinitializeVideosForSafari);
-
+});
 
 
 
