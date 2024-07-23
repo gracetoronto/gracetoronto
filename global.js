@@ -1,4 +1,4 @@
-console.log("V1.175");
+console.log("V1.176");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -95,6 +95,9 @@ function navTransparent() {
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
 
+  let isTransitioning = false; // Flag to track if we're currently transitioning
+
+
   // Apply filter styles to invert colors
   if (containerBlurs) {
     containerBlurs.forEach((containerBlur) => {
@@ -103,18 +106,24 @@ function navTransparent() {
   }
 
   // Apply opacity styles with a slight delay
-  if (mainContainerBlurs) {
+  if (mainContainerBlurs.length > 0) {
     mainContainerBlurs.forEach((containerBlur) => {
-      if (isTransparentBg(window.location.pathname)) {
-        containerBlur.style.transition = 'none';
-        containerBlur.style.opacity = '0';
-      } else {
-        // Ensure transition is defined in CSS for consistency
-        requestAnimationFrame(() => {
-          setTimeout(() => {
+      // Listen for the end of transitions
+      containerBlur.addEventListener('transitionend', () => {
+        isTransitioning = false; // Reset flag when transition ends
+      });
+
+      if (!isTransitioning && isTransparentBg(window.location.pathname)) {
+        isTransitioning = true; // Set flag to indicate transition is starting
+        containerBlur.style.opacity = '0'; // Apply opacity change
+      } else if (!isTransitioning) {
+        // Delay opacity change until transition is ready to restart
+        setTimeout(() => {
+          if (!isTransitioning) { // Check flag again to avoid race conditions
+            isTransitioning = true;
             containerBlur.style.opacity = '0';
-          }, 10);
-        });
+          }
+        }, 50); // Small delay to ensure rapid scrolls are accounted for
       }
     });
   }
