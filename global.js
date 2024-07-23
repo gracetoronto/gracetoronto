@@ -1,4 +1,4 @@
-console.log("V1.179");
+console.log("V1.180");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -75,6 +75,8 @@ function isTransparentBg(pathname) {
 }
 
 
+let isTransitioning = false; // Flag to track if we're currently transitioning
+
 // Function to apply the transparent navigation styles
 function navTransparent() {
   // Select the elements
@@ -87,7 +89,7 @@ function navTransparent() {
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
-  let isTransitioning = false; // Flag to track if we're currently transitioning
+  
 
   // Apply filter styles to invert colours
   if (containerBlurs) {
