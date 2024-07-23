@@ -1,4 +1,4 @@
-console.log("V1.177");
+console.log("V1.178");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -74,13 +74,6 @@ function isTransparentBg(pathname) {
   return pathname === '/' || pathname === '/home';
 }
 
-function navTransparent() {
-  // Implement the logic to make the navigation transparent
-}
-
-function navWhite() {
-  // Implement the logic to revert the navigation to white
-}
 
 // Function to apply the transparent navigation styles
 function navTransparent() {
@@ -94,8 +87,6 @@ function navTransparent() {
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
-
-  let isTransitioning = false; // Flag to track if we're currently transitioning
 
 
   // Apply filter styles to invert colours
@@ -200,7 +191,6 @@ function navWhite() {
   // Reset opacity styles
   if (mainContainerBlurs) {
     mainContainerBlurs.forEach((containerBlur) => {
-      containerBlur.style.transition = 'opacity 0.2s ease';
 
       // Delay opacity reset by 0.1 seconds
       setTimeout(() => {
