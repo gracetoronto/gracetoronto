@@ -1,4 +1,4 @@
-console.log("V1.174");
+console.log("V1.175");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -109,10 +109,12 @@ function navTransparent() {
         containerBlur.style.transition = 'none';
         containerBlur.style.opacity = '0';
       } else {
-        containerBlur.style.transition = 'opacity 0.2s ease';
-        setTimeout(() => {
-          containerBlur.style.opacity = '0';
-        }, 10);
+        // Ensure transition is defined in CSS for consistency
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            containerBlur.style.opacity = '0';
+          }, 10);
+        });
       }
     });
   }

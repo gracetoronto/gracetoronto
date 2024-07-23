@@ -49,6 +49,13 @@ html.is-animating .transition-fade {
 }
 
 
+/* Navigation CSS transitions */
+
+.container__blur.is--main {
+  transition: opacity 0.2s ease;
+}
+
+
 /* Accordion component animation classes */
 
 .accordion__content {
