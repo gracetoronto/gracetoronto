@@ -1,4 +1,4 @@
-console.log("V1.176");
+console.log("V1.177");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -105,25 +105,18 @@ function navTransparent() {
     });
   }
 
-  // Apply opacity styles with a slight delay
-  if (mainContainerBlurs.length > 0) {
-    mainContainerBlurs.forEach((containerBlur) => {
-      // Listen for the end of transitions
-      containerBlur.addEventListener('transitionend', () => {
-        isTransitioning = false; // Reset flag when transition ends
-      });
-
-      if (!isTransitioning && isTransparentBg(window.location.pathname)) {
-        isTransitioning = true; // Set flag to indicate transition is starting
-        containerBlur.style.opacity = '0'; // Apply opacity change
-      } else if (!isTransitioning) {
-        // Delay opacity change until transition is ready to restart
-        setTimeout(() => {
-          if (!isTransitioning) { // Check flag again to avoid race conditions
-            isTransitioning = true;
-            containerBlur.style.opacity = '0';
-          }
-        }, 50); // Small delay to ensure rapid scrolls are accounted for
+  // Check if the current page should have a transparent navigation
+  if (isTransparentBg(window.location.pathname)) {
+    mainContainerBlurs.forEach(containerBlur => {
+      // Ensure there's no ongoing transition that might be interrupted
+      if (!isTransitioning) {
+        // Apply opacity change directly
+        containerBlur.style.opacity = '0';
+        // Listen for the end of transitions to reset the flag
+        containerBlur.addEventListener('transitionend', () => {
+          isTransitioning = false;
+        }, { once: true }); // Use { once: true } to automatically remove the listener
+        isTransitioning = true;
       }
     });
   }
