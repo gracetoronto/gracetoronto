@@ -1,4 +1,4 @@
-console.log("V1.180");
+console.log("V1.181");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -51,12 +51,12 @@ swup.hooks.on('content:replace', () => {
 
 //----NAVIGATION FUNCTIONALITY----
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   updateNavAppearance(); // Initial load
 });
 
 // Adjusted to ensure DOM readiness after swup transition
-swup.hooks.on('content:replace', function() {
+swup.hooks.on('content:replace', function () {
   setTimeout(updateNavAppearance, 50); // Slight delay to ensure DOM readiness
 });
 
@@ -89,7 +89,7 @@ function navTransparent() {
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
-  
+
 
   // Apply filter styles to invert colours
   if (containerBlurs) {
@@ -101,16 +101,7 @@ function navTransparent() {
   // Check if the current page should have a transparent navigation
   if (isTransparentBg(window.location.pathname)) {
     mainContainerBlurs.forEach(containerBlur => {
-      // Ensure there's no ongoing transition that might be interrupted
-      if (!isTransitioning) {
-        // Apply opacity change directly
-        containerBlur.style.opacity = '0';
-        // Listen for the end of transitions to reset the flag
-        containerBlur.addEventListener('transitionend', () => {
-          isTransitioning = false;
-        }, { once: true }); // Use { once: true } to automatically remove the listener
-        isTransitioning = true;
-      }
+      containerBlur.style.opacity = '0';
     });
   }
 
@@ -431,7 +422,7 @@ window.addEventListener('resize', function () {
 
 //VIDEO AUTPLAY ON PAGE CHANGE
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
     // Assuming '.w-background-video' is the class for Webflow's background video
     const bgVideos = document.querySelectorAll('w-background-video-atom"');
@@ -1179,10 +1170,10 @@ swup.hooks.on('content:replace', function () {
 
 //---MINISTRY PAGE SLIDESHOW INFINITE SCROLLILNG---
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const list = document.querySelector('.slideshow__list');
   const items = document.querySelectorAll('.slideshow__item');
-  
+
   if (!list || items.length === 0) return;
 
   // Clone items to ensure smooth looping
