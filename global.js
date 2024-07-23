@@ -98,7 +98,7 @@ function navTransparent() {
   let isTransitioning = false; // Flag to track if we're currently transitioning
 
 
-  // Apply filter styles to invert colors
+  // Apply filter styles to invert colours
   if (containerBlurs) {
     containerBlurs.forEach((containerBlur) => {
       containerBlur.style.filter = 'invert(93%)';
