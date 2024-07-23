@@ -1,4 +1,4 @@
-console.log("V1.178");
+console.log("V1.179");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -87,7 +87,7 @@ function navTransparent() {
   const bannerContainers = document.querySelectorAll('.banner__container.is--default');
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
-
+  let isTransitioning = false; // Flag to track if we're currently transitioning
 
   // Apply filter styles to invert colours
   if (containerBlurs) {
@@ -191,6 +191,7 @@ function navWhite() {
   // Reset opacity styles
   if (mainContainerBlurs) {
     mainContainerBlurs.forEach((containerBlur) => {
+      containerBlur.style.transition = 'opacity 0.2s ease';
 
       // Delay opacity reset by 0.1 seconds
       setTimeout(() => {
