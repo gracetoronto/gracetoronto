@@ -1,4 +1,4 @@
-console.log("V1.181");
+console.log("V1.182");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -420,24 +420,7 @@ window.addEventListener('resize', function () {
 
 
 
-//VIDEO AUTPLAY ON PAGE CHANGE
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-    // Assuming '.w-background-video' is the class for Webflow's background video
-    const bgVideos = document.querySelectorAll('w-background-video-atom"');
-
-    bgVideos.forEach(bgVideo => {
-      // Attempt to find and play the video within the background video container
-      // This is a hypothetical approach; actual implementation may vary
-      const video = bgVideo.querySelector('video');
-      if (video) {
-        video.muted = true; // Mute the video to comply with autoplay policies
-        video.play().catch(error => console.error('Background video play failed:', error));
-      }
-    });
-  }
-});
 
 
 
@@ -734,8 +717,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
+// Only fire when changing to a page that contains /ministry/ in the slug
 swup.hooks.on('content:replace', function () {
-  updateEventCount();
+  if (window.location.href.includes('/ministry/')) {
+    updateEventCount();
+  }
 });
 
 
@@ -1090,7 +1076,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Swup event listener
   const swup = new Swup();
-  swup.on('content:replace', () => {
+  swup.hooks.on('content:replace', () => {
     handleScroll();
     const defaultCard = document.getElementById('card-1992');
     if (defaultCard) {
