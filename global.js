@@ -1,4 +1,4 @@
-console.log("V1.182");
+console.log("V1.183");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1148,49 +1148,4 @@ document.addEventListener('DOMContentLoaded', initCarousel);
 
 swup.hooks.on('content:replace', function () {
   initCarousel();
-});
-
-
-
-
-
-//---MINISTRY PAGE SLIDESHOW INFINITE SCROLLILNG---
-
-document.addEventListener("DOMContentLoaded", function () {
-  const list = document.querySelector('.slideshow__list');
-  const items = document.querySelectorAll('.slideshow__item');
-
-  if (!list || items.length === 0) return;
-
-  // Clone items to ensure smooth looping
-  items.forEach(item => {
-    const clone = item.cloneNode(true);
-    clone.classList.add('cloned'); // Mark clones to identify them later
-    list.appendChild(clone);
-  });
-
-  // Calculate total width of the list
-  let totalWidth = 0;
-  items.forEach(item => {
-    totalWidth += item.offsetWidth + parseInt(getComputedStyle(item).marginRight);
-  });
-
-  // Update the width of the list to fit the cloned items
-  list.style.width = `${totalWidth}px`;
-
-  // Function to handle the scrolling
-  let scrollPos = 0;
-  const scrollSpeed = 0.5; // Adjust scroll speed as needed
-
-  function scroll() {
-    scrollPos += scrollSpeed;
-    if (scrollPos >= totalWidth) {
-      scrollPos = 0;
-    }
-    list.style.transform = `translateX(-${scrollPos}px)`;
-    requestAnimationFrame(scroll);
-  }
-
-  // Start scrolling
-  scroll();
 });
