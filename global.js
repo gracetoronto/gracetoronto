@@ -1,4 +1,4 @@
-console.log("V1.185");
+console.log("V1.186");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -31,7 +31,7 @@ swup.hooks.on('content:replace', () => {
   // Get the current pathname of the URL
   const pathname = window.location.pathname;
 
-  showCal();
+
   // Check if the pathname should have a transparent background
   if (isTransparentBg(pathname)) {
     // Run your function here
@@ -39,6 +39,10 @@ swup.hooks.on('content:replace', () => {
   } else {
     navWhite();
   }
+
+  //All other functions that are supposed to run on page change
+  showCal();
+
 });
 
 
@@ -431,75 +435,74 @@ window.addEventListener('resize', function () {
 
 //----ACCORDION FUNCTIONALITY----
 
-document.addEventListener('DOMContentLoaded', () => {
-  const initializeAccordions = () => {
-    const accordions = document.querySelectorAll('.base__accordion');
+const initializeAccordions = () => {
+  const accordions = document.querySelectorAll('.base__accordion');
 
-    accordions.forEach(accordion => {
-      const items = accordion.querySelectorAll('.accordion__item');
+  accordions.forEach(accordion => {
+    const items = accordion.querySelectorAll('.accordion__item');
 
-      items.forEach(item => {
-        const title = item.querySelector('.accordion__title');
-        const content = item.querySelector('.accordion__content');
-        const plusIcon = item.querySelector('.accordion__plus');
-        const minusIcon = item.querySelector('.accordion__minus');
+    items.forEach(item => {
+      const title = item.querySelector('.accordion__title');
+      const content = item.querySelector('.accordion__content');
+      const plusIcon = item.querySelector('.accordion__plus');
+      const minusIcon = item.querySelector('.accordion__minus');
 
-        // Initially hide all content and show plus icons
-        content.style.height = '0';
-        content.style.overflow = 'hidden';
-        plusIcon.style.display = 'block';
-        minusIcon.style.display = 'none';
+      // Initially hide all content and show plus icons
+      content.style.height = '0';
+      content.style.overflow = 'hidden';
+      plusIcon.style.display = 'block';
+      minusIcon.style.display = 'none';
 
-        // Add click event to the title
-        title.addEventListener('click', () => {
-          // Close all other items
-          items.forEach(otherItem => {
-            if (otherItem !== item) {
-              const otherContent = otherItem.querySelector('.accordion__content');
-              const otherPlusIcon = otherItem.querySelector('.accordion__plus');
-              const otherMinusIcon = otherItem.querySelector('.accordion__minus');
+      // Add click event to the title
+      title.addEventListener('click', () => {
+        // Close all other items
+        items.forEach(otherItem => {
+          if (otherItem !== item) {
+            const otherContent = otherItem.querySelector('.accordion__content');
+            const otherPlusIcon = otherItem.querySelector('.accordion__plus');
+            const otherMinusIcon = otherItem.querySelector('.accordion__minus');
 
-              // Trigger the height transition for closing
-              if (otherContent.style.height !== '0px') {
-                otherContent.style.height = otherContent.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
-                setTimeout(() => {
-                  otherContent.style.height = '0';
-                }, 10); // Slight delay to ensure the height change is registered
-                otherPlusIcon.style.display = 'block';
-                otherMinusIcon.style.display = 'none';
-              }
+            // Trigger the height transition for closing
+            if (otherContent.style.height !== '0px') {
+              otherContent.style.height = otherContent.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
+              setTimeout(() => {
+                otherContent.style.height = '0';
+              }, 10); // Slight delay to ensure the height change is registered
+              otherPlusIcon.style.display = 'block';
+              otherMinusIcon.style.display = 'none';
             }
-          });
-
-          // Toggle the clicked item
-          if (content.style.height === '0px' || content.style.height === '') {
-            content.style.height = content.scrollHeight + 'px';
-            content.addEventListener('transitionend', () => {
-              if (content.style.height !== '0px') {
-                content.style.height = 'auto';
-              }
-            }, { once: true });
-            plusIcon.style.display = 'none';
-            minusIcon.style.display = 'block';
-          } else {
-            content.style.height = content.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
-            setTimeout(() => {
-              content.style.height = '0';
-            }, 10); // Slight delay to ensure the height change is registered
-            plusIcon.style.display = 'block';
-            minusIcon.style.display = 'none';
           }
         });
+
+        // Toggle the clicked item
+        if (content.style.height === '0px' || content.style.height === '') {
+          content.style.height = content.scrollHeight + 'px';
+          content.addEventListener('transitionend', () => {
+            if (content.style.height !== '0px') {
+              content.style.height = 'auto';
+            }
+          }, { once: true });
+          plusIcon.style.display = 'none';
+          minusIcon.style.display = 'block';
+        } else {
+          content.style.height = content.scrollHeight + 'px'; // Set to scrollHeight to trigger the transition
+          setTimeout(() => {
+            content.style.height = '0';
+          }, 10); // Slight delay to ensure the height change is registered
+          plusIcon.style.display = 'block';
+          minusIcon.style.display = 'none';
+        }
       });
     });
-  };
+  });
+};
 
-  // Initialize accordions on DOMContentLoaded
-  initializeAccordions();
+// Initialize accordions on DOMContentLoaded
+initializeAccordions();
 
-  // Swup event listener to reinitialize accordions on page transition
-  swup.hooks.on('content:replace', initializeAccordions);
-});
+// Swup event listener to reinitialize accordions on page transition
+swup.hooks.on('content:replace', initializeAccordions);
+
 
 
 
