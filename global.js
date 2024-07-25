@@ -1,4 +1,4 @@
-console.log("V1.184");
+console.log("V1.185");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -924,6 +924,11 @@ swup.hooks.on('content:replace', function () {
 //---UPDATE EVENT COUNT ON ANNOUNCEMENT PAGES---
 
 function updateLinkedUpdate() {
+  // Check if the current page has a div with class '.eventcard__header'
+  if (!document.querySelector('.eventcard__header')) {
+    return;
+  }
+
   // Get the number of elements with class "calendar__item"
   var numberOfEvents = document.getElementsByClassName('eventcard__item').length;
 
