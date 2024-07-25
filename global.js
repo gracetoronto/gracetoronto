@@ -1,4 +1,4 @@
-console.log("V1.186");
+console.log("V1.187");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -42,7 +42,15 @@ swup.hooks.on('content:replace', () => {
 
   //All other functions that are supposed to run on page change
   showCal();
-
+  initCarousel();
+  initializeAccordions();
+  initializeScrollArrowsAndScrollToCurrent();
+  checkAndUpdateEventCount();
+  initializeSliders();
+  initializeShowFirstImage();
+  hideMatchingEndDates();
+  updateLinkedUpdate();
+  initializeToggle();
 });
 
 
@@ -500,10 +508,6 @@ const initializeAccordions = () => {
 // Initialize accordions on DOMContentLoaded
 initializeAccordions();
 
-// Swup event listener to reinitialize accordions on page transition
-swup.hooks.on('content:replace', initializeAccordions);
-
-
 
 
 
@@ -594,11 +598,6 @@ document.addEventListener('DOMContentLoaded', function () {
   showCal();
 });
 
-// Use Swup hooks to re-initialize the calendars after content is replaced
-swup.hooks.on('content:replace', function () {
-  showCal();
-});
-
 
 
 
@@ -673,11 +672,6 @@ document.addEventListener("DOMContentLoaded", function () {
   initializeScrollArrowsAndScrollToCurrent();
 });
 
-// Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replace', function () {
-  initializeScrollArrowsAndScrollToCurrent();
-});
-
 
 
 
@@ -726,11 +720,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Initialize scroll arrows and scroll to current nav link after swup.js page transition
 // Only fire when changing to a page that contains /ministry/ in the slug
-swup.hooks.on('content:replace', function () {
+function checkAndUpdateEventCount() {
   if (window.location.href.includes('/ministry/')) {
     updateEventCount();
   }
-});
+}
+
 
 
 
@@ -738,7 +733,7 @@ swup.hooks.on('content:replace', function () {
 
 //---ANNOUNCEMENT IMAGE SLIDER---
 
-document.addEventListener("DOMContentLoaded", function () {
+
   const initSlider = (sliderContainer) => {
     let currentIndex = 0;
     const items = sliderContainer.querySelectorAll('.anc__item');
@@ -823,11 +818,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initialize sliders on initial load
   initializeSliders();
 
-  // Reinitialize sliders on every Swup content replacement
-  swup.hooks.on('content:replace', function () {
-    initializeSliders();
-  });
-});
+
+
 
 
 
@@ -874,10 +866,6 @@ document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
 // Initialize when navigating to the page with swup.js
 document.addEventListener('swup:contentReplaced', initializeShowFirstImage);
 
-swup.hooks.on('content:replace', function () {
-  initializeShowFirstImage();
-});
-
 
 
 
@@ -916,10 +904,6 @@ function hideMatchingEndDates() {
 // Run the function after the DOM content is fully loaded
 document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
 
-swup.hooks.on('content:replace', function () {
-  hideMatchingEndDates();
-});
-
 
 
 
@@ -955,18 +939,13 @@ document.addEventListener("DOMContentLoaded", function () {
   updateLinkedUpdate();
 });
 
-// Initialize scroll arrows and scroll to current nav link after swup.js page transition
-swup.hooks.on('content:replace', function () {
-  updateLinkedUpdate();
-});
-
 
 
 
 
 //---EVENT CARD EXPANDING AND COLLAPSING---
 
-document.addEventListener('DOMContentLoaded', function () {
+
   function initializeToggle() {
     const button = document.querySelector('.eventcard__button');
     const list = document.querySelector('.eventcard__list');
@@ -1013,12 +992,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initialize on page load
   initializeToggle();
-
-  // Initialize after swup content replace
-  swup.hooks.on('content:replace', function () {
-    initializeToggle();
-  });
-});
 
 
 
@@ -1158,7 +1131,3 @@ function initCarousel() {
 }
 
 document.addEventListener('DOMContentLoaded', initCarousel);
-
-swup.hooks.on('content:replace', function () {
-  initCarousel();
-});
