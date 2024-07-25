@@ -1,4 +1,4 @@
-console.log("V1.183");
+console.log("V1.184");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -683,6 +683,11 @@ swup.hooks.on('content:replace', function () {
 //---UPDATE CALENDAR EVENT COUNT ON MINISTRY PAGES---
 
 function updateEventCount() {
+  // Check if the current page has a div with class '.ministry__calendar'
+  if (!document.querySelector('.ministry__calendar')) {
+    return;
+  }
+
   // Get the number of elements with class "calendar__item"
   var numberOfEvents = document.getElementsByClassName('calendar__item').length;
 
