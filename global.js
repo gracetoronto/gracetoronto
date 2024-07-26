@@ -1,4 +1,4 @@
-console.log("V1.187");
+console.log("V1.188");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,7 +45,7 @@ swup.hooks.on('content:replace', () => {
   initCarousel();
   initializeAccordions();
   initializeScrollArrowsAndScrollToCurrent();
-  checkAndUpdateEventCount();
+  updateEventCount();
   initializeSliders();
   initializeShowFirstImage();
   hideMatchingEndDates();
@@ -717,14 +717,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   updateEventCount();
 });
-
-// Initialize scroll arrows and scroll to current nav link after swup.js page transition
-// Only fire when changing to a page that contains /ministry/ in the slug
-function checkAndUpdateEventCount() {
-  if (window.location.href.includes('/ministry/')) {
-    updateEventCount();
-  }
-}
 
 
 
