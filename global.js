@@ -1,4 +1,4 @@
-console.log("V1.188");
+console.log("V1.189");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -51,8 +51,37 @@ swup.hooks.on('content:replace', () => {
   hideMatchingEndDates();
   updateLinkedUpdate();
   initializeToggle();
+  upateNavButtons();
 });
 
+
+
+
+
+
+
+
+//---UPDATE MINISTRY NAV ACTIVE STATE WITH FRAGMENT PLUGIN---
+
+function updateNavButtons() {
+  // Get the current URL path
+  const currentPath = window.location.pathname;
+
+  // Select all nav buttons
+  const navButtons = document.querySelectorAll('.base__button.is--ministry');
+
+  navButtons.forEach(button => {
+    // Get the href attribute of the button
+    const buttonPath = button.getAttribute('href');
+
+    // Check if the button path matches the current path
+    if (buttonPath === currentPath) {
+      button.classList.add('is--active');
+    } else {
+      button.classList.remove('is--active');
+    }
+  });
+}
 
 
 
