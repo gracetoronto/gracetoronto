@@ -584,7 +584,7 @@ function showCal() {
       }
     });
 
-    calendar.render();
+    calendarInst.render();
     calendars.push(calendarInst); // Store the calendar instance
   });
 }
