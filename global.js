@@ -1,4 +1,4 @@
-console.log("V1.195");
+console.log("V1.196");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -555,7 +555,7 @@ function showCal() {
   const events = getEvents();
 
   calendarEls.forEach(calendarEl => {
-    let calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendarInst = new FullCalendar.Calendar(calendarEl, {
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
         left: 'listThreeMonth,dayGridMonth', // List and Calendar buttons are left aligned
@@ -585,7 +585,7 @@ function showCal() {
     });
 
     calendar.render();
-    calendars.push(calendar); // Store the calendar instance
+    calendars.push(calendarInst); // Store the calendar instance
   });
 }
 
