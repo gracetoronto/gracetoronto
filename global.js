@@ -1,4 +1,4 @@
-console.log("V1.191");
+console.log("V1.192");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1118,6 +1118,7 @@ function initCarousel() {
   const cardFullWidth = cardWidth + gap;
 
   leftButton.addEventListener('click', () => {
+    console.log('left button clicked')
     adjustScrollToNearestCard();
     let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
     currentScrollPosition -= cardFullWidth;
@@ -1128,6 +1129,7 @@ function initCarousel() {
   });
 
   rightButton.addEventListener('click', () => {
+    console.log('right button clicked')
     adjustScrollToNearestCard();
     let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
     currentScrollPosition += cardFullWidth;
