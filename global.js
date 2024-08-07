@@ -1,4 +1,4 @@
-console.log("V1.194");
+console.log("V1.195");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -51,7 +51,7 @@ swup.hooks.on('content:replace', () => {
   hideMatchingEndDates();
   updateLinkedUpdate();
   initializeToggle();
-  upateNavButtons();
+  updateNavButtons();
 });
 
 
