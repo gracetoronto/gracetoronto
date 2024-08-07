@@ -1,4 +1,4 @@
-console.log("V1.197");
+console.log("V1.198");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -543,7 +543,7 @@ initializeAccordions();
 
 
 //----CALENDAR INTEGRATION----
-// let calendars = []; // Array to store multiple calendar instances
+let calendars = []; // Array to store multiple calendar instances
 
 function showCal() {
 
