@@ -1,4 +1,4 @@
-console.log("V1.193");
+console.log("V1.194");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1109,9 +1109,10 @@ function initCarousel() {
   const leftButton = document.getElementById('carousel-left');
   const rightButton = document.getElementById('carousel-right');
 
-  // if (!carousel || !container || !leftButton || !rightButton) {
-  //   return; // Exit if any of the elements are not found
-  // }
+  if (!carousel || !container || !leftButton || !rightButton) {
+    console.error('Carousel elements not found'); // Debug log
+    return; // Exit if any of the elements are not found
+  }
 
   const cardWidth = document.querySelector('.carousel-card').offsetWidth;
   const gap = parseInt(window.getComputedStyle(carousel).gap);
@@ -1155,4 +1156,8 @@ function initCarousel() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', initCarousel);
+// Wait for the DOM content to be fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  // Initial update on page load
+  initCarousel();
+});
