@@ -1,4 +1,4 @@
-console.log("V1.190");
+console.log("V1.191");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -974,7 +974,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const list = document.querySelector('.eventcard__list');
     const openClass = document.querySelector('.eventcard__open');
     const closeClass = document.querySelector('.eventcard__close');
-    const items = list.querySelectorAll('.eventcard__item');
+    // const items = list.querySelectorAll('.eventcard__item');
 
     if (!button || !list || !openClass || !closeClass) return;
 
