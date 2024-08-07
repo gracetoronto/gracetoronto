@@ -1110,7 +1110,6 @@ function initCarousel() {
   const rightButton = document.getElementById('carousel-right');
 
   if (!carousel || !container || !leftButton || !rightButton) {
-    console.error('Carousel elements not found'); // Debug log
     return; // Exit if any of the elements are not found
   }
 
