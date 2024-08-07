@@ -1,4 +1,4 @@
-console.log("V1.196");
+console.log("V1.197");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -543,13 +543,13 @@ initializeAccordions();
 
 
 //----CALENDAR INTEGRATION----
-let calendars = []; // Array to store multiple calendar instances
+// let calendars = []; // Array to store multiple calendar instances
 
 function showCal() {
 
   var calendarEls = document.querySelectorAll('.calendar'); // Use a class selector to get all calendar elements
 
-  calendars.forEach(calendar => calendar.destroy()); // Destroy any existing calendars
+  calendars.forEach(calendarInst => calendarInst.destroy()); // Destroy any existing calendars
   calendars = []; // Reset the calendar instances array
 
   const events = getEvents();
