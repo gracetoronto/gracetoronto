@@ -77,10 +77,8 @@ function updateNavButtons() {
     // Check if the button path matches the current path
     if (buttonPath === currentPath) {
       button.classList.add('is--active');
-      console.log('checked to add')
     } else {
       button.classList.remove('is--active');
-      console.log('checked to remove')
     }
   });
 }
