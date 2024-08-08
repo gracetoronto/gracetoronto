@@ -1,4 +1,4 @@
-console.log("V1.200");
+console.log("V1.201");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -750,89 +750,91 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---ANNOUNCEMENT IMAGE SLIDER---
 
-const initSlider = (sliderContainer) => {
-  let currentIndex = 0;
-  const items = sliderContainer.querySelectorAll('.anc__item');
-  const totalItems = items.length;
-  const dotsContainer = sliderContainer.querySelector('.anc__dots');
-  const nextArrow = sliderContainer.querySelector('.arrow.is--next');
-  const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
+if (typeof initSlider === 'undefined') {
+  const initSlider = (sliderContainer) => {
+    let currentIndex = 0;
+    const items = sliderContainer.querySelectorAll('.anc__item');
+    const totalItems = items.length;
+    const dotsContainer = sliderContainer.querySelector('.anc__dots');
+    const nextArrow = sliderContainer.querySelector('.arrow.is--next');
+    const prevArrow = sliderContainer.querySelector('.arrow.is--prev');
 
-  function showItem(index) {
-    items.forEach((item, i) => {
-      item.style.opacity = i === index ? '1' : '0';
-      item.style.transition = 'opacity 0.5s ease-in-out';
-    });
+    function showItem(index) {
+      items.forEach((item, i) => {
+        item.style.opacity = i === index ? '1' : '0';
+        item.style.transition = 'opacity 0.5s ease-in-out';
+      });
 
-    // Update dots
-    dots.forEach((dot, i) => {
-      if (totalItems > 1) {
-        if (i === index) {
-          dot.classList.add('is--current');
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (totalItems > 1) {
+          if (i === index) {
+            dot.classList.add('is--current');
+          } else {
+            dot.classList.remove('is--current');
+          }
         } else {
           dot.classList.remove('is--current');
         }
-      } else {
-        dot.classList.remove('is--current');
-      }
-    });
-  }
-
-  function nextItem() {
-    currentIndex = (currentIndex + 1) % totalItems;
-    showItem(currentIndex);
-  }
-
-  function prevItem() {
-    currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-    showItem(currentIndex);
-  }
-
-  // Generate dots based on the number of items
-  if (totalItems > 1) {
-    for (let i = 0; i < totalItems; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      if (i === 0) dot.classList.add('is--current'); // Make the first dot active
-      dotsContainer.appendChild(dot);
+      });
     }
-  } else {
-    dotsContainer.style.display = 'none'; // Hide dots if there's only one item
-  }
 
-  const dots = dotsContainer.querySelectorAll('.dot');
-
-  // Add event listeners for dots
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
+    function nextItem() {
+      currentIndex = (currentIndex + 1) % totalItems;
       showItem(currentIndex);
+    }
+
+    function prevItem() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      showItem(currentIndex);
+    }
+
+    // Generate dots based on the number of items
+    if (totalItems > 1) {
+      for (let i = 0; i < totalItems; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('is--current'); // Make the first dot active
+        dotsContainer.appendChild(dot);
+      }
+    } else {
+      dotsContainer.style.display = 'none'; // Hide dots if there's only one item
+    }
+
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    // Add event listeners for dots
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        currentIndex = index;
+        showItem(currentIndex);
+      });
     });
-  });
 
-  if (nextArrow) nextArrow.addEventListener('click', nextItem);
-  if (prevArrow) prevArrow.addEventListener('click', prevItem);
+    if (nextArrow) nextArrow.addEventListener('click', nextItem);
+    if (prevArrow) prevArrow.addEventListener('click', prevItem);
 
-  // Initially show the first item
-  showItem(currentIndex);
+    // Initially show the first item
+    showItem(currentIndex);
 
-  // Only show dots and arrows if there is more than one image
-  if (totalItems <= 1) {
-    dotsContainer.style.display = 'none';
-    if (nextArrow) nextArrow.style.display = 'none';
-    if (prevArrow) prevArrow.style.display = 'none';
-  }
-};
+    // Only show dots and arrows if there is more than one image
+    if (totalItems <= 1) {
+      dotsContainer.style.display = 'none';
+      if (nextArrow) nextArrow.style.display = 'none';
+      if (prevArrow) prevArrow.style.display = 'none';
+    }
+  };
 
-const initializeSliders = () => {
-  const sliderContainers = document.querySelectorAll('.anc__slider');
-  sliderContainers.forEach((sliderContainer) => {
-    initSlider(sliderContainer);
-  });
-};
+  const initializeSliders = () => {
+    const sliderContainers = document.querySelectorAll('.anc__slider');
+    sliderContainers.forEach((sliderContainer) => {
+      initSlider(sliderContainer);
+    });
+  };
 
-// Initialize sliders on initial load
-initializeSliders();
+  // Initialize sliders on initial load
+  initializeSliders();
+}
 
 
 
