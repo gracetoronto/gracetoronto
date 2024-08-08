@@ -1,4 +1,4 @@
-console.log("V1.201");
+console.log("V1.202");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -824,17 +824,18 @@ if (typeof initSlider === 'undefined') {
       if (prevArrow) prevArrow.style.display = 'none';
     }
   };
-
-  const initializeSliders = () => {
-    const sliderContainers = document.querySelectorAll('.anc__slider');
-    sliderContainers.forEach((sliderContainer) => {
-      initSlider(sliderContainer);
-    });
-  };
-
-  // Initialize sliders on initial load
-  initializeSliders();
 }
+
+const initializeSliders = () => {
+  const sliderContainers = document.querySelectorAll('.anc__slider');
+  sliderContainers.forEach((sliderContainer) => {
+    initSlider(sliderContainer);
+  });
+};
+
+// Initialize sliders on initial load
+initializeSliders();
+
 
 
 
@@ -964,52 +965,52 @@ document.addEventListener("DOMContentLoaded", function () {
 //---EVENT CARD EXPANDING AND COLLAPSING---
 
 
-  function initializeToggle() {
-    const button = document.querySelector('.eventcard__button');
-    const list = document.querySelector('.eventcard__list');
-    const openClass = document.querySelector('.eventcard__open');
-    const closeClass = document.querySelector('.eventcard__close');
-    // const items = list.querySelectorAll('.eventcard__item');
+function initializeToggle() {
+  const button = document.querySelector('.eventcard__button');
+  const list = document.querySelector('.eventcard__list');
+  const openClass = document.querySelector('.eventcard__open');
+  const closeClass = document.querySelector('.eventcard__close');
+  // const items = list.querySelectorAll('.eventcard__item');
 
-    if (!button || !list || !openClass || !closeClass) return;
+  if (!button || !list || !openClass || !closeClass) return;
 
-    // Function to calculate the height of the first two items
-    function calculateInitialHeight() {
-      let height = 0;
-      for (let i = 0; i < Math.min(2, items.length); i++) {
-        height += items[i].offsetHeight;
-      }
-      return height;
+  // Function to calculate the height of the first two items
+  function calculateInitialHeight() {
+    let height = 0;
+    for (let i = 0; i < Math.min(2, items.length); i++) {
+      height += items[i].offsetHeight;
     }
-
-    // Set initial max-height based on the height of the first two items
-    list.style.maxHeight = `${calculateInitialHeight()}px`;
-
-    // Hide or show button based on the number of items
-    if (items.length <= 2) {
-      button.style.display = 'none';
-      closeClass.style.display = 'none'; // Also hide the close button if needed
-    } else {
-      button.style.display = 'flex';
-      closeClass.style.display = 'none'; // Ensure close button is hidden initially
-    }
-
-    button.addEventListener('click', function () {
-      list.classList.toggle('expanded');
-      if (list.classList.contains('expanded')) {
-        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-        openClass.style.display = 'none';
-        closeClass.style.display = 'flex';
-      } else {
-        list.style.maxHeight = `${calculateInitialHeight()}px`; // Collapse to initial height
-        openClass.style.display = 'flex';
-        closeClass.style.display = 'none';
-      }
-    });
+    return height;
   }
 
-  // Initialize on page load
-  initializeToggle();
+  // Set initial max-height based on the height of the first two items
+  list.style.maxHeight = `${calculateInitialHeight()}px`;
+
+  // Hide or show button based on the number of items
+  if (items.length <= 2) {
+    button.style.display = 'none';
+    closeClass.style.display = 'none'; // Also hide the close button if needed
+  } else {
+    button.style.display = 'flex';
+    closeClass.style.display = 'none'; // Ensure close button is hidden initially
+  }
+
+  button.addEventListener('click', function () {
+    list.classList.toggle('expanded');
+    if (list.classList.contains('expanded')) {
+      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      openClass.style.display = 'none';
+      closeClass.style.display = 'flex';
+    } else {
+      list.style.maxHeight = `${calculateInitialHeight()}px`; // Collapse to initial height
+      openClass.style.display = 'flex';
+      closeClass.style.display = 'none';
+    }
+  });
+}
+
+// Initialize on page load
+initializeToggle();
 
 
 
