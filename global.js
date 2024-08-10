@@ -1,4 +1,4 @@
-console.log("V1.208");
+console.log("V1.209");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1111,7 +1111,7 @@ function initCarousel() {
 
   leftButton.addEventListener('click', () => {
     console.log('left button clicked');
-    let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
+    let currentScrollPosition = container.scrollLeft;
     currentScrollPosition -= cardFullWidth;
     if (currentScrollPosition < 0) {
       currentScrollPosition = 0;
@@ -1122,7 +1122,7 @@ function initCarousel() {
 
   rightButton.addEventListener('click', () => {
     console.log('right button clicked');
-    let currentScrollPosition = Math.round(container.scrollLeft / cardFullWidth) * cardFullWidth;
+    let currentScrollPosition = container.scrollLeft;
     currentScrollPosition += cardFullWidth;
     const maxScrollPosition = carousel.scrollWidth - container.offsetWidth;
     if (currentScrollPosition > maxScrollPosition) {
