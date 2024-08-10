@@ -1,4 +1,4 @@
-console.log("V1.206");
+console.log("V1.207");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -751,7 +751,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //---ANNOUNCEMENT IMAGE SLIDER---
 
 if (typeof initSlider === 'undefined') {
-  const initSlider = (sliderContainer) => {
+  var initSlider = function(sliderContainer) {
     let currentIndex = 0;
     const items = sliderContainer.querySelectorAll('.anc__item');
     const totalItems = items.length;
