@@ -1,4 +1,4 @@
-console.log("V1.203");
+console.log("V1.204");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -52,6 +52,7 @@ swup.hooks.on('content:replace', () => {
   updateLinkedUpdate();
   initializeToggle();
   updateNavButtons();
+  initializeShowFirstImage();
 });
 
 
@@ -881,9 +882,6 @@ function initializeShowFirstImage() {
 
 // Initialize when the page is fully loaded
 document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
-
-// Initialize when navigating to the page with swup.js
-document.addEventListener('swup:contentReplaced', initializeShowFirstImage);
 
 
 
