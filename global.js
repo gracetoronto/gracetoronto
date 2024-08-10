@@ -1,4 +1,4 @@
-console.log("V1.205");
+console.log("V1.206");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -967,7 +967,7 @@ function initializeToggle() {
   const list = document.querySelector('.eventcard__list');
   const openClass = document.querySelector('.eventcard__open');
   const closeClass = document.querySelector('.eventcard__close');
-  const items = list.querySelectorAll('.eventcard__item');
+  const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
   if (!button || !list || !openClass || !closeClass) return;
 
