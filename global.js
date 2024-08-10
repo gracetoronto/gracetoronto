@@ -1,4 +1,4 @@
-console.log("V1.204");
+console.log("V1.205");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -52,7 +52,6 @@ swup.hooks.on('content:replace', () => {
   updateLinkedUpdate();
   initializeToggle();
   updateNavButtons();
-  initializeShowFirstImage();
 });
 
 
@@ -963,12 +962,12 @@ document.addEventListener("DOMContentLoaded", function () {
 //---EVENT CARD EXPANDING AND COLLAPSING---
 
 
-function initializeToggle() {
+function initializeToggle() {  
   const button = document.querySelector('.eventcard__button');
   const list = document.querySelector('.eventcard__list');
   const openClass = document.querySelector('.eventcard__open');
   const closeClass = document.querySelector('.eventcard__close');
-  // const items = list.querySelectorAll('.eventcard__item');
+  const items = list.querySelectorAll('.eventcard__item');
 
   if (!button || !list || !openClass || !closeClass) return;
 
