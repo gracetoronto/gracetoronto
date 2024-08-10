@@ -1,4 +1,4 @@
-console.log("V1.202");
+console.log("V1.203");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1080,7 +1080,6 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener('scroll', handleScroll);
 
   // Swup event listener
-  const swup = new Swup();
   swup.hooks.on('content:replace', () => {
     handleScroll();
     const defaultCard = document.getElementById('card-1992');
