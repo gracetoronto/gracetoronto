@@ -1,4 +1,4 @@
-console.log("V1.210");
+console.log("V1.211");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1204,10 +1204,10 @@ function startCountdown() {
 
     const timeDifference = nextSunday - nowEST;
 
-    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
     dayBox.textContent = days;
     hourBox.textContent = hours;
@@ -1215,10 +1215,10 @@ function startCountdown() {
     secondBox.textContent = seconds;
 
     if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 12 || nowEST.getMinutes() < 30)) {
-      dayBox.textContent = 0;
-      hourBox.textContent = 0;
-      minuteBox.textContent = 0;
-      secondBox.textContent = 0;
+      dayBox.textContent = '00';
+      hourBox.textContent = '00';
+      minuteBox.textContent = '00';
+      secondBox.textContent = '00';
     }
 
     if (nowEST.getDay() === 0 && nowEST.getHours() === 13 && nowEST.getMinutes() >= 30) {
