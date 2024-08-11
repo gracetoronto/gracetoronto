@@ -1,4 +1,4 @@
-console.log("V1.209");
+console.log("V1.210");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -52,6 +52,7 @@ swup.hooks.on('content:replace', () => {
   updateLinkedUpdate();
   initializeToggle();
   updateNavButtons();
+  startCountdown();
 });
 
 
@@ -1151,4 +1152,84 @@ function initCarousel() {
 document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   initCarousel();
+});
+
+
+
+
+
+
+//---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY---
+
+function startCountdown() {
+  const dayBox = document.getElementById('day');
+  const hourBox = document.getElementById('hour');
+  const minuteBox = document.getElementById('minute');
+  const secondBox = document.getElementById('second');
+
+  // Check if countdown elements exist
+  if (!dayBox || !hourBox || !minuteBox || !secondBox) {
+    return; // Exit the function if any element is missing
+  }
+
+  function getESTDate(date) {
+    const options = { timeZone: 'America/New_York', hour12: false };
+    const formatter = new Intl.DateTimeFormat([], options);
+    const parts = formatter.formatToParts(date);
+    const estDate = new Date(date);
+
+    parts.forEach(({ type, value }) => {
+      if (type === 'year') estDate.setFullYear(value);
+      if (type === 'month') estDate.setMonth(value - 1);
+      if (type === 'day') estDate.setDate(value);
+      if (type === 'hour') estDate.setHours(value);
+      if (type === 'minute') estDate.setMinutes(value);
+      if (type === 'second') estDate.setSeconds(value);
+    });
+
+    return estDate;
+  }
+
+  function updateCountdown() {
+    const now = new Date();
+    const nowEST = getESTDate(now);
+
+    const nextSunday = new Date(nowEST);
+    nextSunday.setDate(nowEST.getDate() + (7 - nowEST.getDay()) % 7);
+    nextSunday.setHours(9, 15, 0, 0);
+
+    if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getMinutes() >= 15) {
+      nextSunday.setDate(nextSunday.getDate() + 7);
+    }
+
+    const timeDifference = nextSunday - nowEST;
+
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    dayBox.textContent = days;
+    hourBox.textContent = hours;
+    minuteBox.textContent = minutes;
+    secondBox.textContent = seconds;
+
+    if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 12 || nowEST.getMinutes() < 30)) {
+      dayBox.textContent = 0;
+      hourBox.textContent = 0;
+      minuteBox.textContent = 0;
+      secondBox.textContent = 0;
+    }
+
+    if (nowEST.getDay() === 0 && nowEST.getHours() === 13 && nowEST.getMinutes() >= 30) {
+      nextSunday.setDate(nextSunday.getDate() + 7);
+    }
+  }
+
+  setInterval(updateCountdown, 1000);
+}
+
+// Start the countdown when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  startCountdown();
 });
