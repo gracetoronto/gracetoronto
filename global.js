@@ -1,4 +1,4 @@
-console.log("V1.213");
+console.log("V1.214");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1183,14 +1183,16 @@ function initializeMinistryNavigation() {
   function updateArrows() {
     const containerWidth = container.offsetWidth;
     const contentWidth = Array.from(buttons).reduce((acc, button) => acc + button.offsetWidth, 0);
+    const lastButton = buttons[buttons.length - 1];
+    const firstButton = buttons[0];
 
-    if (contentWidth > containerWidth || container.scrollLeft + containerWidth < contentWidth) {
+    if (contentWidth > containerWidth || lastButton.offsetLeft + lastButton.offsetWidth > container.scrollLeft + containerWidth) {
       arrowRightContainer.style.display = 'flex';
     } else {
       arrowRightContainer.style.display = 'none';
     }
 
-    if (container.scrollLeft > 0) {
+    if (container.scrollLeft > 0 || firstButton.offsetLeft < container.scrollLeft) {
       arrowLeftContainer.style.display = 'flex';
     } else {
       arrowLeftContainer.style.display = 'none';
