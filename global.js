@@ -1,4 +1,4 @@
-console.log("V1.218");
+console.log("V1.219");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -44,7 +44,6 @@ swup.hooks.on('content:replace', () => {
   showCal();
   initCarousel();
   initializeAccordions();
-  initializeScrollArrowsAndScrollToCurrent();
   updateEventCount();
   initializeSliders();
   initializeShowFirstImage();
@@ -1169,7 +1168,9 @@ document.addEventListener("DOMContentLoaded", function () {
 //---MINISTRY NAVIGATION FUNCTIONALITY---
 
 document.addEventListener("DOMContentLoaded", function () {
-  initializeMinistryNavigation();
+  if (document.querySelector('.ministry__arrow')) {
+    initializeMinistryNavigation();
+  }
 });
 
 function initializeMinistryNavigation() {
