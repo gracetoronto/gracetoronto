@@ -1,4 +1,4 @@
-console.log("V1.219");
+console.log("V1.220");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1174,6 +1174,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function initializeMinistryNavigation() {
+  if (!document.querySelector('.ministry__arrow')) {
+    return;
+  }
+
   const container = document.querySelector('.ministry__container');
   const buttons = container.querySelectorAll('.base__button');
   const arrowLeft = document.getElementById('arrow-left');
