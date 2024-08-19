@@ -1,4 +1,4 @@
-console.log("V1.211");
+console.log("V1.212");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -53,6 +53,7 @@ swup.hooks.on('content:replace', () => {
   initializeToggle();
   updateNavButtons();
   startCountdown();
+  initializeMinistryNavigation();
 });
 
 
@@ -629,79 +630,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-//----ARROW FUNCTIONALITY FOR MINISTRY NAV BAR----
-
-// Function to initialize the scroll arrows and scroll to current page link
-function initializeScrollArrowsAndScrollToCurrent() {
-  const ministryNav = document.querySelector(".ministry__nav");
-  const ministryContainer = document.querySelector(".ministry__container");
-  const ministryOptions = document.querySelector(".ministry__options");
-  const currentNavLink = document.querySelector(".ministry__options .current"); // Adjust this selector as per your HTML structure
-  const leftArrow = document.querySelector(".ministry__arrows.is--left");
-  const rightArrow = document.querySelector(".ministry__arrows.is--right");
-
-  // Function to calculate scroll amount based on screen width
-  function getScrollAmount() {
-    return window.innerWidth >= 768 ? ministryContainer.offsetWidth * 2 : 75; // Adjust breakpoint and scroll amounts as needed
-  }
-
-  function updateArrows() {
-    const containerWidth = ministryContainer.offsetWidth;
-    const optionsWidth = ministryOptions.scrollWidth;
-    const scrollLeft = ministryContainer.scrollLeft;
-
-    if (containerWidth < optionsWidth) {
-      rightArrow.style.display = "flex"; // Display as flex
-      if (scrollLeft > 0) {
-        leftArrow.style.display = "flex"; // Display as flex
-      } else {
-        leftArrow.style.display = "none";
-      }
-
-      // Check if scrolled to the end
-      if (scrollLeft + containerWidth >= optionsWidth) {
-        // Use CSS transition for fade effect
-        rightArrow.style.opacity = 0;
-        rightArrow.style.pointerEvents = "none"; // Disable click events
-      } else {
-        rightArrow.style.opacity = 1;
-        rightArrow.style.pointerEvents = "auto"; // Enable click events
-      }
-    } else {
-      leftArrow.style.display = "none";
-      rightArrow.style.display = "none";
-    }
-  }
-
-  function scrollContainer(direction) {
-    const currentScrollLeft = ministryContainer.scrollLeft;
-    const scrollAmount = getScrollAmount();
-
-    let newScrollLeft;
-
-    if (direction === 'left') {
-      newScrollLeft = Math.max(0, currentScrollLeft - scrollAmount);
-    } else {
-      newScrollLeft = Math.min(ministryContainer.scrollWidth, currentScrollLeft + scrollAmount);
-    }
-
-    ministryContainer.scrollTo({
-      top: 0,
-      left: newScrollLeft,
-      behavior: 'smooth' // Smooth scrolling animation
-    });
-  }
-}
-
-// Initialize scroll arrows and scroll to current nav link when DOM is ready
-document.addEventListener("DOMContentLoaded", function () {
-  initializeScrollArrowsAndScrollToCurrent();
-});
-
-
-
-
-
 
 //---UPDATE CALENDAR EVENT COUNT ON MINISTRY PAGES---
 
@@ -1233,3 +1161,85 @@ function startCountdown() {
 document.addEventListener("DOMContentLoaded", function () {
   startCountdown();
 });
+
+
+
+
+
+//---MINISTRY NAVIGATION FUNCTIONALITY---
+
+document.addEventListener("DOMContentLoaded", function () {
+  initializeMinistryNavigation();
+});
+
+function initializeMinistryNavigation() {
+  const container = document.querySelector('.ministry__container');
+  const buttons = container.querySelectorAll('.base__button');
+  const arrowLeft = document.getElementById('arrow-left');
+  const arrowRight = document.getElementById('arrow-right');
+  const arrowLeftContainer = document.querySelector('.ministry__arrow.is--left');
+  const arrowRightContainer = document.querySelector('.ministry__arrow.is--right');
+
+  function updateArrows() {
+    const containerWidth = container.offsetWidth;
+    const contentWidth = Array.from(buttons).reduce((acc, button) => acc + button.offsetWidth, 0);
+
+    if (contentWidth > containerWidth) {
+      arrowRightContainer.style.display = 'block';
+    } else {
+      arrowRightContainer.style.display = 'none';
+      arrowLeftContainer.style.display = 'none';
+    }
+
+    if (container.scrollLeft > 0) {
+      arrowLeftContainer.style.display = 'block';
+    } else {
+      arrowLeftContainer.style.display = 'none';
+    }
+
+    if (container.scrollLeft + containerWidth >= contentWidth) {
+      arrowRightContainer.style.display = 'none';
+    }
+  }
+
+  function scrollRight() {
+    const containerWidth = container.offsetWidth;
+    const nextButton = Array.from(buttons).find(button => button.offsetLeft + button.offsetWidth > container.scrollLeft + containerWidth);
+    if (nextButton) {
+      container.scrollLeft += nextButton.offsetWidth;
+    }
+    updateArrows();
+  }
+
+  function scrollLeft() {
+    const prevButton = Array.from(buttons).reverse().find(button => button.offsetLeft < container.scrollLeft);
+    if (prevButton) {
+      container.scrollLeft -= prevButton.offsetWidth;
+    }
+    updateArrows();
+  }
+
+  function scrollToCurrentPageButton() {
+    const currentPageButton = Array.from(buttons).find(button => button.classList.contains('current-page'));
+    if (currentPageButton) {
+      const buttonLeft = currentPageButton.offsetLeft;
+      const buttonRight = buttonLeft + currentPageButton.offsetWidth;
+      const containerLeft = container.scrollLeft;
+      const containerRight = containerLeft + container.offsetWidth;
+
+      if (buttonLeft < containerLeft) {
+        container.scrollLeft = buttonLeft;
+      } else if (buttonRight > containerRight) {
+        container.scrollLeft = buttonRight - container.offsetWidth;
+      }
+    }
+    updateArrows();
+  }
+
+  arrowRight.addEventListener('click', scrollRight);
+  arrowLeft.addEventListener('click', scrollLeft);
+  window.addEventListener('resize', updateArrows);
+
+  updateArrows();
+  scrollToCurrentPageButton();
+}
