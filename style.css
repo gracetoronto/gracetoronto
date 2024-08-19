@@ -12,14 +12,12 @@ html.is-animating .transition-fade {
 
 /* Ensure the opacity is set back to 1 when the animation is done */
 
-#fragment-ministries.is-animating .transition-fade {
+#fragment-ministries.is-animating {
   opacity: 0;
   transition: opacity 0.25s ease-in-out;
-  --duration-leave: 250ms;
-  --duration-enter: 250ms;
 }
 
-#fragment-ministries.is-changing .transition-fade {
+#fragment-ministries.is-changing {
   opacity: 1;
   transition: opacity 0.25s ease-in-out;
 }
