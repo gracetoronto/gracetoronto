@@ -15,15 +15,15 @@ html.is-animating .transition-fade {
 }
 
 #fragment-ministries {
-  transition: opacity 0.25s ease-in-out; /* Default transition duration */
+  transition: opacity 0.25s ease-in-out !important; /* Default transition duration */
 }
 
 #fragment-ministries.is-animating {
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 #fragment-ministries.is-changing {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 
