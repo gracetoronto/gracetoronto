@@ -1,5 +1,10 @@
 /* Swup transitions */
 
+.is-changing .is-animating {
+  transition-property: opacity, transform;
+  transition-duration: 250ms;
+}
+
 html.is-changing .transition-fade {
   transition: opacity 0.25s;
   opacity: 1;
