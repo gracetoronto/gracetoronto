@@ -9,18 +9,20 @@ html.is-animating .transition-fade {
   opacity: 0;
 }
 
-
-/* Ensure the opacity is set back to 1 when the animation is done */
+#fragment-ministries {
+  transition: opacity 0.25s ease-in-out; /* Default transition duration */
+}
 
 #fragment-ministries.is-animating {
   opacity: 0;
-  transition: opacity 0.25s ease-in-out;
 }
 
 #fragment-ministries.is-changing {
   opacity: 1;
-  transition: opacity 0.25s ease-in-out;
 }
+
+
+/* Minstry nav arrow animation */
 
 .ministry__arrow {
   transition: opacity 0.5s ease, visibility 0.5s ease;
