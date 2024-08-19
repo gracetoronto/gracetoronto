@@ -1,4 +1,4 @@
-console.log("V1.215");
+console.log("V1.216");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1203,7 +1203,11 @@ function initializeMinistryNavigation() {
     const containerWidth = container.offsetWidth;
     const nextButton = Array.from(buttons).find(button => button.offsetLeft + button.offsetWidth > container.scrollLeft + containerWidth);
     if (nextButton) {
-      container.scrollBy({ left: nextButton.offsetWidth, behavior: 'smooth' });
+      if (nextButton === buttons[buttons.length - 1]) {
+        container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: nextButton.offsetWidth, behavior: 'smooth' });
+      }
     }
     updateArrows();
   }
@@ -1211,7 +1215,11 @@ function initializeMinistryNavigation() {
   function scrollLeft() {
     const prevButton = Array.from(buttons).reverse().find(button => button.offsetLeft < container.scrollLeft);
     if (prevButton) {
-      container.scrollBy({ left: -prevButton.offsetWidth, behavior: 'smooth' });
+      if (prevButton === buttons[0]) {
+        container.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        container.scrollBy({ left: -prevButton.offsetWidth, behavior: 'smooth' });
+      }
     }
     updateArrows();
   }
