@@ -5,7 +5,7 @@ console.log("V1.228");
 /// Initialize Swup
 const swup = new Swup({
   animateHistoryBrowsing: true,
-  animationScope: 'containers',
+
 
   plugins: [
     new SwupFragmentPlugin({
