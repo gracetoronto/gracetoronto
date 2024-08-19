@@ -1,4 +1,4 @@
-console.log("V1.216");
+console.log("V1.217");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1182,20 +1182,19 @@ function initializeMinistryNavigation() {
 
   function updateArrows() {
     const containerWidth = container.offsetWidth;
-    const contentWidth = Array.from(buttons).reduce((acc, button) => acc + button.offsetWidth, 0);
-    const lastButton = buttons[buttons.length - 1];
-    const firstButton = buttons[0];
+    const contentWidth = container.scrollWidth;
+    const scrollLeft = container.scrollLeft;
 
-    if (contentWidth > containerWidth || lastButton.offsetLeft + lastButton.offsetWidth > container.scrollLeft + containerWidth) {
-      arrowRightContainer.style.display = 'flex';
-    } else {
+    if (scrollLeft + containerWidth >= contentWidth) {
       arrowRightContainer.style.display = 'none';
+    } else {
+      arrowRightContainer.style.display = 'flex';
     }
 
-    if (container.scrollLeft > 0 || firstButton.offsetLeft < container.scrollLeft) {
-      arrowLeftContainer.style.display = 'flex';
-    } else {
+    if (scrollLeft <= 0) {
       arrowLeftContainer.style.display = 'none';
+    } else {
+      arrowLeftContainer.style.display = 'flex';
     }
   }
 
@@ -1208,8 +1207,10 @@ function initializeMinistryNavigation() {
       } else {
         container.scrollBy({ left: nextButton.offsetWidth, behavior: 'smooth' });
       }
+    } else {
+      container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
     }
-    updateArrows();
+    setTimeout(updateArrows, 500); // Ensure arrows are updated after scroll
   }
 
   function scrollLeft() {
@@ -1220,8 +1221,10 @@ function initializeMinistryNavigation() {
       } else {
         container.scrollBy({ left: -prevButton.offsetWidth, behavior: 'smooth' });
       }
+    } else {
+      container.scrollTo({ left: 0, behavior: 'smooth' });
     }
-    updateArrows();
+    setTimeout(updateArrows, 500); // Ensure arrows are updated after scroll
   }
 
   function scrollToCurrentPageButton() {
@@ -1238,7 +1241,7 @@ function initializeMinistryNavigation() {
         container.scrollTo({ left: buttonRight - container.offsetWidth, behavior: 'smooth' });
       }
     }
-    updateArrows();
+    setTimeout(updateArrows, 500); // Ensure arrows are updated after scroll
   }
 
   arrowRight.addEventListener('click', scrollRight);
