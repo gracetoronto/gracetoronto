@@ -26,8 +26,16 @@ html.is-animating .transition-fade {
   /* or other relevant properties */
 }
 
+.ministry__arrow {
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  opacity: 1;
+  visibility: visible;
+}
 
-
+.ministry__arrow.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
 
 
 

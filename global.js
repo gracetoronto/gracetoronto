@@ -1,4 +1,4 @@
-console.log("V1.217");
+console.log("V1.218");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1186,15 +1186,15 @@ function initializeMinistryNavigation() {
     const scrollLeft = container.scrollLeft;
 
     if (scrollLeft + containerWidth >= contentWidth) {
-      arrowRightContainer.style.display = 'none';
+      arrowRightContainer.classList.add('hidden');
     } else {
-      arrowRightContainer.style.display = 'flex';
+      arrowRightContainer.classList.remove('hidden');
     }
 
     if (scrollLeft <= 0) {
-      arrowLeftContainer.style.display = 'none';
+      arrowLeftContainer.classList.add('hidden');
     } else {
-      arrowLeftContainer.style.display = 'flex';
+      arrowLeftContainer.classList.remove('hidden');
     }
   }
 
