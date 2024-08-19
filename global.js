@@ -1185,14 +1185,14 @@ function initializeMinistryNavigation() {
     const contentWidth = Array.from(buttons).reduce((acc, button) => acc + button.offsetWidth, 0);
 
     if (contentWidth > containerWidth) {
-      arrowRightContainer.style.display = 'block';
+      arrowRightContainer.style.display = 'flex';
     } else {
       arrowRightContainer.style.display = 'none';
       arrowLeftContainer.style.display = 'none';
     }
 
     if (container.scrollLeft > 0) {
-      arrowLeftContainer.style.display = 'block';
+      arrowLeftContainer.style.display = 'flex';
     } else {
       arrowLeftContainer.style.display = 'none';
     }
