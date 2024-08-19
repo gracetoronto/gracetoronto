@@ -1,4 +1,4 @@
-console.log("V1.214");
+console.log("V1.215");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1235,6 +1235,7 @@ function initializeMinistryNavigation() {
 
   arrowRight.addEventListener('click', scrollRight);
   arrowLeft.addEventListener('click', scrollLeft);
+  container.addEventListener('scroll', updateArrows);
   window.addEventListener('resize', updateArrows);
 
   updateArrows();
