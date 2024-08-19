@@ -1,4 +1,4 @@
-console.log("V1.212");
+console.log("V1.213");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1184,11 +1184,10 @@ function initializeMinistryNavigation() {
     const containerWidth = container.offsetWidth;
     const contentWidth = Array.from(buttons).reduce((acc, button) => acc + button.offsetWidth, 0);
 
-    if (contentWidth > containerWidth) {
+    if (contentWidth > containerWidth || container.scrollLeft + containerWidth < contentWidth) {
       arrowRightContainer.style.display = 'flex';
     } else {
       arrowRightContainer.style.display = 'none';
-      arrowLeftContainer.style.display = 'none';
     }
 
     if (container.scrollLeft > 0) {
@@ -1196,17 +1195,13 @@ function initializeMinistryNavigation() {
     } else {
       arrowLeftContainer.style.display = 'none';
     }
-
-    if (container.scrollLeft + containerWidth >= contentWidth) {
-      arrowRightContainer.style.display = 'none';
-    }
   }
 
   function scrollRight() {
     const containerWidth = container.offsetWidth;
     const nextButton = Array.from(buttons).find(button => button.offsetLeft + button.offsetWidth > container.scrollLeft + containerWidth);
     if (nextButton) {
-      container.scrollLeft += nextButton.offsetWidth;
+      container.scrollBy({ left: nextButton.offsetWidth, behavior: 'smooth' });
     }
     updateArrows();
   }
@@ -1214,7 +1209,7 @@ function initializeMinistryNavigation() {
   function scrollLeft() {
     const prevButton = Array.from(buttons).reverse().find(button => button.offsetLeft < container.scrollLeft);
     if (prevButton) {
-      container.scrollLeft -= prevButton.offsetWidth;
+      container.scrollBy({ left: -prevButton.offsetWidth, behavior: 'smooth' });
     }
     updateArrows();
   }
@@ -1228,9 +1223,9 @@ function initializeMinistryNavigation() {
       const containerRight = containerLeft + container.offsetWidth;
 
       if (buttonLeft < containerLeft) {
-        container.scrollLeft = buttonLeft;
+        container.scrollTo({ left: buttonLeft, behavior: 'smooth' });
       } else if (buttonRight > containerRight) {
-        container.scrollLeft = buttonRight - container.offsetWidth;
+        container.scrollTo({ left: buttonRight - container.offsetWidth, behavior: 'smooth' });
       }
     }
     updateArrows();
