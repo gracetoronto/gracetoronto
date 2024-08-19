@@ -1,10 +1,11 @@
-console.log("V1.227");
+console.log("V1.228");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
 /// Initialize Swup
 const swup = new Swup({
   animateHistoryBrowsing: true,
+  animationScope: 'containers',
 
   plugins: [
     new SwupFragmentPlugin({
