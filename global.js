@@ -1,4 +1,4 @@
-console.log("V1.236");
+console.log("V1.237");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -600,6 +600,14 @@ function getEvents() {
       console.log('Raw start date string:', event.start);
       console.log('Raw end date string:', event.end);
 
+      // Add default time if missing
+      if (!event.start.includes('T')) {
+        event.start += 'T00:00:00';
+      }
+      if (!event.end.includes('T')) {
+        event.end += 'T23:59:59';
+      }
+
       // Manually parse the date strings if they are not in ISO 8601 format
       event.start = new Date(event.start.replace(' ', 'T'));
       event.end = new Date(event.end.replace(' ', 'T'));
@@ -607,6 +615,16 @@ function getEvents() {
       // Log the parsed dates for debugging
       console.log('Parsed start date:', event.start);
       console.log('Parsed end date:', event.end);
+
+      // Format the time without leading zeros
+      const formatTime = (date) => {
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+      };
+
+      event.formattedStartTime = formatTime(event.start);
+      event.formattedEndTime = formatTime(event.end);
 
       // Set event color based on the type
       switch (event.type) {
