@@ -1315,3 +1315,10 @@ function ministryEventCountTag() {
         }
     }
 }
+
+// Run the function after the DOM content is fully loaded
+document.addEventListener("DOMContentLoaded", function () {
+  ministryEventCountTag();
+});
+
+
