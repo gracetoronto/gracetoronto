@@ -1,4 +1,4 @@
-console.log("V1.230");
+console.log("V1.231");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1324,8 +1324,12 @@ function ministryEventCountTag() {
         // Select the .events__amount container
         var eventsAmountContainer = document.querySelector('.events__amount');
         if (eventsAmountContainer) {
+            // Clear the existing content
+            eventsAmountContainer.innerHTML = '';
+
             // Determine the correct text for the count
-            var eventText = upcomingEventsCount === 1 ? "1 upcoming event" : upcomingEventsCount + " upcoming events";
+            var eventText = upcomingEventsCount === 1 ? "1 Upcoming event." : upcomingEventsCount + " Upcoming events.";
+            // Update the content of .events__amount
             eventsAmountContainer.textContent = eventText;
         }
 
