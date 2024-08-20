@@ -1,4 +1,4 @@
-console.log("V1.243");
+console.log("V1.244");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -649,7 +649,7 @@ function getEvents() {
       }
 
       // Construct the update link dynamically
-      event.updateLink = event.update ? `${baseURL}/${event.update.trim()}` : null;
+      event.updateLink = event.update ? `${baseURL}/updates/post/${event.update.trim()}` : null;
 
       return event;
     } catch (error) {
@@ -1268,7 +1268,6 @@ function ministryEventCountTag() {
   var today = new Date();
   today.setHours(0, 0, 0, 0); // Set time to midnight
 
-  console.log("Today's Date:", today); // Log today's date
 
   var upcomingEventsCount = 0;
 
@@ -1285,15 +1284,11 @@ function ministryEventCountTag() {
       // Parse the JSON data from the script element
       var eventData = JSON.parse(scriptElement.textContent);
       
-      // Log the raw end date string
-      console.log("Raw End Date from JSON:", eventData.end);
       
       // Create a Date object from the ISO 8601 end date string
       var endDate = new Date(eventData.end);
       endDate.setHours(0, 0, 0, 0); // Set time to midnight
 
-      // Log the parsed end date
-      console.log("Parsed End Date:", endDate);
 
       // Check if the end date is today or in the future
       if (isNaN(endDate.getTime())) {
