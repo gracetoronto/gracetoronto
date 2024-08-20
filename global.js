@@ -1,4 +1,4 @@
-console.log("V1.241");
+console.log("V1.242");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -543,6 +543,9 @@ initializeAccordions();
 
 
 //----CALENDAR INTEGRATION----
+
+const baseURL = window.location.origin;
+
 function showCal() {
   let calendars = []; // Array to store multiple calendar instances
 
@@ -581,6 +584,19 @@ function showCal() {
       },
       eventClick: function (data) {
         alert(`User clicked the event ${data.event.title}`);
+      },
+      eventContent: function (info) {
+        let { event } = info;
+
+        // Create a container for the event content
+        let container = document.createElement('div');
+        container.innerHTML = `
+          <div>${event.title}</div>
+          <div>${event.extendedProps.formattedStartTime} - ${event.extendedProps.formattedEndTime}</div>
+          ${event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" target="_blank" class="btn-view-details">View more details</a>` : ''}
+        `;
+
+        return { domNodes: [container] };
       }
     });
 
@@ -589,13 +605,14 @@ function showCal() {
   });
 }
 
+
 // Function to get events from the Webflow CMS
 function getEvents() {
+  const baseURL = window.location.origin; // Get the base URL dynamically
   const scripts = document.querySelectorAll('[data-element="event-data"]');
   const events = Array.prototype.slice.call(scripts).map(function (script) {
     try {
       const event = JSON.parse(script.textContent.trim());
-
 
       // Add default time if missing
       if (!event.start.includes('T')) {
@@ -633,6 +650,9 @@ function getEvents() {
         default:
           event.color = '#3788d8'; // Default color if type is not recognized
       }
+
+      // Construct the update link dynamically
+      event.updateLink = event.update ? `${baseURL}/${event.update}` : null;
 
       return event;
     } catch (error) {
