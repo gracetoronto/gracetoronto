@@ -1,4 +1,4 @@
-console.log("V1.240");
+console.log("V1.241");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -575,7 +575,7 @@ function showCal() {
       height: 'auto', // Adjust the calendar height based on the content
       events: events,
       eventTimeFormat: { // Specify time format for events
-        hour: '2-digit',
+        hour: 'numeric', // Use 'numeric' to avoid leading zeros
         minute: '2-digit',
         meridiem: 'short' // Use 12-hour format with AM/PM
       },
@@ -611,7 +611,6 @@ function getEvents() {
       // Manually parse the date strings if they are not in ISO 8601 format
       event.start = new Date(event.start.replace(' ', 'T'));
       event.end = new Date(event.end.replace(' ', 'T'));
-
 
       // Format the time without leading zeros
       const formatTime = (date) => {
