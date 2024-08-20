@@ -1,4 +1,4 @@
-console.log("V1.234");
+console.log("V1.235");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -596,9 +596,13 @@ function getEvents() {
     try {
       const event = JSON.parse(script.textContent.trim());
 
-      // Ensure start and end times are parsed as Date objects
-      event.start = new Date(event.start);
-      event.end = new Date(event.end);
+      // Manually parse the date strings if they are not in ISO 8601 format
+      event.start = new Date(event.start.replace(' ', 'T'));
+      event.end = new Date(event.end.replace(' ', 'T'));
+
+      // Log the parsed dates for debugging
+      console.log('Parsed start date:', event.start);
+      console.log('Parsed end date:', event.end);
 
       // Set event color based on the type
       switch (event.type) {
