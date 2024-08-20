@@ -596,9 +596,6 @@ function getEvents() {
     try {
       const event = JSON.parse(script.textContent.trim());
 
-      // Log the raw date strings for debugging
-      console.log('Raw start date string:', event.start);
-      console.log('Raw end date string:', event.end);
 
       // Add default time if missing
       if (!event.start.includes('T')) {
