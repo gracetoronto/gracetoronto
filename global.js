@@ -1,4 +1,4 @@
-console.log("V1.242");
+console.log("V1.243");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -650,7 +650,7 @@ function getEvents() {
       }
 
       // Construct the update link dynamically
-      event.updateLink = event.update ? `${baseURL}/${event.update}` : null;
+      event.updateLink = event.update ? `${baseURL}/${event.update.trim()}` : null;
 
       return event;
     } catch (error) {
