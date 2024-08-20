@@ -1,4 +1,4 @@
-console.log("V1.229");
+console.log("V1.230");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -54,6 +54,7 @@ swup.hooks.on('content:replace', () => {
   updateNavButtons();
   startCountdown();
   initializeMinistryNavigation();
+  ministryEventCountTag();
 });
 
 
@@ -1257,4 +1258,103 @@ function initializeMinistryNavigation() {
 
   updateArrows();
   scrollToCurrentPageButton();
+}
+
+
+
+
+
+//--MINISTRY EVENT COUNT TAG FUNCTIONALITY---
+
+function ministryEventCountTag() {
+    // Only execute if the URL contains /ministries/
+    if (window.location.pathname.includes('/ministries/')) {
+        // Get all elements with class "calendar__item"
+        var calendarItems = document.getElementsByClassName('calendar__item');
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Set time to midnight
+
+        console.log("Today's Date:", today); // Log today's date
+
+        var upcomingEventsCount = 0;
+
+        // Function to parse "MMM DD, YYYY" format
+        function parseCustomDate(dateString) {
+            var parts = dateString.split(' ');
+            var month = new Date(Date.parse(parts[0] +" 1, 2024")).getMonth(); // Get the month index
+            var day = parseInt(parts[1].replace(',', '')); // Get the day
+            var year = parseInt(parts[2]); // Get the year
+            return new Date(year, month, day); // Return the Date object
+        }
+
+        // Loop through each calendar item to check the end date
+        for (var i = 0; i < calendarItems.length; i++) {
+            // Find the script element containing the JSON data within the calendar item
+            var scriptElement = calendarItems[i].querySelector('script[data-element="event-data"]');
+            
+            if (!scriptElement) {
+                console.error("Script element with event-data not found in calendar item:", calendarItems[i]);
+                continue;
+            }
+            
+            // Parse the JSON data from the script element
+            var eventData = JSON.parse(scriptElement.textContent);
+            
+            // Log the raw end date string
+            console.log("Raw End Date from JSON:", eventData.end);
+            
+            // Manually parse the end date
+            var endDate = parseCustomDate(eventData.end);
+            endDate.setHours(0, 0, 0, 0); // Set time to midnight
+
+            // Log the parsed end date
+            console.log("Parsed End Date:", endDate);
+
+            // Check if the end date is today or in the future
+            if (isNaN(endDate)) {
+                console.error("Invalid date parsed for event:", eventData.title, "Raw end date:", eventData.end);
+            } else if (endDate >= today) {
+                console.log("Upcoming Event:", eventData.title, "End Date:", endDate);
+                upcomingEventsCount++;
+            } else {
+                console.log("Event has passed:", eventData.title, "End Date:", endDate);
+            }
+        }
+
+        // Select the .events__amount container
+        var eventsAmountContainer = document.querySelector('.events__amount');
+        if (eventsAmountContainer) {
+            // Determine the correct text for the count
+            var eventText = upcomingEventsCount === 1 ? "1 upcoming event" : upcomingEventsCount + " upcoming events";
+            eventsAmountContainer.textContent = eventText;
+        }
+
+        // Select the .ministry__events container
+        var ministryEventsContainer = document.querySelector('.ministry__events');
+
+        // Check if there are no upcoming events and hide the container if true
+        if (upcomingEventsCount === 0 && ministryEventsContainer) {
+            ministryEventsContainer.style.display = 'none';
+        }
+
+        // Function to smoothly scroll to an element with offset
+        function scrollToElementWithOffset(elementId, offset) {
+            var element = document.getElementById(elementId);
+            if (element) {
+                var elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                var offsetPosition = elementPosition - offset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Add click event listener to .ministry__events
+        if (ministryEventsContainer) {
+            ministryEventsContainer.addEventListener('click', function() {
+                scrollToElementWithOffset('content', 40);
+            });
+        }
+    }
 }
