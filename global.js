@@ -581,7 +581,7 @@ function showCal() {
         meridiem: 'short' // Use 12-hour format with AM/PM
       },
       eventClick: function (data) {
-        alert(`User clicked the event ${data.event.title}`);
+        // alert(`User clicked the event ${data.event.title}`);
       },
       eventContent: function (info) {
         let { event } = info;
@@ -1294,10 +1294,8 @@ function ministryEventCountTag() {
       if (isNaN(endDate.getTime())) {
           console.error("Invalid date parsed for event:", eventData.title, "Raw end date:", eventData.end);
       } else if (endDate >= today) {
-          console.log("Upcoming Event:", eventData.title, "End Date:", endDate);
           upcomingEventsCount++;
       } else {
-          console.log("Event has passed:", eventData.title, "End Date:", endDate);
       }
   }
 
