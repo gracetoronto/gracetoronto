@@ -1,4 +1,4 @@
-console.log("V1.232");
+console.log("V1.233");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -562,7 +562,11 @@ function showCal() {
         listThreeMonth: {
           type: 'list',
           duration: { months: 3 }, // Set the duration to 3 months
-          buttonText: 'List View'
+          buttonText: 'List View',
+          titleFormat: { // Customize the title format to use abbreviated month names
+            year: 'numeric',
+            month: 'short'
+          }
         },
         dayGridMonth: {
           buttonText: 'Calendar'
@@ -1227,7 +1231,7 @@ function ministryEventCountTag() {
         var today = new Date();
         today.setHours(0, 0, 0, 0); // Set time to midnight
 
-        
+
         var upcomingEventsCount = 0;
 
         // Function to parse "MMM DD, YYYY" format
