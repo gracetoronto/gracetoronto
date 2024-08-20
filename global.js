@@ -1,4 +1,4 @@
-console.log("V1.239");
+console.log("V1.240");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -612,9 +612,6 @@ function getEvents() {
       event.start = new Date(event.start.replace(' ', 'T'));
       event.end = new Date(event.end.replace(' ', 'T'));
 
-      // Log the parsed dates for debugging
-      console.log('Parsed start date:', event.start);
-      console.log('Parsed end date:', event.end);
 
       // Format the time without leading zeros
       const formatTime = (date) => {
