@@ -1227,8 +1227,7 @@ function ministryEventCountTag() {
         var today = new Date();
         today.setHours(0, 0, 0, 0); // Set time to midnight
 
-        console.log("Today's Date:", today); // Log today's date
-
+        
         var upcomingEventsCount = 0;
 
         // Function to parse "MMM DD, YYYY" format
@@ -1253,24 +1252,17 @@ function ministryEventCountTag() {
             // Parse the JSON data from the script element
             var eventData = JSON.parse(scriptElement.textContent);
             
-            // Log the raw end date string
-            console.log("Raw End Date from JSON:", eventData.end);
-            
             // Manually parse the end date
             var endDate = parseCustomDate(eventData.end);
             endDate.setHours(0, 0, 0, 0); // Set time to midnight
 
             // Log the parsed end date
-            console.log("Parsed End Date:", endDate);
 
             // Check if the end date is today or in the future
             if (isNaN(endDate)) {
-                console.error("Invalid date parsed for event:", eventData.title, "Raw end date:", eventData.end);
             } else if (endDate >= today) {
-                console.log("Upcoming Event:", eventData.title, "End Date:", endDate);
                 upcomingEventsCount++;
             } else {
-                console.log("Event has passed:", eventData.title, "End Date:", endDate);
             }
         }
 
