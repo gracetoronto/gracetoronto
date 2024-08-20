@@ -1,4 +1,4 @@
-console.log("V1.235");
+console.log("V1.236");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -595,6 +595,10 @@ function getEvents() {
   const events = Array.prototype.slice.call(scripts).map(function (script) {
     try {
       const event = JSON.parse(script.textContent.trim());
+
+      // Log the raw date strings for debugging
+      console.log('Raw start date string:', event.start);
+      console.log('Raw end date string:', event.end);
 
       // Manually parse the date strings if they are not in ISO 8601 format
       event.start = new Date(event.start.replace(' ', 'T'));
