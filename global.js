@@ -1,4 +1,4 @@
-console.log("V1.231");
+console.log("V1.232");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,7 +45,6 @@ swup.hooks.on('content:replace', () => {
   showCal();
   initCarousel();
   initializeAccordions();
-  updateEventCount();
   initializeSliders();
   initializeShowFirstImage();
   hideMatchingEndDates();
@@ -626,52 +625,6 @@ document.addEventListener('DOMContentLoaded', function () {
   showCal();
 });
 
-
-
-
-
-
-
-//---UPDATE CALENDAR EVENT COUNT ON MINISTRY PAGES---
-
-function updateEventCount() {
-  // Check if the current page has a div with class '.ministry__calendar'
-  if (!document.querySelector('.ministry__calendar')) {
-    return;
-  }
-
-  // Get the number of elements with class "calendar__item"
-  var numberOfEvents = document.getElementsByClassName('calendar__item').length;
-
-  // Create a new div element for displaying the count
-  var countElement = document.createElement('div');
-  countElement.classList.add('subtitle', 'is--2');
-
-  // Update text content based on number of events
-  if (numberOfEvents === 1) {
-    countElement.textContent = "1 upcoming event";
-  } else {
-    countElement.textContent = numberOfEvents + " upcoming events";
-  }
-
-  // Select the .ministry__events container
-  var ministryEventsContainer = document.querySelector('.ministry__events');
-
-  // Remove any existing count elements (if any)
-  var existingCountElement = ministryEventsContainer.querySelector('.subtitle.is--2');
-  if (existingCountElement) {
-    ministryEventsContainer.removeChild(existingCountElement);
-  }
-
-  // Append the count element to the ministryEventsContainer
-  ministryEventsContainer.appendChild(countElement);
-}
-
-// Wait for the DOM content to be fully loaded
-document.addEventListener("DOMContentLoaded", function () {
-  // Initial update on page load
-  updateEventCount();
-});
 
 
 
