@@ -544,8 +544,6 @@ initializeAccordions();
 
 //----CALENDAR INTEGRATION----
 
-const baseURL = window.location.origin;
-
 function showCal() {
   let calendars = []; // Array to store multiple calendar instances
 
@@ -592,7 +590,6 @@ function showCal() {
         let container = document.createElement('div');
         container.innerHTML = `
           <div>${event.title}</div>
-          <div>${event.extendedProps.formattedStartTime} - ${event.extendedProps.formattedEndTime}</div>
           ${event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" target="_blank" class="btn-view-details">View more details</a>` : ''}
         `;
 
