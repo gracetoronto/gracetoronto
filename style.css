@@ -56,9 +56,9 @@ html.is-animating .transition-fade {
 
 /*fullcalendar update link style*/
 
-.view-more-details {
+.btn-view-details {
   display: inline-block;
-  color: white;
+  color: rgb(167, 167, 167);
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
@@ -66,8 +66,8 @@ html.is-animating .transition-fade {
   transition: background-color 0.3s ease;
 }
 
-.view-more-details:hover {
-  background-color: #0056b3; /* Darker shade on hover */
+.btn-view-details:hover {
+  background-color: #313131; /* Darker shade on hover */
 }
 
 /* Navigation CSS transitions */
