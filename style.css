@@ -61,7 +61,6 @@ html.is-animating .transition-fade {
   color: rgb(163, 163, 163);
   text-decoration: none;
   border-radius: 5px;
-  font-weight: bold;
   font-size: 14px;
   transition: background-color 0.3s ease;
 }
