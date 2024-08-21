@@ -58,7 +58,7 @@ html.is-animating .transition-fade {
 
 .btn-view-details {
   display: inline-block;
-  color: rgb(163, 163, 163);
+  color: rgb(163, 163, 163) !important;
   text-decoration: none;
   border-radius: 5px;
   font-size: 14px;
