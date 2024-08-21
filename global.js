@@ -52,7 +52,7 @@ const swup = new Swup({
         },
         {
           from: '/updates/news',
-          to: '/updates/event',
+          to: '/updates/events',
           containers: ['#fragment-updates']
         },
         {
