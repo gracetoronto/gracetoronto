@@ -16,6 +16,13 @@ html.is-animating .transition-fade {
   opacity: 0;
 }
 
+#fragment-updates.is-changing {
+  transition: opacity 250ms;
+}
+#fragment-updates.is-animating {
+  opacity: 0;
+}
+
 
 /* Minstry nav arrow animation */
 
