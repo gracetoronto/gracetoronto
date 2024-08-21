@@ -1,4 +1,4 @@
-console.log("V1.244");
+console.log("V1.245");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -649,7 +649,15 @@ function getEvents() {
       }
 
       // Construct the update link dynamically
-      event.updateLink = event.update ? `${baseURL}/updates/post/${event.update.trim()}` : null;
+      if (event.update) {
+        event.updateLink = `${baseURL}/updates/post/${event.update.trim()}`;
+        event.updateButtonHTML = `
+          <a href="${event.updateLink}" class="view-more-details">
+            View more details <img src="https://uploads-ssl.webflow.com/661d375bfd27162a5e3d0193/661d6772b634bb7b8d55df31_chevron_right.svg" class="icon">→</span>
+          </a>`;
+      } else {
+        event.updateButtonHTML = ''; // No button if no update link
+      }
 
       return event;
     } catch (error) {

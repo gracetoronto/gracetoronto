@@ -54,6 +54,21 @@ html.is-animating .transition-fade {
   display: block;
 }
 
+/*fullcalendar update link style*/
+
+.view-more-details {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-details:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
 
 /* Navigation CSS transitions */
 
