@@ -58,7 +58,7 @@ html.is-animating .transition-fade {
 
 .btn-view-details {
   display: inline-block;
-  color: rgb(167, 167, 167);
+  color: rgb(163, 163, 163);
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
@@ -67,7 +67,7 @@ html.is-animating .transition-fade {
 }
 
 .btn-view-details:hover {
-  background-color: #313131; /* Darker shade on hover */
+  color: #313131; /* Darker shade on hover */
 }
 
 /* Navigation CSS transitions */
