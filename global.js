@@ -1,4 +1,4 @@
-console.log("V1.248");
+console.log("V1.249");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -16,15 +16,65 @@ const swup = new Swup({
           containers: ['#fragment-ministries']
         },
         {
-          from: '/updates/(.*)',
-          to: '/updates/(.*)',
+          from: '/updates',
+          to: '/updates/events',
           containers: ['#fragment-updates']
         },
         {
           from: '/updates',
-          to: '/updates/(.*)',
+          to: '/updates/news',
           containers: ['#fragment-updates']
-        }
+        },
+        {
+          from: '/updates',
+          to: '/updates/highlights',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/events',
+          to: '/updates',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/events',
+          to: '/updates/news',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/events',
+          to: '/updates/highlights',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/news',
+          to: '/updates',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/news',
+          to: '/updates/event',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/news',
+          to: '/updates/highlights',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/highlights',
+          to: '/updates',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/highlights',
+          to: '/updates/events',
+          containers: ['#fragment-updates']
+        },
+        {
+          from: '/updates/highlights',
+          to: '/updates/news',
+          containers: ['#fragment-updates']
+        },
       ]
     }),
     new SwupScriptsPlugin({
