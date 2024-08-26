@@ -1,4 +1,4 @@
-console.log("V1.259");
+console.log("V1.260");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1477,20 +1477,13 @@ function initCheckboxBehavior() {
     return Array.from(ministryCheckboxes).some(checkbox => checkbox.checked);
   }
 
-  // Function to simulate a click event on a checkbox
-  function simulateClick(checkbox) {
-    const event = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
-    checkbox.dispatchEvent(event);
-  }
-
   // Handle change on the '#church-wide' checkbox
   churchWideCheckbox.addEventListener('change', function() {
     console.log('Church-wide checkbox changed:', this.checked);
     if (this.checked) {
+      // Uncheck all ministry checkboxes
       ministryCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-          simulateClick(checkbox);
-        }
+        checkbox.checked = false;
       });
     }
   });
@@ -1500,14 +1493,15 @@ function initCheckboxBehavior() {
     checkbox.addEventListener('change', function() {
       console.log('Ministry checkbox changed:', this.checked);
       if (this.checked) {
-        simulateClick(churchWideCheckbox);
+        // Uncheck the church-wide checkbox
+        churchWideCheckbox.checked = false;
       }
 
       // If no ministry checkboxes are selected and '#church-wide' is not selected, select the first ministry checkbox
       if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
         const firstCheckbox = ministryCheckboxes[0];
         if (firstCheckbox) {
-          simulateClick(firstCheckbox);
+          firstCheckbox.checked = true;
         }
       }
     });
@@ -1515,10 +1509,12 @@ function initCheckboxBehavior() {
 
   // Ensure at least one checkbox is selected on initial page load
   if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-    simulateClick(churchWideCheckbox);
+    const firstCheckbox = ministryCheckboxes[0];
+    if (firstCheckbox) {
+      firstCheckbox.checked = true;
+    }
   }
 }
 
 // Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
-
