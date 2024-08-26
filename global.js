@@ -1,4 +1,4 @@
-console.log("V1.272");
+console.log("V1.273");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1459,6 +1459,10 @@ function initCheckboxBehavior() {
   // Select ministry checkbox labels with the class '.filter__option' and attribute 'fs-cmsfilter-field="ministry"'
   const ministryCheckboxLabels = document.querySelectorAll('.filter__option[fs-cmsfilter-field="ministry"]');
 
+  // Select the divs for showing/hiding based on church-wide checkbox state
+  const filtersDiv = document.querySelector('.eventcard__filters');
+  const churchwideDiv = document.querySelector('.eventcard__churchwide');
+
   // Check if elements are found
   if (!churchWideCheckbox) {
     console.error('Church-wide checkbox not found');
@@ -1468,7 +1472,13 @@ function initCheckboxBehavior() {
     console.error('No ministry checkbox labels found');
     return;
   }
+  if (!filtersDiv || !churchwideDiv) {
+    console.error('Event card divs not found');
+    return;
+  }
 
+  console.log('Church-wide checkbox:', churchWideCheckbox);
+  console.log('Ministry checkbox labels:', ministryCheckboxLabels);
 
   // Force checkbox state
   function forceCheckboxState(checkbox, state) {
@@ -1480,6 +1490,17 @@ function initCheckboxBehavior() {
     }
   }
 
+  // Update visibility of divs based on church-wide checkbox state
+  function updateVisibility() {
+    if (churchWideCheckbox.checked) {
+      filtersDiv.style.display = 'none';
+      churchwideDiv.style.display = 'block';
+    } else {
+      filtersDiv.style.display = 'block';
+      churchwideDiv.style.display = 'none';
+    }
+  }
+
   // Check if any ministry checkboxes are selected
   function anyMinistryCheckboxSelected() {
     return Array.from(ministryCheckboxLabels).some(label => label.querySelector('input[type="checkbox"]').checked);
@@ -1487,12 +1508,15 @@ function initCheckboxBehavior() {
 
   // Handle change on the church-wide checkbox
   churchWideCheckbox.addEventListener('change', function() {
+    console.log('Church-wide checkbox changed:', this.checked);
+    updateVisibility();
     if (this.checked) {
       // Uncheck all ministry checkboxes
       ministryCheckboxLabels.forEach(label => {
         const checkbox = label.querySelector('input[type="checkbox"]');
         if (checkbox) {
           forceCheckboxState(checkbox, false);
+          console.log('Ministry checkbox unchecked:', checkbox);
         }
       });
     } else if (!anyMinistryCheckboxSelected()) {
@@ -1500,6 +1524,7 @@ function initCheckboxBehavior() {
       const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
       if (firstCheckbox) {
         forceCheckboxState(firstCheckbox, true);
+        console.log('First ministry checkbox selected automatically');
       }
     }
   });
@@ -1509,12 +1534,15 @@ function initCheckboxBehavior() {
     const checkbox = label.querySelector('input[type="checkbox"]');
     if (checkbox) {
       checkbox.addEventListener('change', function() {
+        console.log('Ministry checkbox changed:', this.checked);
         if (this.checked) {
           // Deselect the church-wide checkbox
           forceCheckboxState(churchWideCheckbox, false);
+          console.log('Church-wide checkbox unchecked due to ministry selection');
         } else if (!anyMinistryCheckboxSelected()) {
           // If no ministry checkboxes are selected, select the church-wide checkbox
           forceCheckboxState(churchWideCheckbox, true);
+          console.log('Church-wide checkbox selected automatically');
         }
       });
     }
@@ -1531,6 +1559,9 @@ function initCheckboxBehavior() {
       forceCheckboxState(churchWideCheckbox, true);
     }
   }
+
+  // Initialize visibility on page load
+  updateVisibility();
 }
 
 // Ensure the function runs after the DOM is fully loaded
