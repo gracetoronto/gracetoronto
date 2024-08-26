@@ -1,4 +1,4 @@
-console.log("V1.255");
+console.log("V1.256");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1456,23 +1456,24 @@ function initCheckboxBehavior() {
   const churchWideCheckbox = document.getElementById('church-wide');
   const ministryCheckboxes = document.querySelectorAll('.filter__ministries .filter__option .filter__bar');
 
-  console.log('Church-wide checkbox:', churchWideCheckbox);
-  console.log('Ministry checkboxes:', ministryCheckboxes);
-
   // Helper function to check if any ministry checkbox is selected
   function anyMinistryCheckboxSelected() {
-    const anySelected = Array.from(ministryCheckboxes).some(checkbox => checkbox.checked);
-    console.log('Any ministry checkbox selected:', anySelected);
-    return anySelected;
+    return Array.from(ministryCheckboxes).some(checkbox => checkbox.checked);
+  }
+
+  // Function to simulate a click event on a checkbox
+  function simulateClick(checkbox) {
+    const event = new MouseEvent('click', { bubbles: true, cancelable: true, view: window });
+    checkbox.dispatchEvent(event);
   }
 
   // Handle change on the '#church-wide' checkbox
   churchWideCheckbox.addEventListener('change', function() {
-    console.log('#church-wide changed:', this.checked);
     if (this.checked) {
       ministryCheckboxes.forEach(checkbox => {
-        checkbox.checked = false;
-        console.log('Deselecting ministry checkbox:', checkbox);
+        if (checkbox.checked) {
+          simulateClick(checkbox);
+        }
       });
     }
   });
@@ -1480,18 +1481,15 @@ function initCheckboxBehavior() {
   // Handle change on the ministry checkboxes
   ministryCheckboxes.forEach(function(checkbox) {
     checkbox.addEventListener('change', function() {
-      console.log('Ministry checkbox changed:', this.checked);
       if (this.checked) {
-        churchWideCheckbox.checked = false;
-        console.log('Deselecting #church-wide');
+        simulateClick(churchWideCheckbox);
       }
 
       // If no ministry checkboxes are selected and '#church-wide' is not selected, select the first ministry checkbox
       if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
         const firstCheckbox = ministryCheckboxes[0];
         if (firstCheckbox) {
-          firstCheckbox.checked = true;
-          console.log('Selecting first ministry checkbox:', firstCheckbox);
+          simulateClick(firstCheckbox);
         }
       }
     });
@@ -1499,8 +1497,7 @@ function initCheckboxBehavior() {
 
   // Ensure at least one checkbox is selected on initial page load
   if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-    churchWideCheckbox.checked = true;
-    console.log('Selecting #church-wide on load');
+    simulateClick(churchWideCheckbox);
   }
 }
 
