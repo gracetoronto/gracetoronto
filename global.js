@@ -1,4 +1,4 @@
-console.log("V1.264");
+console.log("V1.265");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1468,11 +1468,6 @@ function initCheckboxBehavior() {
     return;
   }
 
-  // Helper function to check if any ministry checkbox is selected
-  function anyMinistryCheckboxSelected() {
-    return Array.from(ministryCheckboxLabels).some(label => label.querySelector('input[type="checkbox"]').checked);
-  }
-
   // Handle change on the church-wide checkbox
   churchWideCheckbox.addEventListener('change', function() {
     if (this.checked) {
@@ -1492,26 +1487,16 @@ function initCheckboxBehavior() {
         if (this.checked) {
           // Deselect the church-wide checkbox
           churchWideCheckbox.checked = false;
-        } else if (!anyMinistryCheckboxSelected()) {
-          // If no ministry checkboxes are selected, check the church-wide checkbox
-          churchWideCheckbox.checked = true;
         }
       });
     }
   });
-
-  // Ensure at least one checkbox is selected on initial page load
-  if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-    // Select the first ministry checkbox
-    const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
-    if (firstCheckbox) {
-      firstCheckbox.checked = true;
-    } else {
-      // If no ministry checkbox found, select the church-wide checkbox
-      churchWideCheckbox.checked = true;
-    }
-  }
 }
 
 // Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
+
+// Reinitialize the function after swup replaces content
+swup.hooks.on('content:replace', function () {
+  initCheckboxBehavior();
+});
