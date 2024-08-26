@@ -1,4 +1,4 @@
-console.log("V1.271");
+console.log("V1.272");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1474,7 +1474,7 @@ function initCheckboxBehavior() {
 
   // Force checkbox state
   function forceCheckboxState(checkbox, state) {
-    if (checkbox) {
+    if (checkbox.checked !== state) {
       checkbox.checked = state;
       checkbox.setAttribute('checked', state); // Update the attribute
       checkbox.dispatchEvent(new Event('change', { bubbles: true })); // Trigger change event
@@ -1530,7 +1530,7 @@ function initCheckboxBehavior() {
 
   // Ensure the correct initial state
   if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-    // Select the first ministry checkbox
+    // Select the first ministry checkbox if the church-wide checkbox is not checked and no ministry checkboxes are selected
     const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
     if (firstCheckbox) {
       forceCheckboxState(firstCheckbox, true);
