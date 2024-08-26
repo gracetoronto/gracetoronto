@@ -1,4 +1,4 @@
-console.log("V1.256a");
+console.log("V1.257");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1453,8 +1453,11 @@ initFilterOptions();
 //---CALENDAR FILTER CHURCH-WIDE CHECKBOX FUNCTIONALIY---
 
 function initCheckboxBehavior() {
-  const churchWideCheckbox = document.getElementById('church-wide');
-  const ministryCheckboxes = document.querySelectorAll('.filter__ministries .filter__option .filter__bar');
+  const churchWideCheckbox = document.querySelector('[data-fs-cmsfilter-field="church-wide"]');
+  const ministryCheckboxes = document.querySelectorAll('[data-fs-cmsfilter-field="ministry"]');
+
+  console.log('Church-wide checkbox:', churchWideCheckbox);
+  console.log('Ministry checkboxes:', ministryCheckboxes);
 
   // Helper function to check if any ministry checkbox is selected
   function anyMinistryCheckboxSelected() {
@@ -1469,6 +1472,7 @@ function initCheckboxBehavior() {
 
   // Handle change on the '#church-wide' checkbox
   churchWideCheckbox.addEventListener('change', function() {
+    console.log('Church-wide checkbox changed:', this.checked);
     if (this.checked) {
       ministryCheckboxes.forEach(checkbox => {
         if (checkbox.checked) {
@@ -1481,6 +1485,7 @@ function initCheckboxBehavior() {
   // Handle change on the ministry checkboxes
   ministryCheckboxes.forEach(function(checkbox) {
     checkbox.addEventListener('change', function() {
+      console.log('Ministry checkbox changed:', this.checked);
       if (this.checked) {
         simulateClick(churchWideCheckbox);
       }
@@ -1503,5 +1508,4 @@ function initCheckboxBehavior() {
 
 // Call the function on initial page load
 initCheckboxBehavior();
-
 
