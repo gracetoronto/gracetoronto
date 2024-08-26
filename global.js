@@ -1,4 +1,4 @@
-console.log("V1.257");
+console.log("V1.258");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1453,11 +1453,22 @@ initFilterOptions();
 //---CALENDAR FILTER CHURCH-WIDE CHECKBOX FUNCTIONALIY---
 
 function initCheckboxBehavior() {
-  const churchWideCheckbox = document.querySelector('[data-fs-cmsfilter-field="church-wide"]');
-  const ministryCheckboxes = document.querySelectorAll('[data-fs-cmsfilter-field="ministry"]');
+  // Select elements using custom attributes without `data-`
+  const churchWideCheckbox = document.querySelector('[fs-cmsfilter-field="church-wide"]');
+  const ministryCheckboxes = document.querySelectorAll('[fs-cmsfilter-field="ministry"]');
 
   console.log('Church-wide checkbox:', churchWideCheckbox);
   console.log('Ministry checkboxes:', ministryCheckboxes);
+
+  // Check if elements are found
+  if (!churchWideCheckbox) {
+    console.error('Church-wide checkbox not found');
+    return;
+  }
+  if (ministryCheckboxes.length === 0) {
+    console.error('No ministry checkboxes found');
+    return;
+  }
 
   // Helper function to check if any ministry checkbox is selected
   function anyMinistryCheckboxSelected() {
@@ -1506,6 +1517,6 @@ function initCheckboxBehavior() {
   }
 }
 
-// Call the function on initial page load
-initCheckboxBehavior();
+// Ensure the function runs after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
 
