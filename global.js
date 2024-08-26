@@ -1,4 +1,4 @@
-console.log("V1.265");
+console.log("V1.266");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1426,31 +1426,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---CALENDAR FILTER OPTION CHECKBOX STYLING---
 
-function initFilterOptions() {
-  document.querySelectorAll('.filter__option').forEach(function (option) {
-    const checkbox = option.querySelector('input[type="checkbox"]');
-
-    if (checkbox) { // Check if the checkbox element exists
-      checkbox.addEventListener('change', function () {
-        if (this.checked) {
-          option.classList.add('is--selected'); // Adds class to the label
-        } else {
-          option.classList.remove('is--selected'); // Removes class from the label
-        }
-      });
-    } else {
-      console.warn('No checkbox found within:', option);
-    }
-  });
-}
-
-// Call the function on initial page load
-initFilterOptions();
-
-
-
-
-//---CALENDAR FILTER CHURCH-WIDE CHECKBOX FUNCTIONALIY---
 function initCheckboxBehavior() {
   // Select the church-wide checkbox using custom attribute
   const churchWideCheckbox = document.querySelector('[fs-cmsfilter-field="church-wide"]');
@@ -1468,13 +1443,20 @@ function initCheckboxBehavior() {
     return;
   }
 
+  console.log('Church-wide checkbox:', churchWideCheckbox);
+  console.log('Ministry checkbox labels:', ministryCheckboxLabels);
+
   // Handle change on the church-wide checkbox
   churchWideCheckbox.addEventListener('change', function() {
+    console.log('Church-wide checkbox changed:', this.checked);
     if (this.checked) {
       // Uncheck all ministry checkboxes
       ministryCheckboxLabels.forEach(label => {
         const checkbox = label.querySelector('input[type="checkbox"]');
-        if (checkbox) checkbox.checked = false;
+        if (checkbox) {
+          checkbox.checked = false;
+          console.log('Ministry checkbox unchecked:', checkbox);
+        }
       });
     }
   });
@@ -1484,9 +1466,11 @@ function initCheckboxBehavior() {
     const checkbox = label.querySelector('input[type="checkbox"]');
     if (checkbox) {
       checkbox.addEventListener('change', function() {
+        console.log('Ministry checkbox changed:', this.checked);
         if (this.checked) {
           // Deselect the church-wide checkbox
           churchWideCheckbox.checked = false;
+          console.log('Church-wide checkbox unchecked due to ministry selection');
         }
       });
     }
