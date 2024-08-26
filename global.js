@@ -1500,7 +1500,7 @@ function initCheckboxBehavior() {
         filtersDiv.style.display = 'flex';
         churchwideDiv.style.display = 'none';
       }
-    }, 250); // Delay for 250ms
+    }, 350); // Delay for 250ms
   }
 
   // Check if any ministry checkboxes are selected
