@@ -1,4 +1,4 @@
-console.log("V1.274");
+console.log("V1.275");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1492,17 +1492,15 @@ function initCheckboxBehavior() {
 
   // Update visibility of divs based on church-wide checkbox state
   function updateVisibility() {
-    if (churchWideCheckbox.checked) {
-      filtersDiv.classList.remove('visible');
-      filtersDiv.classList.add('hidden');
-      churchwideDiv.classList.remove('hidden');
-      churchwideDiv.classList.add('visible');
-    } else {
-      filtersDiv.classList.remove('hidden');
-      filtersDiv.classList.add('visible');
-      churchwideDiv.classList.remove('visible');
-      churchwideDiv.classList.add('hidden');
-    }
+    setTimeout(() => {
+      if (churchWideCheckbox.checked) {
+        filtersDiv.style.display = 'none';
+        churchwideDiv.style.display = 'flex';
+      } else {
+        filtersDiv.style.display = 'flex';
+        churchwideDiv.style.display = 'none';
+      }
+    }, 250); // Delay for 250ms
   }
 
   // Check if any ministry checkboxes are selected
