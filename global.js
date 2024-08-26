@@ -1,4 +1,4 @@
-console.log("V1.273");
+console.log("V1.274");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1493,11 +1493,15 @@ function initCheckboxBehavior() {
   // Update visibility of divs based on church-wide checkbox state
   function updateVisibility() {
     if (churchWideCheckbox.checked) {
-      filtersDiv.style.display = 'none';
-      churchwideDiv.style.display = 'flex';
+      filtersDiv.classList.remove('visible');
+      filtersDiv.classList.add('hidden');
+      churchwideDiv.classList.remove('hidden');
+      churchwideDiv.classList.add('visible');
     } else {
-      filtersDiv.style.display = 'flex';
-      churchwideDiv.style.display = 'none';
+      filtersDiv.classList.remove('hidden');
+      filtersDiv.classList.add('visible');
+      churchwideDiv.classList.remove('visible');
+      churchwideDiv.classList.add('hidden');
     }
   }
 

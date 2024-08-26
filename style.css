@@ -37,6 +37,22 @@ html.is-animating .transition-fade {
   visibility: hidden;
 }
 
+/* Calendar filter fade in and out animations */
+
+.eventcard__filters, .eventcard__churchwide {
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.eventcard__filters.hidden, .eventcard__churchwide.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.eventcard__filters.visible, .eventcard__churchwide.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
 
 
 * {
