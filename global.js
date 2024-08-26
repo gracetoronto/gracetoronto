@@ -1,4 +1,4 @@
-console.log("V1.261");
+console.log("V1.262");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1490,8 +1490,9 @@ function initCheckboxBehavior() {
 
   // Handle change on the ministry checkboxes
   ministryCheckboxes.forEach(function(checkbox) {
+    console.log('Adding event listener to:', checkbox); // Log to verify loop execution
     checkbox.addEventListener('change', function() {
-      console.log('Ministry checkbox changed:', this.checked);
+      console.log('Ministry checkbox changed:', this.checked); // This log should fire when the checkbox is changed
       if (this.checked) {
         // Uncheck the church-wide checkbox
         churchWideCheckbox.checked = false;
