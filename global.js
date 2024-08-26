@@ -1,4 +1,4 @@
-console.log("V1.250");
+console.log("V1.251");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1425,11 +1425,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function initFilterOptions() {
   document.querySelectorAll('.filter__option').forEach(function(option) {
-    option.addEventListener('change', function() {
+    const checkbox = option.querySelector('input[type="checkbox"]');
+    
+    checkbox.addEventListener('change', function() {
       if (this.checked) {
-        this.classList.add('is--selected');
+        option.classList.add('is--selected');
       } else {
-        this.classList.remove('is--selected');
+        option.classList.remove('is--selected');
       }
     });
   });
