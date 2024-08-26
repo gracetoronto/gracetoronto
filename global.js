@@ -1,4 +1,4 @@
-console.log("V1.269");
+console.log("V1.270");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1447,12 +1447,10 @@ function initFilterOptions() {
 // Call the function on initial page load
 initFilterOptions();
 
-// Reinitialize the function after swup replaces content
-swup.hooks.on('content:replace', function () {
-  initFilterOptions();
-});
 
 
+
+//---CALENDAR FILTER CHECKBOX FUNCTIONALITY---
 
 function initCheckboxBehavior() {
   // Select the church-wide checkbox using custom attribute
@@ -1484,6 +1482,19 @@ function initCheckboxBehavior() {
     }
   }
 
+  // Check if no ministry checkboxes are selected
+  function checkAndSelectChurchWide() {
+    const anyMinistrySelected = Array.from(ministryCheckboxLabels).some(label => {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+      return checkbox && checkbox.checked;
+    });
+
+    if (!anyMinistrySelected) {
+      forceCheckboxState(churchWideCheckbox, true);
+      console.log('No ministry checkboxes selected. Church-wide checkbox selected automatically.');
+    }
+  }
+
   // Handle change on the church-wide checkbox
   churchWideCheckbox.addEventListener('change', function() {
     console.log('Church-wide checkbox changed:', this.checked);
@@ -1509,11 +1520,22 @@ function initCheckboxBehavior() {
           // Deselect the church-wide checkbox
           forceCheckboxState(churchWideCheckbox, false);
           console.log('Church-wide checkbox unchecked due to ministry selection');
+        } else {
+          // Check if no ministry checkboxes are selected
+          checkAndSelectChurchWide();
         }
       });
     }
   });
+
+  // Initial check to ensure the church-wide checkbox is selected if nothing else is
+  checkAndSelectChurchWide();
 }
 
 // Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
+
+// Reinitialize the function after swup replaces content
+swup.hooks.on('content:replace', function () {
+  initCheckboxBehavior();
+});
