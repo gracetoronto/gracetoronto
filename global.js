@@ -1,4 +1,4 @@
-console.log("V1.249");
+console.log("V1.250");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -114,6 +114,7 @@ swup.hooks.on('content:replace', () => {
   startCountdown();
   initializeMinistryNavigation();
   ministryEventCountTag();
+  initFilterOption();
 });
 
 
@@ -1414,4 +1415,26 @@ document.addEventListener("DOMContentLoaded", function () {
   ministryEventCountTag();
 });
 
+
+
+
+
+
+
+//---CALENDAR FILTER OPTION CHECKBOX STYLING---
+
+function initFilterOptions() {
+  document.querySelectorAll('.filter__option').forEach(function(option) {
+    option.addEventListener('change', function() {
+      if (this.checked) {
+        this.classList.add('is--selected');
+      } else {
+        this.classList.remove('is--selected');
+      }
+    });
+  });
+}
+
+// Call the function on initial page load
+initFilterOptions();
 
