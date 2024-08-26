@@ -939,7 +939,9 @@ function updateLinkedUpdate() {
 
   // Append the count element to the ministryEventsContainer
   eventCardHeader.appendChild(countElement);
-  eventCardButton.appendChild(countElement);
+  if (eventCardButton) {
+    eventCardButton.appendChild(countElement);
+}
 }
 
 // Wait for the DOM content to be fully loaded
