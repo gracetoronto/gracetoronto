@@ -1494,9 +1494,9 @@ function initCheckboxBehavior() {
   function updateVisibility() {
     if (churchWideCheckbox.checked) {
       filtersDiv.style.display = 'none';
-      churchwideDiv.style.display = 'block';
+      churchwideDiv.style.display = 'flex';
     } else {
-      filtersDiv.style.display = 'block';
+      filtersDiv.style.display = 'flex';
       churchwideDiv.style.display = 'none';
     }
   }
