@@ -1,4 +1,4 @@
-console.log("V1.252");
+console.log("V1.253");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -115,6 +115,7 @@ swup.hooks.on('content:replace', () => {
   initializeMinistryNavigation();
   ministryEventCountTag();
   initFilterOptions();
+  initCheckboxBehavior();
 });
 
 
@@ -1445,4 +1446,61 @@ function initFilterOptions() {
 
 // Call the function on initial page load
 initFilterOptions();
+
+
+
+
+//---CALENDAR FILTER CHURCH-WIDE CHECKBOX FUNCTIONALIY---
+
+function initCheckboxBehavior() {
+  const churchWideCheckbox = document.getElementById('church-wide');
+  const ministryCheckboxes = document.querySelectorAll('.filter__ministries input[type="checkbox"]');
+
+  // Helper function to check if any checkbox is selected
+  function anyCheckboxSelected() {
+    return Array.from(ministryCheckboxes).some(checkbox => checkbox.checked);
+  }
+
+  // Function to handle the deselection of all checkboxes
+  function handleDeselectAll() {
+    if (!anyCheckboxSelected() && !churchWideCheckbox.checked) {
+      churchWideCheckbox.checked = true;
+    }
+  }
+
+  // Function to select the first checkbox in the '.filter__ministries' list
+  function selectFirstMinistryCheckbox() {
+    if (!anyCheckboxSelected()) {
+      const firstCheckbox = ministryCheckboxes[0];
+      if (firstCheckbox) {
+        firstCheckbox.checked = true;
+      }
+    }
+  }
+
+  // Event listener for changes in the '#church-wide' checkbox
+  churchWideCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      ministryCheckboxes.forEach(checkbox => checkbox.checked = false);
+    } else {
+      selectFirstMinistryCheckbox();
+    }
+  });
+
+  // Event listeners for changes in the ministry checkboxes
+  ministryCheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      if (this.checked) {
+        churchWideCheckbox.checked = false;
+      }
+      handleDeselectAll();
+    });
+  });
+
+  // Initial check to ensure a checkbox is selected on page load
+  handleDeselectAll();
+}
+
+// Call the function on initial page load
+initCheckboxBehavior();
 
