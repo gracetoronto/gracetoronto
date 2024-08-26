@@ -1,4 +1,4 @@
-console.log("V1.258");
+console.log("V1.259");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1453,9 +1453,11 @@ initFilterOptions();
 //---CALENDAR FILTER CHURCH-WIDE CHECKBOX FUNCTIONALIY---
 
 function initCheckboxBehavior() {
-  // Select elements using custom attributes without `data-`
+  // Select the church-wide checkbox using custom attribute
   const churchWideCheckbox = document.querySelector('[fs-cmsfilter-field="church-wide"]');
-  const ministryCheckboxes = document.querySelectorAll('[fs-cmsfilter-field="ministry"]');
+  
+  // Select ministry checkboxes within labels that have the class '.filter__option'
+  const ministryCheckboxes = document.querySelectorAll('.filter__ministries .filter__option [fs-cmsfilter-field="ministry"]');
 
   console.log('Church-wide checkbox:', churchWideCheckbox);
   console.log('Ministry checkboxes:', ministryCheckboxes);
