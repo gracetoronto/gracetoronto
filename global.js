@@ -1,4 +1,4 @@
-console.log("V1.263");
+console.log("V1.264");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1458,9 +1458,6 @@ function initCheckboxBehavior() {
   // Select ministry checkbox labels with the class '.filter__option' and attribute 'fs-cmsfilter-field="ministry"'
   const ministryCheckboxLabels = document.querySelectorAll('.filter__option[fs-cmsfilter-field="ministry"]');
 
-  console.log('Church-wide checkbox:', churchWideCheckbox);
-  console.log('Ministry checkbox labels:', ministryCheckboxLabels);
-
   // Check if elements are found
   if (!churchWideCheckbox) {
     console.error('Church-wide checkbox not found');
@@ -1476,9 +1473,8 @@ function initCheckboxBehavior() {
     return Array.from(ministryCheckboxLabels).some(label => label.querySelector('input[type="checkbox"]').checked);
   }
 
-  // Handle change on the '#church-wide' checkbox
+  // Handle change on the church-wide checkbox
   churchWideCheckbox.addEventListener('change', function() {
-    console.log('Church-wide checkbox changed:', this.checked);
     if (this.checked) {
       // Uncheck all ministry checkboxes
       ministryCheckboxLabels.forEach(label => {
@@ -1492,20 +1488,13 @@ function initCheckboxBehavior() {
   ministryCheckboxLabels.forEach(function(label) {
     const checkbox = label.querySelector('input[type="checkbox"]');
     if (checkbox) {
-      console.log('Adding event listener to:', checkbox); // Log to verify loop execution
       checkbox.addEventListener('change', function() {
-        console.log('Ministry checkbox changed:', this.checked); // This log should fire when the checkbox is changed
         if (this.checked) {
-          // Uncheck the church-wide checkbox
+          // Deselect the church-wide checkbox
           churchWideCheckbox.checked = false;
-        }
-
-        // If no ministry checkboxes are selected and '#church-wide' is not selected, select the first ministry checkbox
-        if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-          const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
-          if (firstCheckbox) {
-            firstCheckbox.checked = true;
-          }
+        } else if (!anyMinistryCheckboxSelected()) {
+          // If no ministry checkboxes are selected, check the church-wide checkbox
+          churchWideCheckbox.checked = true;
         }
       });
     }
@@ -1513,9 +1502,13 @@ function initCheckboxBehavior() {
 
   // Ensure at least one checkbox is selected on initial page load
   if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
+    // Select the first ministry checkbox
     const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
     if (firstCheckbox) {
       firstCheckbox.checked = true;
+    } else {
+      // If no ministry checkbox found, select the church-wide checkbox
+      churchWideCheckbox.checked = true;
     }
   }
 }
