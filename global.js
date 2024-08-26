@@ -1,4 +1,4 @@
-console.log("V1.251");
+console.log("V1.252");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1427,13 +1427,17 @@ function initFilterOptions() {
   document.querySelectorAll('.filter__option').forEach(function(option) {
     const checkbox = option.querySelector('input[type="checkbox"]');
     
-    checkbox.addEventListener('change', function() {
-      if (this.checked) {
-        option.classList.add('is--selected');
-      } else {
-        option.classList.remove('is--selected');
-      }
-    });
+    if (checkbox) { // Check if the checkbox element exists
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          option.classList.add('is--selected'); // Adds class to the label
+        } else {
+          option.classList.remove('is--selected'); // Removes class from the label
+        }
+      });
+    } else {
+      console.warn('No checkbox found within:', option);
+    }
   });
 }
 
