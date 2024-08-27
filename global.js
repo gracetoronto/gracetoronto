@@ -1,4 +1,4 @@
-console.log("V1.277");
+console.log("V1.278");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1567,9 +1567,9 @@ document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
 //---HANDLE EVENT CARD COMPONENT RESPONSIVENESS---
 
 function handleEventCardResize() {
-  const eventCard = document.querySelector('.eventcard');
+  const eventCards = document.querySelectorAll('.eventcard');
 
-  if (eventCard) {
+  if (eventCards.length > 0) {
       const elementsToUpdate = [
           '.eventcard',
           '.eventcard__item',
@@ -1590,16 +1590,16 @@ function handleEventCardResize() {
 
       let resizeTimeout;
 
-      const applyStylesBasedOnWidth = (width) => {
+      const applyStylesBasedOnWidth = (eventCard, width) => {
           elementsToUpdate.forEach(selector => {
-              const element = document.querySelector(selector);
-              if (element) {
+              const elements = eventCard.querySelectorAll(selector);
+              elements.forEach(element => {
                   if (width < 850) {
                       element.classList.add('br--small');
                   } else {
                       element.classList.remove('br--small');
                   }
-              }
+              });
           });
       };
 
@@ -1607,14 +1607,17 @@ function handleEventCardResize() {
           clearTimeout(resizeTimeout);
           resizeTimeout = setTimeout(() => {
               for (let entry of entries) {
-                  applyStylesBasedOnWidth(entry.contentRect.width);
+                  applyStylesBasedOnWidth(entry.target, entry.contentRect.width);
               }
           }, 100); // Adjust the debounce time as needed
       };
 
       const resizeObserver = new ResizeObserver(onResize);
 
-      resizeObserver.observe(eventCard);
+      // Observe each event card individually
+      eventCards.forEach(eventCard => {
+          resizeObserver.observe(eventCard);
+      });
   }
 }
 
