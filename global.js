@@ -1594,7 +1594,7 @@ function handleEventCardResize() {
           elementsToUpdate.forEach(selector => {
               const elements = eventCard.querySelectorAll(selector);
               elements.forEach(element => {
-                  if (width < 750) {
+                  if (width < 725) {
                       element.classList.add('br--small');
                   } else {
                       element.classList.remove('br--small');
