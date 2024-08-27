@@ -1,4 +1,4 @@
-console.log("V1.280");
+console.log("V1.281");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1594,7 +1594,7 @@ function handleEventCardResize() {
           elementsToUpdate.forEach(selector => {
               const elements = eventCard.querySelectorAll(selector);
               elements.forEach(element => {
-                  if (width < 800) {
+                  if (width < 750) {
                       element.classList.add('br--small');
                   } else {
                       element.classList.remove('br--small');
