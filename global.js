@@ -1,4 +1,4 @@
-console.log("V1.275");
+console.log("V1.276");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -116,6 +116,7 @@ swup.hooks.on('content:replace', () => {
   ministryEventCountTag();
   initFilterOptions();
   initCheckboxBehavior();
+  handleEventCardResize();
 });
 
 
@@ -1568,3 +1569,57 @@ function initCheckboxBehavior() {
 
 // Ensure the function runs after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
+
+
+
+
+
+//---HANDLE EVENT CARD COMPONENT RESPONSIVENESS---
+
+function handleEventCardResize() {
+  const eventCard = document.querySelector('.eventcard');
+
+  if (eventCard) {
+      const elementsToUpdate = [
+          '.eventcard',
+          '.eventcard__item',
+          '.event__img',
+          '.card__img',
+          '.event',
+          '.event__top',
+          '.event__type',
+          '.event__bottom',
+          '.event__datetime',
+          '.event__date',
+          '.event__time',
+          '.event__actions',
+          '.date--start',
+          '.date--dash',
+          '.date--end'
+      ];
+
+      const applyStylesBasedOnWidth = (width) => {
+          elementsToUpdate.forEach(selector => {
+              const element = document.querySelector(selector);
+              if (element) {
+                  if (width < 850) {
+                      element.classList.add('br--small');
+                  } else {
+                      element.classList.remove('br--small');
+                  }
+              }
+          });
+      };
+
+      const resizeObserver = new ResizeObserver((entries) => {
+          for (let entry of entries) {
+              applyStylesBasedOnWidth(entry.contentRect.width);
+          }
+      });
+
+      resizeObserver.observe(eventCard);
+  }
+}
+
+// Call the function to initialize the observer
+handleEventCardResize();
