@@ -1,4 +1,4 @@
-console.log("V1.279");
+console.log("V1.280");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1583,9 +1583,9 @@ function handleEventCardResize() {
           '.event__date',
           '.event__time',
           '.event__actions',
-          '.event__datetime .date--start',
-          '.event__datetime .date--dash',
-          '.event__datetime .date--end'
+          '.heading.is--3.date--start',
+          '.heading.is--3.date--dash',
+          '.heading.is--3.date--end'
       ];
 
       let resizeTimeout;
@@ -1594,7 +1594,7 @@ function handleEventCardResize() {
           elementsToUpdate.forEach(selector => {
               const elements = eventCard.querySelectorAll(selector);
               elements.forEach(element => {
-                  if (width < 850) {
+                  if (width < 800) {
                       element.classList.add('br--small');
                   } else {
                       element.classList.remove('br--small');
