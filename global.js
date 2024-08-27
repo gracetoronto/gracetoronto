@@ -1,4 +1,4 @@
-console.log("V1.278");
+console.log("V1.279");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1583,9 +1583,9 @@ function handleEventCardResize() {
           '.event__date',
           '.event__time',
           '.event__actions',
-          '.date--start',
-          '.date--dash',
-          '.date--end'
+          '.event__datetime .date--start',
+          '.event__datetime .date--dash',
+          '.event__datetime .date--end'
       ];
 
       let resizeTimeout;
