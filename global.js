@@ -1,4 +1,4 @@
-console.log("V1.276");
+console.log("V1.277");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1598,6 +1598,8 @@ function handleEventCardResize() {
           '.date--end'
       ];
 
+      let resizeTimeout;
+
       const applyStylesBasedOnWidth = (width) => {
           elementsToUpdate.forEach(selector => {
               const element = document.querySelector(selector);
@@ -1611,11 +1613,16 @@ function handleEventCardResize() {
           });
       };
 
-      const resizeObserver = new ResizeObserver((entries) => {
-          for (let entry of entries) {
-              applyStylesBasedOnWidth(entry.contentRect.width);
-          }
-      });
+      const onResize = (entries) => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+              for (let entry of entries) {
+                  applyStylesBasedOnWidth(entry.contentRect.width);
+              }
+          }, 100); // Adjust the debounce time as needed
+      };
+
+      const resizeObserver = new ResizeObserver(onResize);
 
       resizeObserver.observe(eventCard);
   }
