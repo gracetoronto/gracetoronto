@@ -1,4 +1,4 @@
-console.log("V1.284");
+console.log("V1.285");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -102,6 +102,7 @@ swup.hooks.on('content:replace', () => {
   }
 
   //All other functions that are supposed to run on page change
+  scrollEnable();
   showCal();
   initCarousel();
   initializeAccordions();
