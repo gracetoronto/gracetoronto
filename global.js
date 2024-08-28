@@ -1,4 +1,4 @@
-console.log("V1.283");
+console.log("V1.284");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1631,62 +1631,56 @@ handleEventCardResize();
 //---FILTER ACCORDION FOR MOBILE---
 
 function initFilterAccordion() {
-  // Check if the browser width is less than 992px
-  if (window.innerWidth < 992) {
-    // Select elements
-    const accordion = document.querySelector('.filter__accordion');
-    const content = document.querySelector('.filter__content');
-    const plusIcon = document.querySelector('.filter__plus');
-    const minusIcon = document.querySelector('.filter__minus');
-    const showFilter = document.getElementById('filter__show');
-    const hideFilter = document.getElementById('filter__hide');
+  // Select elements
+  const accordion = document.querySelector('.filter__accordion');
+  const content = document.querySelector('.filter__content');
+  const plusIcon = document.querySelector('.filter__plus');
+  const minusIcon = document.querySelector('.filter__minus');
+  const showFilter = document.getElementById('filter__show');
+  const hideFilter = document.getElementById('filter__hide');
 
-    // Ensure the content height is initially set to 0
-    if (content.style.height !== 'auto') {
+  // Set initial state
+  content.style.height = '0';
+  content.style.overflow = 'hidden';
+  content.style.transition = 'height 0.3s ease-in-out';
+
+  // Add click event listener to the accordion
+  accordion.addEventListener('click', function () {
+    if (content.style.height === '0px' || content.style.height === '') {
+      // Expand content
+      content.style.height = content.scrollHeight + 'px';
+      
+      // Show/hide relevant elements
+      plusIcon.style.display = 'none';
+      minusIcon.style.display = 'block';
+      showFilter.style.display = 'none';
+      hideFilter.style.display = 'block';
+    } else {
+      // Collapse content
       content.style.height = '0';
-      content.style.overflow = 'hidden';
-      content.style.transition = 'height 0.3s ease-in-out';
+      
+      // Show/hide relevant elements
+      plusIcon.style.display = 'block';
+      minusIcon.style.display = 'none';
+      showFilter.style.display = 'block';
+      hideFilter.style.display = 'none';
     }
+  });
 
-    // Add click event listener to the accordion
-    accordion.addEventListener('click', function () {
-      if (content.style.height === '0px' || content.style.height === '') {
-        // Expand content
-        content.style.height = content.scrollHeight + 'px';
-        
-        // Show/hide relevant elements
-        plusIcon.style.display = 'none';
-        minusIcon.style.display = 'block';
-        showFilter.style.display = 'none';
-        hideFilter.style.display = 'block';
-      } else {
-        // Collapse content
-        content.style.height = '0';
-        
-        // Show/hide relevant elements
-        plusIcon.style.display = 'block';
-        minusIcon.style.display = 'none';
-        showFilter.style.display = 'block';
-        hideFilter.style.display = 'none';
-      }
-    });
-  }
-}
-
-// Initialize the accordion only if it hasn't been initialized before
-if (window.innerWidth < 992) {
-  initFilterAccordion();
-}
-
-// Optional: Adjust functionality on resize, but don't reinitialize the accordion
-window.addEventListener('resize', function() {
-  if (window.innerWidth >= 992) {
-    // If screen is wider than 992px, remove inline styles (optional)
-    const content = document.querySelector('.filter__content');
-    if (content) {
-      content.style.height = '';  // Reset to default CSS behavior
-      content.style.overflow = '';
-      content.style.transition = '';
+  // Ensure height is auto if the screen is wider than 991px
+  function checkWidth() {
+    if (window.innerWidth > 991) {
+      content.style.height = 'auto';
+      content.style.overflow = 'visible';  // Reset overflow
     }
   }
-});
+
+  // Initial check
+  checkWidth();
+
+  // Add resize event listener to adjust when screen width changes
+  window.addEventListener('resize', checkWidth);
+}
+
+// Initialize the accordion
+initFilterAccordion();
