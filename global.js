@@ -1,4 +1,4 @@
-console.log("V1.282");
+console.log("V1.283");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1641,10 +1641,12 @@ function initFilterAccordion() {
     const showFilter = document.getElementById('filter__show');
     const hideFilter = document.getElementById('filter__hide');
 
-    // Set the initial height of content to 0
-    content.style.height = '0';
-    content.style.overflow = 'hidden';
-    content.style.transition = 'height 0.3s ease-in-out';
+    // Ensure the content height is initially set to 0
+    if (content.style.height !== 'auto') {
+      content.style.height = '0';
+      content.style.overflow = 'hidden';
+      content.style.transition = 'height 0.3s ease-in-out';
+    }
 
     // Add click event listener to the accordion
     accordion.addEventListener('click', function () {
@@ -1671,10 +1673,20 @@ function initFilterAccordion() {
   }
 }
 
-// Initialize the accordion
-initFilterAccordion();
-
-// Add an event listener to handle screen resize
-window.addEventListener('resize', function() {
+// Initialize the accordion only if it hasn't been initialized before
+if (window.innerWidth < 992) {
   initFilterAccordion();
+}
+
+// Optional: Adjust functionality on resize, but don't reinitialize the accordion
+window.addEventListener('resize', function() {
+  if (window.innerWidth >= 992) {
+    // If screen is wider than 992px, remove inline styles (optional)
+    const content = document.querySelector('.filter__content');
+    if (content) {
+      content.style.height = '';  // Reset to default CSS behavior
+      content.style.overflow = '';
+      content.style.transition = '';
+    }
+  }
 });
