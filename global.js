@@ -1,4 +1,4 @@
-console.log("V1.281");
+console.log("V1.282");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -117,6 +117,7 @@ swup.hooks.on('content:replace', () => {
   initFilterOptions();
   initCheckboxBehavior();
   handleEventCardResize();
+  initFilterAccordion();
 });
 
 
@@ -1623,3 +1624,57 @@ function handleEventCardResize() {
 
 // Call the function to initialize the observer
 handleEventCardResize();
+
+
+
+
+//---FILTER ACCORDION FOR MOBILE---
+
+function initFilterAccordion() {
+  // Check if the browser width is less than 992px
+  if (window.innerWidth < 992) {
+    // Select elements
+    const accordion = document.querySelector('.filter__accordion');
+    const content = document.querySelector('.filter__content');
+    const plusIcon = document.querySelector('.filter__plus');
+    const minusIcon = document.querySelector('.filter__minus');
+    const showFilter = document.getElementById('filter__show');
+    const hideFilter = document.getElementById('filter__hide');
+
+    // Set the initial height of content to 0
+    content.style.height = '0';
+    content.style.overflow = 'hidden';
+    content.style.transition = 'height 0.3s ease-in-out';
+
+    // Add click event listener to the accordion
+    accordion.addEventListener('click', function () {
+      if (content.style.height === '0px' || content.style.height === '') {
+        // Expand content
+        content.style.height = content.scrollHeight + 'px';
+        
+        // Show/hide relevant elements
+        plusIcon.style.display = 'none';
+        minusIcon.style.display = 'block';
+        showFilter.style.display = 'none';
+        hideFilter.style.display = 'block';
+      } else {
+        // Collapse content
+        content.style.height = '0';
+        
+        // Show/hide relevant elements
+        plusIcon.style.display = 'block';
+        minusIcon.style.display = 'none';
+        showFilter.style.display = 'block';
+        hideFilter.style.display = 'none';
+      }
+    });
+  }
+}
+
+// Initialize the accordion
+initFilterAccordion();
+
+// Add an event listener to handle screen resize
+window.addEventListener('resize', function() {
+  initFilterAccordion();
+});
