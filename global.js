@@ -1634,6 +1634,12 @@ handleEventCardResize();
 function initFilterAccordion() {
   // Select elements
   const accordion = document.querySelector('.filter__accordion');
+  
+  // Check if the accordion element exists
+  if (!accordion) {
+    return;
+  }
+
   const content = document.querySelector('.filter__content');
   const plusIcon = document.querySelector('.filter__plus');
   const minusIcon = document.querySelector('.filter__minus');
