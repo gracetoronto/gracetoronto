@@ -1,4 +1,4 @@
-console.log("V1.315");
+console.log("V1.316");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -971,23 +971,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
-document.addEventListener('DOMContentLoaded', function() {
-  announcementEventExpand();
-});
 
 function announcementEventExpand() {
   const button = document.querySelector('.eventcard__button');
   const list = document.querySelector('.eventcard__list');
   const openClass = document.querySelector('.eventcard__open');
   const closeClass = document.querySelector('.eventcard__close');
-  const eventCard = document.querySelector('.eventcard');
   const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
-  if (!button || !list || !openClass || !closeClass || !eventCard) return;
+  if (!button || !list || !openClass || !closeClass) return;
 
-  let initialHeight; // Define initialHeight in the outer scope
+  let initialHeight;
 
-  // Function to calculate the height of the first two items
   function calculateInitialHeight() {
     let height = 0;
     for (let i = 0; i < Math.min(2, items.length); i++) {
@@ -996,58 +991,42 @@ function announcementEventExpand() {
     return height;
   }
 
-  // Function to update maxHeight based on the current state
   function updateMaxHeight() {
     if (list.classList.contains('expanded')) {
-      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      list.style.maxHeight = `${list.scrollHeight}px`;
     } else {
-      initialHeight = calculateInitialHeight(); // Recalculate initial height
-      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
+      initialHeight = calculateInitialHeight();
+      list.style.maxHeight = `${initialHeight}px`;
     }
-    console.log('Max height updated:', list.style.maxHeight);
   }
 
-  // Set initial max-height based on the height of the first two items
   initialHeight = calculateInitialHeight();
   list.style.maxHeight = `${initialHeight}px`;
+  list.style.overflow = 'hidden';
+  list.style.transition = 'max-height 0.5s ease';
 
-  // Hide or show button based on the number of items
   if (items.length <= 2) {
     button.style.display = 'none';
-    closeClass.style.display = 'none'; // Also hide the close button if needed
+    closeClass.style.display = 'none';
   } else {
     button.style.display = 'flex';
-    closeClass.style.display = 'none'; // Ensure close button is hidden initially
+    closeClass.style.display = 'none';
   }
 
   button.addEventListener('click', function () {
     list.classList.toggle('expanded');
 
     if (list.classList.contains('expanded')) {
-      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      list.style.maxHeight = `${list.scrollHeight}px`;
       openClass.style.display = 'none';
       closeClass.style.display = 'flex';
     } else {
-      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
+      list.style.maxHeight = `${initialHeight}px`;
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
-    console.log('Button clicked. List expanded:', list.classList.contains('expanded'));
   });
 
-  // Use MutationObserver to watch for changes to the class attribute of .eventcard
-  const observer = new MutationObserver((mutationsList) => {
-    for (let mutation of mutationsList) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
-        console.log('Class attribute changed:', mutation.target.className);
-        updateMaxHeight();
-      }
-    }
-  });
-
-  observer.observe(eventCard, { attributes: true, attributeFilter: ['class'] });
-
-  // Initial call to updateMaxHeight to ensure correct height on page load
   updateMaxHeight();
 }
 
