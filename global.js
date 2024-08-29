@@ -1,4 +1,4 @@
-console.log("V1.303");
+console.log("V1.304");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -978,7 +978,6 @@ function announcementEventExpand() {
   const closeClass = document.querySelector('.eventcard__close');
   const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
-
   if (!button || !list || !openClass || !closeClass) return;
 
   // Function to calculate the height of the first two items
@@ -991,7 +990,7 @@ function announcementEventExpand() {
   }
 
   // Set initial max-height based on the height of the first two items
-  const initialHeight = calculateInitialHeight();
+  let initialHeight = calculateInitialHeight();
   list.style.maxHeight = `${initialHeight}px`;
 
   // Hide or show button based on the number of items
@@ -1024,6 +1023,16 @@ function announcementEventExpand() {
       list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
+    }
+  }, 0)); // Adjust the debounce delay as needed
+
+  // Recalculate maxHeight on window resize
+  window.addEventListener('resize', debounce(function () {
+    if (list.classList.contains('expanded')) {
+      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+    } else {
+      initialHeight = calculateInitialHeight(); // Recalculate initial height
+      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
     }
   }, 0)); // Adjust the debounce delay as needed
 }
