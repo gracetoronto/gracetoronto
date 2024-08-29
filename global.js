@@ -1593,6 +1593,7 @@ function handleEventCardResize() {
           '.event__date',
           '.event__time',
           '.event__actions',
+          '.heading.is--3.date--day',
           '.heading.is--3.date--start',
           '.heading.is--3.date--dash',
           '.heading.is--3.date--end'
