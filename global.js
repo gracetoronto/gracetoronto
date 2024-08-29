@@ -1,4 +1,4 @@
-console.log("V1.316");
+console.log("V1.317");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -986,7 +986,7 @@ function announcementEventExpand() {
   function calculateInitialHeight() {
     let height = 0;
     for (let i = 0; i < Math.min(2, items.length); i++) {
-      height += items[i].offsetHeight;
+      height += items[i].getBoundingClientRect().height;
     }
     return height;
   }
@@ -995,6 +995,13 @@ function announcementEventExpand() {
     if (list.classList.contains('expanded')) {
       list.style.maxHeight = `${list.scrollHeight}px`;
     } else {
+      initialHeight = calculateInitialHeight();
+      list.style.maxHeight = `${initialHeight}px`;
+    }
+  }
+
+  function handleResize() {
+    if (!list.classList.contains('expanded')) {
       initialHeight = calculateInitialHeight();
       list.style.maxHeight = `${initialHeight}px`;
     }
@@ -1027,10 +1034,13 @@ function announcementEventExpand() {
     }
   });
 
+  window.addEventListener('resize', handleResize);
+
   updateMaxHeight();
 }
 
-
+// Call the function to initialize the event card behavior
+announcementEventExpand();
 
 
 
@@ -1649,11 +1659,6 @@ function handleEventCardResize() {
 
 // Call the function to initialize the observer
 handleEventCardResize();
-
-document.addEventListener('DOMContentLoaded', function() {
-  announcementEventExpand();
-});
-
 
 
 
