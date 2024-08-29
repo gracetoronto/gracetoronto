@@ -1,4 +1,4 @@
-
+console.log("V1.298");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1633,7 +1633,7 @@ function handleEventCardResize() {
               }
               // Check for the presence of '.eventcard__button' and run announcementEventExpand if found
               if (document.querySelector('.eventcard__button')) {
-                  
+                  announcementEventExpand();
               }
           }, 100); // Adjust the debounce time as needed
       };
