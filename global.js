@@ -1,4 +1,4 @@
-console.log("V1.286");
+console.log("V1.287");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -120,6 +120,7 @@ swup.hooks.on('content:replace', () => {
   handleEventCardResize();
   initFilterAccordion();
   filterSelectionHover();
+  checkAndModifyTimeSubtitles();
 });
 
 
@@ -1719,3 +1720,42 @@ function filterSelectionHover() {
     });
   });
 }
+
+
+
+
+
+//---CHECK AND MODIFY EVENT TIMES TO NOT SHOW PM OR AM TWICE---
+
+function checkAndModifyTimeSubtitles() {
+  // Check if any '.event__time' elements are present on the page
+  const eventTimes = document.querySelectorAll('.event__time');
+
+  if (eventTimes.length > 0) {
+    eventTimes.forEach((eventTime) => {
+      const startTimeElement = eventTime.querySelector('.subtitle.is--starttime');
+      const endTimeElement = eventTime.querySelector('.subtitle.is--endtime');
+
+      if (startTimeElement && endTimeElement) {
+        const startTimeText = startTimeElement.textContent;
+        const endTimeText = endTimeElement.textContent;
+
+        const startContainsPM = startTimeText.includes(' pm');
+        const startContainsAM = startTimeText.includes(' am');
+        const endContainsPM = endTimeText.includes(' pm');
+        const endContainsAM = endTimeText.includes(' am');
+
+        // If both are 'pm' or both are 'am', remove it from startTimeElement
+        if ((startContainsPM && endContainsPM) || (startContainsAM && endContainsAM)) {
+          startTimeElement.textContent = startTimeText.replace(' pm', '').replace(' am', '');
+        }
+      }
+    });
+  }
+}
+
+// Execute the function when the page is loaded or use with swup.js
+document.addEventListener('DOMContentLoaded', checkAndModifyTimeSubtitles);
+
+// If using with swup.js, add this to your swup setup
+// swup.hooks.on('content:replace', checkAndModifyTimeSubtitles);
