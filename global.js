@@ -1,4 +1,4 @@
-console.log("V1.311");
+console.log("V1.312");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -976,9 +976,10 @@ function announcementEventExpand() {
   const list = document.querySelector('.eventcard__list');
   const openClass = document.querySelector('.eventcard__open');
   const closeClass = document.querySelector('.eventcard__close');
+  const eventCard = document.querySelector('.eventcard');
   const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
-  if (!button || !list || !openClass || !closeClass) return;
+  if (!button || !list || !openClass || !closeClass || !eventCard) return;
 
   let initialHeight; // Define initialHeight in the outer scope
 
@@ -989,6 +990,16 @@ function announcementEventExpand() {
       height += items[i].offsetHeight;
     }
     return height;
+  }
+
+  // Function to update maxHeight based on the current state
+  function updateMaxHeight() {
+    if (list.classList.contains('expanded')) {
+      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+    } else {
+      initialHeight = calculateInitialHeight(); // Recalculate initial height
+      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
+    }
   }
 
   // Set initial max-height based on the height of the first two items
@@ -1022,29 +1033,17 @@ function announcementEventExpand() {
 
   // Recalculate maxHeight on window resize with a 50ms delay
   window.addEventListener('resize', function () {
-    setTimeout(() => {
-      if (list.classList.contains('expanded')) {
-        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-      } else {
-        initialHeight = calculateInitialHeight(); // Recalculate initial height
-        list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
-      }
-    }, 50); // 50ms delay
+    setTimeout(updateMaxHeight, 50); // 50ms delay
   });
 
-  // Use MutationObserver to watch for changes to the class attribute
+  // Use MutationObserver to watch for changes to the class attribute of .eventcard
   const observer = new MutationObserver(() => {
-    setTimeout(() => {
-      if (list.classList.contains('expanded')) {
-        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-      } else {
-        initialHeight = calculateInitialHeight(); // Recalculate initial height
-        list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
-      }
-    }, 50); // 50ms delay
+    if (eventCard.classList.contains('br--small')) {
+      setTimeout(updateMaxHeight, 50); // 50ms delay
+    }
   });
 
-  observer.observe(list, { attributes: true, attributeFilter: ['class'] });
+  observer.observe(eventCard, { attributes: true, attributeFilter: ['class'] });
 }
 
 
