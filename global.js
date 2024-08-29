@@ -1,4 +1,4 @@
-console.log("V1.298");
+console.log("V1.299");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1023,7 +1023,7 @@ function announcementEventExpand() {
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
-  }, 0)); // Adjust the debounce delay as needed
+  }, 300)); // Adjust the debounce delay as needed
 }
 
 
