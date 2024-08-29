@@ -1,4 +1,4 @@
-console.log("V1.290");
+console.log("V1.291");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -967,6 +967,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
+
+//---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
 function announcementEventExpand() {
   const button = document.querySelector('.eventcard__button');
