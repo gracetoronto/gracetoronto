@@ -1,4 +1,4 @@
-console.log("V1.308");
+console.log("V1.309");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1006,15 +1006,7 @@ function announcementEventExpand() {
     }
   }, 100); // 100ms delay
 
-  // Debounce function to prevent multiple rapid clicks
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-  }
+  
 
   button.addEventListener('click', debounce(function () {
     list.classList.toggle('expanded');
