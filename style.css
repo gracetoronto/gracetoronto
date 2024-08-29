@@ -41,7 +41,6 @@ html.is-animating .transition-fade {
 /* Expanding updates card */
 
 .eventcard__list.expanded {
-  height: auto;
   transition: max-height 0.3s ease;
 }
 
