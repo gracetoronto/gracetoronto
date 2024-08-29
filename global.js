@@ -1721,6 +1721,10 @@ function filterSelectionHover() {
   });
 }
 
+// Execute the function when the page is loaded or use with swup.js
+document.addEventListener('DOMContentLoaded', filterSelectionHover);
+
+
 
 
 
@@ -1756,6 +1760,3 @@ function checkAndModifyTimeSubtitles() {
 
 // Execute the function when the page is loaded or use with swup.js
 document.addEventListener('DOMContentLoaded', checkAndModifyTimeSubtitles);
-
-// If using with swup.js, add this to your swup setup
-// swup.hooks.on('content:replace', checkAndModifyTimeSubtitles);
