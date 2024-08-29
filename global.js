@@ -1,4 +1,4 @@
-console.log("V1.304");
+console.log("V1.305");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1034,7 +1034,7 @@ function announcementEventExpand() {
       initialHeight = calculateInitialHeight(); // Recalculate initial height
       list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
     }
-  }, 0)); // Adjust the debounce delay as needed
+  }, 50)); // Adjust the debounce delay as needed
 }
 
 
