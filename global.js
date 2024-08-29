@@ -1,4 +1,4 @@
-console.log("V1.295");
+console.log("V1.296");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -120,7 +120,6 @@ swup.hooks.on('content:replace', () => {
   initFilterAccordion();
   filterSelectionHover();
   checkAndModifyTimeSubtitles();
-  announcementEventExpand();
 });
 
 
@@ -977,11 +976,6 @@ function announcementEventExpand() {
   const closeClass = document.querySelector('.eventcard__close');
   const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
-  console.log('Button:', button);
-  console.log('List:', list);
-  console.log('Open Class:', openClass);
-  console.log('Close Class:', closeClass);
-  console.log('Items:', items);
 
   if (!button || !list || !openClass || !closeClass) return;
 
@@ -990,7 +984,6 @@ function announcementEventExpand() {
     let height = 0;
     for (let i = 0; i < Math.min(2, items.length); i++) {
       height += items[i].offsetHeight;
-      console.log(`Item ${i} height:`, items[i].offsetHeight);
     }
     return height;
   }
@@ -998,7 +991,6 @@ function announcementEventExpand() {
   // Set initial max-height based on the height of the first two items
   const initialHeight = calculateInitialHeight();
   list.style.maxHeight = `${initialHeight}px`;
-  console.log('Initial max-height:', initialHeight);
 
   // Hide or show button based on the number of items
   if (items.length <= 2) {
@@ -1009,13 +1001,21 @@ function announcementEventExpand() {
     closeClass.style.display = 'none'; // Ensure close button is hidden initially
   }
 
-  button.addEventListener('click', function () {
+  // Debounce function to prevent multiple rapid clicks
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+
+  button.addEventListener('click', debounce(function () {
     list.classList.toggle('expanded');
-    console.log('List classes:', list.classList);
 
     if (list.classList.contains('expanded')) {
       list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-      console.log('Expanded max-height:', list.scrollHeight);
       openClass.style.display = 'none';
       closeClass.style.display = 'flex';
     } else {
@@ -1023,7 +1023,7 @@ function announcementEventExpand() {
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
-  });
+  }, 300)); // Adjust the debounce delay as needed
 }
 
 
@@ -1631,6 +1631,10 @@ function handleEventCardResize() {
               for (let entry of entries) {
                   applyStylesBasedOnWidth(entry.target, entry.contentRect.width);
               }
+              // Check for the presence of '.eventcard__button' and run announcementEventExpand if found
+              if (document.querySelector('.eventcard__button')) {
+                  
+              }
           }, 100); // Adjust the debounce time as needed
       };
 
@@ -1645,7 +1649,6 @@ function handleEventCardResize() {
 
 // Call the function to initialize the observer
 handleEventCardResize();
-announcementEventExpand();
 
 
 
