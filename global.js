@@ -1,4 +1,4 @@
-console.log("V1.314");
+console.log("V1.315");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -971,6 +971,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
+document.addEventListener('DOMContentLoaded', function() {
+  announcementEventExpand();
+});
+
 function announcementEventExpand() {
   const button = document.querySelector('.eventcard__button');
   const list = document.querySelector('.eventcard__list');
@@ -1000,6 +1004,7 @@ function announcementEventExpand() {
       initialHeight = calculateInitialHeight(); // Recalculate initial height
       list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
     }
+    console.log('Max height updated:', list.style.maxHeight);
   }
 
   // Set initial max-height based on the height of the first two items
@@ -1027,18 +1032,24 @@ function announcementEventExpand() {
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
+    console.log('Button clicked. List expanded:', list.classList.contains('expanded'));
   });
 
   // Use MutationObserver to watch for changes to the class attribute of .eventcard
-  const observer = new MutationObserver(() => {
-    if (eventCard.classList.contains('br--small')) {
-      updateMaxHeight();
+  const observer = new MutationObserver((mutationsList) => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        console.log('Class attribute changed:', mutation.target.className);
+        updateMaxHeight();
+      }
     }
   });
 
   observer.observe(eventCard, { attributes: true, attributeFilter: ['class'] });
-}
 
+  // Initial call to updateMaxHeight to ensure correct height on page load
+  updateMaxHeight();
+}
 
 
 
