@@ -1,4 +1,4 @@
-console.log("V1.313");
+console.log("V1.314");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1029,9 +1029,6 @@ function announcementEventExpand() {
     }
   });
 
-  // Recalculate maxHeight on window resize
-  window.addEventListener('resize', updateMaxHeight);
-
   // Use MutationObserver to watch for changes to the class attribute of .eventcard
   const observer = new MutationObserver(() => {
     if (eventCard.classList.contains('br--small')) {
@@ -1662,7 +1659,10 @@ function handleEventCardResize() {
 
 // Call the function to initialize the observer
 handleEventCardResize();
-announcementEventExpand();
+
+document.addEventListener('DOMContentLoaded', function() {
+  announcementEventExpand();
+});
 
 
 
