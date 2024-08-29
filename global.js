@@ -1,4 +1,4 @@
-console.log("V1.289");
+console.log("V1.290");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -110,7 +110,6 @@ swup.hooks.on('content:replace', () => {
   initializeShowFirstImage();
   hideMatchingEndDates();
   updateLinkedUpdate();
-  initializeToggle();
   updateNavButtons();
   startCountdown();
   initializeMinistryNavigation();
@@ -966,10 +965,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---EVENT CARD EXPANDING AND COLLAPSING---
+//---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
 
-function initializeToggle() {
+function announcementEventExpand() {
   const button = document.querySelector('.eventcard__button');
   const list = document.querySelector('.eventcard__list');
   const openClass = document.querySelector('.eventcard__open');
@@ -1012,9 +1011,6 @@ function initializeToggle() {
     }
   });
 }
-
-// Initialize on page load
-initializeToggle();
 
 
 
@@ -1619,6 +1615,10 @@ function handleEventCardResize() {
           resizeTimeout = setTimeout(() => {
               for (let entry of entries) {
                   applyStylesBasedOnWidth(entry.target, entry.contentRect.width);
+              }
+              // Check for the presence of '.eventcard__button' and run announcementEventExpand if found
+              if (document.querySelector('.eventcard__button')) {
+                  announcementEventExpand();
               }
           }, 100); // Adjust the debounce time as needed
       };
