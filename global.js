@@ -1,4 +1,4 @@
-console.log("V1.319");
+console.log("V1.320");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1007,6 +1007,15 @@ function announcementEventExpand() {
     }
   }
 
+  // Debounce function to delay execution
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+
   // Initial height calculation
   initialHeight = calculateInitialHeight();
   list.style.maxHeight = `${initialHeight}px`;
@@ -1035,7 +1044,8 @@ function announcementEventExpand() {
     }
   });
 
-  window.addEventListener('resize', handleResize);
+  // Use debounce for the resize event
+  window.addEventListener('resize', debounce(handleResize, 300));
 
   // Force reflow and recalculate height after a short delay
   setTimeout(() => {
