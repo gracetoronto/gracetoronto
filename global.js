@@ -1,4 +1,4 @@
-console.log("V1.299");
+console.log("V1.300");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -120,6 +120,7 @@ swup.hooks.on('content:replace', () => {
   initFilterAccordion();
   filterSelectionHover();
   checkAndModifyTimeSubtitles();
+  handleResize();
 });
 
 
@@ -1631,10 +1632,6 @@ function handleEventCardResize() {
               for (let entry of entries) {
                   applyStylesBasedOnWidth(entry.target, entry.contentRect.width);
               }
-              // Check for the presence of '.eventcard__button' and run announcementEventExpand if found
-              if (document.querySelector('.eventcard__button')) {
-                  announcementEventExpand();
-              }
           }, 100); // Adjust the debounce time as needed
       };
 
@@ -1650,6 +1647,29 @@ function handleEventCardResize() {
 // Call the function to initialize the observer
 handleEventCardResize();
 
+
+
+// CALL ANNOUNCEMENT EVENT EXPAND FUNCTION WHEN BROWSER WINDOW IS RESIZED---
+
+// Function to be called when the window is resized
+function checkResize() {
+  announcementEventExpand();
+}
+
+// Function to attach the resize event listener
+function attachResizeListener() {
+  window.addEventListener('resize', checkResize);
+}
+
+// Attach the resize event listener initially
+attachResizeListener();
+
+// If using swup.js, reattach the resize event listener after each page transition
+document.addEventListener('swup:contentReplaced', () => {
+  attachResizeListener();
+});
+
+handleResize();
 
 
 
