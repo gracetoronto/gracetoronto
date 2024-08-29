@@ -1,4 +1,4 @@
-console.log("V1.293");
+console.log("V1.294");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -965,7 +965,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
 
 
 //---EVENT CARD EXPANDING AND COLLAPSING ON ANNOUNCEMENT PAGES---
@@ -1025,6 +1024,7 @@ function announcementEventExpand() {
     }
   });
 }
+
 
 
 

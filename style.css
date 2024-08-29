@@ -40,9 +40,9 @@ html.is-animating .transition-fade {
 
 /* Expanding updates card */
 
-.eventcard__list.expanded {
-  max-height: none;
-  transition: max-height 0.3s ease;
+.eventcard__list {
+  overflow: hidden;
+  transition: max-height 0.5s ease-out;
 }
 
 
