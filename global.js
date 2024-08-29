@@ -1,4 +1,4 @@
-console.log("V1.309");
+console.log("V1.310");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1006,9 +1006,7 @@ function announcementEventExpand() {
     }
   }, 100); // 100ms delay
 
-  
-
-  button.addEventListener('click', debounce(function () {
+  button.addEventListener('click', function () {
     list.classList.toggle('expanded');
 
     if (list.classList.contains('expanded')) {
@@ -1020,17 +1018,19 @@ function announcementEventExpand() {
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
-  }, 0)); // Adjust the debounce delay as needed
+  });
 
-  // Recalculate maxHeight on window resize
-  window.addEventListener('resize', debounce(function () {
-    if (list.classList.contains('expanded')) {
-      list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
-    } else {
-      initialHeight = calculateInitialHeight(); // Recalculate initial height
-      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
-    }
-  }, 50)); // Adjust the debounce delay as needed
+  // Recalculate maxHeight on window resize with a 50ms delay
+  window.addEventListener('resize', function () {
+    setTimeout(() => {
+      if (list.classList.contains('expanded')) {
+        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      } else {
+        initialHeight = calculateInitialHeight(); // Recalculate initial height
+        list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
+      }
+    }, 50); // 50ms delay
+  });
 }
 
 
