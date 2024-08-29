@@ -898,6 +898,7 @@ function hideMatchingEndDates() {
     const endDateElement = item.querySelector('.date--end');
     const dateDash = item.querySelector('.date--dash');
     const dateDayElement = item.querySelector('.date--day');
+    const dateCommaElement = item.querySelector('.date--comma');
     
 
     // Check if both start and end date elements exist to avoid errors
@@ -917,6 +918,7 @@ function hideMatchingEndDates() {
         // Hide the date day element if the start date is different from the end date
         if (dateDayElement) {
           dateDayElement.style.display = 'none';
+          dateCommaElement.style.display = 'none';
         }
       }
     }
