@@ -898,6 +898,7 @@ function hideMatchingEndDates() {
     const endDateElement = item.querySelector('.date--end');
     const dateDash = item.querySelector('.date--dash');
     const dateDayElement = item.querySelector('.date--day');
+    
 
     // Check if both start and end date elements exist to avoid errors
     if (startDateElement && endDateElement) {
@@ -1606,6 +1607,7 @@ function handleEventCardResize() {
           '.event__time',
           '.event__actions',
           '.heading.is--3.date--day',
+          '.heading.is--3.date--comma',
           '.heading.is--3.date--start',
           '.heading.is--3.date--dash',
           '.heading.is--3.date--end'
