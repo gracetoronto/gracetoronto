@@ -1,4 +1,4 @@
-console.log("V1.285");
+console.log("V1.286");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -119,6 +119,7 @@ swup.hooks.on('content:replace', () => {
   initCheckboxBehavior();
   handleEventCardResize();
   initFilterAccordion();
+  filterSelectionHover();
 });
 
 
@@ -1691,3 +1692,30 @@ function initFilterAccordion() {
 
 // Initialize the accordion
 initFilterAccordion();
+
+
+
+
+
+
+//---FILTER BUTTON HOVER ON DESKTOP---
+
+function filterSelectionHover() {
+  const filterOptions = document.querySelectorAll('.filter__option');
+
+  filterOptions.forEach(option => {
+    option.addEventListener('mouseenter', function () {
+      if (window.innerWidth > 991) {
+        const hoverElement = this.querySelector('.filter__hover');
+        if (hoverElement) hoverElement.style.display = 'block';
+      }
+    });
+
+    option.addEventListener('mouseleave', function () {
+      if (window.innerWidth > 991) {
+        const hoverElement = this.querySelector('.filter__hover');
+        if (hoverElement) hoverElement.style.display = 'none';
+      }
+    });
+  });
+}
