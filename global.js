@@ -1,4 +1,4 @@
-console.log("V1.310");
+console.log("V1.311");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1031,6 +1031,20 @@ function announcementEventExpand() {
       }
     }, 50); // 50ms delay
   });
+
+  // Use MutationObserver to watch for changes to the class attribute
+  const observer = new MutationObserver(() => {
+    setTimeout(() => {
+      if (list.classList.contains('expanded')) {
+        list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      } else {
+        initialHeight = calculateInitialHeight(); // Recalculate initial height
+        list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
+      }
+    }, 50); // 50ms delay
+  });
+
+  observer.observe(list, { attributes: true, attributeFilter: ['class'] });
 }
 
 
