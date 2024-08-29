@@ -1,4 +1,4 @@
-console.log("V1.312");
+console.log("V1.313");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1003,19 +1003,17 @@ function announcementEventExpand() {
   }
 
   // Set initial max-height based on the height of the first two items
-  setTimeout(() => {
-    initialHeight = calculateInitialHeight();
-    list.style.maxHeight = `${initialHeight}px`;
+  initialHeight = calculateInitialHeight();
+  list.style.maxHeight = `${initialHeight}px`;
 
-    // Hide or show button based on the number of items
-    if (items.length <= 2) {
-      button.style.display = 'none';
-      closeClass.style.display = 'none'; // Also hide the close button if needed
-    } else {
-      button.style.display = 'flex';
-      closeClass.style.display = 'none'; // Ensure close button is hidden initially
-    }
-  }, 100); // 100ms delay
+  // Hide or show button based on the number of items
+  if (items.length <= 2) {
+    button.style.display = 'none';
+    closeClass.style.display = 'none'; // Also hide the close button if needed
+  } else {
+    button.style.display = 'flex';
+    closeClass.style.display = 'none'; // Ensure close button is hidden initially
+  }
 
   button.addEventListener('click', function () {
     list.classList.toggle('expanded');
@@ -1031,15 +1029,13 @@ function announcementEventExpand() {
     }
   });
 
-  // Recalculate maxHeight on window resize with a 50ms delay
-  window.addEventListener('resize', function () {
-    setTimeout(updateMaxHeight, 50); // 50ms delay
-  });
+  // Recalculate maxHeight on window resize
+  window.addEventListener('resize', updateMaxHeight);
 
   // Use MutationObserver to watch for changes to the class attribute of .eventcard
   const observer = new MutationObserver(() => {
     if (eventCard.classList.contains('br--small')) {
-      setTimeout(updateMaxHeight, 50); // 50ms delay
+      updateMaxHeight();
     }
   });
 
