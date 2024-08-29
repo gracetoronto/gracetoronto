@@ -1,4 +1,4 @@
-console.log("V1.294");
+console.log("V1.295");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -120,6 +120,7 @@ swup.hooks.on('content:replace', () => {
   initFilterAccordion();
   filterSelectionHover();
   checkAndModifyTimeSubtitles();
+  announcementEventExpand();
 });
 
 
@@ -1630,10 +1631,6 @@ function handleEventCardResize() {
               for (let entry of entries) {
                   applyStylesBasedOnWidth(entry.target, entry.contentRect.width);
               }
-              // Check for the presence of '.eventcard__button' and run announcementEventExpand if found
-              if (document.querySelector('.eventcard__button')) {
-                  announcementEventExpand();
-              }
           }, 100); // Adjust the debounce time as needed
       };
 
@@ -1648,6 +1645,7 @@ function handleEventCardResize() {
 
 // Call the function to initialize the observer
 handleEventCardResize();
+announcementEventExpand();
 
 
 
