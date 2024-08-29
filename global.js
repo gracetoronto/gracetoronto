@@ -1,4 +1,4 @@
-console.log("V1.305");
+console.log("V1.306");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -990,17 +990,19 @@ function announcementEventExpand() {
   }
 
   // Set initial max-height based on the height of the first two items
-  let initialHeight = calculateInitialHeight();
-  list.style.maxHeight = `${initialHeight}px`;
+  setTimeout(() => {
+    let initialHeight = calculateInitialHeight();
+    list.style.maxHeight = `${initialHeight}px`;
 
-  // Hide or show button based on the number of items
-  if (items.length <= 2) {
-    button.style.display = 'none';
-    closeClass.style.display = 'none'; // Also hide the close button if needed
-  } else {
-    button.style.display = 'flex';
-    closeClass.style.display = 'none'; // Ensure close button is hidden initially
-  }
+    // Hide or show button based on the number of items
+    if (items.length <= 2) {
+      button.style.display = 'none';
+      closeClass.style.display = 'none'; // Also hide the close button if needed
+    } else {
+      button.style.display = 'flex';
+      closeClass.style.display = 'none'; // Ensure close button is hidden initially
+    }
+  }, 100); // 100ms delay
 
   // Debounce function to prevent multiple rapid clicks
   function debounce(func, wait) {
@@ -1037,7 +1039,7 @@ function announcementEventExpand() {
   }, 50)); // Adjust the debounce delay as needed
 }
 
-
+announcementEventExpand();
 
 
 
