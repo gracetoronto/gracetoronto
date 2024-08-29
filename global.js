@@ -1,4 +1,4 @@
-console.log("V1.306");
+console.log("V1.307");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1039,7 +1039,7 @@ function announcementEventExpand() {
   }, 50)); // Adjust the debounce delay as needed
 }
 
-announcementEventExpand();
+
 
 
 
