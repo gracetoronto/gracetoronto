@@ -1,4 +1,4 @@
-console.log("V1.318");
+console.log("V1.319");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1007,6 +1007,7 @@ function announcementEventExpand() {
     }
   }
 
+  // Initial height calculation
   initialHeight = calculateInitialHeight();
   list.style.maxHeight = `${initialHeight}px`;
   list.style.overflow = 'hidden';
@@ -1036,11 +1037,17 @@ function announcementEventExpand() {
 
   window.addEventListener('resize', handleResize);
 
+  // Force reflow and recalculate height after a short delay
+  setTimeout(() => {
+    initialHeight = calculateInitialHeight();
+    list.style.maxHeight = `${initialHeight}px`;
+  }, 100);
+
   updateMaxHeight();
 }
 
 // Call the function with a 100ms delay to initialize the event card behavior
-setTimeout(announcementEventExpand, 100);
+announcementEventExpand();
 
 
 
