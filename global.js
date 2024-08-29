@@ -1,4 +1,4 @@
-console.log("V1.292");
+console.log("V1.293");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -977,6 +977,12 @@ function announcementEventExpand() {
   const closeClass = document.querySelector('.eventcard__close');
   const items = list ? list.querySelectorAll('.eventcard__item') : [];
 
+  console.log('Button:', button);
+  console.log('List:', list);
+  console.log('Open Class:', openClass);
+  console.log('Close Class:', closeClass);
+  console.log('Items:', items);
+
   if (!button || !list || !openClass || !closeClass) return;
 
   // Function to calculate the height of the first two items
@@ -984,12 +990,15 @@ function announcementEventExpand() {
     let height = 0;
     for (let i = 0; i < Math.min(2, items.length); i++) {
       height += items[i].offsetHeight;
+      console.log(`Item ${i} height:`, items[i].offsetHeight);
     }
     return height;
   }
 
   // Set initial max-height based on the height of the first two items
-  list.style.maxHeight = `${calculateInitialHeight()}px`;
+  const initialHeight = calculateInitialHeight();
+  list.style.maxHeight = `${initialHeight}px`;
+  console.log('Initial max-height:', initialHeight);
 
   // Hide or show button based on the number of items
   if (items.length <= 2) {
@@ -1006,10 +1015,11 @@ function announcementEventExpand() {
 
     if (list.classList.contains('expanded')) {
       list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
+      console.log('Expanded max-height:', list.scrollHeight);
       openClass.style.display = 'none';
       closeClass.style.display = 'flex';
     } else {
-      list.style.maxHeight = `${calculateInitialHeight()}px`; // Collapse to initial height
+      list.style.maxHeight = `${initialHeight}px`; // Collapse to initial height
       openClass.style.display = 'flex';
       closeClass.style.display = 'none';
     }
