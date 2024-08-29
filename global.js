@@ -1,4 +1,4 @@
-console.log("V1.307");
+console.log("V1.308");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -980,6 +980,8 @@ function announcementEventExpand() {
 
   if (!button || !list || !openClass || !closeClass) return;
 
+  let initialHeight; // Define initialHeight in the outer scope
+
   // Function to calculate the height of the first two items
   function calculateInitialHeight() {
     let height = 0;
@@ -991,7 +993,7 @@ function announcementEventExpand() {
 
   // Set initial max-height based on the height of the first two items
   setTimeout(() => {
-    let initialHeight = calculateInitialHeight();
+    initialHeight = calculateInitialHeight();
     list.style.maxHeight = `${initialHeight}px`;
 
     // Hide or show button based on the number of items
