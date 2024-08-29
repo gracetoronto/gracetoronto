@@ -1002,6 +1002,8 @@ function announcementEventExpand() {
 
   button.addEventListener('click', function () {
     list.classList.toggle('expanded');
+    console.log('List classes:', list.classList);
+    
     if (list.classList.contains('expanded')) {
       list.style.maxHeight = `${list.scrollHeight}px`; // Expand to full height
       openClass.style.display = 'none';
