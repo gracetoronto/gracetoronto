@@ -1041,7 +1041,7 @@ function announcementEventExpand() {
   setTimeout(() => {
     initialHeight = calculateInitialHeight();
     list.style.maxHeight = `${initialHeight}px`;
-  }, 100);
+  }, 300);
 
   updateMaxHeight();
 }
