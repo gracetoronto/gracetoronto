@@ -1,4 +1,4 @@
-console.log("V1.288");
+console.log("V1.289");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -17,7 +17,7 @@ const swup = new Swup({
         },
         {
           from: '/updates',
-          to: '/updates/events',
+          to: '/updates/announcements',
           containers: ['#fragment-updates']
         },
         {
@@ -31,17 +31,17 @@ const swup = new Swup({
           containers: ['#fragment-updates']
         },
         {
-          from: '/updates/events',
+          from: '/updates/announcements',
           to: '/updates',
           containers: ['#fragment-updates']
         },
         {
-          from: '/updates/events',
+          from: '/updates/announcements',
           to: '/updates/news',
           containers: ['#fragment-updates']
         },
         {
-          from: '/updates/events',
+          from: '/updates/announcements',
           to: '/updates/highlights',
           containers: ['#fragment-updates']
         },
@@ -52,7 +52,7 @@ const swup = new Swup({
         },
         {
           from: '/updates/news',
-          to: '/updates/events',
+          to: '/updates/announcements',
           containers: ['#fragment-updates']
         },
         {
@@ -67,7 +67,7 @@ const swup = new Swup({
         },
         {
           from: '/updates/highlights',
-          to: '/updates/events',
+          to: '/updates/announcements',
           containers: ['#fragment-updates']
         },
         {
