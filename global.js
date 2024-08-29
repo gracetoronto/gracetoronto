@@ -1,4 +1,4 @@
-console.log("V1.287");
+console.log("V1.288");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -897,6 +897,7 @@ function hideMatchingEndDates() {
     const startDateElement = item.querySelector('.date--start');
     const endDateElement = item.querySelector('.date--end');
     const dateDash = item.querySelector('.date--dash');
+    const dateDayElement = item.querySelector('.date--day');
 
     // Check if both start and end date elements exist to avoid errors
     if (startDateElement && endDateElement) {
@@ -910,6 +911,11 @@ function hideMatchingEndDates() {
         endDateElement.style.display = 'none';
         if (dateDash) {
           dateDash.style.display = 'none';
+        }
+      } else {
+        // Hide the date day element if the start date is different from the end date
+        if (dateDayElement) {
+          dateDayElement.style.display = 'none';
         }
       }
     }
