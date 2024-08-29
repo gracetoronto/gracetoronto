@@ -1,4 +1,4 @@
-console.log("V1.300");
+console.log("V1.301");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1651,23 +1651,21 @@ handleEventCardResize();
 
 // CALL ANNOUNCEMENT EVENT EXPAND FUNCTION WHEN BROWSER WINDOW IS RESIZED---
 
-// Function to be called when the window is resized
-function checkResize() {
-  announcementEventExpand();
-}
+// Function to handle the resize event listener
+function handleResize() {
+  // Function to be called when the window is resized
+  function checkResize() {
+      announcementEventExpand();
+  }
 
-// Function to attach the resize event listener
-function attachResizeListener() {
+  // Attach the resize event listener to the window object
   window.addEventListener('resize', checkResize);
+
+  // If using swup.js, reattach the resize event listener after each page transition
+  document.addEventListener('swup:contentReplaced', () => {
+      window.addEventListener('resize', checkResize);
+  });
 }
-
-// Attach the resize event listener initially
-attachResizeListener();
-
-// If using swup.js, reattach the resize event listener after each page transition
-document.addEventListener('swup:contentReplaced', () => {
-  attachResizeListener();
-});
 
 handleResize();
 
