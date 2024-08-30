@@ -1,4 +1,4 @@
-console.log("V1.328");
+console.log("V1.329");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -13,7 +13,8 @@ const swup = new Swup({
         {
           from: '/about/leadership',
           to: '/leadership/(.*)',
-          containers: ['#fragment-leadership']
+          containers: ['#fragment-leadership'],
+          scroll: false
         },
         {
           from: '/ministries/(.*)',
