@@ -1,4 +1,4 @@
-console.log("V1.327");
+console.log("V1.328");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -12,7 +12,7 @@ const swup = new Swup({
       rules: [
         {
           from: '/about/leadership',
-          to: '/leadership/dan-macdonald',
+          to: '/leadership/(.*)',
           containers: ['#fragment-leadership']
         },
         {
