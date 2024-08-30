@@ -1,4 +1,4 @@
-console.log("V1.321");
+console.log("V1.322");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -21,65 +21,10 @@ const swup = new Swup({
           containers: ['#fragment-ministries']
         },
         {
-          from: '/updates',
-          to: '/updates/announcements',
+          from: ['/updates', '/updates/announcements', '/updates/news', '/updates/highlights'],
+          to: ['/updates', '/updates/announcements', '/updates/news', '/updates/highlights'],
           containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates',
-          to: '/updates/news',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates',
-          to: '/updates/highlights',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/announcements',
-          to: '/updates',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/announcements',
-          to: '/updates/news',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/announcements',
-          to: '/updates/highlights',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/news',
-          to: '/updates',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/news',
-          to: '/updates/announcements',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/news',
-          to: '/updates/highlights',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/highlights',
-          to: '/updates',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/highlights',
-          to: '/updates/announcements',
-          containers: ['#fragment-updates']
-        },
-        {
-          from: '/updates/highlights',
-          to: '/updates/news',
-          containers: ['#fragment-updates']
-        },
+        },  
       ]
     }),
     new SwupScriptsPlugin({
