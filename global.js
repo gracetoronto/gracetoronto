@@ -1,4 +1,4 @@
-console.log("V1.336");
+console.log("V1.337");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -55,14 +55,17 @@ const swup = new Swup({
 function updateProfileCloseLinks() {
   // Check if there's a previous page
   const lastPage = document.referrer;
+  console.log('Last Page:', lastPage);
 
   if (lastPage) {
     // Find all links with the class 'is--return'
     const returnLinks = document.querySelectorAll('.is--return');
+    console.log('Return Links:', returnLinks);
 
     // Update the href attribute to the last page URL
     returnLinks.forEach(link => {
       link.setAttribute('href', lastPage);
+      console.log('Updated link:', link);
     });
   }
 }
@@ -70,9 +73,11 @@ function updateProfileCloseLinks() {
 // Run the updateProfileCloseLinks function on page navigation to '/leadership/(.*)'
 swup.hooks.on('content:replace', function () {
   const urlPath = window.location.pathname;
+  console.log('URL Path:', urlPath);
   const leadershipRegex = /\/leadership\/(.*)/;
 
   if (leadershipRegex.test(urlPath)) {
+    console.log('Leadership page detected');
     updateProfileCloseLinks();
   }
 });
