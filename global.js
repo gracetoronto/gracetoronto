@@ -64,19 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-//MUTE AUTOPLAYING BACKGROUND VIDEOS
-
-  document.addEventListener('DOMContentLoaded', function () {
-    // Select the background video element in Webflow
-    const bgVideo = document.querySelector('home-bg.w-background-video'); // Use the correct class for the background video
-    
-    if (bgVideo) {
-      bgVideo.muted = true; // Mute the video to comply with Safari's autoplay policy
-      bgVideo.setAttribute('playsinline', ''); // Add playsinline attribute
-    }
-  });
-
-
 
 
 
