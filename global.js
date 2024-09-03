@@ -1,4 +1,4 @@
-console.log("V1.340");
+console.log("V1.341");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 swup.hooks.on('content:replace', function () {
   if (window.location.pathname === '/') { 
-    const videoElement = document.querySelector('home-bg'); 
+    const videoElement = document.querySelector('#home-bg'); 
     if (videoElement) {
       videoElement.play(); 
     }
