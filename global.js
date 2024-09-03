@@ -1,4 +1,4 @@
-console.log("V1.344");
+console.log("V1.345");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('DOMContentLoaded', function () {
     // Select the background video element in Webflow
-    const bgVideo = document.querySelector('video.w-background-video'); // Use the correct class for the background video
+    const bgVideo = document.querySelector('home-bg.w-background-video'); // Use the correct class for the background video
     
     if (bgVideo) {
       bgVideo.muted = true; // Mute the video to comply with Safari's autoplay policy
