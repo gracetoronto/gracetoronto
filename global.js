@@ -1,4 +1,4 @@
-console.log("V1.345");
+console.log("V1.346");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -65,6 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+//RESET AND PLAY HOMEPAGE VIDEO
+
+function resetAndPlayHomeVideo() {
+  // Check if the current URL is the homepage
+  if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+    const video = document.getElementById('home-bg');
+    if (video) {
+      // Reset and play the video
+      video.currentTime = 0; // Reset video to start
+      video.play(); // Play the video
+    }
+  }
+}
+
+
+
 
 
 
@@ -102,6 +118,7 @@ swup.hooks.on('content:replace', () => {
   filterSelectionHover();
   checkAndModifyTimeSubtitles();
   announcementEventExpand();
+  resetAndPlayHomeVideo();
 });
 
 
