@@ -1,4 +1,4 @@
-console.log("V1.341");
+console.log("V1.342");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -67,10 +67,13 @@ document.addEventListener('DOMContentLoaded', () => {
 //AUTOPLAY HOMEPAGE BACGROUND VIDEO ON SWUP PAGE CHANGE
 
 swup.hooks.on('content:replace', function () {
-  if (window.location.pathname === '/') { 
-    const videoElement = document.querySelector('#home-bg'); 
+  // Check if on the homepage
+  if (window.location.pathname === '/') {
+    const videoElement = document.querySelector('#home-video'); // Select the video element by its ID
     if (videoElement) {
-      videoElement.play(); 
+      // Reload the video source to ensure it initializes correctly
+      videoElement.load();
+      videoElement.play(); // Play the video
     }
   }
 });
