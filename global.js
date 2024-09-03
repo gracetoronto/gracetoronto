@@ -1,4 +1,4 @@
-console.log("V1.342");
+console.log("V1.343");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -71,9 +71,17 @@ swup.hooks.on('content:replace', function () {
   if (window.location.pathname === '/') {
     const videoElement = document.querySelector('#home-video'); // Select the video element by its ID
     if (videoElement) {
+      // Ensure the video is loaded and ready to play
+      videoElement.pause(); // Pause in case it is already playing
+      videoElement.currentTime = 0; // Reset the video to start from the beginning
+      
+      // Use 'canplaythrough' event to ensure video is ready
+      videoElement.addEventListener('canplaythrough', function () {
+        videoElement.play(); // Play the video
+      });
+
       // Reload the video source to ensure it initializes correctly
-      videoElement.load();
-      videoElement.play(); // Play the video
+      videoElement.load(); 
     }
   }
 });
