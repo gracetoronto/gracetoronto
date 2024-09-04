@@ -1,4 +1,4 @@
-console.log("V1.351");
+console.log("V1.352");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -469,14 +469,15 @@ function navExpand() {
 }
 
 // Event listener to handle scroll event
-window.addEventListener('scroll', function () {
+window.addEventListener('scroll', debounce(function () {
   if (window.scrollY > 200) {
     navShrink();
   } else {
     navExpand();
-    debounce(updateNavAppearance, 50);
+    updateNavAppearance();
   }
-});
+}, 50));
+
 
 // Ensure navTransparent is called on initial load if it's the homepage
 document.addEventListener('DOMContentLoaded', function () {
