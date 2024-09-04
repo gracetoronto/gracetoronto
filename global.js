@@ -1,4 +1,4 @@
-console.log("V1.353");
+console.log("V1.354");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -8,6 +8,7 @@ const swup = new Swup({
 
 
   plugins: [
+    new SwupPreloadPlugin(),
     new SwupFragmentPlugin({
       rules: [
         {
