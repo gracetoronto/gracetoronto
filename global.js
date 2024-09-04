@@ -1,4 +1,4 @@
-console.log("V1.350");
+console.log("V1.351");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -474,7 +474,7 @@ window.addEventListener('scroll', function () {
     navShrink();
   } else {
     navExpand();
-    updateNavAppearance();
+    debounce(updateNavAppearance, 50);
   }
 });
 
