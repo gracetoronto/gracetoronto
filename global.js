@@ -1,4 +1,4 @@
-console.log("V1.347");
+console.log("V1.348");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -161,6 +161,7 @@ function updateNavButtons() {
 
 document.addEventListener('DOMContentLoaded', function () {
   updateNavAppearance(); // Initial load
+  window.addEventListener('scroll', debounce(updateNavAppearance, 50)); // Add scroll event listener with debounce
 });
 
 // Adjusted to ensure DOM readiness after swup transition
