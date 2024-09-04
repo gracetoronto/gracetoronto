@@ -1,4 +1,4 @@
-console.log("V1.352");
+console.log("V1.353");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -476,7 +476,7 @@ window.addEventListener('scroll', debounce(function () {
     navExpand();
     updateNavAppearance();
   }
-}, 50));
+}, 25));
 
 
 // Ensure navTransparent is called on initial load if it's the homepage
