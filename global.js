@@ -1,4 +1,4 @@
-console.log("V1.348");
+console.log("V1.349");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -271,6 +271,21 @@ function navTransparent() {
     });
   }
 }
+
+
+// Debounce function to limit the rate at which a function can fire
+function debounce(func, wait) {
+  let timeout;
+  return function () {
+    const context = this, args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  };
+}
+
+
+
+
 
 // Function to change nav back to default white
 function navWhite() {
@@ -1506,6 +1521,12 @@ initFilterOptions();
 //---CALENDAR FILTER CHECKBOX FUNCTIONALITY---
 
 function initCheckboxBehavior() {
+
+  // Check if there is an element with class '.eventcard' on the page
+  if (!document.querySelector('.eventcard')) {
+    return; // Exit the function if no such element exists
+  }
+  
   // Select the church-wide checkbox using custom attribute
   const churchWideCheckbox = document.querySelector('[fs-cmsfilter-field="church-wide"]');
   
