@@ -1,4 +1,4 @@
-console.log("V1.346");
+console.log("V1.347");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -198,6 +198,8 @@ function navTransparent() {
   const bannerContents = document.querySelectorAll('.banner__content');
   const menuIcons = document.querySelectorAll('.menu__icon');
 
+  const shouldBeTransparent = isTransparentBg(window.location.pathname);
+
 
   // Apply filter styles to invert colours
   if (containerBlurs) {
@@ -207,7 +209,7 @@ function navTransparent() {
   }
 
   // Check if the current page should have a transparent navigation
-  if (isTransparentBg(window.location.pathname)) {
+  if (shouldBeTransparent) {
     mainContainerBlurs.forEach(containerBlur => {
       containerBlur.style.opacity = '0';
     });
