@@ -1,4 +1,4 @@
-console.log("V1.358");
+console.log("V1.359");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -39,6 +39,42 @@ const swup = new Swup({
     })
   ]
 });
+
+
+
+
+//UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // Store the previous URL
+  let previousURL = document.referrer;
+
+  // Update the close button URLs after content replacement
+  swup.hooks.on('content:replace', () => {
+    const currentURL = window.location.pathname;
+    
+    // If we're on a '/leadership/(*)' page, update the close buttons
+    if (/\/leadership\/.*/.test(currentURL)) {
+      document.querySelectorAll('.is--exit').forEach(link => {
+        link.setAttribute('href', previousURL);
+      });
+    }
+
+    // Update previous URL for the next navigation
+    previousURL = currentURL;
+  });
+
+  // Store the new URL before replacing content
+  swup.hooks.before('content:replace', () => {
+    previousURL = window.location.pathname;
+  });
+});
+
+
+
+
+
 
 
 
