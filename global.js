@@ -1,4 +1,4 @@
-console.log("V1.370");
+console.log("V1.371");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -48,36 +48,36 @@ const swup = new Swup({
 // Initialize a variable to store the previous URL
 let prevURL = window.location.pathname;
 
-// Capture the URL before Swup replaces content
+// Capture the URL on page load
+document.addEventListener('DOMContentLoaded', () => {
+  prevURL = window.location.pathname;
+  console.log('Initial URL on page load:', prevURL); // Debugging
+});
+
+// Capture the URL on Swup navigation
 swup.hooks.before('content:replace', () => {
-  prevURL = window.location.pathname; // Capture the current URL
-  console.log('Captured previous URL:', prevURL); // Debugging
+  prevURL = window.location.pathname; // Capture the URL before content replacement
+  console.log('Captured URL before replace:', prevURL); // Debugging
 });
 
 // Update .is--exit links after Swup has replaced content
 swup.hooks.on('content:replace', () => {
-  // Get the current URL after Swup has replaced content
   const currentUrl = window.location.pathname;
   console.log('Current URL after replace:', currentUrl); // Debugging
 
-  // Ensure the previous URL is correctly captured
-  if (prevURL && currentUrl) {
-    const leadershipRegex = /^\/leadership\/.*/;
-    
-    if (leadershipRegex.test(currentUrl)) {
-      const exitLinks = document.querySelectorAll('.is--exit');
-      console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+  // Only update links if navigating to a /leadership/ page
+  const leadershipRegex = /^\/leadership\/.*/;
 
-      exitLinks.forEach(link => {
-        link.href = prevURL; // Use the previously captured URL
-        console.log('Updated link href to:', link.href); // Debugging
-      });
-    }
-  } else {
-    console.error('Previous URL or current URL is missing.');
+  if (leadershipRegex.test(currentUrl)) {
+    const exitLinks = document.querySelectorAll('.is--exit');
+    console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+
+    exitLinks.forEach(link => {
+      link.href = prevURL; // Use the previously captured URL
+      console.log('Updated link href to:', link.href); // Debugging
+    });
   }
 });
-
 
 
 
