@@ -1,4 +1,4 @@
-console.log("V1.365");
+console.log("V1.366");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -61,7 +61,7 @@ swup.hooks.on('content:replace', () => {
   if (leadershipRegex.test(currentUrl)) {
     const exitLinks = document.querySelectorAll('.is--exit');
     exitLinks.forEach(link => {
-      link.href = previousUrl;
+      link.href = prevUrl;
     });
   }
 });
