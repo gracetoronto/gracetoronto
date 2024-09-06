@@ -134,7 +134,7 @@ swup.hooks.on('content:replace', () => {
   }
 
   //All other functions that are supposed to run on page change
-  scrollEnable();
+  document.body.classList.remove('scroll--disabled');
   showCal();
   initCarousel();
   initializeAccordions();
