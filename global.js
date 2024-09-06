@@ -1,4 +1,4 @@
-console.log("V1.362");
+console.log("V1.363");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,38 +45,26 @@ const swup = new Swup({
 
 //UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
 
-document.addEventListener('DOMContentLoaded', () => {
+let previousUrl = window.location.pathname; // Store the initial URL as the previous URL
 
-  // Store the previous URL
-  let previousURL = document.referrer;
+// Update previous URL before Swup replaces content
+swup.hooks.before('content:replace', () => {
+  previousUrl = window.location.pathname; // Store the current URL as the previous URL before content replacement
+});
 
-  // Function to update exit links
-  function updateExitLinks() {
-    const currentURL = window.location.pathname;
+// After content is replaced, update .is--exit links
+swup.hooks.on('content:replace', () => {
+  // Check if the current URL matches the /leadership/ pattern
+  const leadershipRegex = /^\/leadership\/.*/;
+  const currentUrl = window.location.pathname;
 
-    // If we're on a '/leadership/(*)' page, update the close buttons
-    if (/^\/leadership\/.*/.test(currentURL)) {
-      document.querySelectorAll('.is--exit').forEach(link => {
-        link.setAttribute('href', previousURL);
-      });
-    }
-  }
-
-  // Update the close button URLs after content replacement
-  swup.hooks.on('content:replace', () => {
-    // Ensure the DOM is fully updated before querying for exit links
-    requestAnimationFrame(() => {
-      setTimeout(updateExitLinks, 50); // Add a slight delay
+  if (leadershipRegex.test(currentUrl)) {
+    // Update all links with the 'is--exit' class
+    const exitLinks = document.querySelectorAll('.is--exit');
+    exitLinks.forEach(link => {
+      link.href = previousUrl;
     });
-
-    // Update previous URL for the next navigation
-    previousURL = window.location.pathname;
-  });
-
-  // Store the new URL before replacing content
-  swup.hooks.before('content:replace', () => {
-    previousURL = window.location.pathname;
-  });
+  }
 });
 
 
