@@ -24,11 +24,10 @@ html.is-animating .transition-fade {
 }
 
 #fragment-leadership.is-changing {
-  transition: opacity 0ms;
+  transition: 350ms;
 }
 
 #fragment-leadership.is-animating {
-  opacity: 100%;
 }
 
 #fragment-leadership.is-changing .profile {
