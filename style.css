@@ -205,10 +205,10 @@ html.is-animating .transition-fade {
   opacity: 0;
 } */
 
-#fragment-leadership.is-changing {
+#fragment-leadership.profile__dim.is-changing {
   transition: opacity 250ms;
 }
 
-#fragment-leadership.is-animating {
+#fragment-leadership.profile__dim.is-animating {
   opacity: 0;
 }
