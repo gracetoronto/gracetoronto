@@ -1,4 +1,4 @@
-console.log("V1.369");
+console.log("V1.370");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -50,28 +50,33 @@ let prevURL = window.location.pathname;
 
 // Capture the URL before Swup replaces content
 swup.hooks.before('content:replace', () => {
-  prevURL = window.location.pathname; // Capture the URL before it changes
+  prevURL = window.location.pathname; // Capture the current URL
   console.log('Captured previous URL:', prevURL); // Debugging
 });
 
 // Update .is--exit links after Swup has replaced content
 swup.hooks.on('content:replace', () => {
-  const leadershipRegex = /^\/leadership\/.*/;
+  // Get the current URL after Swup has replaced content
   const currentUrl = window.location.pathname;
-
   console.log('Current URL after replace:', currentUrl); // Debugging
 
-  if (leadershipRegex.test(currentUrl)) {
-    const exitLinks = document.querySelectorAll('.is--exit');
-    console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+  // Ensure the previous URL is correctly captured
+  if (prevURL && currentUrl) {
+    const leadershipRegex = /^\/leadership\/.*/;
+    
+    if (leadershipRegex.test(currentUrl)) {
+      const exitLinks = document.querySelectorAll('.is--exit');
+      console.log('Number of .is--exit links:', exitLinks.length); // Debugging
 
-    exitLinks.forEach(link => {
-      link.href = prevURL; // Use the previously captured URL
-      console.log('Updated link href to:', link.href); // Debugging
-    });
+      exitLinks.forEach(link => {
+        link.href = prevURL; // Use the previously captured URL
+        console.log('Updated link href to:', link.href); // Debugging
+      });
+    }
+  } else {
+    console.error('Previous URL or current URL is missing.');
   }
 });
-
 
 
 
