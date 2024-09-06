@@ -23,6 +23,15 @@ html.is-animating .transition-fade {
   opacity: 0;
 }
 
+#fragment-leadership.is-changing {
+  transition: opacity 250ms, transform 250ms;
+}
+
+#fragment-leadership.is-animating {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
 
 /* Minstry nav arrow animation */
 
@@ -193,22 +202,5 @@ html.is-animating .transition-fade {
 
 
 
-/*Fragment Leadership animation in/out */
 
-/* Default state before animation starts */
 
-/* #fragment-leadership .profile {
-  transform: translateX(100%);
-}
-
-#fragment-leadership .profile__dim {
-  opacity: 0;
-} */
-
-#fragment-leadership.is-changing .profile__dim {
-  transition: opacity 250ms;
-}
-
-#fragment-leadership.is-animating .profile__dim {
-  opacity: 0;
-}
