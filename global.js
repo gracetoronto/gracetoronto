@@ -1,4 +1,4 @@
-console.log("V1.386");
+console.log("V1.387");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -15,16 +15,19 @@ const swup = new Swup({
           from: '/(.*)',
           to: '/leadership/(.*)',
           containers: ['#fragment-leadership'],
+          scroll: false
         },
         {
           from: '/leadership/(.*)',
           to: '/about/leadership/',
           containers: ['#fragment-leadership'],
+          scroll: false
         },
         {
           from: '/leadership/(.*)',
           to: '/(.*)',
           containers: ['#fragment-leadership'],
+          scroll: false
         },
         {
           from: '/ministries/(.*)',
@@ -60,7 +63,7 @@ function updatePrevURL() {
 
   if (!leadershipRegex.test(currentURL)) {
     prevURL = currentURL;
-    console.log('Stored previous URL:', prevURL); // Debugging
+    // console.log('Stored previous URL:', prevURL); // Debugging
   }
 }
 
@@ -81,11 +84,11 @@ swup.hooks.on('content:replace', () => {
 
   if (leadershipRegex.test(currentURL)) {
     const exitLinks = document.querySelectorAll('.is--exit');
-    console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+    // console.log('Number of .is--exit links:', exitLinks.length); // Debugging
 
     exitLinks.forEach(link => {
       link.href = prevURL; // Update link href to the previously captured URL
-      console.log('Updated link href to:', link.href); // Debugging
+      // console.log('Updated link href to:', link.href); // Debugging
     });
   }
 });
