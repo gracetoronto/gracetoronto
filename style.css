@@ -24,14 +24,14 @@ html.is-animating .transition-fade {
 }
 
 #fragment-leadership.is-changing {
-  transition: 350ms;
+  transition: 350ms ease-in-out;
 }
 
 #fragment-leadership.is-animating {
 }
 
 #fragment-leadership.is-changing .profile {
-  transition: transform 250ms;
+  transition: transform 250ms ease-in-out;;
 }
 
 #fragment-leadership.is-animating .profile {
@@ -39,7 +39,7 @@ html.is-animating .transition-fade {
 }
 
 #fragment-leadership.is-changing .profile__dim {
-  transition: opacity 250ms;
+  transition: background-color 250ms;
 }
 
 #fragment-leadership.is-animating .profile__dim {
