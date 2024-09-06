@@ -1,4 +1,4 @@
-console.log("V1.368");
+console.log("V1.369");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,29 +45,29 @@ const swup = new Swup({
 
 //UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
 
-// Define `prevUrl` only once at the top level
-let prevUrl = window.location.pathname;
+// Initialize a variable to store the previous URL
+let prevURL = window.location.pathname;
 
-// Update `prevUrl` before Swup replaces content
+// Capture the URL before Swup replaces content
 swup.hooks.before('content:replace', () => {
-  prevUrl = window.location.pathname;
-  console.log('Previous URL updated to:', prevUrl); // Debugging
+  prevURL = window.location.pathname; // Capture the URL before it changes
+  console.log('Captured previous URL:', prevURL); // Debugging
 });
 
-// After content is replaced, update .is--exit links
+// Update .is--exit links after Swup has replaced content
 swup.hooks.on('content:replace', () => {
   const leadershipRegex = /^\/leadership\/.*/;
   const currentUrl = window.location.pathname;
-  
-  console.log('Current URL:', currentUrl); // Debugging
+
+  console.log('Current URL after replace:', currentUrl); // Debugging
 
   if (leadershipRegex.test(currentUrl)) {
     const exitLinks = document.querySelectorAll('.is--exit');
-    console.log('Updating .is--exit links:', exitLinks.length); // Debugging
+    console.log('Number of .is--exit links:', exitLinks.length); // Debugging
 
     exitLinks.forEach(link => {
-      link.href = prevUrl;
-      console.log('Updated link:', link.href); // Debugging
+      link.href = prevURL; // Use the previously captured URL
+      console.log('Updated link href to:', link.href); // Debugging
     });
   }
 });
