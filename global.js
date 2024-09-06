@@ -1575,15 +1575,12 @@ function initCheckboxBehavior() {
 
   // Check if elements are found
   if (!churchWideCheckbox) {
-    console.error('Church-wide checkbox not found');
     return;
   }
   if (ministryCheckboxLabels.length === 0) {
-    console.error('No ministry checkbox labels found');
     return;
   }
   if (!filtersDiv || !churchwideDiv) {
-    console.error('Event card divs not found');
     return;
   }
 
