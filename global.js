@@ -1,4 +1,4 @@
-console.log("V1.366");
+console.log("V1.367");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,23 +45,29 @@ const swup = new Swup({
 
 //UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
 
-// Define `previousUrl` only once
-let prevUrl = window.location.pathname;
+// Define `previousUrl` only once at the top level
+let previousUrl = window.location.pathname;
 
 // Update `previousUrl` before Swup replaces content
 swup.hooks.before('content:replace', () => {
-  prevUrl = window.location.pathname; // Update `previousUrl` with the current URL
+  previousUrl = window.location.pathname;
+  console.log('Previous URL updated to:', previousUrl); // Debugging
 });
 
 // After content is replaced, update .is--exit links
 swup.hooks.on('content:replace', () => {
   const leadershipRegex = /^\/leadership\/.*/;
   const currentUrl = window.location.pathname;
+  
+  console.log('Current URL:', currentUrl); // Debugging
 
   if (leadershipRegex.test(currentUrl)) {
     const exitLinks = document.querySelectorAll('.is--exit');
+    console.log('Updating .is--exit links:', exitLinks.length); // Debugging
+
     exitLinks.forEach(link => {
-      link.href = prevUrl;
+      link.href = previousUrl;
+      console.log('Updated link:', link.href); // Debugging
     });
   }
 });
