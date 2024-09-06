@@ -1,4 +1,4 @@
-console.log("V1.361");
+console.log("V1.362");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentURL = window.location.pathname;
 
     // If we're on a '/leadership/(*)' page, update the close buttons
-    if (/\/leadership\/.*/.test(currentURL)) {
+    if (/^\/leadership\/.*/.test(currentURL)) {
       document.querySelectorAll('.is--exit').forEach(link => {
         link.setAttribute('href', previousURL);
       });
