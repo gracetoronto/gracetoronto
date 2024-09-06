@@ -1,4 +1,4 @@
-console.log("V1.371");
+console.log("V1.372");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -45,40 +45,45 @@ const swup = new Swup({
 
 //UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
 
-// Initialize a variable to store the previous URL
-let prevURL = window.location.pathname;
+// Variable to store the previous URL
+let prevURL = '';
+
+// Function to capture and store the previous URL
+function updatePrevURL() {
+  const currentURL = window.location.pathname;
+  const leadershipRegex = /^\/leadership\/.*/;
+
+  if (!leadershipRegex.test(currentURL)) {
+    prevURL = currentURL;
+    console.log('Stored previous URL:', prevURL); // Debugging
+  }
+}
 
 // Capture the URL on page load
 document.addEventListener('DOMContentLoaded', () => {
-  prevURL = window.location.pathname;
-  console.log('Initial URL on page load:', prevURL); // Debugging
+  updatePrevURL();
 });
 
 // Capture the URL on Swup navigation
 swup.hooks.before('content:replace', () => {
-  prevURL = window.location.pathname; // Capture the URL before content replacement
-  console.log('Captured URL before replace:', prevURL); // Debugging
+  updatePrevURL();
 });
 
 // Update .is--exit links after Swup has replaced content
 swup.hooks.on('content:replace', () => {
-  const currentUrl = window.location.pathname;
-  console.log('Current URL after replace:', currentUrl); // Debugging
-
-  // Only update links if navigating to a /leadership/ page
+  const currentURL = window.location.pathname;
   const leadershipRegex = /^\/leadership\/.*/;
 
-  if (leadershipRegex.test(currentUrl)) {
+  if (leadershipRegex.test(currentURL)) {
     const exitLinks = document.querySelectorAll('.is--exit');
     console.log('Number of .is--exit links:', exitLinks.length); // Debugging
 
     exitLinks.forEach(link => {
-      link.href = prevURL; // Use the previously captured URL
+      link.href = prevURL; // Update link href to the previously captured URL
       console.log('Updated link href to:', link.href); // Debugging
     });
   }
 });
-
 
 
 
