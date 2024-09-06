@@ -1,4 +1,4 @@
-console.log("V1.373");
+console.log("V1.374");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -88,6 +88,56 @@ swup.hooks.on('content:replace', () => {
       console.log('Updated link href to:', link.href); // Debugging
     });
   }
+});
+
+
+
+//ANIMATE PROFILE IN AND OUT
+
+// Define the animation functions
+const animateIn = () => {
+  const profiles = document.querySelectorAll('#fragment-leadership .profile');
+  const profileDims = document.querySelectorAll('#fragment-leadership .profile__dim');
+
+  profiles.forEach(profile => {
+    profile.style.transform = 'translateX(100%)';
+    profile.style.transition = 'transform 0.5s ease-out';
+    profile.style.transform = 'translateX(0)';
+  });
+
+  profileDims.forEach(dim => {
+    dim.style.opacity = '0';
+    dim.style.transition = 'opacity 0.5s ease-out';
+    dim.style.opacity = '1';
+  });
+};
+
+const animateOut = () => {
+  const profiles = document.querySelectorAll('#fragment-leadership .profile');
+  const profileDims = document.querySelectorAll('#fragment-leadership .profile__dim');
+
+  profiles.forEach(profile => {
+    profile.style.transform = 'translateX(0)';
+    profile.style.transition = 'transform 0.5s ease-out';
+    profile.style.transform = 'translateX(100%)';
+  });
+
+  profileDims.forEach(dim => {
+    dim.style.opacity = '1';
+    dim.style.transition = 'opacity 0.5s ease-out';
+    dim.style.opacity = '0';
+  });
+};
+
+// Attach animations to Swup hooks
+swup.hooks.before('content:replace', () => {
+  // Perform exit animation if needed
+  animateOut();
+});
+
+swup.hooks.on('content:replace', () => {
+  // Perform enter animation
+  animateIn();
 });
 
 

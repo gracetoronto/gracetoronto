@@ -190,3 +190,16 @@ html.is-animating .transition-fade {
     font-size: 1.2em;
   }
 }
+
+
+
+/*Fragment Leadership animation in/out */
+
+/* Default state before animation starts */
+#fragment-leadership .profile {
+  transform: translateX(100%);
+}
+
+#fragment-leadership .profile__dim {
+  opacity: 0;
+}
