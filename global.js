@@ -1,4 +1,4 @@
-console.log("V1.359");
+console.log("V1.360");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Store the previous URL
   let previousURL = document.referrer;
 
-  // Update the close button URLs after content replacement
-  swup.hooks.on('content:replace', () => {
+  // Function to update exit links
+  function updateExitLinks() {
     const currentURL = window.location.pathname;
     
     // If we're on a '/leadership/(*)' page, update the close buttons
@@ -60,9 +60,15 @@ document.addEventListener('DOMContentLoaded', () => {
         link.setAttribute('href', previousURL);
       });
     }
+  }
+
+  // Update the close button URLs after content replacement
+  swup.hooks.on('content:replace', () => {
+    // Ensure the DOM is fully loaded before querying for exit links
+    requestAnimationFrame(updateExitLinks);
 
     // Update previous URL for the next navigation
-    previousURL = currentURL;
+    previousURL = window.location.pathname;
   });
 
   // Store the new URL before replacing content
