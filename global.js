@@ -1,4 +1,4 @@
-console.log("V1.357");
+console.log("V1.358");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -42,18 +42,7 @@ const swup = new Swup({
 
 
 
-//---CLOSE PROFILE MODAL---
 
-document.addEventListener('DOMContentLoaded', () => {
-  const closeButtons = document.querySelectorAll('.is--return');
-
-  closeButtons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevent the default action
-      swup.back(); // Go back to the previous URL
-    });
-  });
-});
 
 
 
