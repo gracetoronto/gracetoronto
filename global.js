@@ -1624,7 +1624,7 @@ function initMinistrySlideshowLoop() {
       // Allow a short delay to ensure the immediate transform is applied
       setTimeout(() => {
         // Start transition to X -50% over 40 seconds
-        slideshow.style.transition = 'transform 40s linear';
+        slideshow.style.transition = 'transform 20s linear';
         slideshow.style.transform = 'translateX(-50%)';
       }, 50); // Adjust delay as needed to ensure initial state is set
 
