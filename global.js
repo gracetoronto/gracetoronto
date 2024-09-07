@@ -1,4 +1,4 @@
-console.log("V1.397");
+console.log("V1.398");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -154,6 +154,7 @@ swup.hooks.on('content:replace', () => {
   checkAndModifyTimeSubtitles();
   announcementEventExpand();
   resetAndPlayHomeVideo();
+  checkCurrentMinistriesLink();
 });
 
 
@@ -1466,6 +1467,45 @@ function initializeMinistryNavigation() {
   updateArrows();
   scrollToCurrentPageButton();
 }
+
+
+
+
+//MINISTRY PAGE NAV CURRENT LINK SELECTION
+
+function checkCurrentMinistriesLink() {
+  // Check if the current URL matches the pattern /ministries/(*)
+  const urlPattern = /^\/ministries\/.+/;
+  const currentURL = window.location.pathname;
+
+  if (urlPattern.test(currentURL)) {
+    const ministriesList = document.querySelector('.ministries__list');
+
+    // Ensure the '.ministries__list' collection list is present on the page
+    if (ministriesList) {
+      // Select all links with the class '.base__button' within '.ministries__list'
+      const baseButtons = ministriesList.querySelectorAll('.base__button');
+
+      baseButtons.forEach(button => {
+        // Remove the 'current' styling from all buttons
+        button.classList.remove('current');
+
+        // Check if the link URL matches the current URL
+        const linkURL = new URL(button.href).pathname;
+        if (linkURL === currentURL) {
+          // Add the 'current' styling to the matched button
+          button.classList.add('current');
+        }
+      });
+    }
+  }
+}
+
+// Run the function on initial page load
+checkCurrentMinistriesLink();
+
+
+
 
 
 
