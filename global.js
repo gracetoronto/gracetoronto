@@ -1,4 +1,4 @@
-console.log("V1.393");
+console.log("V1.394");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -187,28 +187,28 @@ function updateNavButtons() {
 
 //NAVIGATION LIVE BANNER ON SUNDAYS
 
+// NAVIGATION LIVE BANNER FOR TESTING (SATURDAYS)
+
 function toggleLiveBanner() {
   const banner = document.querySelector('.banner__container.is--live');
   if (!banner) return; // Exit if the banner is not found
 
-  // Get the current time in Eastern Time (ET)
+  // Get the current time in Eastern Time (ET) using toLocaleString
   const now = new Date();
-  const utcOffset = now.getTimezoneOffset(); // Local timezone offset in minutes
-  const estOffset = -300; // Eastern Time (ET) offset in minutes (UTC-5:00)
+  
+  // Convert to Eastern Time with DST consideration using toLocaleString
+  const options = { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hour12: false }; 
+  const estTimeString = now.toLocaleString('en-US', options);
+  
+  // Extract hours and minutes from the EST time string
+  const [hours, minutes] = estTimeString.split(':').map(Number);
+  const day = now.getDay(); // Get local day (0 = Sunday, 6 = Saturday)
 
-  // Convert the current time to Eastern Time
-  const estDate = new Date(now.getTime() + (estOffset - utcOffset) * 60000);
-
-  // Check if the day is Saturday and the time is between 10:18 AM and 10:30 AM
-  const day = estDate.getUTCDay();
-  const hours = estDate.getUTCHours();
-  const minutes = estDate.getUTCMinutes();
-
-  // For testing, check for Saturday
+  // For testing, check for Saturday (day 6)
   const isSaturday = (day === 6); // Saturday is day 6 in JavaScript
-  const isWithinTimeRange = (hours === 10 && minutes >= 18 && minutes <= 30);
+  const isWithinTimeRange = (hours === 10 && minutes >= 18 && minutes <= 35); // Adjust the time range as needed for testing
 
-  console.log(`Current Day: ${day}, Hours: ${hours}, Minutes: ${minutes}`); // Debugging line
+  console.log(`Current EST Time: ${hours}:${minutes}, Day: ${day}`); // Debugging line
   console.log(`Is Saturday: ${isSaturday}, Is Within Time Range: ${isWithinTimeRange}`); // Debugging line
 
   if (isSaturday && isWithinTimeRange) {
