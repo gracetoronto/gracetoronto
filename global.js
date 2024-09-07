@@ -1,4 +1,4 @@
-console.log("V1.400");
+console.log("V1.401");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -155,6 +155,7 @@ swup.hooks.on('content:replace', () => {
   announcementEventExpand();
   resetAndPlayHomeVideo();
   checkCurrentMinistriesLink();
+  initMinistrySlideshowLoop();
 });
 
 
@@ -1602,6 +1603,47 @@ function ministryEventCountTag() {
 document.addEventListener("DOMContentLoaded", function () {
   ministryEventCountTag();
 });
+
+
+
+
+
+//---MINISTRY SLIDESHOW FUNCTIONALITY---
+
+function initMinistrySlideshowLoop() {
+  // Check if the URL matches the pattern /ministries/(*) and if the .slideshow element is present
+  if (window.location.pathname.startsWith('/ministries/') && document.querySelector('.slideshow')) {
+    const slideshow = document.querySelector('.slideshow');
+    
+    // Function to start the loop
+    function startSlideshow() {
+      // Immediately set transform to X 0% without transition
+      slideshow.style.transition = 'none';
+      slideshow.style.transform = 'translateX(0%)';
+
+      // Allow a short delay to ensure the immediate transform is applied
+      setTimeout(() => {
+        // Start transition to X -50% over 40 seconds
+        slideshow.style.transition = 'transform 40s linear';
+        slideshow.style.transform = 'translateX(-50%)';
+      }, 50); // Adjust delay as needed to ensure initial state is set
+
+      // Restart the loop when the transition is complete
+      slideshow.addEventListener('transitionend', function loopTransition() {
+        // Remove the event listener to prevent multiple triggers
+        slideshow.removeEventListener('transitionend', loopTransition);
+
+        // Restart the function to loop the slideshow
+        startSlideshow();
+      }, { once: true });
+    }
+
+    // Start the slideshow loop
+    startSlideshow();
+  }
+}
+
+
 
 
 
