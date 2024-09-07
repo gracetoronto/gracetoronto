@@ -1,4 +1,4 @@
-console.log("V1.399");
+console.log("V1.400");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -712,9 +712,9 @@ function showCal() {
     let calendarInst = new FullCalendar.Calendar(calendarEl, {
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
-        left: 'listThreeMonth,prev,next today', // List and Calendar buttons are left aligned
-        center: 'title', // Title is centered
-        right: '' // Navigation buttons are right aligned
+        left: 'title', // List and Calendar buttons are left aligned
+        center: '', // Title is centered
+        right: 'listThreeMonth prev,next today' // Navigation buttons are right aligned
       },
       views: {
         listThreeMonth: {
