@@ -1,4 +1,4 @@
-console.log("V1.398");
+console.log("V1.399");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1483,10 +1483,10 @@ function checkCurrentMinistriesLink() {
 
     // Ensure the '.ministries__list' collection list is present on the page
     if (ministriesList) {
-      // Select all links with the class '.base__button' within '.ministries__list'
-      const baseButtons = ministriesList.querySelectorAll('.base__button');
+      // Select all links with the class '.base__button.is--ministry' within '.ministries__list'
+      const ministryButtons = ministriesList.querySelectorAll('.base__button.is--ministry');
 
-      baseButtons.forEach(button => {
+      ministryButtons.forEach(button => {
         // Remove the 'current' styling from all buttons
         button.classList.remove('current');
 
@@ -1504,6 +1504,10 @@ function checkCurrentMinistriesLink() {
 // Run the function on initial page load
 checkCurrentMinistriesLink();
 
+// Run the function again after Swup navigation
+swup.hooks.on('content:replace', () => {
+  checkCurrentMinistriesLink();
+});
 
 
 
