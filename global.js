@@ -711,7 +711,7 @@ function showCal() {
     let calendarInst = new FullCalendar.Calendar(calendarEl, {
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
-        left: 'listThreeMonth,dayGridMonth', // List and Calendar buttons are left aligned
+        left: 'listThreeMonth', // List and Calendar buttons are left aligned
         center: 'title', // Title is centered
         right: 'prev,next today' // Navigation buttons are right aligned
       },
