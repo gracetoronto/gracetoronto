@@ -205,18 +205,14 @@ function toggleLiveBanner() {
   const day = now.getDay(); // Get local day (0 = Sunday, 6 = Saturday)
 
   // For testing, check for Saturday (day 6)
-  const isSaturday = (day === 6); // Saturday is day 6 in JavaScript
-  const isWithinTimeRange = (hours === 10 && minutes >= 40 && minutes <= 44); // Adjust the time range as needed for testing
+  const isSunday = (day === 0); // Sunday is day 0 in JavaScript
+  const isWithinTimeRange = (hours === 9 && minutes >= 5) || (hours === 10 && minutes <= 30); // Adjust the time range as needed for testing
 
-  console.log(`Current EST Time: ${hours}:${minutes}, Day: ${day}`); // Debugging line
-  console.log(`Is Saturday: ${isSaturday}, Is Within Time Range: ${isWithinTimeRange}`); // Debugging line
 
-  if (isSaturday && isWithinTimeRange) {
+  if (isSunday && isWithinTimeRange) {
     banner.style.display = 'flex'; // Show the banner
-    console.log('Banner is displayed'); // Debugging line
   } else {
     banner.style.display = 'none'; // Hide the banner
-    console.log('Banner is hidden'); // Debugging line
   }
 }
 
