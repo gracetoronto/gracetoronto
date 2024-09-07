@@ -1,4 +1,4 @@
-console.log("V1.392");
+console.log("V1.393");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -198,19 +198,25 @@ function toggleLiveBanner() {
 
   // Convert the current time to Eastern Time
   const estDate = new Date(now.getTime() + (estOffset - utcOffset) * 60000);
-  
-  // Check if the day is Sunday and the time is between 9:05 AM and 10:30 AM
+
+  // Check if the day is Saturday and the time is between 10:18 AM and 10:30 AM
   const day = estDate.getUTCDay();
   const hours = estDate.getUTCHours();
   const minutes = estDate.getUTCMinutes();
 
-  const isSunday = (day === 6); // Sunday is day 0 in JavaScript
-  const isWithinTimeRange = (hours === 10 && minutes >= 18) || (hours === 10 && minutes <= 30);
+  // For testing, check for Saturday
+  const isSaturday = (day === 6); // Saturday is day 6 in JavaScript
+  const isWithinTimeRange = (hours === 10 && minutes >= 18 && minutes <= 30);
 
-  if (isSunday && isWithinTimeRange) {
+  console.log(`Current Day: ${day}, Hours: ${hours}, Minutes: ${minutes}`); // Debugging line
+  console.log(`Is Saturday: ${isSaturday}, Is Within Time Range: ${isWithinTimeRange}`); // Debugging line
+
+  if (isSaturday && isWithinTimeRange) {
     banner.style.display = 'flex'; // Show the banner
+    console.log('Banner is displayed'); // Debugging line
   } else {
     banner.style.display = 'none'; // Hide the banner
+    console.log('Banner is hidden'); // Debugging line
   }
 }
 
