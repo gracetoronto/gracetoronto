@@ -719,7 +719,7 @@ function showCal() {
       views: {
         listThreeMonth: {
           type: 'list',
-          duration: { months: 3 }, // Set the duration to 3 months
+          duration: { months: 2 }, // Set the duration to 2 months
           buttonText: 'List View',
           titleFormat: { // Customize the title format to use abbreviated month names
             year: 'numeric',
