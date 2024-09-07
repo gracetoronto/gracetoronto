@@ -1,4 +1,4 @@
-console.log("V1.402");
+console.log("V1.403");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1614,40 +1614,22 @@ function initMinistrySlideshowLoop() {
   // Check if the URL matches the pattern /ministries/(*) and if the .slideshow element is present
   if (window.location.pathname.startsWith('/ministries/') && document.querySelector('.slideshow')) {
     const slideshow = document.querySelector('.slideshow');
-    
-    // Clear any previous transitions to avoid glitches
-    slideshow.style.transition = 'none';
-    slideshow.style.transform = 'translateX(0%)';
 
-    // Function to start the loop
-    function startSlideshow() {
-      // Reset to the initial state
-      slideshow.style.transition = 'none';
-      slideshow.style.transform = 'translateX(0%)';
+    // Remove any previous animation classes
+    slideshow.classList.remove('slideshow-animation');
 
-      // Ensure transform has been applied before starting the transition
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Start transition to X -50% over 40 seconds
-          slideshow.style.transition = 'transform 40s linear';
-          slideshow.style.transform = 'translateX(-50%)';
-        });
-      });
+    // Force a reflow to ensure the removal of old styles
+    void slideshow.offsetWidth;
 
-      // Restart the loop when the transition is complete
-      slideshow.addEventListener('transitionend', function loopTransition() {
-        // Remove the event listener to prevent multiple triggers
-        slideshow.removeEventListener('transitionend', loopTransition);
-
-        // Restart the function to loop the slideshow
-        startSlideshow();
-      }, { once: true });
-    }
-
-    // Start the slideshow loop
-    startSlideshow();
+    // Add the animation class to start the animation
+    slideshow.classList.add('slideshow-animation');
   }
 }
+
+// Ensure the function runs on page load and Swup content replacement
+swup.hooks.on('content:replace', () => {
+  initMinistrySlideshowLoop();
+});
 
 
 

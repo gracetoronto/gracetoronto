@@ -75,6 +75,27 @@ html.is-animating .transition-fade {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+
+/* Ministry slideshow animation keyframes */
+
+.slideshow {
+  will-change: transform; /* Improve performance */
+  animation: slideshowAnimation 40s linear infinite;
+}
+
+@keyframes slideshowAnimation {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+
 /* Other stuff */
 
 .scroll--disabled {
