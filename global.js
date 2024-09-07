@@ -1,4 +1,4 @@
-console.log("V1.396");
+console.log("V1.397");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -711,9 +711,9 @@ function showCal() {
     let calendarInst = new FullCalendar.Calendar(calendarEl, {
       initialView: 'listThreeMonth', // Set the custom 3-month list view as the default
       headerToolbar: {
-        left: 'listThreeMonth', // List and Calendar buttons are left aligned
+        left: 'listThreeMonth,prev,next today', // List and Calendar buttons are left aligned
         center: 'title', // Title is centered
-        right: 'prev,next today' // Navigation buttons are right aligned
+        right: '' // Navigation buttons are right aligned
       },
       views: {
         listThreeMonth: {
@@ -746,7 +746,7 @@ function showCal() {
         let container = document.createElement('div');
         container.innerHTML = `
           <div>${event.title}</div>
-          ${event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" target="_blank" class="btn-view-details">View more details</a>` : ''}
+          ${event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" class="btn-view-details">Read Announcement</a>` : ''}
         `;
 
         return { domNodes: [container] };
