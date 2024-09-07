@@ -1,4 +1,4 @@
-console.log("V1.394");
+console.log("V1.395");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -206,7 +206,7 @@ function toggleLiveBanner() {
 
   // For testing, check for Saturday (day 6)
   const isSaturday = (day === 6); // Saturday is day 6 in JavaScript
-  const isWithinTimeRange = (hours === 10 && minutes >= 18 && minutes <= 35); // Adjust the time range as needed for testing
+  const isWithinTimeRange = (hours === 10 && minutes >= 40 && minutes <= 44); // Adjust the time range as needed for testing
 
   console.log(`Current EST Time: ${hours}:${minutes}, Day: ${day}`); // Debugging line
   console.log(`Is Saturday: ${isSaturday}, Is Within Time Range: ${isWithinTimeRange}`); // Debugging line
