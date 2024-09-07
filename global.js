@@ -1,4 +1,4 @@
-console.log("V1.390");
+console.log("V1.391");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -160,9 +160,6 @@ swup.hooks.on('content:replace', () => {
 
 
 
-
-
-
 //---UPDATE MINISTRY NAV ACTIVE STATE WITH FRAGMENT PLUGIN---
 
 function updateNavButtons() {
@@ -184,6 +181,44 @@ function updateNavButtons() {
     }
   });
 }
+
+
+
+
+//NAVIGATION LIVE BANNER ON SUNDAYS
+
+function toggleLiveBanner() {
+  const banner = document.querySelector('.banner__container.is--live');
+  if (!banner) return; // Exit if the banner is not found
+
+  // Get the current time in Eastern Time (ET)
+  const now = new Date();
+  const utcOffset = now.getTimezoneOffset(); // Local timezone offset in minutes
+  const estOffset = -300; // Eastern Time (ET) offset in minutes (UTC-5:00)
+
+  // Convert the current time to Eastern Time
+  const estDate = new Date(now.getTime() + (estOffset - utcOffset) * 60000);
+  
+  // Check if the day is Sunday and the time is between 9:05 AM and 10:30 AM
+  const day = estDate.getUTCDay();
+  const hours = estDate.getUTCHours();
+  const minutes = estDate.getUTCMinutes();
+
+  const isSunday = (day === 6); // Sunday is day 0 in JavaScript
+  const isWithinTimeRange = (hours === 10 && minutes >= 15) || (hours === 10 && minutes <= 20);
+
+  if (isSunday && isWithinTimeRange) {
+    banner.style.display = 'flex'; // Show the banner
+  } else {
+    banner.style.display = 'none'; // Hide the banner
+  }
+}
+
+// Run the function on page load
+toggleLiveBanner();
+
+// Optionally, check the time every minute to update the display state dynamically
+setInterval(toggleLiveBanner, 60000);
 
 
 
