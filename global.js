@@ -1,4 +1,4 @@
-console.log("V1.391");
+console.log("V1.392");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -205,7 +205,7 @@ function toggleLiveBanner() {
   const minutes = estDate.getUTCMinutes();
 
   const isSunday = (day === 6); // Sunday is day 0 in JavaScript
-  const isWithinTimeRange = (hours === 10 && minutes >= 15) || (hours === 10 && minutes <= 20);
+  const isWithinTimeRange = (hours === 10 && minutes >= 18) || (hours === 10 && minutes <= 30);
 
   if (isSunday && isWithinTimeRange) {
     banner.style.display = 'flex'; // Show the banner
