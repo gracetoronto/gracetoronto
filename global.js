@@ -1,4 +1,4 @@
-console.log("V1.401");
+console.log("V1.402");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1615,18 +1615,24 @@ function initMinistrySlideshowLoop() {
   if (window.location.pathname.startsWith('/ministries/') && document.querySelector('.slideshow')) {
     const slideshow = document.querySelector('.slideshow');
     
+    // Clear any previous transitions to avoid glitches
+    slideshow.style.transition = 'none';
+    slideshow.style.transform = 'translateX(0%)';
+
     // Function to start the loop
     function startSlideshow() {
-      // Immediately set transform to X 0% without transition
+      // Reset to the initial state
       slideshow.style.transition = 'none';
       slideshow.style.transform = 'translateX(0%)';
 
-      // Allow a short delay to ensure the immediate transform is applied
-      setTimeout(() => {
-        // Start transition to X -50% over 40 seconds
-        slideshow.style.transition = 'transform 20s linear';
-        slideshow.style.transform = 'translateX(-50%)';
-      }, 50); // Adjust delay as needed to ensure initial state is set
+      // Ensure transform has been applied before starting the transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Start transition to X -50% over 40 seconds
+          slideshow.style.transition = 'transform 40s linear';
+          slideshow.style.transform = 'translateX(-50%)';
+        });
+      });
 
       // Restart the loop when the transition is complete
       slideshow.addEventListener('transitionend', function loopTransition() {
@@ -1642,7 +1648,6 @@ function initMinistrySlideshowLoop() {
     startSlideshow();
   }
 }
-
 
 
 
