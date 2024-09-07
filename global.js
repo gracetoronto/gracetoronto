@@ -1479,7 +1479,7 @@ function checkCurrentMinistriesLink() {
   const currentURL = window.location.pathname;
 
   if (urlPattern.test(currentURL)) {
-    const ministriesList = document.querySelector('.ministries__list');
+    const ministriesList = document.querySelector('.ministry__list');
 
     // Ensure the '.ministries__list' collection list is present on the page
     if (ministriesList) {
