@@ -1,4 +1,4 @@
-console.log("V1.404");
+console.log("V1.405");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1989,21 +1989,27 @@ document.addEventListener('DOMContentLoaded', checkAndModifyTimeSubtitles);
 function initHistoryVideoControl() {
   // Check if the page contains an element with class 'history__video'
   if (document.querySelector('.history__video')) {
+      console.log('Page contains history__video element.');
+
       // Get all instances of '.history__bg' and '.history__fullvideo'
       const backgrounds = document.querySelectorAll('.history__bg');
       const videos = document.querySelectorAll('.history__fullvideo');
       
+      console.log('Backgrounds:', backgrounds);
+      console.log('Videos:', videos);
+
       backgrounds.forEach((bg, index) => {
           // Ensure there's a corresponding video element
           const video = videos[index];
           if (video) {
-              // Get the iframe within the '.history__fullvideo'
               const iframe = video.querySelector('iframe');
+              console.log('Iframe:', iframe);
+
               if (iframe) {
-                  // Create a new YT.Player instance
                   const player = new YT.Player(iframe, {
                       events: {
                           'onStateChange': (event) => {
+                              console.log('Player state change:', event.data);
                               if (event.data === YT.PlayerState.PAUSED) {
                                   video.style.display = 'none';
                               }
@@ -2013,26 +2019,38 @@ function initHistoryVideoControl() {
 
                   // Add click event listener to the background element
                   bg.addEventListener('click', () => {
+                      console.log('Background clicked');
                       video.style.display = 'block';
                       player.playVideo();
                   });
+              } else {
+                  console.log('No iframe found in video element:', video);
               }
+          } else {
+              console.log('No corresponding video found for background:', bg);
           }
       });
+  } else {
+      console.log('No history__video element found on the page.');
   }
 }
 
 // Load the IFrame API script if not already loaded
 function loadYouTubeAPI() {
   if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+      console.log('Loading YouTube IFrame API.');
       const tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       
       // Initialize the video control after the API is loaded
-      window.onYouTubeIframeAPIReady = initHistoryVideoControl;
+      window.onYouTubeIframeAPIReady = () => {
+          console.log('YouTube IFrame API is ready');
+          initHistoryVideoControl();
+      };
   } else {
+      console.log('YouTube IFrame API already loaded.');
       initHistoryVideoControl();
   }
 }
