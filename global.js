@@ -1,4 +1,4 @@
-console.log("V1.407");
+console.log("V1.408");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1618,14 +1618,17 @@ function initMinistrySlideshowLoop() {
   if (window.location.pathname.startsWith('/ministries/') && document.querySelector('.slideshow')) {
     const slideshow = document.querySelector('.slideshow');
 
-    // Remove any previous animation classes
-    slideshow.classList.remove('slideshow-animation');
+    // Add a 2-second delay before starting the animation
+    setTimeout(() => {
+      // Remove any previous animation classes
+      slideshow.classList.remove('slideshow-animation');
 
-    // Force a reflow to ensure the removal of old styles
-    void slideshow.offsetWidth;
+      // Force a reflow to ensure the removal of old styles
+      void slideshow.offsetWidth;
 
-    // Add the animation class to start the animation
-    slideshow.classList.add('slideshow-animation');
+      // Add the animation class to start the animation
+      slideshow.classList.add('slideshow-animation');
+    }, 2000);
   }
 }
 
