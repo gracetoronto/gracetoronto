@@ -1989,27 +1989,22 @@ document.addEventListener('DOMContentLoaded', checkAndModifyTimeSubtitles);
 function initHistoryVideoControl() {
   // Check if the page contains an element with class 'history__video'
   if (document.querySelector('.history__video')) {
-      console.log('Page contains history__video element.');
 
       // Get all instances of '.history__bg' and '.history__fullvideo'
       const backgrounds = document.querySelectorAll('.history__bg');
       const videos = document.querySelectorAll('.history__fullvideo');
       
-      console.log('Backgrounds:', backgrounds);
-      console.log('Videos:', videos);
 
       backgrounds.forEach((bg, index) => {
           // Ensure there's a corresponding video element
           const video = videos[index];
           if (video) {
               const iframe = video.querySelector('iframe');
-              console.log('Iframe:', iframe);
 
               if (iframe) {
                   const player = new YT.Player(iframe, {
                       events: {
                           'onStateChange': (event) => {
-                              console.log('Player state change:', event.data);
                               if (event.data === YT.PlayerState.PAUSED) {
                                   video.style.display = 'none';
                               }
@@ -2024,21 +2019,16 @@ function initHistoryVideoControl() {
 
                       // Check if player instance exists
                       if (player) {
-                          console.log('Playing video...');
                           player.playVideo();
                       } else {
-                          console.log('Player instance not found.');
                       }
                   });
               } else {
-                  console.log('No iframe found in video element:', video);
               }
           } else {
-              console.log('No corresponding video found for background:', bg);
           }
       });
   } else {
-      console.log('No history__video element found on the page.');
   }
 }
 
