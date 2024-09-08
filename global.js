@@ -717,7 +717,7 @@ function showCal() {
       headerToolbar: {
         left: 'title', // List and Calendar buttons are left aligned
         center: '', // Title is centered
-        right: 'listThreeMonth prev,next today' // Navigation buttons are right aligned
+        right: 'prev,next today' // Navigation buttons are right aligned
       },
       views: {
         listThreeMonth: {
