@@ -1,4 +1,4 @@
-console.log("V1.406");
+console.log("V1.407");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -158,6 +158,7 @@ swup.hooks.on('content:replace', () => {
   initMinistrySlideshowLoop();
   initHistoryVideoControl();
   loadYouTubeAPI();
+  initSmoothScrollToCareAnchor();
 });
 
 
@@ -2053,3 +2054,44 @@ function loadYouTubeAPI() {
 }
 
 document.addEventListener('DOMContentLoaded', loadYouTubeAPI);
+
+
+
+
+
+//---SMOOTH SCROLL TO CARE ANCHOR ON DIACONATE PAGE---
+
+function initSmoothScrollToCareAnchor() {
+  // Check if the element with ID 'care-anchor' is present on the page
+  const careAnchor = document.getElementById('care-anchor');
+  const careButton = document.getElementById('care-button');
+
+  if (!careAnchor) {
+      console.log('Element with ID "care-anchor" not found.');
+      return;
+  }
+
+  if (!careButton) {
+      console.log('Element with ID "care-button" not found.');
+      return;
+  }
+
+  console.log('Both elements found. Setting up event listener.');
+
+  // Add click event listener to the div with ID 'care-button'
+  careButton.addEventListener('click', () => {
+      console.log('Button clicked. Scrolling...');
+
+      // Calculate the position to scroll to (115px above the element)
+      const offsetPosition = careAnchor.getBoundingClientRect().top + window.pageYOffset - 115;
+
+      // Smoothly scroll to the calculated position
+      window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+      });
+  });
+}
+
+// Initialize the function when the DOM content is loaded
+document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
