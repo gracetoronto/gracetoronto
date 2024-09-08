@@ -1,4 +1,4 @@
-console.log("V1.410");
+console.log("V1.411");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1614,12 +1614,15 @@ document.addEventListener("DOMContentLoaded", function () {
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
 function initMinistrySlideshowLoop() {
+  console.log('initMinistrySlideshowLoop called');
   // Check if the URL matches the pattern /ministries/(*) and if the .slideshow element is present
   if (window.location.pathname.startsWith('/ministries/')) {
+    console.log('URL matches /ministries/');
     // Add a 2-second delay before starting the animation
     setTimeout(() => {
       const slideshow = document.querySelector('.slideshow');
       if (slideshow) {
+        console.log('.slideshow element found');
         // Remove any previous animation classes
         slideshow.classList.remove('slideshow-animation');
 
@@ -1628,13 +1631,22 @@ function initMinistrySlideshowLoop() {
 
         // Add the animation class to start the animation
         slideshow.classList.add('slideshow-animation');
+      } else {
+        console.log('.slideshow element not found');
       }
     }, 2000);
+  } else {
+    console.log('URL does not match /ministries/');
   }
 }
 
 // Ensure the function runs on page load and Swup content replacement
 document.addEventListener('DOMContentLoaded', () => {
+  initMinistrySlideshowLoop();
+});
+
+// Listen for Swup content replacement event
+document.addEventListener('swup:contentReplaced', () => {
   initMinistrySlideshowLoop();
 });
 
