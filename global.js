@@ -1,4 +1,4 @@
-console.log("V1.403");
+console.log("V1.404");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -156,6 +156,8 @@ swup.hooks.on('content:replace', () => {
   resetAndPlayHomeVideo();
   checkCurrentMinistriesLink();
   initMinistrySlideshowLoop();
+  initHistoryVideoControl();
+  loadYouTubeAPI();
 });
 
 
@@ -1978,3 +1980,61 @@ function checkAndModifyTimeSubtitles() {
 
 // Execute the function when the page is loaded or use with swup.js
 document.addEventListener('DOMContentLoaded', checkAndModifyTimeSubtitles);
+
+
+
+
+//---HISTORY VIDEO PLAY PAUSE---
+
+function initHistoryVideoControl() {
+  // Check if the page contains an element with class 'history__video'
+  if (document.querySelector('.history__video')) {
+      // Get all instances of '.history__bg' and '.history__fullvideo'
+      const backgrounds = document.querySelectorAll('.history__bg');
+      const videos = document.querySelectorAll('.history__fullvideo');
+      
+      backgrounds.forEach((bg, index) => {
+          // Ensure there's a corresponding video element
+          const video = videos[index];
+          if (video) {
+              // Get the iframe within the '.history__fullvideo'
+              const iframe = video.querySelector('iframe');
+              if (iframe) {
+                  // Create a new YT.Player instance
+                  const player = new YT.Player(iframe, {
+                      events: {
+                          'onStateChange': (event) => {
+                              if (event.data === YT.PlayerState.PAUSED) {
+                                  video.style.display = 'none';
+                              }
+                          }
+                      }
+                  });
+
+                  // Add click event listener to the background element
+                  bg.addEventListener('click', () => {
+                      video.style.display = 'block';
+                      player.playVideo();
+                  });
+              }
+          }
+      });
+  }
+}
+
+// Load the IFrame API script if not already loaded
+function loadYouTubeAPI() {
+  if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      
+      // Initialize the video control after the API is loaded
+      window.onYouTubeIframeAPIReady = initHistoryVideoControl;
+  } else {
+      initHistoryVideoControl();
+  }
+}
+
+loadYouTubeAPI();
