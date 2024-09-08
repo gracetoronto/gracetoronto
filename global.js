@@ -1,4 +1,4 @@
-console.log("V1.409");
+console.log("V1.410");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1355,7 +1355,7 @@ function startCountdown() {
     minuteBox.textContent = minutes;
     secondBox.textContent = seconds;
 
-    if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 12 || nowEST.getMinutes() < 30)) {
+    if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 10 || nowEST.getMinutes() < 30)) {
       dayBox.textContent = '00';
       hourBox.textContent = '00';
       minuteBox.textContent = '00';
