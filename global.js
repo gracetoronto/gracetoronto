@@ -1,4 +1,4 @@
-console.log("V1.405");
+console.log("V1.406");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2021,7 +2021,14 @@ function initHistoryVideoControl() {
                   bg.addEventListener('click', () => {
                       console.log('Background clicked');
                       video.style.display = 'block';
-                      player.playVideo();
+
+                      // Check if player instance exists
+                      if (player) {
+                          console.log('Playing video...');
+                          player.playVideo();
+                      } else {
+                          console.log('Player instance not found.');
+                      }
                   });
               } else {
                   console.log('No iframe found in video element:', video);
@@ -2055,4 +2062,4 @@ function loadYouTubeAPI() {
   }
 }
 
-loadYouTubeAPI();
+document.addEventListener('DOMContentLoaded', loadYouTubeAPI);
