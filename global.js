@@ -1,4 +1,4 @@
-console.log("V1.418");
+console.log("V1.419");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1254,7 +1254,7 @@ function initCarousel() {
   const gap = parseInt(window.getComputedStyle(carousel).gap);
   const cardFullWidth = cardWidth + gap;
   const vw5 = window.innerWidth * 0.05;
-  const maxScrollPosition = carousel.scrollWidth - container.offsetWidth - vw5;
+  const maxScrollPosition = carousel.scrollWidth - container.offsetWidth;
 
   leftButton.addEventListener('click', () => {
     let currentScrollPosition = container.scrollLeft;
@@ -1268,9 +1268,11 @@ function initCarousel() {
 
   rightButton.addEventListener('click', () => {
     let currentScrollPosition = container.scrollLeft;
-    currentScrollPosition += cardFullWidth;
-    if (currentScrollPosition > maxScrollPosition) {
-      currentScrollPosition = maxScrollPosition;
+    const remainingScroll = maxScrollPosition - currentScrollPosition;
+    if (remainingScroll <= cardFullWidth) {
+      currentScrollPosition = maxScrollPosition + vw5;
+    } else {
+      currentScrollPosition += cardFullWidth;
     }
     container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
     setTimeout(adjustScrollToNearestCard, 500); // Adjust after the scroll animation
@@ -1279,7 +1281,8 @@ function initCarousel() {
   function adjustScrollToNearestCard() {
     const currentScrollPosition = container.scrollLeft;
     const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
-    container.scrollTo({ left: nearestCardPosition, behavior: 'smooth' });
+    const adjustedPosition = Math.min(nearestCardPosition, maxScrollPosition + vw5);
+    container.scrollTo({ left: adjustedPosition, behavior: 'smooth' });
   }
 
   // Ensure the initial state respects the max width and margin
@@ -1296,7 +1299,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   initCarousel();
 });
-
 
 
 
