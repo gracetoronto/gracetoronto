@@ -1,4 +1,4 @@
-console.log("V1.420");
+console.log("V1.421");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1237,6 +1237,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+//---CAROUSEL FUNCTIONALITY---
 
 //---CAROUSEL FUNCTIONALITY---
 
