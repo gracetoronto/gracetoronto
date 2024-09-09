@@ -1,4 +1,4 @@
-console.log("V1.414");
+console.log("V1.415");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2118,14 +2118,16 @@ document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
 //---GET RID OF THE LIVESTREAM BANNER ON THE NAV WHEN ON THE LIVESTREAM PAGE---
 
 function checkAndToggleLivePageClass() {
-  const navBanner = document.querySelector('.nav__banner');
-  if (!navBanner) return; // Exit if the .nav__banner element is not found
+  const navBanners = document.querySelectorAll('.nav__banner');
+  if (!navBanners.length) return; // Exit if no .nav__banner elements are found
 
-  if (window.location.pathname.startsWith('/services/')) {
-    navBanner.classList.add('is--livepage');
-  } else {
-    navBanner.classList.remove('is--livepage');
-  }
+  navBanners.forEach((navBanner) => {
+    if (window.location.pathname.startsWith('/services/')) {
+      navBanner.classList.add('is--livepage');
+    } else {
+      navBanner.classList.remove('is--livepage');
+    }
+  });
 }
 
 // Execute the function on initial load and on every page change using Swup.js
