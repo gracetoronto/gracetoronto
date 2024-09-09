@@ -1,4 +1,4 @@
-console.log("V1.415");
+console.log("V1.416");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1295,7 +1295,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // Initial update on page load
   initCarousel();
 });
-
 
 
 
