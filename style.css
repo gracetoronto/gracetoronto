@@ -71,9 +71,13 @@ html.is-animating .transition-fade {
 
 /* Set live banner to 0 height on livestream page */
 
+.nav__banner {
+  transition: transform 250ms ease;
+}
+
 .is--livepage {
-  height: 0;
-  transition: transform 0.25s ease;
+  opacity: 0;
+  margin-top: -40px;
 }
 
 
