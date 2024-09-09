@@ -1,4 +1,4 @@
-console.log("V1.413");
+console.log("V1.414");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2118,7 +2118,7 @@ document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
 //---GET RID OF THE LIVESTREAM BANNER ON THE NAV WHEN ON THE LIVESTREAM PAGE---
 
 function checkAndToggleLivePageClass() {
-  const navBanner = document.querySelector('.nav');
+  const navBanner = document.querySelector('.nav__banner');
   if (!navBanner) return; // Exit if the .nav__banner element is not found
 
   if (window.location.pathname.startsWith('/services/')) {
