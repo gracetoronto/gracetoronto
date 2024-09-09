@@ -1,4 +1,4 @@
-console.log("V1.411");
+console.log("V1.412");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -159,6 +159,7 @@ swup.hooks.on('content:replace', () => {
   initHistoryVideoControl();
   loadYouTubeAPI();
   initSmoothScrollToCareAnchor();
+  checkAndToggleLivePageClass();
 });
 
 
@@ -2111,3 +2112,26 @@ function initSmoothScrollToCareAnchor() {
 
 // Initialize the function when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
+
+
+
+//---GET RID OF THE LIVESTREAM BANNER ON THE NAV WHEN ON THE LIVESTREAM PAGE---
+
+function checkAndToggleLivePageClass() {
+  const navBanner = document.querySelector('.nav__banner');
+  if (!navBanner) return; // Exit if the .nav__banner element is not found
+
+  if (window.location.pathname.startsWith('/services/')) {
+    navBanner.classList.add('is--livepage');
+  } else {
+    navBanner.classList.remove('is--livepage');
+  }
+}
+
+// Execute the function on initial load and on every page change using Swup.js
+swup.hooks.on('content:replace', () => {
+  checkAndToggleLivePageClass();
+});
+
+// Run on initial page load
+checkAndToggleLivePageClass();

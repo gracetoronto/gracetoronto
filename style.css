@@ -69,6 +69,13 @@ html.is-animating .transition-fade {
   transition: max-height 0.5s ease-out;
 }
 
+/* Set live banner to 0 height on livestream page */
+
+.is--livepage {
+  height: 0;
+  transition: transform 0.25s ease;
+}
+
 
 
 * {
