@@ -1,4 +1,4 @@
-console.log("V1.424");
+console.log("V1.425");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1070,89 +1070,89 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function announcementEventExpand() {
-  const button = document.querySelector('.eventcard__button');
-  const list = document.querySelector('.eventcard__list');
-  const openClass = document.querySelector('.eventcard__open');
-  const closeClass = document.querySelector('.eventcard__close');
-  const items = list ? list.querySelectorAll('.eventcard__item') : [];
-
-  if (!button || !list || !openClass || !closeClass) return;
-
-  let initialHeight;
-
-  function calculateInitialHeight() {
-    let height = 0;
-    setTimeout(() => {
-        for (let i = 0; i < Math.min(2, items.length); i++) {
-            height += items[i].getBoundingClientRect().height;
-        }
-    }, 250);
-    return height;
-}
-
-  function updateMaxHeight() {
-    if (list.classList.contains('expanded')) {
-      list.style.maxHeight = `${list.scrollHeight}px`;
-    } else {
-      initialHeight = calculateInitialHeight();
-      list.style.maxHeight = `${initialHeight}px`;
-    }
-  }
-
-  function handleResize() {
-    if (!list.classList.contains('expanded')) {
-      initialHeight = calculateInitialHeight();
-      list.style.maxHeight = `${initialHeight}px`;
-    }
-  }
-
-  // Debounce function to delay execution
-  function debounce(func, wait) {
-    let timeout;
-    return function(...args) {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(this, args), wait);
-    };
-  }
-
-  // Initial height calculation
-  initialHeight = calculateInitialHeight();
-  list.style.maxHeight = `${initialHeight}px`;
-  list.style.overflow = 'hidden';
-  list.style.transition = 'max-height 0.5s ease';
-
-  if (items.length <= 2) {
-    button.style.display = 'none';
-    closeClass.style.display = 'none';
-  } else {
-    button.style.display = 'flex';
-    closeClass.style.display = 'none';
-  }
-
-  button.addEventListener('click', function () {
-    list.classList.toggle('expanded');
-
-    if (list.classList.contains('expanded')) {
-      list.style.maxHeight = `${list.scrollHeight}px`;
-      openClass.style.display = 'none';
-      closeClass.style.display = 'flex';
-    } else {
-      list.style.maxHeight = `${initialHeight}px`;
-      openClass.style.display = 'flex';
-      closeClass.style.display = 'none';
-    }
-  });
-
-  // Use debounce for the resize event
-  window.addEventListener('resize', debounce(handleResize, 300));
-
-  // Force reflow and recalculate height after a short delay
   setTimeout(() => {
+    const button = document.querySelector('.eventcard__button');
+    const list = document.querySelector('.eventcard__list');
+    const openClass = document.querySelector('.eventcard__open');
+    const closeClass = document.querySelector('.eventcard__close');
+    const items = list ? list.querySelectorAll('.eventcard__item') : [];
+
+    if (!button || !list || !openClass || !closeClass) return;
+
+    let initialHeight;
+
+    function calculateInitialHeight() {
+      let height = 0;
+      for (let i = 0; i < Math.min(2, items.length); i++) {
+        height += items[i].getBoundingClientRect().height;
+      }
+      return height;
+    }
+
+    function updateMaxHeight() {
+      if (list.classList.contains('expanded')) {
+        list.style.maxHeight = `${list.scrollHeight}px`;
+      } else {
+        initialHeight = calculateInitialHeight();
+        list.style.maxHeight = `${initialHeight}px`;
+      }
+    }
+
+    function handleResize() {
+      if (!list.classList.contains('expanded')) {
+        initialHeight = calculateInitialHeight();
+        list.style.maxHeight = `${initialHeight}px`;
+      }
+    }
+
+    // Debounce function to delay execution
+    function debounce(func, wait) {
+      let timeout;
+      return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+      };
+    }
+
+    // Initial height calculation
     initialHeight = calculateInitialHeight();
     list.style.maxHeight = `${initialHeight}px`;
-  }, 300);
+    list.style.overflow = 'hidden';
+    list.style.transition = 'max-height 0.5s ease';
 
-  updateMaxHeight();
+    if (items.length <= 2) {
+      button.style.display = 'none';
+      closeClass.style.display = 'none';
+    } else {
+      button.style.display = 'flex';
+      closeClass.style.display = 'none';
+    }
+
+    button.addEventListener('click', function () {
+      list.classList.toggle('expanded');
+
+      if (list.classList.contains('expanded')) {
+        list.style.maxHeight = `${list.scrollHeight}px`;
+        openClass.style.display = 'none';
+        closeClass.style.display = 'flex';
+      } else {
+        list.style.maxHeight = `${initialHeight}px`;
+        openClass.style.display = 'flex';
+        closeClass.style.display = 'none';
+      }
+    });
+
+    // Use debounce for the resize event
+    window.addEventListener('resize', debounce(handleResize, 300));
+
+    // Force reflow and recalculate height after a short delay
+    setTimeout(() => {
+      initialHeight = calculateInitialHeight();
+      list.style.maxHeight = `${initialHeight}px`;
+    }, 300);
+
+    updateMaxHeight();
+  }, 250);
 }
 
 // Call the function with a 100ms delay to initialize the event card behavior
