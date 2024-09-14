@@ -1,4 +1,4 @@
-console.log("V1.423");
+console.log("V1.424");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1082,11 +1082,13 @@ function announcementEventExpand() {
 
   function calculateInitialHeight() {
     let height = 0;
-    for (let i = 0; i < Math.min(2, items.length); i++) {
-      height += items[i].getBoundingClientRect().height;
-    }
+    setTimeout(() => {
+        for (let i = 0; i < Math.min(2, items.length); i++) {
+            height += items[i].getBoundingClientRect().height;
+        }
+    }, 250);
     return height;
-  }
+}
 
   function updateMaxHeight() {
     if (list.classList.contains('expanded')) {
@@ -1238,7 +1240,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---CAROUSEL FUNCTIONALITY---
+
 
 //---CAROUSEL FUNCTIONALITY---
 
