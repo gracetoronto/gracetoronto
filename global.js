@@ -1,4 +1,4 @@
-console.log("V1.425");
+console.log("V1.426");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1149,10 +1149,10 @@ function announcementEventExpand() {
     setTimeout(() => {
       initialHeight = calculateInitialHeight();
       list.style.maxHeight = `${initialHeight}px`;
-    }, 300);
+    }, 500);
 
     updateMaxHeight();
-  }, 250);
+  }, 0);
 }
 
 // Call the function with a 100ms delay to initialize the event card behavior
