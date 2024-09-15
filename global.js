@@ -1,4 +1,4 @@
-console.log("V1.431");
+console.log("V1.432");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -256,7 +256,6 @@ function updateNavButtons() {
 
 
 
-//NAVIGATION LIVE BANNER ON SUNDAYS
 
 // NAVIGATION LIVE BANNER FOR TESTING (SATURDAYS)
 
@@ -2191,8 +2190,12 @@ function checkAndToggleLivePageClass() {
   const navBanners = document.querySelectorAll('.nav__banner');
   if (!navBanners.length) return; // Exit if no .nav__banner elements are found
 
+  const currentPath = window.location.pathname;
+  const previousPath = document.referrer ? new URL(document.referrer).pathname : '';
+
   navBanners.forEach((navBanner) => {
-    if (window.location.pathname.startsWith('/services/')) {
+    if (currentPath.startsWith('/bulletin/') || 
+        (currentPath.startsWith('/services/') && previousPath.startsWith('/services/'))) {
       navBanner.classList.add('is--livepage');
     } else {
       navBanner.classList.remove('is--livepage');
