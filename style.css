@@ -46,6 +46,24 @@ html.is-animating .transition-fade {
   background-color: rgba(28, 28, 28, 0);
 }
 
+/* #fragment-bulletin.is-animating {
+} */
+
+#fragment-bulletin.is-changing .profile {
+  transition: transform 350ms cubic-bezier(.01,1,.5,1);
+}
+
+#fragment-bulletin.is-animating .profile {
+  transform: translateX(100%);
+}
+
+#fragment-bulletin.is-changing .profile__dim {
+  transition: background-color 250ms;
+}
+
+#fragment-bulletin.is-animating .profile__dim {
+  background-color: rgba(28, 28, 28, 0);
+}
 
 
 /* Minstry nav arrow animation */
