@@ -1,4 +1,4 @@
-console.log("V1.435");
+console.log("V1.436");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2186,12 +2186,13 @@ document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
 
 //---GET RID OF THE LIVESTREAM BANNER ON THE NAV WHEN ON THE LIVESTREAM PAGE---
 
+let previousPath = '';
+
 function checkAndToggleLivePageClass() {
   const navBanners = document.querySelectorAll('.nav__banner');
   if (!navBanners.length) return; // Exit if no .nav__banner elements are found
 
   const currentPath = window.location.pathname;
-  const previousPath = document.referrer ? new URL(document.referrer).pathname : '';
 
   console.log('Current Path:', currentPath);
   console.log('Previous Path:', previousPath);
@@ -2205,6 +2206,9 @@ function checkAndToggleLivePageClass() {
       navBanner.classList.remove('is--livepage');
     }
   });
+
+  // Update the previous path after the check
+  previousPath = currentPath;
 }
 
 // Execute the function on initial load and on every page change using Swup.js
