@@ -1,4 +1,4 @@
-console.log("V1.433");
+console.log("V1.434");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2195,7 +2195,8 @@ function checkAndToggleLivePageClass() {
 
   navBanners.forEach((navBanner) => {
     if (currentPath.startsWith('/bulletin/') || 
-        (currentPath.startsWith('/leadership/') && previousPath.startsWith('/services/'))) {
+        (currentPath.startsWith('/leadership/') && previousPath.startsWith('/services/')) ||
+        currentPath.startsWith('/services/')) {
       navBanner.classList.add('is--livepage');
     } else {
       navBanner.classList.remove('is--livepage');
