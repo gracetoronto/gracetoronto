@@ -1,4 +1,4 @@
-console.log("V1.430");
+console.log("V1.431");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -35,7 +35,7 @@ const swup = new Swup({
         },
         {
           from: '/bulletin/(.*)',
-          to: '/livestream/',
+          to: '/landing/',
           containers: ['#fragment-bulletin'],
           scroll: false
         },
