@@ -1,4 +1,4 @@
-console.log("V1.434");
+console.log("V1.435");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2192,6 +2192,9 @@ function checkAndToggleLivePageClass() {
 
   const currentPath = window.location.pathname;
   const previousPath = document.referrer ? new URL(document.referrer).pathname : '';
+
+  console.log('Current Path:', currentPath);
+  console.log('Previous Path:', previousPath);
 
   navBanners.forEach((navBanner) => {
     if (currentPath.startsWith('/bulletin/') || 
