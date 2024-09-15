@@ -1,4 +1,4 @@
-console.log("V1.429");
+console.log("V1.430");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -104,6 +104,53 @@ swup.hooks.on('content:replace', () => {
 
     exitLinks.forEach(link => {
       link.href = prevURL; // Update link href to the previously captured URL
+      // console.log('Updated link href to:', link.href); // Debugging
+    });
+  }
+});
+
+
+
+
+
+
+//UPDATE BULLETIN CLOSE LINKS WITH PREVIOUS URL
+
+// Variable to store the previous URL
+let prevBulletinURL = '';
+
+// Function to capture and store the previous URL
+function updatePrevBulletinURL() {
+  const currentURL = window.location.pathname;
+  const leadershipRegex = /^\/bulletin\/.*/;
+
+  if (!leadershipRegex.test(currentURL)) {
+    prevBulletinURL = currentURL;
+    // console.log('Stored previous URL:', prevURL); // Debugging
+  }
+}
+
+// Capture the URL on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updatePrevBulletinURL();
+});
+
+// Capture the URL on Swup navigation
+swup.hooks.before('content:replace', () => {
+  updatePrevBulletinURL();
+});
+
+// Update .is--exit links after Swup has replaced content
+swup.hooks.on('content:replace', () => {
+  const currentURL = window.location.pathname;
+  const leadershipRegex = /^\/bulletin\/.*/;
+
+  if (leadershipRegex.test(currentURL)) {
+    const exitLinks = document.querySelectorAll('.is--exit');
+    // console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+
+    exitLinks.forEach(link => {
+      link.href = prevBulletinURL; // Update link href to the previously captured URL
       // console.log('Updated link href to:', link.href); // Debugging
     });
   }
