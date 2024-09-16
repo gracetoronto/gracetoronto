@@ -1,4 +1,4 @@
-console.log("V1.436");
+console.log("V1.437");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2202,8 +2202,10 @@ function checkAndToggleLivePageClass() {
         (currentPath.startsWith('/leadership/') && previousPath.startsWith('/services/')) ||
         currentPath.startsWith('/services/')) {
       navBanner.classList.add('is--livepage');
+      console.log('Added is--livepage class');
     } else {
       navBanner.classList.remove('is--livepage');
+      console.log('Removed is--livepage class');
     }
   });
 
@@ -2212,9 +2214,9 @@ function checkAndToggleLivePageClass() {
 }
 
 // Execute the function on initial load and on every page change using Swup.js
-swup.hooks.on('content:replace', () => {
+document.addEventListener('DOMContentLoaded', () => {
   checkAndToggleLivePageClass();
+  swup.hooks.on('content:replace', () => {
+    checkAndToggleLivePageClass();
+  });
 });
-
-// Run on initial page load
-checkAndToggleLivePageClass();
