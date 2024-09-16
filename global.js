@@ -2216,6 +2216,12 @@ swup.hooks.on('animation:out:start', () => {
   console.log('Captured Previous Path:', previousPath);
 });
 
+// Capture the previous path on browser navigation
+window.addEventListener('popstate', () => {
+  previousPath = window.location.pathname;
+  console.log('Captured Previous Path on popstate:', previousPath);
+});
+
 // Execute the function on initial load and on every page change using Swup.js
 document.addEventListener('DOMContentLoaded', () => {
   checkAndToggleLivePageClass();
