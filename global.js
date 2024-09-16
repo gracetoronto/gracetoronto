@@ -1,4 +1,4 @@
-console.log("V1.437");
+console.log("V1.438");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2208,10 +2208,13 @@ function checkAndToggleLivePageClass() {
       console.log('Removed is--livepage class');
     }
   });
-
-  // Update the previous path after the check
-  previousPath = currentPath;
 }
+
+// Capture the previous path before Swup replaces the content
+swup.hooks.on('willReplaceContent', () => {
+  previousPath = window.location.pathname;
+  console.log('Captured Previous Path:', previousPath);
+});
 
 // Execute the function on initial load and on every page change using Swup.js
 document.addEventListener('DOMContentLoaded', () => {
