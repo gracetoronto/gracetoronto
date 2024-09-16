@@ -1,4 +1,4 @@
-console.log("V1.438");
+console.log("V1.439");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2211,7 +2211,7 @@ function checkAndToggleLivePageClass() {
 }
 
 // Capture the previous path before Swup replaces the content
-swup.hooks.on('willReplaceContent', () => {
+swup.hooks.on('animation:out:start', () => {
   previousPath = window.location.pathname;
   console.log('Captured Previous Path:', previousPath);
 });
