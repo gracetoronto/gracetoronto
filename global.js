@@ -1,4 +1,4 @@
-console.log("V1.441");
+console.log("V1.442");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2213,6 +2213,10 @@ function checkAndToggleLivePageClass() {
   if (currentPath.startsWith('/services/')) {
     previousPath = currentPath;
     console.log('Updated Previous Path:', previousPath);
+  } else if (!currentPath.startsWith('/leadership/')) {
+    // Reset previousPath if navigating away from /services/ or /leadership/
+    previousPath = '';
+    console.log('Reset Previous Path:', previousPath);
   }
 }
 
