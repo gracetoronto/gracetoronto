@@ -1,4 +1,4 @@
-console.log("V1.444");
+console.log("V1.445");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1155,6 +1155,11 @@ function announcementEventExpand() {
       let height = 0;
       for (let i = 0; i < Math.min(2, items.length); i++) {
         height += items[i].getBoundingClientRect().height;
+      }
+
+      // Add 24px if the device width is less than 767px
+      if (window.innerWidth < 767) {
+        height += 24;
       }
 
       // Reset styles
