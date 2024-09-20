@@ -1,4 +1,4 @@
-console.log("V1.448");
+console.log("V1.449");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1702,6 +1702,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
+//---MINISTRY SLIDESHOW FUNCTIONALITY---
+
 function initMinistrySlideshowLoop() {
   console.log('initMinistrySlideshowLoop called');
   // Check if the URL matches the pattern /ministries/(*) and if the .slideshow element is present
@@ -1733,6 +1735,7 @@ function initMinistrySlideshowLoop() {
 document.addEventListener('DOMContentLoaded', () => {
   initMinistrySlideshowLoop();
 });
+
 
 swup.hooks.on('content:replace', () => {
   // Use requestAnimationFrame to ensure the DOM is fully updated
