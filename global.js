@@ -1,4 +1,4 @@
-console.log("V1.443");
+console.log("V1.444");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1146,10 +1146,23 @@ function announcementEventExpand() {
     let initialHeight;
 
     function calculateInitialHeight() {
+      // Force reflow to ensure all styles are applied
+      list.style.display = 'block';
+      list.style.position = 'absolute';
+      list.style.visibility = 'hidden';
+      list.style.maxHeight = 'none';
+
       let height = 0;
       for (let i = 0; i < Math.min(2, items.length); i++) {
         height += items[i].getBoundingClientRect().height;
       }
+
+      // Reset styles
+      list.style.display = '';
+      list.style.position = '';
+      list.style.visibility = '';
+      list.style.maxHeight = '';
+
       console.log('Calculated initial height:', height);
       return height;
     }
