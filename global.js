@@ -1,4 +1,4 @@
-console.log("V1.442");
+console.log("V1.443");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1150,6 +1150,7 @@ function announcementEventExpand() {
       for (let i = 0; i < Math.min(2, items.length); i++) {
         height += items[i].getBoundingClientRect().height;
       }
+      console.log('Calculated initial height:', height);
       return height;
     }
 
@@ -2184,6 +2185,9 @@ document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
 
 
 
+
+
+
 //---GET RID OF THE LIVESTREAM BANNER ON THE NAV WHEN ON THE LIVESTREAM PAGE---
 
 let previousPath = '';
@@ -2220,7 +2224,7 @@ function checkAndToggleLivePageClass() {
   }
 }
 
-// Execute the function on initial load
+// Execute the function on initial load2
 document.addEventListener('DOMContentLoaded', () => {
   checkAndToggleLivePageClass();
 });
