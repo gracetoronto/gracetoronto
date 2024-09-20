@@ -1,4 +1,4 @@
-console.log("V1.446");
+console.log("V1.447");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2136,7 +2136,6 @@ function initHistoryVideoControl() {
 // Load the IFrame API script if not already loaded
 function loadYouTubeAPI() {
   if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
-      console.log('Loading YouTube IFrame API.');
       const tag = document.createElement('script');
       tag.src = "https://www.youtube.com/iframe_api";
       const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -2144,11 +2143,9 @@ function loadYouTubeAPI() {
       
       // Initialize the video control after the API is loaded
       window.onYouTubeIframeAPIReady = () => {
-          console.log('YouTube IFrame API is ready');
           initHistoryVideoControl();
       };
   } else {
-      console.log('YouTube IFrame API already loaded.');
       initHistoryVideoControl();
   }
 }
@@ -2211,29 +2208,22 @@ function checkAndToggleLivePageClass() {
 
   const currentPath = window.location.pathname;
 
-  console.log('Current Path:', currentPath);
-  console.log('Previous Path:', previousPath);
-
   navBanners.forEach((navBanner) => {
     if (currentPath.startsWith('/bulletin/') || 
         (currentPath.startsWith('/leadership/') && previousPath.startsWith('/services/')) ||
         currentPath.startsWith('/services/')) {
       navBanner.classList.add('is--livepage');
-      console.log('Added is--livepage class');
     } else {
       navBanner.classList.remove('is--livepage');
-      console.log('Removed is--livepage class');
     }
   });
 
   // Update the previous path only if the current path is /services/
   if (currentPath.startsWith('/services/')) {
     previousPath = currentPath;
-    console.log('Updated Previous Path:', previousPath);
   } else if (!currentPath.startsWith('/leadership/')) {
     // Reset previousPath if navigating away from /services/ or /leadership/
     previousPath = '';
-    console.log('Reset Previous Path:', previousPath);
   }
 }
 
