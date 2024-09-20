@@ -2164,20 +2164,16 @@ function initSmoothScrollToCareAnchor() {
   const careButton = document.getElementById('care-button');
 
   if (!careAnchor) {
-      console.log('Element with ID "care-anchor" not found.');
       return;
   }
 
   if (!careButton) {
-      console.log('Element with ID "care-button" not found.');
       return;
   }
 
-  console.log('Both elements found. Setting up event listener.');
 
   // Add click event listener to the div with ID 'care-button'
   careButton.addEventListener('click', () => {
-      console.log('Button clicked. Scrolling...');
 
       // Calculate the position to scroll to (115px above the element)
       const offsetPosition = careAnchor.getBoundingClientRect().top + window.pageYOffset - 115;
