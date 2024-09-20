@@ -1,4 +1,4 @@
-console.log("V1.445");
+console.log("V1.446");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1731,11 +1731,6 @@ function initMinistrySlideshowLoop() {
 
 // Ensure the function runs on page load and Swup content replacement
 document.addEventListener('DOMContentLoaded', () => {
-  initMinistrySlideshowLoop();
-});
-
-// Listen for Swup content replacement event
-document.addEventListener('swup:contentReplaced', () => {
   initMinistrySlideshowLoop();
 });
 
