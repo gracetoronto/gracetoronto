@@ -186,10 +186,15 @@ html.is-animating .transition-fade {
   color: inherit !important;
   border-color: inherit !important; /* Also reset border color if needed */
 }
-
 /* Base styles for event content */
 .fc-event-title {
   display: inline-block;
+}
+
+/* Remove borders from all <td> elements within the calendar */
+.fc-event td,
+.fc-list-event td {
+  border: none !important;
 }
 
 /* Media query for mobile devices */
