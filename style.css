@@ -160,8 +160,8 @@ html.is-animating .transition-fade {
   border-radius: 100px;
   display: inline-block;
   transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-  margin-right: 8px;
-  margin-top: 4px;
+  margin-right: 4px;
+  margin-top: 8px;
 }
 
 /* Specific styling for the registration link */
@@ -176,9 +176,14 @@ html.is-animating .transition-fade {
 }
 
 /* Remove hover effect on FullCalendar events */
-.fc-event:hover {
+.fc-event:hover,
+.fc-event.fc-h-event:hover,
+.fc-event.fc-daygrid-event:hover,
+.fc-event.fc-timegrid-event:hover,
+.fc-event.fc-list-event:hover {
   background-color: inherit !important;
   color: inherit !important;
+  border-color: inherit !important; /* Also reset border color if needed */
 }
 
 /* Navigation CSS transitions */
