@@ -1,4 +1,4 @@
-console.log("V1.459");
+console.log("V1.460");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -814,7 +814,7 @@ function showCal() {
 
         // Create a container for the event content
         let container = document.createElement('div');
-        let registerLink = event.extendedProps.register ? `<a href="${event.extendedProps.register}" class="btn-register-now btn-view-details">Register Now</a>` : '';
+        let registerLink = event.extendedProps.register ? `<a href="${event.extendedProps.register}" class="btn-register-now btn-view-details" target="_blank">Register Now</a>` : '';
         let announcementLink = event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" class="btn-view-details">Read Announcement</a>` : '';
 
         container.innerHTML = `
