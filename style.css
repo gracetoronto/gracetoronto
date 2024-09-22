@@ -207,14 +207,16 @@ html.is-animating .transition-fade {
     width: 100%;
   }
 
-  .fc-event-time {
-    order: -1; /* Move the time to the top */
+  .fc-event-time-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
-    margin-bottom: 8px; /* Add some space below the time */
+    margin-bottom: 8px; /* Add some space below the time-title container */
   }
 
-  .fc-event-title {
-    width: 100%;
+  .fc-event-time {
+    margin-right: 8px; /* Add some space between the time and title */
   }
 
   .event-links {
