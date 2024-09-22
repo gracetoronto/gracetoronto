@@ -178,6 +178,12 @@ html.is-animating .transition-fade {
   background-color: #f4c449;
 }
 
+/* Remove hover effect on FullCalendar events */
+.fc-event:hover {
+  background-color: inherit !important;
+  color: inherit !important;
+}
+
 /* Navigation CSS transitions */
 
 .container__blur.is--main {
