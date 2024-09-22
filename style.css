@@ -192,6 +192,11 @@ html.is-animating .transition-fade {
   display: inline-block;
 }
 
+/* Base styles for event content */
+.fc-event-title {
+  display: inline-block;
+}
+
 /* Media query for mobile devices */
 @media (max-width: 767px) {
   .fc-event {
