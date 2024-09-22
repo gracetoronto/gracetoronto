@@ -187,57 +187,43 @@ html.is-animating .transition-fade {
   border-color: inherit !important; /* Also reset border color if needed */
 }
 
-/* Ensure table cells span the full width */
-.fc-event {
-  width: 100%;
-}
-
-.fc-event td {
-  width: 100%;
+/* Base styles for event content */
+.fc-event-title {
+  display: inline-block;
 }
 
 /* Media query for mobile devices */
 @media (max-width: 767px) {
   .fc-event {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
     width: 100%;
     border: none; /* Remove any unwanted borders */
   }
 
-  .fc-event-main {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .fc-event-time-title {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    width: 100%;
-    margin-bottom: 8px; /* Add some space below the time-title container */
-  }
-
   .fc-event-time {
-    margin-right: 8px; /* Add some space between the time and title */
+    grid-column: 1 / -1; /* Span all columns */
+    width: 100%;
+    margin-bottom: 8px; /* Add some space below the time */
+  }
+
+  .fc-list-event-graphic {
+    grid-column: 1; /* Span one column */
   }
 
   .fc-event-title {
+    grid-column: 2; /* Span one column */
     width: 100%;
   }
 
   .event-links {
-    width: 100%;
-  }
-
-  .fc-event-main-frame {
+    grid-column: 1 / -1; /* Span all columns */
     width: 100%;
   }
 
   /* Remove any unwanted strokes or borders */
-  .fc-event, .fc-event-main, .fc-event-time-title, .fc-event-title, .event-links {
+  .fc-event, .fc-event-time, .fc-list-event-graphic, .fc-event-title, .event-links {
     border: none;
     box-shadow: none;
   }

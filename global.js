@@ -1,4 +1,4 @@
-console.log("V1.470");
+console.log("V1.471");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -819,10 +819,9 @@ function showCal() {
 
         container.innerHTML = `
           <div class="fc-event-main">
-            <div class="fc-event-time-title">
-              <div class="fc-list-event-graphic"></div>
-              <div class="fc-event-title">${event.title}</div>
-            </div>
+            <div class="fc-event-time">${event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+            <div class="fc-list-event-graphic"></div>
+            <div class="fc-event-title">${event.title}</div>
             <div class="event-links">
               ${registerLink}
               ${announcementLink}
