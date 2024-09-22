@@ -197,9 +197,11 @@ html.is-animating .transition-fade {
   border: none !important;
 }
 
-/* Disable hover effect for all <td> elements */
+/* Disable hover effect for all <td> and <tr> elements */
 .fc-event td:hover,
-.fc-list-event td:hover {
+.fc-list-event td:hover,
+.fc-event tr:hover,
+.fc-list-event tr:hover {
   background-color: inherit !important;
   color: inherit !important;
   border-color: inherit !important;
