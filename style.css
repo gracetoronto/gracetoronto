@@ -246,7 +246,7 @@ html.is-animating .transition-fade {
   }
 
   /* Remove any unwanted strokes or borders */
-  .fc-event, .fc-event-time, .fc-list-event-graphic, .fc-event-title, .event-links {
+  .fc-event, .fc-list-event-graphic, .fc-event-title, .event-links {
     border: none;
     box-shadow: none;
   }
