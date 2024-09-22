@@ -189,7 +189,7 @@ html.is-animating .transition-fade {
 
 /* Base styles for event content */
 .fc-event-title {
-  display: block;
+  display: inline-block;
 }
 
 /* Media query for mobile devices */
@@ -198,19 +198,20 @@ html.is-animating .transition-fade {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
 
   .fc-event-time {
-    order: -1; /* Move the time to the top */
+    width: 100%;
     margin-bottom: 8px; /* Add some space below the time */
   }
 
   .fc-event-title {
-    order: 0;
+    width: 100%;
   }
 
   .event-links {
-    order: 1;
+    width: 100%;
   }
 }
 

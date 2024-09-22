@@ -1,4 +1,4 @@
-console.log("V1.461");
+console.log("V1.462");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -818,7 +818,8 @@ function showCal() {
         let announcementLink = event.extendedProps.updateLink ? `<a href="${event.extendedProps.updateLink}" class="btn-view-details">Read Announcement</a>` : '';
 
         container.innerHTML = `
-          <div>${event.title}</div>
+          <div class="fc-event-time">${event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+          <div class="fc-event-title">${event.title}</div>
           <div class="event-links">
             ${registerLink}
             ${announcementLink}
