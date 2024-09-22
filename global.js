@@ -1,4 +1,4 @@
-console.log("V1.469");
+console.log("V1.470");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -820,6 +820,7 @@ function showCal() {
         container.innerHTML = `
           <div class="fc-event-main">
             <div class="fc-event-time-title">
+              <div class="fc-list-event-graphic"></div>
               <div class="fc-event-title">${event.title}</div>
             </div>
             <div class="event-links">
