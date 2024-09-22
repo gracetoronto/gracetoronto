@@ -192,6 +192,11 @@ html.is-animating .transition-fade {
   display: inline-block;
 }
 
+/* Base styles for event content */
+.fc-event-title {
+  display: inline-block;
+}
+
 /* Media query for mobile devices */
 @media (max-width: 767px) {
   .fc-event {
@@ -199,6 +204,7 @@ html.is-animating .transition-fade {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
+    border: none; /* Remove any unwanted borders */
   }
 
   .fc-event-main {
@@ -219,8 +225,22 @@ html.is-animating .transition-fade {
     margin-right: 8px; /* Add some space between the time and title */
   }
 
+  .fc-event-title {
+    width: 100%;
+  }
+
   .event-links {
     width: 100%;
+  }
+
+  .fc-event-main-frame {
+    width: 100%;
+  }
+
+  /* Remove any unwanted strokes or borders */
+  .fc-event, .fc-event-main, .fc-event-time-title, .fc-event-title, .event-links {
+    border: none;
+    box-shadow: none;
   }
 }
 
