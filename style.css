@@ -160,7 +160,8 @@ html.is-animating .transition-fade {
   border-radius: 100px;
   display: inline-block;
   transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
-  margin-right: 8px; /* Add right margin */
+  margin-right: 8px;
+  margin-top: 4px;
 }
 
 /* Specific styling for the registration link */
