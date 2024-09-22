@@ -187,14 +187,13 @@ html.is-animating .transition-fade {
   border-color: inherit !important; /* Also reset border color if needed */
 }
 
-/* Base styles for event content */
-.fc-event-title {
-  display: inline-block;
+/* Ensure table cells span the full width */
+.fc-event {
+  width: 100%;
 }
 
-/* Base styles for event content */
-.fc-event-title {
-  display: inline-block;
+.fc-event td {
+  width: 100%;
 }
 
 /* Media query for mobile devices */
@@ -243,6 +242,7 @@ html.is-animating .transition-fade {
     box-shadow: none;
   }
 }
+
 
 
 
