@@ -214,7 +214,7 @@ html.is-animating .transition-fade {
   }
 
   .fc-list-event-time {
-    padding-left: 36px;
+    margin-left: 36px;
   }
 
   .fc-list-event-graphic {
