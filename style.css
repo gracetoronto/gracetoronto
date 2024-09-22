@@ -187,6 +187,40 @@ html.is-animating .transition-fade {
   border-color: inherit !important; /* Also reset border color if needed */
 }
 
+/* Base styles for event content */
+.fc-event-title {
+  display: block;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 767px) {
+  .fc-event {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .fc-event-time {
+    order: -1; /* Move the time to the top */
+    margin-bottom: 8px; /* Add some space below the time */
+  }
+
+  .fc-event-title {
+    order: 0;
+  }
+
+  .event-links {
+    order: 1;
+  }
+}
+
+
+
+
+
+
+
+
 /* Navigation CSS transitions */
 
 .container__blur.is--main {
