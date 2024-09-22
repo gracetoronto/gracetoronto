@@ -197,15 +197,18 @@ html.is-animating .transition-fade {
   .fc-event {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     width: 100%;
   }
 
   .fc-event-main {
+    display: flex;
+    flex-direction: column;
     width: 100%;
   }
 
   .fc-event-time {
+    order: -1; /* Move the time to the top */
     width: 100%;
     margin-bottom: 8px; /* Add some space below the time */
   }
@@ -215,10 +218,6 @@ html.is-animating .transition-fade {
   }
 
   .event-links {
-    width: 100%;
-  }
-
-  .fc-event-main-frame {
     width: 100%;
   }
 }
