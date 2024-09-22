@@ -213,8 +213,13 @@ html.is-animating .transition-fade {
     margin-bottom: 8px; /* Add some space below the time */
   }
 
+  .fc-list-event-time {
+    margin-left: 36px;
+  }
+
   .fc-list-event-graphic {
     grid-column: 1; /* Span one column */
+    align-items: start;
   }
 
   .fc-event-title {
