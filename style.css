@@ -154,8 +154,9 @@ html.is-animating .transition-fade {
 /* Ensure both links have the same styling */
 .btn-view-details {
   /* Add your existing styles for the announcement link here */
+  margin-top: 8px;
   padding: 4px 8px;
-  background-color: #ffffff;
+  background-color: #ededed;
   border: 1px;
   border-radius: 360px;
   border-color: #000000;
