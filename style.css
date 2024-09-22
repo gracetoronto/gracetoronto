@@ -227,7 +227,6 @@ html.is-animating .transition-fade {
 
   .fc-list-event-time {
     padding-left: 36px;
-    border-bottom: 1px solid #d8d8d8;
     width: 100%;
   }
 
@@ -246,7 +245,7 @@ html.is-animating .transition-fade {
   }
 
   /* Remove any unwanted strokes or borders */
-  .fc-event, .fc-list-event-graphic, .fc-event-title, .event-links {
+  .fc-list-event-graphic, .fc-event-title, .event-links {
     border: none;
     box-shadow: none;
   }
