@@ -173,7 +173,7 @@ html.is-animating .transition-fade {
 /* Hover effect for both links */
 .btn-view-details:hover,
 .btn-register-now:hover {
-  color: #f9d26d;
+  background-color: #f9d26d;
 }
 
 /* Remove hover effect on FullCalendar events */
