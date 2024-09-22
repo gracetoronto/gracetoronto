@@ -197,7 +197,7 @@ html.is-animating .transition-fade {
   .fc-event {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     width: 100%;
   }
 
