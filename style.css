@@ -227,6 +227,7 @@ html.is-animating .transition-fade {
     width: 100%;
     margin-bottom: 8px; /* Add some space below the time */
     opacity: 50%;
+    margin-bottom: -16px;
   }
 
   .fc-list-event-time {
