@@ -176,6 +176,10 @@ html.is-animating .transition-fade {
   background-color: #f9d26d;
 }
 
+
+
+
+
 /* Remove hover effect on FullCalendar events */
 .fc-event:hover,
 .fc-event.fc-h-event:hover,
@@ -186,6 +190,7 @@ html.is-animating .transition-fade {
   color: inherit !important;
   border-color: inherit !important; /* Also reset border color if needed */
 }
+
 /* Base styles for event content */
 .fc-event-title {
   display: inline-block;
@@ -207,8 +212,6 @@ html.is-animating .transition-fade {
   border-color: inherit !important;
 }
 
-
-
 /* Media query for mobile devices */
 @media (max-width: 767px) {
   .fc-event {
@@ -220,7 +223,7 @@ html.is-animating .transition-fade {
   }
 
   .fc-event-time {
-    grid-column: 1 / -1; /* Span all columns */
+    grid-column: 2; /* Place the time container in the second column */
     width: 100%;
     margin-bottom: 8px; /* Add some space below the time */
   }
@@ -245,7 +248,7 @@ html.is-animating .transition-fade {
   }
 
   /* Remove any unwanted strokes or borders */
-  .fc-list-event-graphic, .fc-event-title, .event-links {
+  .fc-event, .fc-event-time, .fc-list-event-graphic, .fc-event-title, .event-links {
     border: none;
     box-shadow: none;
   }
