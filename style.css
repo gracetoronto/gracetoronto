@@ -205,6 +205,7 @@ html.is-animating .transition-fade {
 /* Disable hover effect for all <td> and <tr> elements */
 .fc-event td:hover,
 .fc-list-event td:hover,
+.fc-event-time td:hover,
 .fc-event tr:hover,
 .fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event tr:hover {
   background-color: #ffffff !important;
