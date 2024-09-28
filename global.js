@@ -1,4 +1,4 @@
-console.log("V1.476");
+console.log("V1.477");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -220,7 +220,6 @@ swup.hooks.on('content:replace', () => {
   announcementEventExpand();
   resetAndPlayHomeVideo();
   checkCurrentMinistriesLink();
-  initMinistrySlideshowLoop();
   initHistoryVideoControl();
   loadYouTubeAPI();
   initSmoothScrollToCareAnchor();
@@ -1716,53 +1715,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
-function initMinistrySlideshowLoop() {
-  console.log('initMinistrySlideshowLoop called');
-  // Check if the URL matches the pattern /ministries/(*) and if the .slideshow element is present
-  if (window.location.pathname.startsWith('/ministries/')) {
-    console.log('URL matches /ministries/');
-    // Add a 2-second delay before starting the animation
+function initSlideshowScrolling() {
+  // Get the slideshow container
+  const slideshows = document.querySelectorAll('.slideshows');
+
+  // Abort if no slideshow found
+  if (!slideshows.length) return;
+
+  slideshows.forEach((slideshow) => {
+    // Reset the slideshow immediately to 0%
+    slideshow.style.transition = 'none'; // Remove transition for immediate reset
+    slideshow.style.transform = 'translateX(0%)';
+
+    // Get the width of the slideshow container and calculate 50%
+    const slideshowWidth = slideshow.offsetWidth;
+    const targetPosition = -slideshowWidth / 2;
+
+    // Add transition back after resetting
     setTimeout(() => {
-      const slideshow = document.querySelector('.slideshows');
-      if (slideshow) {
-        console.log('.slideshow element found');
-        // Remove any previous animation classes
-        slideshow.classList.remove('slideshow-animation');
+      slideshow.style.transition = 'transform 40s linear';
+      slideshow.style.transform = `translateX(${targetPosition}px)`;
 
-        // Force a reflow to ensure the removal of old styles
-        void slideshow.offsetWidth;
-
-        // Add the animation class to start the animation
-        slideshow.classList.add('slideshow-animation');
-      } else {
-        console.log('.slideshow element not found');
-      }
-    }, 2000);
-  } else {
-    console.log('URL does not match /ministries/');
-  }
+      // When the transition completes, loop it back to the start
+      slideshow.addEventListener('transitionend', () => {
+        slideshow.style.transition = 'none'; // Remove transition
+        slideshow.style.transform = 'translateX(0%)'; // Reset to start
+        setTimeout(() => {
+          slideshow.style.transition = 'transform 40s linear';
+          slideshow.style.transform = `translateX(${targetPosition}px)`; // Restart loop
+        }, 0); // Immediate reset and loop
+      });
+    }, 0);
+  });
 }
 
-// Ensure the function runs on page load
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOMContentLoaded event fired');
-  initMinistrySlideshowLoop();
+// Swup.js integration
+swup.hooks.on('content:replace', () => {
+  initSlideshowScrolling(); // Reinitialize slideshow on every swup navigation
 });
 
-// Ensure swup is properly initialized
-if (typeof swup !== 'undefined') {
-  console.log('swup is defined');
-  swup.hooks.on('content:replace', () => {
-    console.log('swup content:replace hook fired');
-    // Use requestAnimationFrame to ensure the DOM is fully updated
-    requestAnimationFrame(() => {
-      console.log('requestAnimationFrame callback fired');
-      initMinistrySlideshowLoop();
-    });
-  });
-} else {
-  console.log('swup is not defined');
-}
+// Run on initial page load
+document.addEventListener('DOMContentLoaded', () => {
+  initSlideshowScrolling();
+});
 
 
 
