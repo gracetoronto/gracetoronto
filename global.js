@@ -1,4 +1,4 @@
-console.log("V1.475");
+console.log("V1.476");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1723,7 +1723,7 @@ function initMinistrySlideshowLoop() {
     console.log('URL matches /ministries/');
     // Add a 2-second delay before starting the animation
     setTimeout(() => {
-      const slideshow = document.querySelector('.slideshow');
+      const slideshow = document.querySelector('.slideshows');
       if (slideshow) {
         console.log('.slideshow element found');
         // Remove any previous animation classes
