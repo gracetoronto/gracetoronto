@@ -1,4 +1,4 @@
-console.log("V1.477");
+console.log("V1.478");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1733,7 +1733,7 @@ function initSlideshowScrolling() {
 
     // Add transition back after resetting
     setTimeout(() => {
-      slideshow.style.transition = 'transform 40s linear';
+      slideshow.style.transition = 'transform 20s linear'; // Adjust speed (e.g., 20s)
       slideshow.style.transform = `translateX(${targetPosition}px)`;
 
       // When the transition completes, loop it back to the start
@@ -1741,7 +1741,7 @@ function initSlideshowScrolling() {
         slideshow.style.transition = 'none'; // Remove transition
         slideshow.style.transform = 'translateX(0%)'; // Reset to start
         setTimeout(() => {
-          slideshow.style.transition = 'transform 40s linear';
+          slideshow.style.transition = 'transform 20s linear'; // Adjust speed (e.g., 20s)
           slideshow.style.transform = `translateX(${targetPosition}px)`; // Restart loop
         }, 0); // Immediate reset and loop
       });
@@ -1758,7 +1758,6 @@ swup.hooks.on('content:replace', () => {
 document.addEventListener('DOMContentLoaded', () => {
   initSlideshowScrolling();
 });
-
 
 
 
