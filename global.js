@@ -1,4 +1,4 @@
-console.log("V1.474");
+console.log("V1.475");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1749,14 +1749,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initMinistrySlideshowLoop();
 });
 
-swup.hooks.on('content:replace', () => {
-  console.log('swup content:replace hook fired');
-  // Use requestAnimationFrame to ensure the DOM is fully updated
-  requestAnimationFrame(() => {
-    console.log('requestAnimationFrame callback fired');
-    initMinistrySlideshowLoop();
+// Ensure swup is properly initialized
+if (typeof swup !== 'undefined') {
+  console.log('swup is defined');
+  swup.hooks.on('content:replace', () => {
+    console.log('swup content:replace hook fired');
+    // Use requestAnimationFrame to ensure the DOM is fully updated
+    requestAnimationFrame(() => {
+      console.log('requestAnimationFrame callback fired');
+      initMinistrySlideshowLoop();
+    });
   });
-});
+} else {
+  console.log('swup is not defined');
+}
 
 
 
