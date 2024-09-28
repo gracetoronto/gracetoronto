@@ -1723,14 +1723,10 @@ function initSlideshowScrolling() {
   if (!slideshows.length) return;
 
   slideshows.forEach((slideshow) => {
-    // Reset and remove any previous animation classes
-    slideshow.classList.remove('is-animating');
-    
-    // Force a reflow to ensure the animation starts fresh
-    void slideshow.offsetWidth;
-
-    // Add the class to start the animation
-    slideshow.classList.add('is-animating');
+    // Check if the 'is-animating' class is already present
+    if (!slideshow.classList.contains('is-animating')) {
+      slideshow.classList.add('is-animating'); // Add the class to start the animation
+    }
   });
 }
 
@@ -1743,7 +1739,6 @@ swup.hooks.on('content:replace', () => {
 document.addEventListener('DOMContentLoaded', () => {
   initSlideshowScrolling();
 });
-
 
 
 
