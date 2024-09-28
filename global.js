@@ -1,4 +1,4 @@
-console.log("V1.479");
+console.log("V1.480");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1723,10 +1723,14 @@ function initSlideshowScrolling() {
   if (!slideshows.length) return;
 
   slideshows.forEach((slideshow) => {
-    // Check if the 'is-animating' class is already present
-    if (!slideshow.classList.contains('is-animating')) {
-      slideshow.classList.add('is-animating'); // Add the class to start the animation
-    }
+    // Reset the animation by removing the class and forcing reflow
+    slideshow.classList.remove('is-animating');
+    
+    // Force a reflow to reset the animation (important for restarting the CSS animation)
+    void slideshow.offsetWidth;
+
+    // Reapply the class to start the animation
+    slideshow.classList.add('is-animating');
   });
 }
 

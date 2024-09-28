@@ -121,7 +121,7 @@ html.is-animating .transition-fade {
 }
 
 .is-animating .slideshows-inner {
-  animation: slideshowScroll 20s linear infinite; /* Continuous scroll for 20s */
+  animation: slideshowScroll 20s linear infinite; /* Continuous scroll */
 }
 
 @keyframes slideshowScroll {
