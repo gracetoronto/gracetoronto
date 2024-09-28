@@ -114,10 +114,6 @@ html.is-animating .transition-fade {
 
 /* Ministry slideshow animation keyframes */
 
-.slideshows {
-  overflow: hidden; /* Hide the overflow to make the scroll invisible */
-  position: relative; /* Make sure the images are positioned correctly */
-}
 
 .slideshows .slideshows-inner { /* Assuming you have an inner wrapper for the images */
   display: flex;
