@@ -1,4 +1,4 @@
-console.log("V1.473");
+console.log("V1.474");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1713,7 +1713,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---MINISTRY SLIDESHOW FUNCTIONALITY---
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
@@ -1746,13 +1745,15 @@ function initMinistrySlideshowLoop() {
 
 // Ensure the function runs on page load
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOMContentLoaded event fired');
   initMinistrySlideshowLoop();
 });
 
-
 swup.hooks.on('content:replace', () => {
+  console.log('swup content:replace hook fired');
   // Use requestAnimationFrame to ensure the DOM is fully updated
   requestAnimationFrame(() => {
+    console.log('requestAnimationFrame callback fired');
     initMinistrySlideshowLoop();
   });
 });
