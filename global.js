@@ -1,4 +1,4 @@
-console.log("V1.478");
+console.log("V1.479");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1723,29 +1723,14 @@ function initSlideshowScrolling() {
   if (!slideshows.length) return;
 
   slideshows.forEach((slideshow) => {
-    // Reset the slideshow immediately to 0%
-    slideshow.style.transition = 'none'; // Remove transition for immediate reset
-    slideshow.style.transform = 'translateX(0%)';
+    // Reset and remove any previous animation classes
+    slideshow.classList.remove('is-animating');
+    
+    // Force a reflow to ensure the animation starts fresh
+    void slideshow.offsetWidth;
 
-    // Get the width of the slideshow container and calculate 50%
-    const slideshowWidth = slideshow.offsetWidth;
-    const targetPosition = -slideshowWidth / 2;
-
-    // Add transition back after resetting
-    setTimeout(() => {
-      slideshow.style.transition = 'transform 20s linear'; // Adjust speed (e.g., 20s)
-      slideshow.style.transform = `translateX(${targetPosition}px)`;
-
-      // When the transition completes, loop it back to the start
-      slideshow.addEventListener('transitionend', () => {
-        slideshow.style.transition = 'none'; // Remove transition
-        slideshow.style.transform = 'translateX(0%)'; // Reset to start
-        setTimeout(() => {
-          slideshow.style.transition = 'transform 20s linear'; // Adjust speed (e.g., 20s)
-          slideshow.style.transform = `translateX(${targetPosition}px)`; // Restart loop
-        }, 0); // Immediate reset and loop
-      });
-    }, 0);
+    // Add the class to start the animation
+    slideshow.classList.add('is-animating');
   });
 }
 
