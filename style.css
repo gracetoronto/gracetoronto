@@ -226,7 +226,8 @@ html.is-animating .transition-fade {
 @media (max-width: 767px) {
   .fc-event {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-auto-rows: auto; /* Automatically adjust row height */
     align-items: center;
     width: 100%;
     border: none; /* Remove any unwanted borders */
@@ -245,7 +246,8 @@ html.is-animating .transition-fade {
   }
 
   .fc-list-event-graphic {
-    display: none;
+    display: block; /* Ensure the graphic is displayed */
+    margin-bottom: 8px; /* Add some space below the graphic */
   }
 
   .fc-event-title {
@@ -265,7 +267,6 @@ html.is-animating .transition-fade {
     box-shadow: none;
   }
 }
-
 
 
 
