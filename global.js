@@ -1,4 +1,4 @@
-console.log("V1.486");
+console.log("V1.487");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -835,6 +835,19 @@ function showCal() {
 
     calendarInst.render();
     calendars.push(calendarInst); // Store the calendar instance
+
+    // Select all event titles
+  const eventTitles = document.querySelectorAll('.fc-list-event-title');
+
+  eventTitles.forEach(title => {
+    // Find the graphic element within the same parent
+    const graphic = title.parentElement.querySelector('.fc-event-list-graphic');
+    
+    if (graphic) {
+      // Move the graphic element inside the title element
+      title.insertBefore(graphic, title.firstChild);
+    }
+  });
   });
 }
 
