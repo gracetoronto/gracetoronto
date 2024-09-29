@@ -244,7 +244,7 @@ html.is-animating .transition-fade {
     width: 100%;
     margin-bottom: -12px; /* Adjust bottom margin */
     overflow: visible;
-    opacity: 75%;
+    opacity: 65%;
   }
 
   .fc-list-event-graphic {
