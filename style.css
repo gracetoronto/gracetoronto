@@ -243,6 +243,8 @@ html.is-animating .transition-fade {
     padding-left: 36px;
     width: 100%;
     margin-bottom: -12px; /* Adjust bottom margin */
+    overflow: visible;
+    opacity: 75%;
   }
 
   .fc-list-event-graphic {
@@ -253,7 +255,6 @@ html.is-animating .transition-fade {
     width: 100%;
     display: flex;
     align-items: center;
-    font-weight: semi-bold;
   }
 
   .event-links {
