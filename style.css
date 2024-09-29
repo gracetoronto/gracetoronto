@@ -185,7 +185,6 @@ html.is-animating .transition-fade {
 
 
 
-/* Remove hover effect on FullCalendar events */
 
 /* Remove hover effect on FullCalendar events */
 .fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event:hover,
@@ -210,25 +209,14 @@ html.is-animating .transition-fade {
   border: none !important;
 }
 
-/* Disable hover effect for all <td> and <tr> elements */
-.fc-event td:hover,
-.fc-list-event td:hover,
-.fc-event-time td:hover,
-.fc-event tr:hover,
-.fc-list-event tr:hover,
-.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event tr:hover {
-  background-color: #ffffff !important;
-  color: inherit !important;
-  border-color: inherit !important;
-}
 
 /* Additional selectors to ensure no hover effects */
-.fc-event tr:hover,
-.fc-list-event tr:hover,
+.fc-event tr,
+.fc-list-event tr,
 .fc-event td:hover,
-.fc-list-event td:hover,
-.fc-event-time:hover,
-.fc-event-time td:hover {
+.fc-list-event td,
+.fc-event-time,
+.fc-event-time td {
   background-color: #ffffff !important;
   color: inherit !important;
   border-color: inherit !important;
