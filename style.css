@@ -242,7 +242,7 @@ html.is-animating .transition-fade {
   .fc-list-event-time {
     padding-left: 36px;
     width: 100%;
-    margin-bottom: -8px; /* Adjust bottom margin */
+    margin-bottom: -12px; /* Adjust bottom margin */
   }
 
   .fc-list-event-graphic {
@@ -253,6 +253,7 @@ html.is-animating .transition-fade {
     width: 100%;
     display: flex;
     align-items: center;
+    font-weight: semi-bold;
   }
 
   .event-links {
