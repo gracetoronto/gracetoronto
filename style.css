@@ -233,7 +233,6 @@ html.is-animating .transition-fade {
   }
 
   .fc-event-time {
-    grid-column: 2; /* Place the time container in the second column */
     width: 100%;
     margin-bottom: -8px; /* Adjust bottom margin */
     opacity: 50%;
@@ -250,7 +249,6 @@ html.is-animating .transition-fade {
   }
 
   .fc-event-title {
-    grid-column: 2; /* Span one column */
     width: 100%;
     display: flex;
     align-items: center;
