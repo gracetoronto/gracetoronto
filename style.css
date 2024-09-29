@@ -246,8 +246,7 @@ html.is-animating .transition-fade {
   }
 
   .fc-list-event-graphic {
-    grid-column: auto; /* Adjust placement */
-    margin-right: 8px; /* Add some space to the right of the graphic */
+    display: none;
   }
 
   .fc-event-title {
