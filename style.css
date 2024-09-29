@@ -186,6 +186,11 @@ html.is-animating .transition-fade {
 
 
 /* Remove hover effect on FullCalendar events */
+
+tr {
+  background-color: white !important;
+}
+
 .fc-event:hover {
   background-color: white !important;
   color: inherit !important;
