@@ -235,23 +235,26 @@ html.is-animating .transition-fade {
   .fc-event-time {
     grid-column: 2; /* Place the time container in the second column */
     width: 100%;
-    margin-bottom: 8px; /* Add some space below the time */
+    margin-bottom: -8px; /* Adjust bottom margin */
     opacity: 50%;
-    margin-bottom: -16px;
   }
 
   .fc-list-event-time {
     padding-left: 36px;
     width: 100%;
+    margin-bottom: -8px; /* Adjust bottom margin */
   }
 
   .fc-list-event-graphic {
-    grid-column: 1; /* Span one column */
+    grid-column: auto; /* Adjust placement */
+    margin-right: 8px; /* Add some space to the right of the graphic */
   }
 
   .fc-event-title {
     grid-column: 2; /* Span one column */
     width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .event-links {
