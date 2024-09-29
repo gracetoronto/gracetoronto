@@ -246,8 +246,7 @@ html.is-animating .transition-fade {
   }
 
   .fc-list-event-graphic {
-    display: block; /* Ensure the graphic is displayed */
-    margin-bottom: 8px; /* Add some space below the graphic */
+    display: none; /* Ensure the graphic is displayed */
   }
 
   .fc-event-title {
