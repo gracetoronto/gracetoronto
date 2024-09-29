@@ -187,14 +187,10 @@ html.is-animating .transition-fade {
 
 /* Remove hover effect on FullCalendar events */
 
-tr {
-  background-color: white !important;
-}
-
-.fc-event:hover {
+.fc-event.fc-event-start.fc-event-end.fc-event-future.fc-list-event:hover {
   background-color: white !important;
   color: inherit !important;
-  border-color: inherit !important; /* Also reset border color if needed */
+  border-color: inherit !important; 
 }
 
 /* Base styles for event content */
