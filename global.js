@@ -1,4 +1,4 @@
-console.log("V1.490");
+console.log("V1.491");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1726,6 +1726,7 @@ function initSpideCarousel() {
     // Initialize Spide.js carousel with autoscroll extension
     new Spide(slideshow, {
       extensions: [Spide.extensions.autoscroll],
+      loop: true,
       autoscroll: {
         interval: 3000, // Adjust the interval as needed
         pauseOnHover: true
