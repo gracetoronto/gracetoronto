@@ -1,4 +1,4 @@
-console.log("V1.492");
+console.log("V1.493");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1717,7 +1717,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function initSpideCarousel() {
   console.log('Initializing Spide Carousel');
-  const slideshows = document.querySelectorAll('.slideshows');
+  const slideshows = document.querySelectorAll('.splide');
 
   if (!slideshows.length) {
     console.log('No slideshows found');
