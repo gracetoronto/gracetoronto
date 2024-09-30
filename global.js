@@ -1,4 +1,4 @@
-console.log("V1.491");
+console.log("V1.492");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1716,32 +1716,34 @@ document.addEventListener("DOMContentLoaded", function () {
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
 function initSpideCarousel() {
-  // Get the slideshow container
+  console.log('Initializing Spide Carousel');
   const slideshows = document.querySelectorAll('.slideshows');
 
-  // Abort if no slideshow found
-  if (!slideshows.length) return;
+  if (!slideshows.length) {
+    console.log('No slideshows found');
+    return;
+  }
 
   slideshows.forEach((slideshow) => {
-    // Initialize Spide.js carousel with autoscroll extension
+    console.log('Initializing slideshow:', slideshow);
     new Spide(slideshow, {
       extensions: [Spide.extensions.autoscroll],
       loop: true,
       autoscroll: {
-        interval: 6000, // Adjust the interval as needed
+        interval: 6000,
         pauseOnHover: true
       }
     });
   });
 }
 
-// Swup.js integration
 swup.hooks.on('content:replace', () => {
-  initSpideCarousel(); // Reinitialize carousel on every swup navigation
+  console.log('Swup content replaced');
+  initSpideCarousel();
 });
 
-// Run on initial page load
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM fully loaded');
   initSpideCarousel();
 });
 
