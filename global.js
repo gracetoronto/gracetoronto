@@ -1,4 +1,4 @@
-console.log("V1.489");
+console.log("V1.490");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1715,7 +1715,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
-function initSlideshowScrolling() {
+function initSpideCarousel() {
   // Get the slideshow container
   const slideshows = document.querySelectorAll('.slideshows');
 
@@ -1723,25 +1723,25 @@ function initSlideshowScrolling() {
   if (!slideshows.length) return;
 
   slideshows.forEach((slideshow) => {
-    // Reset the animation by removing the class and forcing reflow
-    slideshow.classList.remove('is-animating');
-    
-    // Force a reflow to reset the animation (important for restarting the CSS animation)
-    void slideshow.offsetWidth;
-
-    // Reapply the class to start the animation
-    slideshow.classList.add('is-animating');
+    // Initialize Spide.js carousel with autoscroll extension
+    new Spide(slideshow, {
+      extensions: [Spide.extensions.autoscroll],
+      autoscroll: {
+        interval: 3000, // Adjust the interval as needed
+        pauseOnHover: true
+      }
+    });
   });
 }
 
 // Swup.js integration
 swup.hooks.on('content:replace', () => {
-  initSlideshowScrolling(); // Reinitialize slideshow on every swup navigation
+  initSpideCarousel(); // Reinitialize carousel on every swup navigation
 });
 
 // Run on initial page load
 document.addEventListener('DOMContentLoaded', () => {
-  initSlideshowScrolling();
+  initSpideCarousel();
 });
 
 
