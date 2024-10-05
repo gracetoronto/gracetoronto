@@ -1,4 +1,4 @@
-console.log("V1.493");
+console.log("V1.494");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1355,6 +1355,20 @@ function initCarousel() {
   const vw5 = window.innerWidth * 0.05;
   const maxScrollPosition = carousel.scrollWidth - container.offsetWidth;
 
+  function updateButtonStates() {
+    const currentScrollPosition = container.scrollLeft;
+    if (currentScrollPosition <= 0) {
+      leftButton.style.opacity = '0.5';
+    } else {
+      leftButton.style.opacity = '1';
+    }
+    if (currentScrollPosition >= maxScrollPosition) {
+      rightButton.style.opacity = '0.5';
+    } else {
+      rightButton.style.opacity = '1';
+    }
+  }
+
   leftButton.addEventListener('click', () => {
     let currentScrollPosition = container.scrollLeft;
     const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
@@ -1363,6 +1377,7 @@ function initCarousel() {
       currentScrollPosition = 0;
     }
     container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
+    updateButtonStates();
   });
 
   rightButton.addEventListener('click', () => {
@@ -1375,6 +1390,7 @@ function initCarousel() {
       currentScrollPosition = nearestCardPosition + cardFullWidth;
     }
     container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
+    updateButtonStates();
   });
 
   function adjustScrollToNearestCard() {
@@ -1382,6 +1398,7 @@ function initCarousel() {
     const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
     const adjustedPosition = Math.min(nearestCardPosition, maxScrollPosition + vw5);
     container.scrollTo({ left: adjustedPosition, behavior: 'smooth' });
+    updateButtonStates();
   }
 
   // Ensure the initial state respects the max width and margin
@@ -1391,14 +1408,15 @@ function initCarousel() {
   if (totalCarouselWidth < containerWidth) {
     carousel.style.justifyContent = 'flex-start';
   }
+
+  // Initial update on page load
+  updateButtonStates();
 }
 
 // Wait for the DOM content to be fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-  // Initial update on page load
   initCarousel();
 });
-
 
 
 //---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY---
