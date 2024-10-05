@@ -1,4 +1,4 @@
-console.log("V1.494");
+console.log("V1.495");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1359,13 +1359,17 @@ function initCarousel() {
     const currentScrollPosition = container.scrollLeft;
     if (currentScrollPosition <= 0) {
       leftButton.style.opacity = '0.5';
+      leftButton.style.cursor = 'default';
     } else {
       leftButton.style.opacity = '1';
+      leftButton.style.cursor = 'pointer';
     }
     if (currentScrollPosition >= maxScrollPosition) {
       rightButton.style.opacity = '0.5';
+      rightButton.style.cursor = 'default';
     } else {
       rightButton.style.opacity = '1';
+      rightButton.style.cursor = 'pointer';
     }
   }
 
@@ -1377,7 +1381,7 @@ function initCarousel() {
       currentScrollPosition = 0;
     }
     container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
-    updateButtonStates();
+    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
   });
 
   rightButton.addEventListener('click', () => {
@@ -1390,7 +1394,7 @@ function initCarousel() {
       currentScrollPosition = nearestCardPosition + cardFullWidth;
     }
     container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
-    updateButtonStates();
+    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
   });
 
   function adjustScrollToNearestCard() {
@@ -1398,7 +1402,7 @@ function initCarousel() {
     const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
     const adjustedPosition = Math.min(nearestCardPosition, maxScrollPosition + vw5);
     container.scrollTo({ left: adjustedPosition, behavior: 'smooth' });
-    updateButtonStates();
+    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
   }
 
   // Ensure the initial state respects the max width and margin
