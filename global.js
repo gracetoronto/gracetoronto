@@ -1,4 +1,4 @@
-console.log("V1.498");
+console.log("V1.499");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2280,20 +2280,24 @@ function initEventDescriptionToggle() {
   descriptions.forEach(description => {
     const fade = description.querySelector('.event__fade');
     const close = description.querySelector('.event__close');
+    
+    // Ensure cursor is set to pointer for both fade and close elements
+    fade.style.cursor = 'pointer';
+    close.style.cursor = 'pointer';
 
     // Set the initial max height for the description
     description.style.maxHeight = '80px';
     description.style.overflow = 'hidden';
-    description.style.transition = 'max-height 0.5s ease';
+    description.style.transition = 'max-height 0.3s ease-in-out'; // Quicker, smoother transition
 
     // Function to expand the description
     fade.addEventListener('click', () => {
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
-      const fullHeight = description.scrollHeight + 12 + 'px'; // Add 12px to calculated height
+      const fullHeight = description.scrollHeight + 24 + 'px'; // Add 24px to calculated height
       description.style.maxHeight = '80px'; // Reset to 80px temporarily
       setTimeout(() => {
-        description.style.maxHeight = fullHeight; // Transition to full height with extra 12px
+        description.style.maxHeight = fullHeight; // Transition to full height with extra 24px
         description.style.overflow = 'visible'; // Ensure all content is visible after transition
       }, 10); // Timeout to ensure smooth transition starts
 
