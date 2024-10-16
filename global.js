@@ -1,4 +1,4 @@
-console.log("V1.501");
+console.log("V1.502");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2287,9 +2287,9 @@ function initEventDescriptionToggle() {
 
     // Set the initial styles for fade and close elements
     fade.style.opacity = 1;
-    fade.style.transition = 'opacity 0.2s ease';
+    fade.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)'; // Smoother fade transition
     close.style.opacity = 0;
-    close.style.transition = 'opacity 0.2s ease';
+    close.style.transition = 'opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)'; // Smoother fade transition
     close.style.display = 'none'; // Initially hidden
 
     // Set the initial max height for the description
@@ -2305,7 +2305,7 @@ function initEventDescriptionToggle() {
         fade.style.display = 'none';
         close.style.display = 'block';
         close.style.opacity = 1;
-      }, 200); // Small delay to ensure opacity transition is visible
+      }, 300); // Small delay to ensure fade-out is complete
 
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
@@ -2325,14 +2325,18 @@ function initEventDescriptionToggle() {
       description.style.maxHeight = '80px';
       description.style.overflow = 'hidden';
 
-      // Hide close button and show fade button after the collapse animation completes
+      // Start fading in `.event__fade` halfway through the collapse animation
+      setTimeout(() => {
+        fade.style.display = 'block';
+        fade.style.opacity = 1; // Fade fade button in during collapse
+      }, 200); // Start fading in halfway through the collapse
+
+      // Hide close button after the collapse animation completes
       description.addEventListener('transitionend', () => {
         close.style.opacity = 0;
         setTimeout(() => {
           close.style.display = 'none';
-          fade.style.display = 'block';
-          fade.style.opacity = 1; // Fade fade button in after transition completes
-        }, 200); // Small delay to ensure opacity transition is visible
+        }, 300); // Small delay to ensure fade-out is complete
       }, { once: true });
     });
   });
