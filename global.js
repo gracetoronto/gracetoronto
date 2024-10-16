@@ -1,4 +1,4 @@
-console.log("V1.496");
+console.log("V1.497");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2281,22 +2281,29 @@ function initEventDescriptionToggle() {
     const fade = description.querySelector('.event__fade');
     const close = description.querySelector('.event__close');
     
-    // Set the initial height for the description
+    // Set the initial max height for the description
     description.style.maxHeight = '80px';
     description.style.overflow = 'hidden';
     description.style.transition = 'max-height 0.5s ease';
 
     // Function to expand the description
     fade.addEventListener('click', () => {
-      description.style.maxHeight = description.scrollHeight + 'px';
-      description.style.overflow = 'auto'; // Allow auto height after expansion
+      // Remove the max-height to calculate natural height, then set it back
+      description.style.maxHeight = 'none';
+      const fullHeight = description.scrollHeight + 'px';
+      description.style.maxHeight = '80px'; // Reset to 80px temporarily
+      setTimeout(() => {
+        description.style.maxHeight = fullHeight; // Transition to full height
+        description.style.overflow = 'visible'; // Ensure all content is visible after transition
+      }, 10); // Timeout to ensure smooth transition starts
+
       fade.style.display = 'none';
       close.style.display = 'block';
     });
 
     // Function to collapse the description
     close.addEventListener('click', () => {
-      description.style.maxHeight = '80px';
+      description.style.maxHeight = '80px'; // Collapse back to 80px
       description.style.overflow = 'hidden'; // Hide overflow when collapsed
       close.style.display = 'none';
       fade.style.display = 'block';
@@ -2311,3 +2318,4 @@ swup.hooks.on('content:replace', () => {
 
 // You can also run it on the initial page load
 document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
+
