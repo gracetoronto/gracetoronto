@@ -1,4 +1,4 @@
-console.log("V1.502");
+console.log("V1.503");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2299,13 +2299,14 @@ function initEventDescriptionToggle() {
 
     // Function to expand the description
     fade.addEventListener('click', () => {
-      // Hide the fade button and show the close button immediately before expanding
+      // Start fading out `.event__fade` immediately
       fade.style.opacity = 0;
+
+      // Ensure `.event__close` starts appearing before `.event__fade` is fully hidden
       setTimeout(() => {
-        fade.style.display = 'none';
         close.style.display = 'block';
-        close.style.opacity = 1;
-      }, 300); // Small delay to ensure fade-out is complete
+        close.style.opacity = 1; // Fade in `.event__close`
+      }, 100); // Small delay to start `.event__close` fade-in before `.event__fade` finishes
 
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
@@ -2317,6 +2318,11 @@ function initEventDescriptionToggle() {
         description.style.maxHeight = fullHeight; // Transition to full height with extra 24px
         description.style.overflow = 'visible'; // Ensure all content is visible after transition
       }, 10); // Small delay to ensure smooth transition start
+
+      // Hide `.event__fade` after it's fully faded out
+      setTimeout(() => {
+        fade.style.display = 'none';
+      }, 300); // Delay corresponds to the duration of the fade-out
     });
 
     // Function to collapse the description
@@ -2328,7 +2334,7 @@ function initEventDescriptionToggle() {
       // Start fading in `.event__fade` halfway through the collapse animation
       setTimeout(() => {
         fade.style.display = 'block';
-        fade.style.opacity = 1; // Fade fade button in during collapse
+        fade.style.opacity = 1; // Fade in `.event__fade` during collapse
       }, 200); // Start fading in halfway through the collapse
 
       // Hide close button after the collapse animation completes
@@ -2349,6 +2355,7 @@ swup.hooks.on('content:replace', () => {
 
 // You can also run it on the initial page load
 document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
+
 
 
 
