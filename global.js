@@ -1,4 +1,4 @@
-console.log("V1.495");
+console.log("V1.496");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2263,3 +2263,51 @@ document.addEventListener('DOMContentLoaded', () => {
 swup.hooks.on('content:replace', () => {
   checkAndToggleLivePageClass();
 });
+
+
+
+
+
+//---EVENT DESCRIPTION ACCORDION---
+
+function initEventDescriptionToggle() {
+  // Check if '.event' exists on the page
+  if (!document.querySelector('.event')) return; 
+
+  // Get all elements with class '.event__description'
+  const descriptions = document.querySelectorAll('.event__description');
+
+  descriptions.forEach(description => {
+    const fade = description.querySelector('.event__fade');
+    const close = description.querySelector('.event__close');
+    
+    // Set the initial height for the description
+    description.style.maxHeight = '80px';
+    description.style.overflow = 'hidden';
+    description.style.transition = 'max-height 0.5s ease';
+
+    // Function to expand the description
+    fade.addEventListener('click', () => {
+      description.style.maxHeight = description.scrollHeight + 'px';
+      description.style.overflow = 'auto'; // Allow auto height after expansion
+      fade.style.display = 'none';
+      close.style.display = 'block';
+    });
+
+    // Function to collapse the description
+    close.addEventListener('click', () => {
+      description.style.maxHeight = '80px';
+      description.style.overflow = 'hidden'; // Hide overflow when collapsed
+      close.style.display = 'none';
+      fade.style.display = 'block';
+    });
+  });
+}
+
+// Example of triggering this function on swup navigation
+swup.hooks.on('content:replace', () => {
+  initEventDescriptionToggle();
+});
+
+// You can also run it on the initial page load
+document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
