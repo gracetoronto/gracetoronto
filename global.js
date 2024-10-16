@@ -1,4 +1,4 @@
-console.log("V1.497");
+console.log("V1.498");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2272,7 +2272,7 @@ swup.hooks.on('content:replace', () => {
 
 function initEventDescriptionToggle() {
   // Check if '.event' exists on the page
-  if (!document.querySelector('.event')) return; 
+  if (!document.querySelector('.event')) return;
 
   // Get all elements with class '.event__description'
   const descriptions = document.querySelectorAll('.event__description');
@@ -2280,7 +2280,7 @@ function initEventDescriptionToggle() {
   descriptions.forEach(description => {
     const fade = description.querySelector('.event__fade');
     const close = description.querySelector('.event__close');
-    
+
     // Set the initial max height for the description
     description.style.maxHeight = '80px';
     description.style.overflow = 'hidden';
@@ -2290,10 +2290,10 @@ function initEventDescriptionToggle() {
     fade.addEventListener('click', () => {
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
-      const fullHeight = description.scrollHeight + 'px';
+      const fullHeight = description.scrollHeight + 12 + 'px'; // Add 12px to calculated height
       description.style.maxHeight = '80px'; // Reset to 80px temporarily
       setTimeout(() => {
-        description.style.maxHeight = fullHeight; // Transition to full height
+        description.style.maxHeight = fullHeight; // Transition to full height with extra 12px
         description.style.overflow = 'visible'; // Ensure all content is visible after transition
       }, 10); // Timeout to ensure smooth transition starts
 
@@ -2318,4 +2318,5 @@ swup.hooks.on('content:replace', () => {
 
 // You can also run it on the initial page load
 document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
+
 
