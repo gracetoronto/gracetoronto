@@ -1,4 +1,4 @@
-console.log("V1.500");
+console.log("V1.501");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2285,6 +2285,13 @@ function initEventDescriptionToggle() {
     fade.style.cursor = 'pointer';
     close.style.cursor = 'pointer';
 
+    // Set the initial styles for fade and close elements
+    fade.style.opacity = 1;
+    fade.style.transition = 'opacity 0.2s ease';
+    close.style.opacity = 0;
+    close.style.transition = 'opacity 0.2s ease';
+    close.style.display = 'none'; // Initially hidden
+
     // Set the initial max height for the description
     description.style.maxHeight = '80px';
     description.style.overflow = 'hidden';
@@ -2292,9 +2299,13 @@ function initEventDescriptionToggle() {
 
     // Function to expand the description
     fade.addEventListener('click', () => {
-      // Hide the fade button and show the close button before the animation
-      fade.style.display = 'none';
-      close.style.display = 'block';
+      // Hide the fade button and show the close button immediately before expanding
+      fade.style.opacity = 0;
+      setTimeout(() => {
+        fade.style.display = 'none';
+        close.style.display = 'block';
+        close.style.opacity = 1;
+      }, 200); // Small delay to ensure opacity transition is visible
 
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
@@ -2310,13 +2321,19 @@ function initEventDescriptionToggle() {
 
     // Function to collapse the description
     close.addEventListener('click', () => {
-      // Hide the close button and show the fade button before the animation
-      close.style.display = 'none';
-      fade.style.display = 'block';
-
       // Collapse back to 80px and hide overflow
       description.style.maxHeight = '80px';
       description.style.overflow = 'hidden';
+
+      // Hide close button and show fade button after the collapse animation completes
+      description.addEventListener('transitionend', () => {
+        close.style.opacity = 0;
+        setTimeout(() => {
+          close.style.display = 'none';
+          fade.style.display = 'block';
+          fade.style.opacity = 1; // Fade fade button in after transition completes
+        }, 200); // Small delay to ensure opacity transition is visible
+      }, { once: true });
     });
   });
 }
@@ -2328,6 +2345,7 @@ swup.hooks.on('content:replace', () => {
 
 // You can also run it on the initial page load
 document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
+
 
 
 
