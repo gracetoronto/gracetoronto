@@ -1,4 +1,4 @@
-console.log("V1.499");
+console.log("V1.500");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2288,29 +2288,35 @@ function initEventDescriptionToggle() {
     // Set the initial max height for the description
     description.style.maxHeight = '80px';
     description.style.overflow = 'hidden';
-    description.style.transition = 'max-height 0.3s ease-in-out'; // Quicker, smoother transition
+    description.style.transition = 'max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; // Smoother easing
 
     // Function to expand the description
     fade.addEventListener('click', () => {
+      // Hide the fade button and show the close button before the animation
+      fade.style.display = 'none';
+      close.style.display = 'block';
+
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
       const fullHeight = description.scrollHeight + 24 + 'px'; // Add 24px to calculated height
       description.style.maxHeight = '80px'; // Reset to 80px temporarily
+
+      // Start the transition
       setTimeout(() => {
         description.style.maxHeight = fullHeight; // Transition to full height with extra 24px
         description.style.overflow = 'visible'; // Ensure all content is visible after transition
-      }, 10); // Timeout to ensure smooth transition starts
-
-      fade.style.display = 'none';
-      close.style.display = 'block';
+      }, 10); // Small delay to ensure smooth transition start
     });
 
     // Function to collapse the description
     close.addEventListener('click', () => {
-      description.style.maxHeight = '80px'; // Collapse back to 80px
-      description.style.overflow = 'hidden'; // Hide overflow when collapsed
+      // Hide the close button and show the fade button before the animation
       close.style.display = 'none';
       fade.style.display = 'block';
+
+      // Collapse back to 80px and hide overflow
+      description.style.maxHeight = '80px';
+      description.style.overflow = 'hidden';
     });
   });
 }
@@ -2322,5 +2328,6 @@ swup.hooks.on('content:replace', () => {
 
 // You can also run it on the initial page load
 document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
+
 
 
