@@ -1,4 +1,4 @@
-console.log("V1.503");
+console.log("V1.504");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2293,7 +2293,7 @@ function initEventDescriptionToggle() {
     close.style.display = 'none'; // Initially hidden
 
     // Set the initial max height for the description
-    description.style.maxHeight = '80px';
+    description.style.maxHeight = '110px';
     description.style.overflow = 'hidden';
     description.style.transition = 'max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; // Smoother easing
 
@@ -2311,7 +2311,7 @@ function initEventDescriptionToggle() {
       // Remove the max-height to calculate natural height, then set it back
       description.style.maxHeight = 'none';
       const fullHeight = description.scrollHeight + 24 + 'px'; // Add 24px to calculated height
-      description.style.maxHeight = '80px'; // Reset to 80px temporarily
+      description.style.maxHeight = '110px'; // Reset to 110px temporarily
 
       // Start the transition
       setTimeout(() => {
@@ -2327,8 +2327,8 @@ function initEventDescriptionToggle() {
 
     // Function to collapse the description
     close.addEventListener('click', () => {
-      // Collapse back to 80px and hide overflow
-      description.style.maxHeight = '80px';
+      // Collapse back to 110px and hide overflow
+      description.style.maxHeight = '110px';
       description.style.overflow = 'hidden';
 
       // Start fading in `.event__fade` halfway through the collapse animation
