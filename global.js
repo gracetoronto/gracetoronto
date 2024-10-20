@@ -1,4 +1,4 @@
-console.log("V1.507");
+console.log("V1.508");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1743,7 +1743,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
+function initInfiniteSlideshow() {
+  const slideshowTrack = document.querySelector('.slideshow__track');
+  const slides = document.querySelectorAll('.slideshow__item');
+  
+  if (!slideshowTrack || slides.length === 0) return;
 
+  // Clone slides for seamless looping
+  slides.forEach((slide) => {
+    const clone = slide.cloneNode(true);
+    slideshowTrack.appendChild(clone);
+  });
+
+  let scrollAmount = 0;
+  const scrollSpeed = 1; // Adjust this value for faster/slower scrolling
+
+  function scrollSlideshow() {
+    scrollAmount += scrollSpeed;
+    slideshowTrack.style.transform = `translateX(-${scrollAmount}px)`;
+
+    // Reset the scroll when it reaches the end of the original slides
+    const maxScroll = slides.length * slides[0].offsetWidth;
+    if (scrollAmount >= maxScroll) {
+      scrollAmount = 0;
+      slideshowTrack.style.transform = 'translateX(0)';
+    }
+
+    requestAnimationFrame(scrollSlideshow);
+  }
+
+  scrollSlideshow();
+}
+
+// Reinitialize the slideshow on Swup.js page load
+swup.hooks.on('content:replace', () => {
+  initInfiniteSlideshow();
+});
+
+// Initialize on the first page load
+document.addEventListener('DOMContentLoaded', () => {
+  initInfiniteSlideshow();
+});
 
 
 
