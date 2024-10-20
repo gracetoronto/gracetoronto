@@ -1,4 +1,4 @@
-console.log("V1.504");
+console.log("V1.505");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1360,16 +1360,20 @@ function initCarousel() {
     if (currentScrollPosition <= 0) {
       leftButton.style.opacity = '0.5';
       leftButton.style.cursor = 'default';
+      leftButton.style.pointerEvents = 'none';
     } else {
       leftButton.style.opacity = '1';
       leftButton.style.cursor = 'pointer';
+      leftButton.style.pointerEvents = 'auto';
     }
     if (currentScrollPosition >= maxScrollPosition) {
       rightButton.style.opacity = '0.5';
       rightButton.style.cursor = 'default';
+      rightButton.style.pointerEvents = 'none';
     } else {
       rightButton.style.opacity = '1';
       rightButton.style.cursor = 'pointer';
+      rightButton.style.pointerEvents = 'auto';
     }
   }
 
@@ -1421,6 +1425,8 @@ function initCarousel() {
 document.addEventListener("DOMContentLoaded", function () {
   initCarousel();
 });
+
+
 
 
 //---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY---
@@ -1598,7 +1604,7 @@ function initializeMinistryNavigation() {
 
 
 
-//MINISTRY PAGE NAV CURRENT LINK SELECTION
+//---MINISTRY PAGE NAV CURRENT LINK SELECTION---
 
 function checkCurrentMinistriesLink() {
   // Check if the current URL matches the pattern /ministries/(*)
