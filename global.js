@@ -1,4 +1,4 @@
-console.log("V1.506");
+console.log("V1.507");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1743,37 +1743,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
-function initSpideCarousel() {
-  console.log('Initializing Spide Carousel');
-  const slideshows = document.querySelectorAll('.splide');
 
-  if (!slideshows.length) {
-    console.log('No slideshows found');
-    return;
-  }
-
-  slideshows.forEach((slideshow) => {
-    console.log('Initializing slideshow:', slideshow);
-    new Spide(slideshow, {
-      extensions: [Spide.extensions.autoscroll],
-      loop: true,
-      autoscroll: {
-        interval: 6000,
-        pauseOnHover: true
-      }
-    });
-  });
-}
-
-swup.hooks.on('content:replace', () => {
-  console.log('Swup content replaced');
-  initSpideCarousel();
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded');
-  initSpideCarousel();
-});
 
 
 
