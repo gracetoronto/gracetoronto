@@ -1,4 +1,4 @@
-console.log("V1.508");
+console.log("V1.509");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1744,16 +1744,14 @@ document.addEventListener("DOMContentLoaded", function () {
 //---MINISTRY SLIDESHOW FUNCTIONALITY---
 
 function initInfiniteSlideshow() {
+  const slideshow = document.querySelector('.slideshow');
   const slideshowTrack = document.querySelector('.slideshow__track');
   const slides = document.querySelectorAll('.slideshow__item');
-  
-  if (!slideshowTrack || slides.length === 0) return;
 
-  // Clone slides for seamless looping
-  slides.forEach((slide) => {
-    const clone = slide.cloneNode(true);
-    slideshowTrack.appendChild(clone);
-  });
+  if (!slideshow || !slideshowTrack || slides.length === 0) return;
+
+  // Clone the track for infinite scrolling
+  slideshowTrack.innerHTML += slideshowTrack.innerHTML;
 
   let scrollAmount = 0;
   const scrollSpeed = 1; // Adjust this value for faster/slower scrolling
@@ -1762,8 +1760,8 @@ function initInfiniteSlideshow() {
     scrollAmount += scrollSpeed;
     slideshowTrack.style.transform = `translateX(-${scrollAmount}px)`;
 
-    // Reset the scroll when it reaches the end of the original slides
-    const maxScroll = slides.length * slides[0].offsetWidth;
+    // Reset the scroll when it reaches the end of the original track
+    const maxScroll = slideshowTrack.scrollWidth / 2;
     if (scrollAmount >= maxScroll) {
       scrollAmount = 0;
       slideshowTrack.style.transform = 'translateX(0)';
