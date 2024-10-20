@@ -112,26 +112,7 @@ html.is-animating .transition-fade {
 
 
 
-/* Ministry slideshow animation keyframes */
 
-
-.slideshows .slideshows-inner { /* Assuming you have an inner wrapper for the images */
-  display: flex;
-  width: 200%; /* Double the width to allow for smooth scroll */
-}
-
-.is-animating .slideshows-inner {
-  animation: slideshowScroll 20s linear infinite; /* Continuous scroll */
-}
-
-@keyframes slideshowScroll {
-  0% {
-    transform: translateX(0); /* Start from the left */
-  }
-  100% {
-    transform: translateX(-50%); /* Scroll 50% of the container width */
-  }
-}
 
 
 
