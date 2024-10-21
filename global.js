@@ -1,4 +1,4 @@
-console.log("V1.512");
+console.log("V1.513");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1757,21 +1757,17 @@ function initInfiniteSlideshow() {
   });
 
   let scrollAmount = 0;
-  const scrollSpeed = 1; // Adjust this value for faster/slower scrolling
-  const totalSlides = slides.length;
-  const singleSlideWidth = slides[0].offsetWidth;
-  const totalWidth = singleSlideWidth * totalSlides;
+  const scrollSpeed = 1.5; // Adjust this value for faster/slower scrolling
 
   function scrollSlideshow() {
     scrollAmount += scrollSpeed;
+    slideshowTrack.style.transform = `translateX(-${scrollAmount}px)`;
 
-    if (scrollAmount >= totalWidth) {
-      // Instantly reset to the start to avoid a visible glitch
-      slideshowTrack.style.transform = `translateX(0)`;
+    // Reset the scroll when it reaches the end of the original slides
+    const maxScroll = slides.length * slides[0].offsetWidth;
+    if (scrollAmount >= maxScroll) {
       scrollAmount = 0;
-    } else {
-      // Regular scroll
-      slideshowTrack.style.transform = `translateX(-${scrollAmount}px)`;
+      slideshowTrack.style.transform = 'translateX(0)';
     }
 
     requestAnimationFrame(scrollSlideshow);
