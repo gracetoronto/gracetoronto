@@ -2319,7 +2319,7 @@ function initEventDescriptionToggle() {
 
       // Ensure `.event__close` starts appearing before `.event__fade` is fully hidden
       setTimeout(() => {
-        close.style.display = 'block';
+        close.style.display = 'flex';
         close.style.opacity = 1; // Fade in `.event__close`
       }, 100); // Small delay to start `.event__close` fade-in before `.event__fade` finishes
 
@@ -2348,7 +2348,7 @@ function initEventDescriptionToggle() {
 
       // Start fading in `.event__fade` halfway through the collapse animation
       setTimeout(() => {
-        fade.style.display = 'block';
+        fade.style.display = 'flex';
         fade.style.opacity = 1; // Fade in `.event__fade` during collapse
       }, 200); // Start fading in halfway through the collapse
 
