@@ -1,4 +1,4 @@
-console.log("V1.513");
+console.log("V1.514");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2384,40 +2384,39 @@ document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
   //---CHURCH UPDATES SHARE BUTTON FUNCTIONALITY---
 
 function initShareLinks() {
-  document.addEventListener('DOMContentLoaded', function() {
-    // Facebook Share
-    document.querySelector('.share__facebook').addEventListener('click', function() {
-      const url = encodeURIComponent(window.location.href);
-      const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-      window.open(facebookShareUrl, '_blank');
-    });
+  // Facebook Share
+  document.querySelector('.share__facebook').addEventListener('click', function() {
+    const url = encodeURIComponent(window.location.href);
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    window.open(facebookShareUrl, '_blank');
+  });
 
-    // X (Twitter) Share
-    document.querySelector('.share__x').addEventListener('click', function() {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(document.title); // Customize the tweet text if needed
-      const twitterShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
-      window.open(twitterShareUrl, '_blank');
-    });
+  // X (Twitter) Share
+  document.querySelector('.share__x').addEventListener('click', function() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(document.title); // Customize the tweet text if needed
+    const twitterShareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    window.open(twitterShareUrl, '_blank');
+  });
 
-    // Email Share
-    document.querySelector('.share__email').addEventListener('click', function() {
-      const subject = encodeURIComponent('{{wf {&quot;path&quot;:&quot;name&quot;,&quot;type&quot;:&quot;PlainText&quot;\} }}');
-      const body = encodeURIComponent(`Check out this update from Grace Toronto Church: ${window.location.href}`);
-      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
-      window.location.href = mailtoLink;
-    });
+  // Email Share
+  document.querySelector('.share__email').addEventListener('click', function() {
+    const subject = encodeURIComponent('{{wf {&quot;path&quot;:&quot;name&quot;,&quot;type&quot;:&quot;PlainText&quot;\} }}');
+    const body = encodeURIComponent(`Check out this update from Grace Toronto Church: ${window.location.href}`);
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+  });
 
-    // Copy Link to Clipboard
-    document.querySelector('.share__copy').addEventListener('click', function() {
-      const url = window.location.href;
-      navigator.clipboard.writeText(url).then(function() {
-        alert('Link copied to clipboard!');
-      }, function(err) {
-        alert('Failed to copy the link.');
-      });
+  // Copy Link to Clipboard
+  document.querySelector('.share__copy').addEventListener('click', function() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(function() {
+      alert('Link copied to clipboard!');
+    }, function(err) {
+      alert('Failed to copy the link.');
     });
   });
 }
 
+// Attach event listeners on initial load
 initShareLinks();
