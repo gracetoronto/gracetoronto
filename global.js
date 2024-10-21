@@ -1,4 +1,4 @@
-console.log("V1.509");
+console.log("V1.510");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -224,6 +224,7 @@ swup.hooks.on('content:replace', () => {
   loadYouTubeAPI();
   initSmoothScrollToCareAnchor();
   checkAndToggleLivePageClass();
+  initShareLinks();
 });
 
 
