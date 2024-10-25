@@ -1,4 +1,4 @@
-console.log("V1.514");
+console.log("V1.515");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -6,6 +6,7 @@ console.log("V1.514");
 const swup = new Swup({
   animateHistoryBrowsing: true,
   plugins: [
+    new SwupGaPlugin(),
     new SwupPreloadPlugin(),
     new SwupFragmentPlugin({
       rules: [
