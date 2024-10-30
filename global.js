@@ -1,4 +1,4 @@
-console.log("V1.533");
+console.log("V1.534");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2372,7 +2372,7 @@ function initVideoTriggers() {
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
-      const videoId = parseInt(this.getAttribute('data-trigger'), 10); // Ensure it's an integer
+      const videoId = this.getAttribute('data-trigger'); // Get the trigger id
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
       if (videoModal) {
@@ -2382,7 +2382,7 @@ function initVideoTriggers() {
 
         // Set opacity to 0 and fade in
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 1000ms'; // Fade duration
+        videoContainer.style.transition = 'opacity 750ms'; // Fade duration
         videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
         // Initialize Vimeo player
