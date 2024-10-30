@@ -1,4 +1,4 @@
-console.log("V1.529");
+console.log("V1.530");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2412,23 +2412,20 @@ function initVideoModals() {
       }).then(() => {
         console.log('Vimeo video is now playing muted.');
 
-        // Set a timeout to unmute after a brief moment
-        setTimeout(() => {
+        // Set a timeout to allow user to unmute via interaction
+        const unmuteButton = videoElement.querySelector('.unmute__button');
+        unmuteButton.style.display = 'block'; // Show unmute button
+        
+        unmuteButton.addEventListener('click', () => {
           player.setVolume(1).then(() => {
             console.log('Vimeo video is now unmuted and playing with sound.');
+            unmuteButton.style.display = 'none'; // Hide the button after unmuting
           }).catch(error => {
             console.error('Error unmuting video:', error);
           });
-        }, 500); // Adjust this timing as needed
+        });
       }).catch(error => {
         console.error('Error playing video:', error);
-        if (error.name === 'PasswordError') {
-          console.error('The video is password-protected.');
-        } else if (error.name === 'PrivacyError') {
-          console.error('The video is not allowed to be embedded.');
-        } else {
-          console.error('Autoplay may be blocked. Ensure user interaction first.');
-        }
       });
 
       // Handle close button
