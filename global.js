@@ -1,4 +1,4 @@
-console.log("V1.515");
+console.log("V1.516");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2421,3 +2421,80 @@ function initShareLinks() {
 
 // Attach event listeners on initial load
 initShareLinks();
+
+
+
+
+
+//---VIDEO MODAL FUNCTIONALITY---
+document.addEventListener('DOMContentLoaded', () => {
+  const initVideoModalLogic = () => {
+    // Query all triggers and setup event listeners
+    document.querySelectorAll('[data-trigger]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const videoID = trigger.getAttribute('data-trigger');
+        const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
+        
+        // If no matching video element, do nothing
+        if (!videoElement) return;
+        
+        // Check for mobile device
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+          const iframe = videoElement.querySelector('iframe');
+          const videoSrc = iframe ? iframe.src : null;
+          
+          if (videoSrc) {
+            // On mobile, redirect to the video URL to open it in full-screen natively
+            window.location.href = videoSrc;
+          }
+        } else {
+          // On non-mobile, open the video modal
+          videoElement.style.display = 'block';
+          
+          const videoContainer = videoElement.querySelector('.video__container');
+          const iframe = videoElement.querySelector('iframe');
+          
+          if (iframe) {
+            // Initialize Vimeo player
+            const player = new Vimeo.Player(iframe);
+            
+            // Fade in container and reset video to the start
+            videoContainer.style.opacity = 0;
+            setTimeout(() => {
+              videoContainer.style.transition = 'opacity 250ms';
+              videoContainer.style.opacity = 1;
+            }, 0);
+            
+            player.setCurrentTime(0).then(() => player.play()).catch(error => console.error(error));
+          }
+        }
+      });
+    });
+
+    // Close button functionality
+    document.querySelectorAll('.profile__close').forEach(closeButton => {
+      closeButton.addEventListener('click', () => {
+        const videoElement = closeButton.closest('.base__video');
+        
+        if (videoElement) {
+          const iframe = videoElement.querySelector('iframe');
+          if (iframe) {
+            const player = new Vimeo.Player(iframe);
+            player.unload().catch(error => console.error(error));  // Stop the video
+          }
+          videoElement.style.display = 'none';
+        }
+      });
+    });
+  };
+
+  // Attach swup.js hook to reinitialize the function after page transitions
+  if (window.swup) {
+    swup.hooks.on('content:replace', initVideoModalLogic);
+  }
+
+  // Run on initial load
+  initVideoModalLogic();
+});
