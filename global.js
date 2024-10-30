@@ -1,4 +1,4 @@
-console.log("V1.528");
+console.log("V1.529");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2406,11 +2406,20 @@ function initVideoModals() {
       const iframe = videoElement.querySelector('iframe');
       const player = new Vimeo.Player(iframe);
 
-      // Reset the video to start and play with sound
+      // Reset the video to start and play muted first
       player.setCurrentTime(0).then(() => {
-        return player.play();
+        return player.play(); // Attempt to play the video muted
       }).then(() => {
-        console.log('Vimeo video is now playing with sound.');
+        console.log('Vimeo video is now playing muted.');
+
+        // Set a timeout to unmute after a brief moment
+        setTimeout(() => {
+          player.setVolume(1).then(() => {
+            console.log('Vimeo video is now unmuted and playing with sound.');
+          }).catch(error => {
+            console.error('Error unmuting video:', error);
+          });
+        }, 500); // Adjust this timing as needed
       }).catch(error => {
         console.error('Error playing video:', error);
         if (error.name === 'PasswordError') {
