@@ -1,4 +1,4 @@
-console.log("V1.525");
+console.log("V1.526");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2366,7 +2366,6 @@ if (document.querySelector('.share__facebook')) {
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-// Function to initialize video modals and handle clicks
 function initVideoModals() {
   console.log('Initializing video modals...');
 
@@ -2391,7 +2390,7 @@ function initVideoModals() {
       console.log(`Showing video modal for ID: ${videoID}`);
 
       // Show the modal
-      videoElement.style.display = 'block';
+      videoElement.style.display = 'flex'; // Change to flex
 
       // Fade in the video container
       const videoContainer = videoElement.querySelector('.video__container');
@@ -2409,13 +2408,17 @@ function initVideoModals() {
 
       // Reset the video to start and play
       player.setCurrentTime(0).then(() => {
-        player.play().then(() => {
-          console.log('Vimeo video is now playing.');
-        }).catch(error => {
-          console.error('Error playing video:', error);
-        });
+        return player.play();
+      }).then(() => {
+        console.log('Vimeo video is now playing.');
       }).catch(error => {
-        console.error('Error setting video time:', error);
+        if (error.name === 'PasswordError') {
+          console.error('The video is password-protected.');
+        } else if (error.name === 'PrivacyError') {
+          console.error('The video is not allowed to be embedded.');
+        } else {
+          console.error('Error playing video:', error);
+        }
       });
 
       // Handle close button
