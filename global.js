@@ -1,4 +1,4 @@
-console.log("V1.516");
+console.log("V1.517");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2467,6 +2467,7 @@ document.addEventListener('DOMContentLoaded', () => {
               videoContainer.style.opacity = 1;
             }, 0);
             
+            // Reset video to the beginning and play
             player.setCurrentTime(0).then(() => player.play()).catch(error => console.error(error));
           }
         }
