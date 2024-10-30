@@ -1,4 +1,4 @@
-console.log("V1.521");
+console.log("V1.522");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2363,9 +2363,6 @@ initShareLinks();
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded and parsed'); // Initial check to confirm DOM load
-
   const initVideoModalLogic = () => {
     console.log('Video modal logic initialized'); // Confirm function initialization
 
@@ -2451,4 +2448,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Run on initial page load
   initVideoModalLogic();
-});
