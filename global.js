@@ -1,4 +1,4 @@
-console.log("V1.519");
+console.log("V1.520");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2364,18 +2364,22 @@ initShareLinks();
 //---VIDEO MODAL FUNCTIONALITY---
 
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM fully loaded and parsed'); // This should log on page load
+
   const initVideoModalLogic = () => {
     console.log('Video modal logic initialized');
 
     // Query all triggers and setup event listeners
-    document.querySelectorAll('[data-trigger]').forEach(trigger => {
+    const triggers = document.querySelectorAll('[data-trigger]');
+    console.log('Found triggers:', triggers); // Logs a list of triggers found on the page
+
+    triggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
         const videoID = trigger.getAttribute('data-trigger');
         console.log(`Trigger clicked for video ID: ${videoID}`);
 
+        // Find the matching video element
         const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
-
-        // Check if matching video element is found
         if (!videoElement) {
           console.log(`No video modal found for ID: ${videoID}`);
           return;
@@ -2400,7 +2404,7 @@ document.addEventListener('DOMContentLoaded', () => {
           
           const videoContainer = videoElement.querySelector('.video__container');
           const iframe = videoContainer.querySelector('iframe'); // Adjusted for extra layer
-
+          
           if (iframe) {
             console.log('Initializing Vimeo player');
             const player = new Vimeo.Player(iframe);
@@ -2443,6 +2447,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Attach swup.js hook to reinitialize the function after page transitions
   if (window.swup) {
     swup.hooks.on('content:replace', initVideoModalLogic);
+    console.log('Swup content:replace hook attached'); // Logs to confirm Swup hook is attached
   }
 
   // Run on initial load
