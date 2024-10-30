@@ -2366,29 +2366,31 @@ if (document.querySelector('.share__facebook')) {
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-// Basic modal visibility test
-console.log('Script Loaded');
+// Function to initialize video modals and handle clicks
+function initVideoModals() {
+  console.log('Initializing video modals...');
 
-// Define the modal visibility function
-function testVideoModalVisibility() {
-  console.log('Testing basic modal visibility functionality');
-  
+  // Select all trigger elements
   const triggers = document.querySelectorAll('[data-trigger]');
   console.log('Found triggers:', triggers);
 
+  // Loop through each trigger and set up click event
   triggers.forEach(trigger => {
     trigger.addEventListener('click', () => {
       const videoID = trigger.getAttribute('data-trigger');
       console.log(`Trigger clicked for video ID: ${videoID}`);
-      
-      // Find the corresponding video modal
+
+      // Find the corresponding video modal by matching data attributes
       const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
+
       if (!videoElement) {
         console.log(`No video modal found for ID: ${videoID}`);
-        return;
+        return; // Stop if there’s no matching video modal
       }
 
       console.log(`Showing video modal for ID: ${videoID}`);
+
+      // Show the modal
       videoElement.style.display = 'block';
 
       // Fade in the video container
@@ -2400,9 +2402,32 @@ function testVideoModalVisibility() {
           videoContainer.style.opacity = 1;
         }, 0);
       }
+
+      // Get the iframe and create a Vimeo player instance
+      const iframe = videoElement.querySelector('iframe');
+      const player = new Vimeo.Player(iframe);
+
+      // Reset the video to start and play
+      player.setCurrentTime(0).then(() => {
+        player.play().then(() => {
+          console.log('Vimeo video is now playing.');
+        }).catch(error => {
+          console.error('Error playing video:', error);
+        });
+      }).catch(error => {
+        console.error('Error setting video time:', error);
+      });
+
+      // Handle close button
+      const closeButton = videoElement.querySelector('.profile__close');
+      closeButton.addEventListener('click', () => {
+        console.log('Closing video modal...');
+        player.pause(); // Pause the video
+        videoElement.style.display = 'none'; // Hide the modal
+      });
     });
   });
 }
 
-// Execute the visibility function immediately
-testVideoModalVisibility();
+// Run the function immediately to initialize
+initVideoModals();
