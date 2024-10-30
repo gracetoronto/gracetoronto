@@ -1,4 +1,4 @@
-console.log("V1.523");
+console.log("V1.524");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2363,10 +2363,13 @@ initShareLinks();
 
 //---VIDEO MODAL FUNCTIONALITY---
 
+// Basic modal visibility test
+console.log('Script Loaded');
+
+// Define the modal visibility function
 function testVideoModalVisibility() {
   console.log('Testing basic modal visibility functionality');
-
-  // Select all trigger elements
+  
   const triggers = document.querySelectorAll('[data-trigger]');
   console.log('Found triggers:', triggers);
 
@@ -2374,21 +2377,18 @@ function testVideoModalVisibility() {
     trigger.addEventListener('click', () => {
       const videoID = trigger.getAttribute('data-trigger');
       console.log(`Trigger clicked for video ID: ${videoID}`);
-
-      // Find the corresponding video modal by matching data attributes
+      
+      // Find the corresponding video modal
       const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
-
       if (!videoElement) {
         console.log(`No video modal found for ID: ${videoID}`);
-        return; // Stop if there’s no matching video modal
+        return;
       }
 
       console.log(`Showing video modal for ID: ${videoID}`);
-      
-      // Show the modal
       videoElement.style.display = 'block';
 
-      // Apply fade-in animation
+      // Fade in the video container
       const videoContainer = videoElement.querySelector('.video__container');
       if (videoContainer) {
         videoContainer.style.opacity = 0;
@@ -2401,5 +2401,5 @@ function testVideoModalVisibility() {
   });
 }
 
-// Run the function immediately to bypass potential event issues
+// Execute the visibility function immediately
 testVideoModalVisibility();
