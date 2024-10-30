@@ -1,4 +1,4 @@
-console.log("V1.535");
+console.log("V1.536");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2422,7 +2422,7 @@ function initVideoTriggers() {
 
         // Set opacity to 0 and fade in
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 750ms'; // Fade duration
+        videoContainer.style.transition = 'opacity 1500ms'; // Fade duration
         videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
         // Initialize Vimeo player
@@ -2432,13 +2432,15 @@ function initVideoTriggers() {
         player.loadVideo(videoId).then(function() {
           player.setAutopause(false); // Prevent the video from pausing when another video plays
 
-          // Immediately set current time to 0 and play
+          // Immediately set current time to 0 and play with a delay
           player.setCurrentTime(0).then(function() {
-            player.play().then(() => {
-              console.log('Vimeo video is now playing.');
-            }).catch(error => {
-              console.error('Error playing video:', error);
-            });
+            setTimeout(() => {
+              player.play().then(() => {
+                console.log('Vimeo video is now playing.');
+              }).catch(error => {
+                console.error('Error playing video:', error);
+              });
+            }, 500); // Delay before playing the video
           });
         }).catch(function(error) {
           console.error('Error loading video:', error);
