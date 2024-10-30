@@ -1,4 +1,4 @@
-console.log("V1.538");
+console.log("V1.539");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2366,57 +2366,15 @@ if (document.querySelector('.share__facebook')) {
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-// Function to check if the user is on a mobile device
-function isMobileDevice() {
-  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-}
-
 // Function to initialize video modals and trigger events
 function initVideoTriggers() {
   const triggers = document.querySelectorAll('[data-trigger]');
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
-      const videoId = this.getAttribute('data-trigger'); // Get the trigger id
+      const videoId = parseInt(this.getAttribute('data-trigger'), 10); // Ensure it's an integer
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
-      // If on mobile, open video in native fullscreen
-      if (isMobileDevice()) {
-        // Open video in the native fullscreen video player
-        const mobileIframe = document.createElement('iframe');
-        mobileIframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&muted=0`; // For autoplay with sound
-        mobileIframe.width = '100%';
-        mobileIframe.height = '100%';
-        mobileIframe.style.position = 'fixed';
-        mobileIframe.style.top = '0';
-        mobileIframe.style.left = '0';
-        mobileIframe.style.zIndex = '9999'; // Bring it to the front
-
-        // Append iframe to body
-        document.body.appendChild(mobileIframe);
-        
-        // Request fullscreen
-        if (mobileIframe.requestFullscreen) {
-          mobileIframe.requestFullscreen();
-        } else if (mobileIframe.mozRequestFullScreen) {
-          mobileIframe.mozRequestFullScreen();
-        } else if (mobileIframe.webkitRequestFullscreen) {
-          mobileIframe.webkitRequestFullscreen();
-        } else if (mobileIframe.msRequestFullscreen) {
-          mobileIframe.msRequestFullscreen();
-        }
-
-        // Remove the iframe when exiting fullscreen
-        document.addEventListener('fullscreenchange', function() {
-          if (!document.fullscreenElement) {
-            document.body.removeChild(mobileIframe); // Remove iframe when fullscreen is exited
-          }
-        });
-
-        return; // Exit to avoid showing the modal
-      }
-
-      // Regular desktop behavior
       if (videoModal) {
         videoModal.style.display = 'flex'; // Show the modal as flex
         const videoContainer = videoModal.querySelector('.video__container');
@@ -2424,7 +2382,7 @@ function initVideoTriggers() {
 
         // Set opacity to 0 and fade in
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 1500ms'; // Fade duration
+        videoContainer.style.transition = 'opacity 750ms'; // Fade duration
         videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
         // Initialize Vimeo player
@@ -2434,16 +2392,16 @@ function initVideoTriggers() {
         player.loadVideo(videoId).then(function() {
           player.setAutopause(false); // Prevent the video from pausing when another video plays
 
-          // Immediately set current time to 0 and play
+          // Immediately set current time to 0 and wait before playing
           player.setCurrentTime(0).then(function() {
-            // Use a delay to allow for proper autoplay handling
-            setTimeout(() => {
+            // Use a delay before starting playback
+            setTimeout(function() {
               player.play().then(() => {
                 console.log('Vimeo video is now playing.');
               }).catch(error => {
                 console.error('Error playing video:', error);
               });
-            }, 1000); // Delay before playing
+            }, 1000); // Delay of 1 second before playing
           });
         }).catch(function(error) {
           console.error('Error loading video:', error);
