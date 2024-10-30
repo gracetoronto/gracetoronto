@@ -1,4 +1,4 @@
-console.log("V1.526");
+console.log("V1.527");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2406,18 +2406,19 @@ function initVideoModals() {
       const iframe = videoElement.querySelector('iframe');
       const player = new Vimeo.Player(iframe);
 
-      // Reset the video to start and play
+      // Reset the video to start and play with sound
       player.setCurrentTime(0).then(() => {
         return player.play();
       }).then(() => {
-        console.log('Vimeo video is now playing.');
+        console.log('Vimeo video is now playing with sound.');
       }).catch(error => {
+        console.error('Error playing video:', error);
         if (error.name === 'PasswordError') {
           console.error('The video is password-protected.');
         } else if (error.name === 'PrivacyError') {
           console.error('The video is not allowed to be embedded.');
         } else {
-          console.error('Error playing video:', error);
+          console.error('Autoplay may be blocked. Ensure user interaction first.');
         }
       });
 
