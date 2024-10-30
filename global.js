@@ -1,4 +1,4 @@
-console.log("V1.518");
+console.log("V1.519");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2362,17 +2362,26 @@ initShareLinks();
 
 
 //---VIDEO MODAL FUNCTIONALITY---
+
 document.addEventListener('DOMContentLoaded', () => {
   const initVideoModalLogic = () => {
+    console.log('Video modal logic initialized');
+
     // Query all triggers and setup event listeners
     document.querySelectorAll('[data-trigger]').forEach(trigger => {
       trigger.addEventListener('click', () => {
         const videoID = trigger.getAttribute('data-trigger');
+        console.log(`Trigger clicked for video ID: ${videoID}`);
+
         const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
-        
-        // If no matching video element, do nothing
-        if (!videoElement) return;
-        
+
+        // Check if matching video element is found
+        if (!videoElement) {
+          console.log(`No video modal found for ID: ${videoID}`);
+          return;
+        }
+        console.log('Video modal found and displayed for:', videoID);
+
         // Check for mobile device
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
@@ -2381,6 +2390,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const videoSrc = iframe ? iframe.src : null;
           
           if (videoSrc) {
+            console.log('Mobile detected, redirecting to video source');
             // On mobile, redirect to the video URL to open it in full-screen natively
             window.location.href = videoSrc;
           }
@@ -2389,10 +2399,10 @@ document.addEventListener('DOMContentLoaded', () => {
           videoElement.style.display = 'block';
           
           const videoContainer = videoElement.querySelector('.video__container');
-          const iframe = videoElement.querySelector('iframe');
-          
+          const iframe = videoContainer.querySelector('iframe'); // Adjusted for extra layer
+
           if (iframe) {
-            // Initialize Vimeo player
+            console.log('Initializing Vimeo player');
             const player = new Vimeo.Player(iframe);
             
             // Fade in container and reset video to the start
@@ -2403,7 +2413,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 0);
             
             // Reset video to the beginning and play
-            player.setCurrentTime(0).then(() => player.play()).catch(error => console.error(error));
+            player.setCurrentTime(0).then(() => {
+              console.log('Playing video');
+              return player.play();
+            }).catch(error => console.error('Error playing video:', error));
           }
         }
       });
@@ -2417,8 +2430,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (videoElement) {
           const iframe = videoElement.querySelector('iframe');
           if (iframe) {
+            console.log('Closing video');
             const player = new Vimeo.Player(iframe);
-            player.unload().catch(error => console.error(error));  // Stop the video
+            player.unload().catch(error => console.error('Error unloading video:', error));  // Stop the video
           }
           videoElement.style.display = 'none';
         }
