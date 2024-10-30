@@ -1,4 +1,4 @@
-console.log("V1.524");
+console.log("V1.525");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2319,6 +2319,8 @@ document.addEventListener('DOMContentLoaded', initEventDescriptionToggle);
 
   //---CHURCH UPDATES SHARE BUTTON FUNCTIONALITY---
 
+//---CHURCH UPDATES SHARE BUTTON FUNCTIONALITY---
+
 function initShareLinks() {
   // Facebook Share
   document.querySelector('.share__facebook').addEventListener('click', function() {
@@ -2354,9 +2356,10 @@ function initShareLinks() {
   });
 }
 
-// Attach event listeners on initial load
-initShareLinks();
-
+// Attach event listeners on initial load if .share__facebook exists
+if (document.querySelector('.share__facebook')) {
+  initShareLinks();
+}
 
 
 
