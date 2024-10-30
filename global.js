@@ -1,4 +1,4 @@
-console.log("V1.520");
+console.log("V1.521");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2364,29 +2364,29 @@ initShareLinks();
 //---VIDEO MODAL FUNCTIONALITY---
 
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM fully loaded and parsed'); // This should log on page load
+  console.log('DOM fully loaded and parsed'); // Initial check to confirm DOM load
 
   const initVideoModalLogic = () => {
-    console.log('Video modal logic initialized');
+    console.log('Video modal logic initialized'); // Confirm function initialization
 
-    // Query all triggers and setup event listeners
+    // Find all elements with the [data-trigger] attribute
     const triggers = document.querySelectorAll('[data-trigger]');
-    console.log('Found triggers:', triggers); // Logs a list of triggers found on the page
+    console.log('Found triggers:', triggers); // Logs the triggers found
 
     triggers.forEach(trigger => {
       trigger.addEventListener('click', () => {
         const videoID = trigger.getAttribute('data-trigger');
-        console.log(`Trigger clicked for video ID: ${videoID}`);
+        console.log(`Trigger clicked for video ID: ${videoID}`); // Logs trigger click
 
         // Find the matching video element
         const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
         if (!videoElement) {
-          console.log(`No video modal found for ID: ${videoID}`);
+          console.log(`No video modal found for ID: ${videoID}`); // No matching video modal found
           return;
         }
-        console.log('Video modal found and displayed for:', videoID);
+        console.log('Video modal found and displayed for:', videoID); // Matching modal found
 
-        // Check for mobile device
+        // Mobile check
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
         
         if (isMobile) {
@@ -2395,28 +2395,27 @@ document.addEventListener('DOMContentLoaded', () => {
           
           if (videoSrc) {
             console.log('Mobile detected, redirecting to video source');
-            // On mobile, redirect to the video URL to open it in full-screen natively
-            window.location.href = videoSrc;
+            window.location.href = videoSrc; // Opens video in fullscreen on mobile
           }
         } else {
-          // On non-mobile, open the video modal
+          // Non-mobile: Open video modal and fade in
           videoElement.style.display = 'block';
-          
+
           const videoContainer = videoElement.querySelector('.video__container');
-          const iframe = videoContainer.querySelector('iframe'); // Adjusted for extra layer
+          const iframe = videoContainer.querySelector('iframe');
           
           if (iframe) {
             console.log('Initializing Vimeo player');
             const player = new Vimeo.Player(iframe);
-            
-            // Fade in container and reset video to the start
+
+            // Fade in videoContainer
             videoContainer.style.opacity = 0;
             setTimeout(() => {
               videoContainer.style.transition = 'opacity 250ms';
               videoContainer.style.opacity = 1;
             }, 0);
-            
-            // Reset video to the beginning and play
+
+            // Play video from the beginning
             player.setCurrentTime(0).then(() => {
               console.log('Playing video');
               return player.play();
@@ -2426,7 +2425,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Close button functionality
+    // Close button logic
     document.querySelectorAll('.profile__close').forEach(closeButton => {
       closeButton.addEventListener('click', () => {
         const videoElement = closeButton.closest('.base__video');
@@ -2436,7 +2435,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (iframe) {
             console.log('Closing video');
             const player = new Vimeo.Player(iframe);
-            player.unload().catch(error => console.error('Error unloading video:', error));  // Stop the video
+            player.unload().catch(error => console.error('Error unloading video:', error));  // Stops video
           }
           videoElement.style.display = 'none';
         }
@@ -2444,12 +2443,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
-  // Attach swup.js hook to reinitialize the function after page transitions
+  // Swup hook to reinitialize on page transition
   if (window.swup) {
     swup.hooks.on('content:replace', initVideoModalLogic);
-    console.log('Swup content:replace hook attached'); // Logs to confirm Swup hook is attached
+    console.log('Swup content:replace hook attached'); // Confirms Swup reinitialization
   }
 
-  // Run on initial load
+  // Run on initial page load
   initVideoModalLogic();
 });
