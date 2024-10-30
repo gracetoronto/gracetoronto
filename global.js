@@ -1,4 +1,4 @@
-console.log("V1.536");
+console.log("V1.537");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2432,15 +2432,14 @@ function initVideoTriggers() {
         player.loadVideo(videoId).then(function() {
           player.setAutopause(false); // Prevent the video from pausing when another video plays
 
-          // Immediately set current time to 0 and play with a delay
+          // Immediately set current time to 0 and play
           player.setCurrentTime(0).then(function() {
-            setTimeout(() => {
-              player.play().then(() => {
-                console.log('Vimeo video is now playing.');
-              }).catch(error => {
-                console.error('Error playing video:', error);
-              });
-            }, 500); // Delay before playing the video
+            // Ensure the player is ready before attempting to play
+            player.play().then(() => {
+              console.log('Vimeo video is now playing.');
+            }).catch(error => {
+              console.error('Error playing video:', error);
+            });
           });
         }).catch(function(error) {
           console.error('Error loading video:', error);
