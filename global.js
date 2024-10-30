@@ -2422,7 +2422,7 @@ function initVideoTriggers() {
 
         // Set opacity to 0 and fade in
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 1500ms'; // Fade duration
+        videoContainer.style.transition = 'opacity 2000ms'; // Fade duration
         videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
         // Initialize Vimeo player
