@@ -1,4 +1,4 @@
-console.log("V1.540");
+console.log("V1.541");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2387,26 +2387,26 @@ function initVideoTriggers() {
         // Initialize Vimeo player
         const player = new Vimeo.Player(iframe);
 
-        // Load the video and play muted for 1 second, then unmute
+        // Load the video and play muted for autoplay compliance
         player.loadVideo(videoId).then(() => {
-          player.setVolume(0); // Start muted for autoplay compliance
+          player.setVolume(0); // Start muted
 
           setTimeout(() => {
             player.play().then(() => {
               console.log('Video playing (initial silent start).');
 
-              // After 1 second, unmute
+              // Unmute after 1 second
               setTimeout(() => {
-                player.setVolume(1); // Set volume to full after 1 second
+                player.setVolume(1);
               }, 1000);
 
             }).catch(error => {
               console.error('Error with autoplay:', error);
 
-              // If autoplay fails, prompt user to click to start the video
+              // Prompt user to click play if autoplay fails
               alert("Please click 'Play' to start the video.");
             });
-          }, 500); // Small delay to ensure autoplay initiates
+          }, 500);
 
         }).catch(error => {
           console.error('Error loading video:', error);
@@ -2415,7 +2415,12 @@ function initVideoTriggers() {
         // Close button logic
         const closeBtn = videoModal.querySelector('.profile__close');
         closeBtn.addEventListener('click', function () {
-          player.pause(); // Pause video on close
+          player.unload().then(() => {
+            console.log('Video reset on close.');
+          }).catch(error => {
+            console.error('Error unloading video:', error);
+          });
+
           videoModal.style.display = 'none';
         });
       }
@@ -2423,7 +2428,7 @@ function initVideoTriggers() {
   });
 }
 
-// Initialize on DOMContentLoaded
+// Initialize on DOMContentLoaded and swup content replacement
 document.addEventListener('DOMContentLoaded', function () {
   initVideoTriggers();
 
