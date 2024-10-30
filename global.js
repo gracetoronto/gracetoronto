@@ -1,4 +1,4 @@
-console.log("V1.539");
+console.log("V1.540");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2366,52 +2366,57 @@ if (document.querySelector('.share__facebook')) {
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-// Function to initialize video modals and trigger events
 function initVideoTriggers() {
   const triggers = document.querySelectorAll('[data-trigger]');
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
-      const videoId = parseInt(this.getAttribute('data-trigger'), 10); // Ensure it's an integer
+      const videoId = parseInt(this.getAttribute('data-trigger'), 10);
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
       if (videoModal) {
-        videoModal.style.display = 'flex'; // Show the modal as flex
+        videoModal.style.display = 'flex';
         const videoContainer = videoModal.querySelector('.video__container');
         const iframe = videoContainer.querySelector('iframe');
 
-        // Set opacity to 0 and fade in
+        // Fade in video container
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 750ms'; // Fade duration
-        videoContainer.style.opacity = '1'; // Trigger the fade-in effect
+        videoContainer.style.transition = 'opacity 750ms';
+        videoContainer.style.opacity = '1';
 
         // Initialize Vimeo player
         const player = new Vimeo.Player(iframe);
 
-        // Load the video and prepare to play
-        player.loadVideo(videoId).then(function() {
-          player.setAutopause(false); // Prevent the video from pausing when another video plays
+        // Load the video and play muted for 1 second, then unmute
+        player.loadVideo(videoId).then(() => {
+          player.setVolume(0); // Start muted for autoplay compliance
 
-          // Immediately set current time to 0 and wait before playing
-          player.setCurrentTime(0).then(function() {
-            // Use a delay before starting playback
-            setTimeout(function() {
-              player.play().then(() => {
-                console.log('Vimeo video is now playing.');
-              }).catch(error => {
-                console.error('Error playing video:', error);
-              });
-            }, 1000); // Delay of 1 second before playing
-          });
-        }).catch(function(error) {
+          setTimeout(() => {
+            player.play().then(() => {
+              console.log('Video playing (initial silent start).');
+
+              // After 1 second, unmute
+              setTimeout(() => {
+                player.setVolume(1); // Set volume to full after 1 second
+              }, 1000);
+
+            }).catch(error => {
+              console.error('Error with autoplay:', error);
+
+              // If autoplay fails, prompt user to click to start the video
+              alert("Please click 'Play' to start the video.");
+            });
+          }, 500); // Small delay to ensure autoplay initiates
+
+        }).catch(error => {
           console.error('Error loading video:', error);
         });
 
-        // Handle closing the modal
+        // Close button logic
         const closeBtn = videoModal.querySelector('.profile__close');
-        closeBtn.addEventListener('click', function() {
-          player.pause(); // Pause the video
-          videoModal.style.display = 'none'; // Hide the modal
+        closeBtn.addEventListener('click', function () {
+          player.pause(); // Pause video on close
+          videoModal.style.display = 'none';
         });
       }
     });
@@ -2420,10 +2425,9 @@ function initVideoTriggers() {
 
 // Initialize on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function () {
-  initVideoTriggers(); // Call the function to set up video triggers
+  initVideoTriggers();
 
-  // Swup.js hook to reinitialize video triggers on content replace
   swup.hooks.on('content:replace', () => {
-    initVideoTriggers(); // Re-initialize the video triggers after content is replaced
+    initVideoTriggers();
   });
 });
