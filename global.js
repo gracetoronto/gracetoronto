@@ -1,4 +1,4 @@
-console.log("V1.531");
+console.log("V1.532");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2366,78 +2366,64 @@ if (document.querySelector('.share__facebook')) {
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-function initVideoModals() {
-  console.log('Initializing video modals...');
-
-  // Select all trigger elements
+// Function to initialize video modals and trigger events
+function initVideoTriggers() {
   const triggers = document.querySelectorAll('[data-trigger]');
-  console.log('Found triggers:', triggers);
 
-  // Loop through each trigger and set up click event
   triggers.forEach(trigger => {
-    trigger.addEventListener('click', () => {
-      const videoID = trigger.getAttribute('data-trigger');
-      console.log(`Trigger clicked for video ID: ${videoID}`);
+    trigger.addEventListener('click', function () {
+      const videoId = this.getAttribute('data-trigger');
+      const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
-      // Find the corresponding video modal by matching data attributes
-      const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
+      if (videoModal) {
+        videoModal.style.display = 'flex'; // Show the modal as flex
+        const videoContainer = videoModal.querySelector('.video__container');
+        const iframe = videoContainer.querySelector('iframe');
 
-      if (!videoElement) {
-        console.log(`No video modal found for ID: ${videoID}`);
-        return; // Stop if there’s no matching video modal
-      }
+        // Set opacity to 0 and fade in
+        videoContainer.style.opacity = '0';
+        videoContainer.style.transition = 'opacity 750ms'; // Fade duration
+        videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
-      console.log(`Showing video modal for ID: ${videoID}`);
+        // Initialize Vimeo player
+        const player = new Vimeo.Player(iframe);
 
-      // Show the modal
-      videoElement.style.display = 'flex'; // Change to flex
+        // Load the video and prepare to play
+        player.loadVideo(videoId).then(function() {
+          player.setAutopause(false); // Prevent the video from pausing when another video plays
 
-      // Fade in the video container
-      const videoContainer = videoElement.querySelector('.video__container');
-      if (videoContainer) {
-        videoContainer.style.opacity = 0;
-        videoContainer.style.transition = 'opacity 750ms'; // Change to 750ms
-        setTimeout(() => {
-          videoContainer.style.opacity = 1;
-        }, 0);
-      }
-
-      // Get the iframe and create a Vimeo player instance
-      const iframe = videoElement.querySelector('iframe');
-      const player = new Vimeo.Player(iframe);
-
-      // Reset the video to start and play muted first
-      player.setCurrentTime(0).then(() => {
-        return player.play(); // Attempt to play the video muted
-      }).then(() => {
-        console.log('Vimeo video is now playing muted.');
-
-        // Set a timeout to allow user to unmute via interaction
-        const unmuteButton = videoElement.querySelector('.unmute__button');
-        unmuteButton.style.display = 'block'; // Show unmute button
-        
-        unmuteButton.addEventListener('click', () => {
-          player.setVolume(1).then(() => {
-            console.log('Vimeo video is now unmuted and playing with sound.');
-            unmuteButton.style.display = 'none'; // Hide the button after unmuting
-          }).catch(error => {
-            console.error('Error unmuting video:', error);
+          // Immediately set current time to 0 and wait before playing
+          player.setCurrentTime(0).then(function() {
+            // Use a delay before starting playback
+            setTimeout(function() {
+              player.play().then(() => {
+                console.log('Vimeo video is now playing.');
+              }).catch(error => {
+                console.error('Error playing video:', error);
+              });
+            }, 1000); // Delay of 1 second before playing
           });
+        }).catch(function(error) {
+          console.error('Error loading video:', error);
         });
-      }).catch(error => {
-        console.error('Error playing video:', error);
-      });
 
-      // Handle close button
-      const closeButton = videoElement.querySelector('.profile__close');
-      closeButton.addEventListener('click', () => {
-        console.log('Closing video modal...');
-        player.pause(); // Pause the video
-        videoElement.style.display = 'none'; // Hide the modal
-      });
+        // Handle closing the modal
+        const closeBtn = videoModal.querySelector('.profile__close');
+        closeBtn.addEventListener('click', function() {
+          player.pause(); // Pause the video
+          videoModal.style.display = 'none'; // Hide the modal
+        });
+      }
     });
   });
 }
 
-// Run the function immediately to initialize
-initVideoModals();
+// Initialize on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function () {
+  initVideoTriggers(); // Call the function to set up video triggers
+
+  // Swup.js hook to reinitialize video triggers on content replace
+  swup.hooks.on('content:replace', () => {
+    initVideoTriggers(); // Re-initialize the video triggers after content is replaced
+  });
+});
