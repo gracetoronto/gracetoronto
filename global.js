@@ -1,4 +1,4 @@
-console.log("V1.522");
+console.log("V1.523");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2363,88 +2363,43 @@ initShareLinks();
 
 //---VIDEO MODAL FUNCTIONALITY---
 
-  const initVideoModalLogic = () => {
-    console.log('Video modal logic initialized'); // Confirm function initialization
+function testVideoModalVisibility() {
+  console.log('Testing basic modal visibility functionality');
 
-    // Find all elements with the [data-trigger] attribute
-    const triggers = document.querySelectorAll('[data-trigger]');
-    console.log('Found triggers:', triggers); // Logs the triggers found
+  // Select all trigger elements
+  const triggers = document.querySelectorAll('[data-trigger]');
+  console.log('Found triggers:', triggers);
 
-    triggers.forEach(trigger => {
-      trigger.addEventListener('click', () => {
-        const videoID = trigger.getAttribute('data-trigger');
-        console.log(`Trigger clicked for video ID: ${videoID}`); // Logs trigger click
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const videoID = trigger.getAttribute('data-trigger');
+      console.log(`Trigger clicked for video ID: ${videoID}`);
 
-        // Find the matching video element
-        const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
-        if (!videoElement) {
-          console.log(`No video modal found for ID: ${videoID}`); // No matching video modal found
-          return;
-        }
-        console.log('Video modal found and displayed for:', videoID); // Matching modal found
+      // Find the corresponding video modal by matching data attributes
+      const videoElement = document.querySelector(`.base__video[data-video="${videoID}"]`);
 
-        // Mobile check
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        
-        if (isMobile) {
-          const iframe = videoElement.querySelector('iframe');
-          const videoSrc = iframe ? iframe.src : null;
-          
-          if (videoSrc) {
-            console.log('Mobile detected, redirecting to video source');
-            window.location.href = videoSrc; // Opens video in fullscreen on mobile
-          }
-        } else {
-          // Non-mobile: Open video modal and fade in
-          videoElement.style.display = 'block';
+      if (!videoElement) {
+        console.log(`No video modal found for ID: ${videoID}`);
+        return; // Stop if there’s no matching video modal
+      }
 
-          const videoContainer = videoElement.querySelector('.video__container');
-          const iframe = videoContainer.querySelector('iframe');
-          
-          if (iframe) {
-            console.log('Initializing Vimeo player');
-            const player = new Vimeo.Player(iframe);
+      console.log(`Showing video modal for ID: ${videoID}`);
+      
+      // Show the modal
+      videoElement.style.display = 'block';
 
-            // Fade in videoContainer
-            videoContainer.style.opacity = 0;
-            setTimeout(() => {
-              videoContainer.style.transition = 'opacity 250ms';
-              videoContainer.style.opacity = 1;
-            }, 0);
-
-            // Play video from the beginning
-            player.setCurrentTime(0).then(() => {
-              console.log('Playing video');
-              return player.play();
-            }).catch(error => console.error('Error playing video:', error));
-          }
-        }
-      });
+      // Apply fade-in animation
+      const videoContainer = videoElement.querySelector('.video__container');
+      if (videoContainer) {
+        videoContainer.style.opacity = 0;
+        setTimeout(() => {
+          videoContainer.style.transition = 'opacity 250ms';
+          videoContainer.style.opacity = 1;
+        }, 0);
+      }
     });
+  });
+}
 
-    // Close button logic
-    document.querySelectorAll('.profile__close').forEach(closeButton => {
-      closeButton.addEventListener('click', () => {
-        const videoElement = closeButton.closest('.base__video');
-        
-        if (videoElement) {
-          const iframe = videoElement.querySelector('iframe');
-          if (iframe) {
-            console.log('Closing video');
-            const player = new Vimeo.Player(iframe);
-            player.unload().catch(error => console.error('Error unloading video:', error));  // Stops video
-          }
-          videoElement.style.display = 'none';
-        }
-      });
-    });
-  };
-
-  // Swup hook to reinitialize on page transition
-  if (window.swup) {
-    swup.hooks.on('content:replace', initVideoModalLogic);
-    console.log('Swup content:replace hook attached'); // Confirms Swup reinitialization
-  }
-
-  // Run on initial page load
-  initVideoModalLogic();
+// Run the function immediately to bypass potential event issues
+testVideoModalVisibility();
