@@ -1,4 +1,4 @@
-console.log("V1.527");
+console.log("V1.528");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2396,8 +2396,8 @@ function initVideoModals() {
       const videoContainer = videoElement.querySelector('.video__container');
       if (videoContainer) {
         videoContainer.style.opacity = 0;
+        videoContainer.style.transition = 'opacity 750ms'; // Change to 750ms
         setTimeout(() => {
-          videoContainer.style.transition = 'opacity 250ms';
           videoContainer.style.opacity = 1;
         }, 0);
       }
