@@ -1,4 +1,4 @@
-console.log("V1.537");
+console.log("V1.538");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2382,32 +2382,34 @@ function initVideoTriggers() {
 
       // If on mobile, open video in native fullscreen
       if (isMobileDevice()) {
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&muted=0`; // Adjusted URL for autoplay with sound
-        iframe.width = '100%';
-        iframe.height = '100%';
-        iframe.style.position = 'fixed';
-        iframe.style.top = '0';
-        iframe.style.left = '0';
-        iframe.style.zIndex = '9999'; // Bring it to the front
+        // Open video in the native fullscreen video player
+        const mobileIframe = document.createElement('iframe');
+        mobileIframe.src = `https://player.vimeo.com/video/${videoId}?autoplay=1&muted=0`; // For autoplay with sound
+        mobileIframe.width = '100%';
+        mobileIframe.height = '100%';
+        mobileIframe.style.position = 'fixed';
+        mobileIframe.style.top = '0';
+        mobileIframe.style.left = '0';
+        mobileIframe.style.zIndex = '9999'; // Bring it to the front
 
         // Append iframe to body
-        document.body.appendChild(iframe);
+        document.body.appendChild(mobileIframe);
+        
         // Request fullscreen
-        if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
-        } else if (iframe.mozRequestFullScreen) {
-          iframe.mozRequestFullScreen();
-        } else if (iframe.webkitRequestFullscreen) {
-          iframe.webkitRequestFullscreen();
-        } else if (iframe.msRequestFullscreen) {
-          iframe.msRequestFullscreen();
+        if (mobileIframe.requestFullscreen) {
+          mobileIframe.requestFullscreen();
+        } else if (mobileIframe.mozRequestFullScreen) {
+          mobileIframe.mozRequestFullScreen();
+        } else if (mobileIframe.webkitRequestFullscreen) {
+          mobileIframe.webkitRequestFullscreen();
+        } else if (mobileIframe.msRequestFullscreen) {
+          mobileIframe.msRequestFullscreen();
         }
 
-        // Remove the iframe on close
+        // Remove the iframe when exiting fullscreen
         document.addEventListener('fullscreenchange', function() {
           if (!document.fullscreenElement) {
-            document.body.removeChild(iframe); // Remove iframe when fullscreen is exited
+            document.body.removeChild(mobileIframe); // Remove iframe when fullscreen is exited
           }
         });
 
@@ -2422,7 +2424,7 @@ function initVideoTriggers() {
 
         // Set opacity to 0 and fade in
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 2000ms'; // Fade duration
+        videoContainer.style.transition = 'opacity 1500ms'; // Fade duration
         videoContainer.style.opacity = '1'; // Trigger the fade-in effect
 
         // Initialize Vimeo player
@@ -2434,12 +2436,14 @@ function initVideoTriggers() {
 
           // Immediately set current time to 0 and play
           player.setCurrentTime(0).then(function() {
-            // Ensure the player is ready before attempting to play
-            player.play().then(() => {
-              console.log('Vimeo video is now playing.');
-            }).catch(error => {
-              console.error('Error playing video:', error);
-            });
+            // Use a delay to allow for proper autoplay handling
+            setTimeout(() => {
+              player.play().then(() => {
+                console.log('Vimeo video is now playing.');
+              }).catch(error => {
+                console.error('Error playing video:', error);
+              });
+            }, 1000); // Delay before playing
           });
         }).catch(function(error) {
           console.error('Error loading video:', error);
