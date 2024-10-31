@@ -221,7 +221,6 @@ swup.hooks.on('content:replace', () => {
   announcementEventExpand();
   resetAndPlayHomeVideo();
   checkCurrentMinistriesLink();
-  initHistoryVideoControl();
   loadYouTubeAPI();
   initSmoothScrollToCareAnchor();
   checkAndToggleLivePageClass();
@@ -2393,7 +2392,6 @@ function initVideoTriggers() {
 
           setTimeout(() => {
             player.play().then(() => {
-              console.log('Video is now playing with sound from the start.');
 
               // Listen for video end to close modal automatically
               player.on('ended', () => {
@@ -2403,9 +2401,6 @@ function initVideoTriggers() {
 
             }).catch(error => {
               console.error('Error with autoplay:', error);
-
-              // Prompt user to click play if autoplay fails
-              alert("Please click 'Play' to start the video.");
             });
           }, 500);
 
@@ -2418,7 +2413,6 @@ function initVideoTriggers() {
         closeBtn.addEventListener('click', function () {
           player.setVolume(0); // Mute immediately on close
           player.unload().then(() => {
-            console.log('Video reset and muted on close.');
           }).catch(error => {
             console.error('Error unloading video:', error);
           });
