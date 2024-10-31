@@ -1,4 +1,4 @@
-console.log("V1.541");
+console.log("V1.542");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2387,18 +2387,19 @@ function initVideoTriggers() {
         // Initialize Vimeo player
         const player = new Vimeo.Player(iframe);
 
-        // Load the video and play muted for autoplay compliance
+        // Load the video, unmute, then start playing
         player.loadVideo(videoId).then(() => {
-          player.setVolume(0); // Start muted
+          player.setVolume(1); // Unmute before playing
 
           setTimeout(() => {
             player.play().then(() => {
-              console.log('Video playing (initial silent start).');
+              console.log('Video is now playing with sound from the start.');
 
-              // Unmute after 1 second
-              setTimeout(() => {
-                player.setVolume(1);
-              }, 1000);
+              // Listen for video end to close modal automatically
+              player.on('ended', () => {
+                videoModal.style.display = 'none';
+                player.unload().catch(error => console.error('Error unloading video:', error));
+              });
 
             }).catch(error => {
               console.error('Error with autoplay:', error);
