@@ -1,4 +1,4 @@
-console.log("V1.543");
+console.log("V1.544");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2383,7 +2383,7 @@ function initVideoTriggers() {
         videoContainer.style.transition = 'opacity 1500ms';
         videoContainer.style.opacity = '1';
 
-        // Initialize Vimeo player
+        // Initialize Vimeo player only when modal opens
         const player = new Vimeo.Player(iframe);
 
         // Load the video, unmute, then start playing
@@ -2392,6 +2392,7 @@ function initVideoTriggers() {
 
           setTimeout(() => {
             player.play().then(() => {
+              console.log('Video is now playing with sound from the start.');
 
               // Listen for video end to close modal automatically
               player.on('ended', () => {
@@ -2401,6 +2402,9 @@ function initVideoTriggers() {
 
             }).catch(error => {
               console.error('Error with autoplay:', error);
+
+              // Prompt user to click play if autoplay fails
+              alert("Please click 'Play' to start the video.");
             });
           }, 500);
 
@@ -2413,6 +2417,7 @@ function initVideoTriggers() {
         closeBtn.addEventListener('click', function () {
           player.setVolume(0); // Mute immediately on close
           player.unload().then(() => {
+            console.log('Video reset and muted on close.');
           }).catch(error => {
             console.error('Error unloading video:', error);
           });
@@ -2424,7 +2429,7 @@ function initVideoTriggers() {
   });
 }
 
-// Initialize on DOMContentLoaded and swup content replacement
+// Initialize on DOMContentLoaded and Swup content replacement
 document.addEventListener('DOMContentLoaded', function () {
   initVideoTriggers();
 
