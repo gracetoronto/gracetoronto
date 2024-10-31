@@ -1,4 +1,4 @@
-console.log("V1.542");
+console.log("V1.543");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2381,7 +2381,7 @@ function initVideoTriggers() {
 
         // Fade in video container
         videoContainer.style.opacity = '0';
-        videoContainer.style.transition = 'opacity 750ms';
+        videoContainer.style.transition = 'opacity 1500ms';
         videoContainer.style.opacity = '1';
 
         // Initialize Vimeo player
@@ -2416,8 +2416,9 @@ function initVideoTriggers() {
         // Close button logic
         const closeBtn = videoModal.querySelector('.profile__close');
         closeBtn.addEventListener('click', function () {
+          player.setVolume(0); // Mute immediately on close
           player.unload().then(() => {
-            console.log('Video reset on close.');
+            console.log('Video reset and muted on close.');
           }).catch(error => {
             console.error('Error unloading video:', error);
           });
