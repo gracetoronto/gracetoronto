@@ -1,4 +1,4 @@
-console.log("V1.549");
+console.log("V1.550");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2391,9 +2391,9 @@ function initVideoTriggers() {
             player.play().then(() => {
               console.log('Video is now playing with sound from the start.');
 
-              // Request fullscreen on mobile devices for a better viewing experience
-              if (isMobile && iframe.requestFullscreen) {
-                iframe.requestFullscreen().catch(error => console.error('Fullscreen error:', error));
+              // Request fullscreen on mobile devices using Vimeo API
+              if (isMobile) {
+                player.requestFullscreen().catch(error => console.error('Fullscreen error:', error));
               }
 
               // Listen for video end to close modal automatically
