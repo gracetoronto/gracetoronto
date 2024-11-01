@@ -2351,10 +2351,8 @@ function initShareLinks() {
   });
 }
 
-// Attach event listeners on initial load if .share__facebook exists
-if (document.querySelector('.share__facebook')) {
-  initShareLinks();
-}
+
+initShareLinks();
 
 
 
