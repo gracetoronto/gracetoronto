@@ -1,4 +1,4 @@
-console.log("V1.551");
+console.log("V1.552");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2365,56 +2365,61 @@ swup.hooks.on('content:replace', initShareLinks);
 
 function initVideoTriggers() {
   const triggers = document.querySelectorAll('[data-trigger]');
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
       const videoId = parseInt(this.getAttribute('data-trigger'), 10);
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const iframe = videoModal.querySelector('.video__container iframe');
 
-      if (videoModal) {
+      // Initialize Vimeo player only once per trigger click
+      const player = new Vimeo.Player(iframe);
+
+      // If on mobile, bypass modal and go directly to fullscreen
+      if (isMobile) {
+        player.loadVideo(videoId).then(() => {
+          player.setVolume(1); // Unmute before playing
+          setTimeout(() => {
+            player.requestFullscreen().then(() => {
+              return player.play(); // Start playing in fullscreen
+            }).catch(error => console.error('Fullscreen error:', error));
+          }, 500);
+
+          // Auto-exit fullscreen and stop video when it ends on mobile
+          player.on('ended', () => {
+            player.exitFullscreen().then(() => {
+              player.unload(); // Reset video after exit
+            });
+          });
+
+        }).catch(error => console.error('Error loading video:', error));
+        
+      } else {
+        // On desktop, show the modal and play in the modal container
         videoModal.style.display = 'flex';
         const videoContainer = videoModal.querySelector('.video__container');
-        const iframe = videoContainer.querySelector('iframe');
-
-        // Fade in video container
         videoContainer.style.opacity = '0';
         videoContainer.style.transition = 'opacity 1500ms';
         videoContainer.style.opacity = '1';
 
-        // Initialize Vimeo player only when modal opens
-        const player = new Vimeo.Player(iframe);
-
-        // Load the video, unmute, then start playing
         player.loadVideo(videoId).then(() => {
-          player.setVolume(1); // Unmute before playing
-
+          player.setVolume(1);
           setTimeout(() => {
-            player.play().then(() => {
-              console.log('Video is now playing with sound from the start.');
-
-              // Request fullscreen on mobile devices using Vimeo API
-              if (isMobile) {
-                player.requestFullscreen().catch(error => console.error('Fullscreen error:', error));
-              }
-
-              // Listen for video end to close modal automatically
-              player.on('ended', () => {
-                videoModal.style.display = 'none';
-                player.unload().catch(error => console.error('Error unloading video:', error));
-              });
-
-            }).catch(error => {
+            player.play().catch(error => {
               console.error('Error with autoplay:', error);
               alert("Please click 'Play' to start the video.");
             });
           }, 500);
 
-        }).catch(error => {
-          console.error('Error loading video:', error);
-        });
+          player.on('ended', () => {
+            videoModal.style.display = 'none';
+            player.unload();
+          });
 
-        // Close button logic
+        }).catch(error => console.error('Error loading video:', error));
+
+        // Close button functionality
         const closeBtn = videoModal.querySelector('.profile__close');
         closeBtn.addEventListener('click', function () {
           player.setVolume(0); // Mute immediately on close
