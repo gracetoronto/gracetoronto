@@ -1,4 +1,4 @@
-console.log("V1.545");
+console.log("V1.546");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2376,13 +2376,40 @@ function initVideoTriggers() {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
       if (isMobile) {
-        // Directly open the Vimeo link in native video player
-        const vimeoUrl = `https://vimeo.com/${videoId}`;
-        window.open(vimeoUrl, '_blank');  // Opens in a new tab or in full-screen mode
-        return; // Skip modal functionality
+        // Open video directly in native fullscreen on mobile
+        const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
+        videoModal.style.display = 'flex';
+
+        // Clear previous content and create a native video element
+        const videoContainer = videoModal.querySelector('.video__container');
+        videoContainer.innerHTML = ''; // Clear previous iframe if any
+
+        // Create and set up the video element
+        const videoElement = document.createElement('video');
+        videoElement.src = `https://player.vimeo.com/external/${videoId}.sd.mp4`; // Use external direct link
+        videoElement.controls = true;
+        videoElement.autoplay = true;
+        videoElement.style.width = '100%'; // Adjust as needed
+        videoContainer.appendChild(videoElement);
+
+        // Close modal on video end or user closes it manually
+        videoElement.addEventListener('ended', () => {
+          videoModal.style.display = 'none';
+          videoElement.pause();
+          videoContainer.removeChild(videoElement); // Clean up video element
+        });
+
+        const closeBtn = videoModal.querySelector('.profile__close');
+        closeBtn.addEventListener('click', function () {
+          videoElement.pause();
+          videoModal.style.display = 'none';
+          videoContainer.removeChild(videoElement);
+        });
+
+        return; // Skip Vimeo iframe setup on mobile
       }
 
-      // Non-mobile devices: open modal
+      // Non-mobile devices: open modal with Vimeo iframe
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
       if (videoModal) {
