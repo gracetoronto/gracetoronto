@@ -1,4 +1,4 @@
-console.log("V1.544");
+console.log("V1.545");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2371,6 +2371,18 @@ function initVideoTriggers() {
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
       const videoId = parseInt(this.getAttribute('data-trigger'), 10);
+      
+      // Check if the user is on a mobile device
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        // Directly open the Vimeo link in native video player
+        const vimeoUrl = `https://vimeo.com/${videoId}`;
+        window.open(vimeoUrl, '_blank');  // Opens in a new tab or in full-screen mode
+        return; // Skip modal functionality
+      }
+
+      // Non-mobile devices: open modal
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
 
       if (videoModal) {
