@@ -2408,7 +2408,6 @@ function initVideoTriggers() {
           setTimeout(() => {
             player.play().catch(error => {
               console.error('Error with autoplay:', error);
-              alert("Please click 'Play' to start the video.");
             });
           }, 500);
 
