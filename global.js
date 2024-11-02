@@ -1,4 +1,4 @@
-console.log("V1.553");
+console.log("V1.554");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2365,41 +2365,38 @@ swup.hooks.on('content:replace', initShareLinks);
 
 function initVideoTriggers() {
   const triggers = document.querySelectorAll('[data-trigger]');
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent); // Detect iOS specifically
 
   triggers.forEach(trigger => {
     trigger.addEventListener('click', function () {
       const videoId = parseInt(this.getAttribute('data-trigger'), 10);
       const videoModal = document.querySelector(`.base__video[data-video="${videoId}"]`);
       const iframe = videoModal.querySelector('.video__container iframe');
+
+      // Initialize Vimeo player only once per trigger click
       const player = new Vimeo.Player(iframe);
 
-      // iOS: Use fullscreen immediately without modal
+      // If on iOS, bypass modal and go directly to fullscreen
       if (isIOS) {
         player.loadVideo(videoId).then(() => {
-          player.setVolume(1);
-          player.requestFullscreen().then(() => player.play()).catch(error => {
-            console.error('Fullscreen error on iOS:', error);
-          });
-          
-          player.on('ended', () => player.unload());
-        }).catch(error => console.error('Error loading video on iOS:', error));
+          player.setVolume(1); // Unmute before playing
+          setTimeout(() => {
+            player.requestFullscreen().then(() => {
+              return player.play(); // Start playing in fullscreen
+            }).catch(error => console.error('Fullscreen error:', error));
+          }, 500);
 
-      // Android: Attempt to request fullscreen and play
-      } else if (isAndroid) {
-        player.loadVideo(videoId).then(() => {
-          iframe.setAttribute('allowfullscreen', 'true');
-          player.setVolume(1);
-          player.requestFullscreen().then(() => player.play()).catch(error => {
-            console.error('Fullscreen error on Android:', error);
+          // Auto-exit fullscreen and stop video when it ends on iOS
+          player.on('ended', () => {
+            player.exitFullscreen().then(() => {
+              player.unload(); // Reset video after exit
+            });
           });
 
-          player.on('ended', () => player.unload());
-        }).catch(error => console.error('Error loading video on Android:', error));
+        }).catch(error => console.error('Error loading video:', error));
 
       } else {
-        // Desktop: Show modal and play in modal container
+        // For Android and desktop, show the modal and play in the modal container
         videoModal.style.display = 'flex';
         const videoContainer = videoModal.querySelector('.video__container');
         videoContainer.style.opacity = '0';
@@ -2420,7 +2417,7 @@ function initVideoTriggers() {
             player.unload();
           });
 
-        }).catch(error => console.error('Error loading video on desktop:', error));
+        }).catch(error => console.error('Error loading video:', error));
 
         // Close button functionality
         const closeBtn = videoModal.querySelector('.profile__close');
