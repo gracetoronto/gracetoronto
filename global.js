@@ -1,4 +1,4 @@
-console.log("V1.555");
+console.log("V1.556");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2462,15 +2462,23 @@ function initFormOverlay() {
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
-  // Function to reset and hide the form
+  // Function to close the form with reverse animation
   function closeForm() {
+    // Check if the user has started typing
     const userConfirmed = window.confirm('Are you sure you want to close this form? Any unsaved changes will be lost.');
     if (!userConfirmed) return;
 
-    // Reset Typeform and hide
-    baseForm.style.display = 'none';
+    // Play reverse animation
+    formDim.style.transition = 'opacity 0.25s ease';
+    formWrapper.style.transition = 'transform 0.25s ease';
+
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
+
+    // Wait for animation to finish before hiding the form
+    setTimeout(() => {
+      baseForm.style.display = 'none';
+    }, 250); // Match the duration of the animation
   }
 
   // Function to open the form
