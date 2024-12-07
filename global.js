@@ -1,4 +1,4 @@
-console.log("V1.554");
+console.log("V1.555");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2443,3 +2443,84 @@ document.addEventListener('DOMContentLoaded', function () {
     initVideoTriggers();
   });
 });
+
+
+
+
+
+
+
+//---TYPEFORM MODAL FUNCTIONALITY---
+
+function initFormOverlay() {
+  // Check if the form component exists on the page
+  const baseForm = document.querySelector('.base__form');
+  if (!baseForm) return;
+
+  const formDim = baseForm.querySelector('.form__dim');
+  const formWrapper = baseForm.querySelector('.form__wrapper');
+  const openButtons = document.querySelectorAll('[data-tf-form]');
+  const closeButton = document.querySelector('.profile__close');
+
+  // Function to reset and hide the form
+  function closeForm() {
+    const userConfirmed = window.confirm('Are you sure you want to close this form? Any unsaved changes will be lost.');
+    if (!userConfirmed) return;
+
+    // Reset Typeform and hide
+    baseForm.style.display = 'none';
+    formDim.style.opacity = '0';
+    formWrapper.style.transform = 'translateY(500px)';
+  }
+
+  // Function to open the form
+  function openForm(targetFormId) {
+    // Ensure the matching Typeform embed is displayed
+    const targetEmbed = baseForm.querySelector(`[data-tf-live="${targetFormId}"]`);
+    if (!targetEmbed) {
+      console.error(`No Typeform embed found for ID: ${targetFormId}`);
+      return;
+    }
+
+    // Set initial state
+    formDim.style.opacity = '0';
+    formWrapper.style.transform = 'translateY(500px)';
+
+    // Show the form
+    baseForm.style.display = 'flex';
+
+    // Animate the overlay and form wrapper
+    setTimeout(() => {
+      formDim.style.transition = 'opacity 0.25s ease';
+      formWrapper.style.transition = 'transform 0.25s ease';
+      formDim.style.opacity = '1';
+      formWrapper.style.transform = 'translateY(0)';
+    }, 10); // Small delay to ensure transitions take effect
+  }
+
+  // Attach event listeners to buttons
+  openButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const formId = button.getAttribute('data-tf-form');
+      if (formId) openForm(formId);
+    });
+  });
+
+  // Close form on clicking dim background or close button
+  if (formDim) {
+    formDim.addEventListener('click', closeForm);
+  }
+  if (closeButton) {
+    closeButton.addEventListener('click', closeForm);
+  }
+
+  // Reset functionality for Swup.js
+  if (window.swup) {
+    swup.hooks.on('content:replace', () => {
+      initFormOverlay();
+    });
+  }
+}
+
+// Initialize the function
+initFormOverlay();
