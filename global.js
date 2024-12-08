@@ -1,4 +1,4 @@
-console.log("V1.561");
+console.log("V1.562");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2458,9 +2458,7 @@ function initFormOverlay() {
 
   const formDim = baseForm.querySelector('.form__dim');
   const formWrapper = baseForm.querySelector('.form__wrapper');
-  const formEmbedContainer = document.createElement('div'); // Separate container for the embed
-  formEmbedContainer.classList.add('form__embed-container');
-  formWrapper.appendChild(formEmbedContainer); // Append this to the wrapper
+  const formEmbedContainer = formWrapper.querySelector('.form__embed-container');
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
@@ -2468,14 +2466,13 @@ function initFormOverlay() {
 
   // Helper function to remove only the embed
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = ''; // Clear only the embed container
-    activeFormId = null; // Reset the active form ID
+    formEmbedContainer.innerHTML = ''; // Clear the embed container completely
+    activeFormId = null;
   }
 
   // Function to dynamically create and load the embed
   function createTypeformEmbed(formId) {
-    // Clear any existing embed
-    clearTypeformEmbed();
+    clearTypeformEmbed(); // Ensure previous embed is removed
 
     // Create a new Typeform embed dynamically
     const embedDiv = document.createElement('div');
@@ -2487,6 +2484,8 @@ function initFormOverlay() {
     script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
     script.async = true;
     formEmbedContainer.appendChild(script);
+
+    activeFormId = formId; // Track the currently active form
   }
 
   // Function to handle opening the form
@@ -2506,16 +2505,19 @@ function initFormOverlay() {
       formDim.style.opacity = '1';
       formWrapper.style.transform = 'translateY(0)';
     }, 10);
-
-    activeFormId = formId;
   }
 
   // Function to handle closing the form
   function closeForm() {
-    // If the user started the form, show a confirmation message
     if (activeFormId) {
-      const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
-      if (!userConfirmed) return; // Abort closing if user cancels
+      // Check if the form has started by inspecting the embed
+      const embedIframe = formEmbedContainer.querySelector('iframe');
+      if (embedIframe) {
+        const userConfirmed = window.confirm(
+          'Are you sure you want to close this form? All progress will be lost.'
+        );
+        if (!userConfirmed) return; // Abort closing if the user cancels
+      }
     }
 
     // Play reverse animation
