@@ -1,4 +1,4 @@
-console.log("V1.565");
+console.log("V1.566");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2458,93 +2458,78 @@ function initFormOverlay() {
 
   const formDim = baseForm.querySelector('.form__dim');
   const formWrapper = baseForm.querySelector('.form__wrapper');
-  
-  // Check for formEmbedContainer element inside the wrapper
-  const formEmbedContainer = formWrapper ? formWrapper.querySelector('.form__embed-container') : null;
-  
-  // If formEmbedContainer is not found, log an error and exit
-  if (!formEmbedContainer) {
-    console.error('Form embed container not found');
-    return;
-  }
-
+  const formEmbedContainer = document.createElement('div'); // Separate container for the embed
+  formEmbedContainer.classList.add('form__embed-container');
+  formWrapper.appendChild(formEmbedContainer); // Append this to the wrapper
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
   let activeFormId = null;
 
-  // Helper: Clear and reset the embed
+  // Helper function to remove only the embed
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = ''; // Clear the embed container
-    activeFormId = null; // Reset active form ID
+    formEmbedContainer.innerHTML = ''; // Clear only the embed container
+    activeFormId = null; // Reset the active form ID
   }
 
-  // Helper: Load Typeform embed dynamically
-  function createTypeformEmbed(formId, callback) {
-    clearTypeformEmbed(); // Ensure no leftover embed
+  // Function to dynamically create and load the embed
+  function createTypeformEmbed(formId) {
+    // Clear any existing embed
+    clearTypeformEmbed();
 
+    // Create a new Typeform embed dynamically
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Inject Typeform embed script
+    // Dynamically inject the Typeform script
     const script = document.createElement('script');
-    script.src = 'https://embed.typeform.com/embed.js';
+    script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
     script.async = true;
-
-    // Only trigger callback when the Typeform script has loaded
-    script.onload = () => {
-      if (callback) callback(); // Execute the callback after the embed is loaded
-    };
-
     formEmbedContainer.appendChild(script);
+  }
+
+  // Function to handle opening the form
+  function openForm(formId) {
+    // Set initial state for animation
+    formDim.style.opacity = '0';
+    formWrapper.style.transform = 'translateY(500px)';
+
+    // Dynamically load the Typeform embed
+    createTypeformEmbed(formId);
+
+    // Show the base form and play animation
+    baseForm.style.display = 'flex';
+    setTimeout(() => {
+      formDim.style.transition = 'opacity 0.25s ease';
+      formWrapper.style.transition = 'transform 0.25s ease';
+      formDim.style.opacity = '1';
+      formWrapper.style.transform = 'translateY(0)';
+    }, 10);
+
     activeFormId = formId;
   }
 
-  // Open form with animation
-  function openForm(formId) {
-    // Initial animation state
-    formDim.style.opacity = '0';
-    formWrapper.style.transform = 'translateY(500px)';
-
-    // Dynamically create Typeform embed and only proceed after it's loaded
-    createTypeformEmbed(formId, () => {
-      // Show the form and animate once the embed is ready
-      baseForm.style.display = 'flex';
-      setTimeout(() => {
-        formDim.style.transition = 'opacity 0.25s ease';
-        formWrapper.style.transition = 'transform 0.25s ease';
-        formDim.style.opacity = '1';
-        formWrapper.style.transform = 'translateY(0)';
-      }, 10);
-    });
-  }
-
-  // Close form with animation
+  // Function to handle closing the form
   function closeForm() {
+    // If the user started the form, show a confirmation message
     if (activeFormId) {
-      // Check if user has started the form
-      const embedIframe = formEmbedContainer.querySelector('iframe');
-      if (embedIframe) {
-        const userConfirmed = window.confirm(
-          'Are you sure you want to close this form? All progress will be lost.'
-        );
-        if (!userConfirmed) return; // Abort close if user cancels
-      }
+      const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
+      if (!userConfirmed) return; // Abort closing if user cancels
     }
 
-    // Animate out
+    // Play reverse animation
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    // After animation, hide the form and clear embed
+    // After animation, hide and reset the form
     setTimeout(() => {
       baseForm.style.display = 'none';
-      clearTypeformEmbed();
-    }, 250);
+      clearTypeformEmbed(); // Ensure the form is reset
+    }, 250); // Match the animation duration
   }
 
-  // Attach open button click listeners
+  // Attach click event listeners to buttons
   openButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const formId = button.getAttribute('data-tf-form');
@@ -2552,7 +2537,7 @@ function initFormOverlay() {
     });
   });
 
-  // Attach close listeners
+  // Close form when clicking on dim background or close button
   if (formDim) {
     formDim.addEventListener('click', closeForm);
   }
@@ -2563,10 +2548,10 @@ function initFormOverlay() {
   // Reinitialize on Swup.js navigation
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      initFormOverlay(); // Re-initialize the form overlay
+      initFormOverlay();
     });
   }
 }
 
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', initFormOverlay);
+// Initialize the function
+initFormOverlay();
