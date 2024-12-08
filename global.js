@@ -1,4 +1,4 @@
-console.log("V1.560");
+console.log("V1.561");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2458,14 +2458,17 @@ function initFormOverlay() {
 
   const formDim = baseForm.querySelector('.form__dim');
   const formWrapper = baseForm.querySelector('.form__wrapper');
+  const formEmbedContainer = document.createElement('div'); // Separate container for the embed
+  formEmbedContainer.classList.add('form__embed-container');
+  formWrapper.appendChild(formEmbedContainer); // Append this to the wrapper
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
   let activeFormId = null;
 
-  // Helper function to remove the embed
+  // Helper function to remove only the embed
   function clearTypeformEmbed() {
-    formWrapper.innerHTML = ''; // Clear the form wrapper
+    formEmbedContainer.innerHTML = ''; // Clear only the embed container
     activeFormId = null; // Reset the active form ID
   }
 
@@ -2477,13 +2480,13 @@ function initFormOverlay() {
     // Create a new Typeform embed dynamically
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
-    formWrapper.appendChild(embedDiv);
+    formEmbedContainer.appendChild(embedDiv);
 
     // Dynamically inject the Typeform script
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
     script.async = true;
-    formWrapper.appendChild(script);
+    formEmbedContainer.appendChild(script);
   }
 
   // Function to handle opening the form
