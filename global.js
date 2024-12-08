@@ -1,4 +1,4 @@
-console.log("V1.557");
+console.log("V1.558");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2460,52 +2460,51 @@ function initFormOverlay() {
   const formWrapper = baseForm.querySelector('.form__wrapper');
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
-  let hasStartedForm = false; // Track whether the user has started the form
 
-  // Function to reset the form
-  function resetForm(targetEmbed) {
-    const iframe = targetEmbed.querySelector('iframe');
-    if (iframe) {
-      const src = iframe.src; // Get the current iframe source
-      iframe.src = ''; // Clear the source to reset the form
-      iframe.src = src; // Reapply the source to load the form fresh
-    }
+  let activeFormId = null;
+
+  // Function to create and insert a new Typeform embed dynamically
+  function createTypeformEmbed(targetFormId) {
+    const embedHTML = `<div data-tf-live="${targetFormId}"></div>`;
+    formWrapper.innerHTML = embedHTML;
+
+    // Dynamically inject Typeform script after the embed is added
+    const script = document.createElement('script');
+    script.src = 'https://embed.typeform.com/embed.js'; // Typeform embed script URL
+    script.async = true;
+    formWrapper.appendChild(script);
   }
 
   // Function to close the form with reverse animation
-  function closeForm(targetEmbed) {
-    if (hasStartedForm) {
+  function closeForm() {
+    // Check if the user has started the form
+    if (activeFormId) {
       const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
-      if (!userConfirmed) return; // Do nothing if the user cancels
+      if (!userConfirmed) return; // Abort if the user chooses not to close
     }
 
     // Play reverse animation
     formDim.style.transition = 'opacity 0.25s ease';
     formWrapper.style.transition = 'transform 0.25s ease';
-
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    // Wait for animation to finish before hiding the form and resetting it
+    // Wait for animation to finish before hiding the form and clearing the embed
     setTimeout(() => {
       baseForm.style.display = 'none';
-      if (targetEmbed) resetForm(targetEmbed);
-      hasStartedForm = false; // Reset progress tracking
+      formWrapper.innerHTML = ''; // Remove the Typeform embed entirely
+      activeFormId = null; // Reset the active form ID
     }, 250); // Match the duration of the animation
   }
 
   // Function to open the form
   function openForm(targetFormId) {
-    // Ensure the matching Typeform embed is displayed
-    const targetEmbed = baseForm.querySelector(`[data-tf-live="${targetFormId}"]`);
-    if (!targetEmbed) {
-      console.error(`No Typeform embed found for ID: ${targetFormId}`);
-      return;
-    }
-
     // Set initial state
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
+
+    // Create and load the embed dynamically
+    createTypeformEmbed(targetFormId);
 
     // Show the form
     baseForm.style.display = 'flex';
@@ -2518,28 +2517,7 @@ function initFormOverlay() {
       formWrapper.style.transform = 'translateY(0)';
     }, 10); // Small delay to ensure transitions take effect
 
-    // Monitor progress in the form
-    monitorFormProgress(targetEmbed);
-  }
-
-  // Function to monitor if the user has started the form
-  function monitorFormProgress(targetEmbed) {
-    const iframe = targetEmbed.querySelector('iframe');
-    if (!iframe) return;
-
-    const formWindow = iframe.contentWindow;
-
-    // Listen for messages from the Typeform iframe
-    window.addEventListener('message', (event) => {
-      if (event.origin.includes('typeform') && event.data?.type === 'form-progress') {
-        hasStartedForm = true; // Set to true if progress is detected
-      }
-    });
-
-    // Reset the flag if the form returns to the welcome screen
-    formWindow.addEventListener('load', () => {
-      hasStartedForm = false; // Reset when the form reloads
-    });
+    activeFormId = targetFormId; // Track the active form ID
   }
 
   // Attach event listeners to buttons
@@ -2552,10 +2530,10 @@ function initFormOverlay() {
 
   // Close form on clicking dim background or close button
   if (formDim) {
-    formDim.addEventListener('click', () => closeForm(document.querySelector('[data-tf-live]')));
+    formDim.addEventListener('click', closeForm);
   }
   if (closeButton) {
-    closeButton.addEventListener('click', () => closeForm(document.querySelector('[data-tf-live]')));
+    closeButton.addEventListener('click', closeForm);
   }
 
   // Reset functionality for Swup.js
