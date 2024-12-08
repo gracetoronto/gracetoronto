@@ -1,4 +1,4 @@
-console.log("V1.558");
+console.log("V1.559");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2463,64 +2463,70 @@ function initFormOverlay() {
 
   let activeFormId = null;
 
-  // Function to create and insert a new Typeform embed dynamically
-  function createTypeformEmbed(targetFormId) {
-    const embedHTML = `<div data-tf-live="${targetFormId}"></div>`;
-    formWrapper.innerHTML = embedHTML;
+  // Helper function to remove the embed
+  function clearTypeformEmbed() {
+    formWrapper.innerHTML = ''; // Clear the form wrapper
+    activeFormId = null; // Reset the active form ID
+  }
 
-    // Dynamically inject Typeform script after the embed is added
+  // Function to dynamically create and load the embed
+  function createTypeformEmbed(formId) {
+    // Clear any existing embed
+    clearTypeformEmbed();
+
+    // Create a new Typeform embed dynamically
+    const embedDiv = document.createElement('div');
+    embedDiv.setAttribute('data-tf-live', formId);
+    formWrapper.appendChild(embedDiv);
+
+    // Dynamically inject the Typeform script
     const script = document.createElement('script');
-    script.src = 'https://embed.typeform.com/embed.js'; // Typeform embed script URL
+    script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
     script.async = true;
     formWrapper.appendChild(script);
   }
 
-  // Function to close the form with reverse animation
-  function closeForm() {
-    // Check if the user has started the form
-    if (activeFormId) {
-      const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
-      if (!userConfirmed) return; // Abort if the user chooses not to close
-    }
-
-    // Play reverse animation
-    formDim.style.transition = 'opacity 0.25s ease';
-    formWrapper.style.transition = 'transform 0.25s ease';
+  // Function to handle opening the form
+  function openForm(formId) {
+    // Set initial state for animation
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    // Wait for animation to finish before hiding the form and clearing the embed
-    setTimeout(() => {
-      baseForm.style.display = 'none';
-      formWrapper.innerHTML = ''; // Remove the Typeform embed entirely
-      activeFormId = null; // Reset the active form ID
-    }, 250); // Match the duration of the animation
-  }
+    // Dynamically load the Typeform embed
+    createTypeformEmbed(formId);
 
-  // Function to open the form
-  function openForm(targetFormId) {
-    // Set initial state
-    formDim.style.opacity = '0';
-    formWrapper.style.transform = 'translateY(500px)';
-
-    // Create and load the embed dynamically
-    createTypeformEmbed(targetFormId);
-
-    // Show the form
+    // Show the base form and play animation
     baseForm.style.display = 'flex';
-
-    // Animate the overlay and form wrapper
     setTimeout(() => {
       formDim.style.transition = 'opacity 0.25s ease';
       formWrapper.style.transition = 'transform 0.25s ease';
       formDim.style.opacity = '1';
       formWrapper.style.transform = 'translateY(0)';
-    }, 10); // Small delay to ensure transitions take effect
+    }, 10);
 
-    activeFormId = targetFormId; // Track the active form ID
+    activeFormId = formId;
   }
 
-  // Attach event listeners to buttons
+  // Function to handle closing the form
+  function closeForm() {
+    // If the user started the form, show a confirmation message
+    if (activeFormId) {
+      const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
+      if (!userConfirmed) return; // Abort closing if user cancels
+    }
+
+    // Play reverse animation
+    formDim.style.opacity = '0';
+    formWrapper.style.transform = 'translateY(500px)';
+
+    // After animation, hide and reset the form
+    setTimeout(() => {
+      baseForm.style.display = 'none';
+      clearTypeformEmbed(); // Ensure the form is reset
+    }, 250); // Match the animation duration
+  }
+
+  // Attach click event listeners to buttons
   openButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const formId = button.getAttribute('data-tf-form');
@@ -2528,7 +2534,7 @@ function initFormOverlay() {
     });
   });
 
-  // Close form on clicking dim background or close button
+  // Close form when clicking on dim background or close button
   if (formDim) {
     formDim.addEventListener('click', closeForm);
   }
@@ -2536,7 +2542,7 @@ function initFormOverlay() {
     closeButton.addEventListener('click', closeForm);
   }
 
-  // Reset functionality for Swup.js
+  // Reinitialize on Swup.js navigation
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
       initFormOverlay();
