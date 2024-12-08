@@ -1,4 +1,4 @@
-console.log("V1.566");
+console.log("V1.567");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2554,4 +2554,4 @@ function initFormOverlay() {
 }
 
 // Initialize the function
-initFormOverlay();
+document.addEventListener('DOMContentLoaded', initFormOverlay);
