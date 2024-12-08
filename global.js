@@ -1,4 +1,4 @@
-console.log("V1.567");
+console.log("V1.568");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2486,6 +2486,10 @@ function initFormOverlay() {
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
     script.async = true;
+    script.onload = () => {
+      // Ensure the embed script has loaded correctly
+      console.log('Typeform embed script loaded.');
+    };
     formEmbedContainer.appendChild(script);
   }
 
@@ -2514,7 +2518,7 @@ function initFormOverlay() {
   function closeForm() {
     // If the user started the form, show a confirmation message
     if (activeFormId) {
-      const userConfirmed = window.confirm('Are you sure you want to close this form? All progress will be lost.');
+      const userConfirmed = window.confirm('Are you sure you want to exit? Your progress will be lost.');
       if (!userConfirmed) return; // Abort closing if user cancels
     }
 
@@ -2545,13 +2549,14 @@ function initFormOverlay() {
     closeButton.addEventListener('click', closeForm);
   }
 
-  // Reinitialize on Swup.js navigation
+  // Reinitialize on Swup.js navigation (trigger after content:replace)
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
+      // Ensure the form overlay gets reinitialized on page change
       initFormOverlay();
     });
   }
 }
 
-// Initialize the function
+// Initialize the function after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', initFormOverlay);
