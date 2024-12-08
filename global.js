@@ -1,4 +1,4 @@
-console.log("V1.563");
+console.log("V1.565");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2480,8 +2480,9 @@ function initFormOverlay() {
   }
 
   // Helper: Load Typeform embed dynamically
-  function createTypeformEmbed(formId) {
+  function createTypeformEmbed(formId, callback) {
     clearTypeformEmbed(); // Ensure no leftover embed
+
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
@@ -2490,8 +2491,13 @@ function initFormOverlay() {
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/embed.js';
     script.async = true;
-    formEmbedContainer.appendChild(script);
 
+    // Only trigger callback when the Typeform script has loaded
+    script.onload = () => {
+      if (callback) callback(); // Execute the callback after the embed is loaded
+    };
+
+    formEmbedContainer.appendChild(script);
     activeFormId = formId;
   }
 
@@ -2501,17 +2507,17 @@ function initFormOverlay() {
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    // Dynamically create Typeform embed
-    createTypeformEmbed(formId);
-
-    // Show the form and animate
-    baseForm.style.display = 'flex';
-    setTimeout(() => {
-      formDim.style.transition = 'opacity 0.25s ease';
-      formWrapper.style.transition = 'transform 0.25s ease';
-      formDim.style.opacity = '1';
-      formWrapper.style.transform = 'translateY(0)';
-    }, 10);
+    // Dynamically create Typeform embed and only proceed after it's loaded
+    createTypeformEmbed(formId, () => {
+      // Show the form and animate once the embed is ready
+      baseForm.style.display = 'flex';
+      setTimeout(() => {
+        formDim.style.transition = 'opacity 0.25s ease';
+        formWrapper.style.transition = 'transform 0.25s ease';
+        formDim.style.opacity = '1';
+        formWrapper.style.transform = 'translateY(0)';
+      }, 10);
+    });
   }
 
   // Close form with animation
