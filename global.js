@@ -1,4 +1,4 @@
-console.log("V1.570");
+console.log("V1.571");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2487,13 +2487,15 @@ function initFormOverlay() {
       script.src = 'https://embed.typeform.com/embed.js';
       script.async = true;
       script.onload = () => {
-        // Reinitialize the Typeform embed
-        window.tf?.initialize();
+        if (window.tf && typeof window.tf.create === 'function') {
+          window.tf.create(embedDiv); // Initialize Typeform for the new embed
+        }
       };
       document.body.appendChild(script);
     } else {
-      // If the script is already loaded, reinitialize the embed
-      window.tf?.initialize();
+      if (window.tf && typeof window.tf.create === 'function') {
+        window.tf.create(embedDiv); // Initialize Typeform for the new embed
+      }
     }
   }
 
@@ -2544,13 +2546,24 @@ function initFormOverlay() {
   if (closeButton) closeButton.addEventListener('click', closeForm);
 }
 
+// Reinitialize Typeform embeds on Swup navigation
+function reinitializeTypeform() {
+  const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
+  if (existingScript) {
+    const clonedScript = existingScript.cloneNode();
+    existingScript.remove();
+    document.body.appendChild(clonedScript);
+  }
+}
+
 // Initialize the form overlay on DOMContentLoaded and Swup navigation
 document.addEventListener('DOMContentLoaded', () => {
   initFormOverlay();
 
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      initFormOverlay(); // Reinitialize the overlay after Swup replaces content
+      initFormOverlay(); // Reinitialize form overlay after Swup replaces content
+      reinitializeTypeform(); // Reload the Typeform script
     });
   }
 });
