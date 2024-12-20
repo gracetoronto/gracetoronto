@@ -1,4 +1,4 @@
-console.log("V1.573");
+console.log("V1.574");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2476,47 +2476,26 @@ function initFormOverlay() {
   function createTypeformEmbed(formId) {
     clearTypeformEmbed(); // Clear any existing embed
 
+    // Create the embed div
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
+    embedDiv.setAttribute('data-tf-inline-on-mobile', true); // Optional customization
     formEmbedContainer.appendChild(embedDiv);
 
-    if (window.tf && typeof window.tf.create === 'function') {
-      console.log('Initializing Typeform...');
-      window.tf.create(embedDiv, {
-        container: formEmbedContainer,
-        onReady: () => console.log('Typeform embed is ready!'),
-        onError: (error) => console.error('Typeform embed error:', error),
-      });
-    } else {
-      console.warn('Typeform is not available yet. Retrying...');
-      loadTypeformScript(() => {
-        if (window.tf && typeof window.tf.create === 'function') {
-          console.log('Retrying Typeform initialization...');
-          window.tf.create(embedDiv, {
-            container: formEmbedContainer,
-            onReady: () => console.log('Typeform embed is ready!'),
-            onError: (error) => console.error('Typeform embed error:', error),
-          });
-        }
-      });
-    }
-  }
-
-  // Function to dynamically load the Typeform script
-  function loadTypeformScript(callback) {
-    const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.src = 'https://embed.typeform.com/embed.js';
-      script.async = true;
-      script.onload = () => {
-        console.log('Typeform script loaded successfully.');
-        if (callback) callback();
-      };
-      document.body.appendChild(script);
-    } else if (callback) {
-      callback();
-    }
+    // Reload the Typeform script
+    const script = document.createElement('script');
+    script.src = 'https://embed.typeform.com/embed.js';
+    script.async = true;
+    script.onload = () => {
+      console.log('Typeform embed script loaded successfully.');
+      // Ensure Typeform initializes after the script is loaded
+      if (window.tf && typeof window.tf.load === 'function') {
+        window.tf.load(); // Reinitialize all embeds on the page
+      } else {
+        console.error('Typeform script loaded, but no `tf` object found.');
+      }
+    };
+    document.body.appendChild(script);
   }
 
   // Function to handle opening the form
@@ -2566,16 +2545,17 @@ function initFormOverlay() {
   if (closeButton) closeButton.addEventListener('click', closeForm);
 }
 
-// Ensure Typeform embeds are properly reloaded on Swup navigation
+// Reinitialize Typeform embeds on Swup navigation
 function setupSwupListener() {
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      console.log('Swup: Reinitializing form overlay...');
-      initFormOverlay();
+      console.log('Swup navigation detected: reinitializing form overlay...');
+      initFormOverlay(); // Reinitialize the form overlay
     });
   }
 }
 
+// Ensure everything initializes correctly
 document.addEventListener('DOMContentLoaded', () => {
   initFormOverlay();
   setupSwupListener();
