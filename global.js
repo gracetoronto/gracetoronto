@@ -1,4 +1,4 @@
-console.log("V1.569");
+console.log("V1.570");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2466,29 +2466,33 @@ function initFormOverlay() {
 
   let activeFormId = null;
 
-  // Helper function to remove only the embed
+  // Helper function to clear the Typeform embed
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = '';
-    activeFormId = null;
+    formEmbedContainer.innerHTML = ''; // Clear embed container
+    activeFormId = null; // Reset active form ID
   }
 
-  // Function to dynamically create and load the embed
+  // Function to dynamically create and load the Typeform embed
   function createTypeformEmbed(formId) {
-    clearTypeformEmbed();
+    clearTypeformEmbed(); // Clear any existing embed
 
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Ensure the Typeform script is loaded (reuse if it exists)
-    if (!document.querySelector('script[src="https://embed.typeform.com/embed.js"]')) {
+    // Ensure the Typeform embed script is loaded
+    const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
+    if (!existingScript) {
       const script = document.createElement('script');
       script.src = 'https://embed.typeform.com/embed.js';
       script.async = true;
-      script.onload = () => console.log('Typeform embed script loaded.');
+      script.onload = () => {
+        // Reinitialize the Typeform embed
+        window.tf?.initialize();
+      };
       document.body.appendChild(script);
     } else {
-      // Reinitialize the embed in case the script is already loaded
+      // If the script is already loaded, reinitialize the embed
       window.tf?.initialize();
     }
   }
@@ -2497,7 +2501,8 @@ function initFormOverlay() {
   function openForm(formId) {
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
-    createTypeformEmbed(formId);
+
+    createTypeformEmbed(formId); // Load the Typeform embed
 
     baseForm.style.display = 'flex';
     setTimeout(() => {
@@ -2534,22 +2539,18 @@ function initFormOverlay() {
     });
   });
 
-  if (formDim) {
-    formDim.addEventListener('click', closeForm);
-  }
-  if (closeButton) {
-    closeButton.addEventListener('click', closeForm);
-  }
+  // Close form when clicking on dim background or close button
+  if (formDim) formDim.addEventListener('click', closeForm);
+  if (closeButton) closeButton.addEventListener('click', closeForm);
 }
 
-// Initialize the function after the DOM is fully loaded
+// Initialize the form overlay on DOMContentLoaded and Swup navigation
 document.addEventListener('DOMContentLoaded', () => {
   initFormOverlay();
 
-  // Reinitialize on Swup.js navigation
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      initFormOverlay();
+      initFormOverlay(); // Reinitialize the overlay after Swup replaces content
     });
   }
 });
