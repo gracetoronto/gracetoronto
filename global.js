@@ -1,4 +1,4 @@
-console.log("V1.574");
+console.log("V1.575");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2466,35 +2466,41 @@ function initFormOverlay() {
 
   let activeFormId = null;
 
-  // Helper function to clear the Typeform embed
+  // Helper function to clear the embed and reset Typeform state
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = ''; // Clear embed container
-    activeFormId = null; // Reset active form ID
+    formEmbedContainer.innerHTML = '';
+    activeFormId = null;
   }
 
   // Function to dynamically create and load the Typeform embed
   function createTypeformEmbed(formId) {
-    clearTypeformEmbed(); // Clear any existing embed
+    clearTypeformEmbed();
 
-    // Create the embed div
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
     embedDiv.setAttribute('data-tf-inline-on-mobile', true); // Optional customization
     formEmbedContainer.appendChild(embedDiv);
 
-    // Reload the Typeform script
+    // Dynamically inject the Typeform script
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/embed.js';
     script.async = true;
+
     script.onload = () => {
-      console.log('Typeform embed script loaded successfully.');
-      // Ensure Typeform initializes after the script is loaded
+      console.log('Typeform embed script loaded.');
+      // Reinitialize Typeform explicitly
       if (window.tf && typeof window.tf.load === 'function') {
-        window.tf.load(); // Reinitialize all embeds on the page
-      } else {
-        console.error('Typeform script loaded, but no `tf` object found.');
+        setTimeout(() => {
+          try {
+            window.tf.load(); // Trigger manual reinitialization
+            console.log('Typeform embed manually reinitialized.');
+          } catch (error) {
+            console.error('Error reinitializing Typeform:', error);
+          }
+        }, 50); // Slight delay to ensure embedDiv is in the DOM
       }
     };
+
     document.body.appendChild(script);
   }
 
@@ -2503,7 +2509,7 @@ function initFormOverlay() {
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    createTypeformEmbed(formId); // Load the Typeform embed
+    createTypeformEmbed(formId);
 
     baseForm.style.display = 'flex';
     setTimeout(() => {
