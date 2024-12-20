@@ -1,4 +1,4 @@
-console.log("V1.572");
+console.log("V1.573");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2480,16 +2480,22 @@ function initFormOverlay() {
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Dynamically inject the Typeform embed
     if (window.tf && typeof window.tf.create === 'function') {
+      console.log('Initializing Typeform...');
       window.tf.create(embedDiv, {
         container: formEmbedContainer,
+        onReady: () => console.log('Typeform embed is ready!'),
+        onError: (error) => console.error('Typeform embed error:', error),
       });
     } else {
+      console.warn('Typeform is not available yet. Retrying...');
       loadTypeformScript(() => {
         if (window.tf && typeof window.tf.create === 'function') {
+          console.log('Retrying Typeform initialization...');
           window.tf.create(embedDiv, {
             container: formEmbedContainer,
+            onReady: () => console.log('Typeform embed is ready!'),
+            onError: (error) => console.error('Typeform embed error:', error),
           });
         }
       });
@@ -2503,7 +2509,10 @@ function initFormOverlay() {
       const script = document.createElement('script');
       script.src = 'https://embed.typeform.com/embed.js';
       script.async = true;
-      script.onload = callback;
+      script.onload = () => {
+        console.log('Typeform script loaded successfully.');
+        if (callback) callback();
+      };
       document.body.appendChild(script);
     } else if (callback) {
       callback();
@@ -2558,12 +2567,16 @@ function initFormOverlay() {
 }
 
 // Ensure Typeform embeds are properly reloaded on Swup navigation
-document.addEventListener('DOMContentLoaded', () => {
-  initFormOverlay();
-
+function setupSwupListener() {
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
+      console.log('Swup: Reinitializing form overlay...');
       initFormOverlay();
     });
   }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initFormOverlay();
+  setupSwupListener();
 });
