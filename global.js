@@ -1,4 +1,4 @@
-console.log("V1.571");
+console.log("V1.572");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2480,22 +2480,33 @@ function initFormOverlay() {
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Ensure the Typeform embed script is loaded
+    // Dynamically inject the Typeform embed
+    if (window.tf && typeof window.tf.create === 'function') {
+      window.tf.create(embedDiv, {
+        container: formEmbedContainer,
+      });
+    } else {
+      loadTypeformScript(() => {
+        if (window.tf && typeof window.tf.create === 'function') {
+          window.tf.create(embedDiv, {
+            container: formEmbedContainer,
+          });
+        }
+      });
+    }
+  }
+
+  // Function to dynamically load the Typeform script
+  function loadTypeformScript(callback) {
     const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
     if (!existingScript) {
       const script = document.createElement('script');
       script.src = 'https://embed.typeform.com/embed.js';
       script.async = true;
-      script.onload = () => {
-        if (window.tf && typeof window.tf.create === 'function') {
-          window.tf.create(embedDiv); // Initialize Typeform for the new embed
-        }
-      };
+      script.onload = callback;
       document.body.appendChild(script);
-    } else {
-      if (window.tf && typeof window.tf.create === 'function') {
-        window.tf.create(embedDiv); // Initialize Typeform for the new embed
-      }
+    } else if (callback) {
+      callback();
     }
   }
 
@@ -2546,24 +2557,13 @@ function initFormOverlay() {
   if (closeButton) closeButton.addEventListener('click', closeForm);
 }
 
-// Reinitialize Typeform embeds on Swup navigation
-function reinitializeTypeform() {
-  const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
-  if (existingScript) {
-    const clonedScript = existingScript.cloneNode();
-    existingScript.remove();
-    document.body.appendChild(clonedScript);
-  }
-}
-
-// Initialize the form overlay on DOMContentLoaded and Swup navigation
+// Ensure Typeform embeds are properly reloaded on Swup navigation
 document.addEventListener('DOMContentLoaded', () => {
   initFormOverlay();
 
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      initFormOverlay(); // Reinitialize form overlay after Swup replaces content
-      reinitializeTypeform(); // Reload the Typeform script
+      initFormOverlay();
     });
   }
 });
