@@ -1,4 +1,4 @@
-console.log("V1.568");
+console.log("V1.569");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2458,9 +2458,9 @@ function initFormOverlay() {
 
   const formDim = baseForm.querySelector('.form__dim');
   const formWrapper = baseForm.querySelector('.form__wrapper');
-  const formEmbedContainer = document.createElement('div'); // Separate container for the embed
+  const formEmbedContainer = document.createElement('div');
   formEmbedContainer.classList.add('form__embed-container');
-  formWrapper.appendChild(formEmbedContainer); // Append this to the wrapper
+  formWrapper.appendChild(formEmbedContainer);
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
@@ -2468,41 +2468,37 @@ function initFormOverlay() {
 
   // Helper function to remove only the embed
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = ''; // Clear only the embed container
-    activeFormId = null; // Reset the active form ID
+    formEmbedContainer.innerHTML = '';
+    activeFormId = null;
   }
 
   // Function to dynamically create and load the embed
   function createTypeformEmbed(formId) {
-    // Clear any existing embed
     clearTypeformEmbed();
 
-    // Create a new Typeform embed dynamically
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Dynamically inject the Typeform script
-    const script = document.createElement('script');
-    script.src = 'https://embed.typeform.com/embed.js'; // Official embed script URL
-    script.async = true;
-    script.onload = () => {
-      // Ensure the embed script has loaded correctly
-      console.log('Typeform embed script loaded.');
-    };
-    formEmbedContainer.appendChild(script);
+    // Ensure the Typeform script is loaded (reuse if it exists)
+    if (!document.querySelector('script[src="https://embed.typeform.com/embed.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://embed.typeform.com/embed.js';
+      script.async = true;
+      script.onload = () => console.log('Typeform embed script loaded.');
+      document.body.appendChild(script);
+    } else {
+      // Reinitialize the embed in case the script is already loaded
+      window.tf?.initialize();
+    }
   }
 
   // Function to handle opening the form
   function openForm(formId) {
-    // Set initial state for animation
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
-
-    // Dynamically load the Typeform embed
     createTypeformEmbed(formId);
 
-    // Show the base form and play animation
     baseForm.style.display = 'flex';
     setTimeout(() => {
       formDim.style.transition = 'opacity 0.25s ease';
@@ -2516,21 +2512,18 @@ function initFormOverlay() {
 
   // Function to handle closing the form
   function closeForm() {
-    // If the user started the form, show a confirmation message
     if (activeFormId) {
       const userConfirmed = window.confirm('Are you sure you want to exit? Your progress will be lost.');
-      if (!userConfirmed) return; // Abort closing if user cancels
+      if (!userConfirmed) return;
     }
 
-    // Play reverse animation
     formDim.style.opacity = '0';
     formWrapper.style.transform = 'translateY(500px)';
 
-    // After animation, hide and reset the form
     setTimeout(() => {
       baseForm.style.display = 'none';
-      clearTypeformEmbed(); // Ensure the form is reset
-    }, 250); // Match the animation duration
+      clearTypeformEmbed();
+    }, 250);
   }
 
   // Attach click event listeners to buttons
@@ -2541,22 +2534,22 @@ function initFormOverlay() {
     });
   });
 
-  // Close form when clicking on dim background or close button
   if (formDim) {
     formDim.addEventListener('click', closeForm);
   }
   if (closeButton) {
     closeButton.addEventListener('click', closeForm);
   }
-
-  // Reinitialize on Swup.js navigation (trigger after content:replace)
-  if (window.swup) {
-    swup.hooks.on('content:replace', () => {
-      // Ensure the form overlay gets reinitialized on page change
-      initFormOverlay();
-    });
-  }
 }
 
 // Initialize the function after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initFormOverlay);
+document.addEventListener('DOMContentLoaded', () => {
+  initFormOverlay();
+
+  // Reinitialize on Swup.js navigation
+  if (window.swup) {
+    swup.hooks.on('content:replace', () => {
+      initFormOverlay();
+    });
+  }
+});
