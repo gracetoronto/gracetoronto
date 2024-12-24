@@ -1,4 +1,4 @@
-console.log("V1.587");
+console.log("V1.588");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2097,6 +2097,7 @@ function handleEventCardResize() {
   if (eventCards.length > 0) {
       const elementsToUpdate = [
           '.eventcard',
+          '.eventcard__top',
           '.eventcard__item',
           '.event__img',
           '.card__img',
