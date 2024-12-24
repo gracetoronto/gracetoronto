@@ -1,4 +1,4 @@
-console.log("V1.582");
+console.log("V1.583");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -70,10 +70,10 @@ const swup = new Swup({
         },
       ]
     }),
-    new SwupScriptsPlugin ({
-      head: true,
-      body: false
-    })
+    // new SwupScriptsPlugin ({
+    //   head: true,
+    //   body: false
+    // })
   ]
 });
 
