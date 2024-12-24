@@ -1,4 +1,4 @@
-console.log("V1.578");
+console.log("V1.579");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -184,7 +184,7 @@ function updatePrevEventsURL() {
   const leadershipRegex = /^\/events\/.*/;
 
   if (!leadershipRegex.test(currentURL)) {
-    prevBulletinURL = currentURL;
+    prevEventsURL = currentURL;
     // console.log('Stored previous URL:', prevURL); // Debugging
   }
 }
