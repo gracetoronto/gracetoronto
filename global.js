@@ -70,10 +70,10 @@ const swup = new Swup({
         },
       ]
     }),
-    // new SwupScriptsPlugin ({
-    //   head: true,
-    //   body: false
-    // })
+    new SwupScriptsPlugin ({
+      head: true,
+      body: false
+    })
   ]
 });
 
