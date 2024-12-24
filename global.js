@@ -1,4 +1,4 @@
-console.log("V1.595");
+console.log("V1.596");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute
+  // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute before content is replaced
   swup.hooks.before('content:replace', () => {
     const currentURL = window.location.pathname; // Current page URL
     const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Check if the current page is within the /events section
+    // Check if the current page is within the /events section before the transition starts
     if (currentURL.startsWith('/events')) {
       console.log('Adding data-swup-ignore-script to CMSFilter script (events page).');
       script.setAttribute('data-swup-ignore-script', '');
