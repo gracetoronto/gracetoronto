@@ -1,4 +1,4 @@
-console.log("V1.596");
+console.log("V1.597");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -93,9 +93,10 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  let prevURL = window.location.pathname; // Initialize prevURL with the current page URL
+
   // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute before content is replaced
   swup.hooks.before('content:replace', () => {
-    const currentURL = window.location.pathname; // Current page URL
     const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
 
     if (!script) {
@@ -103,14 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Check if the current page is within the /events section before the transition starts
-    if (currentURL.startsWith('/events')) {
+    // Check if the previous URL was within the /events section
+    if (prevURL.startsWith('/events')) {
       console.log('Adding data-swup-ignore-script to CMSFilter script (events page).');
       script.setAttribute('data-swup-ignore-script', '');
     } else {
       console.log('Removing data-swup-ignore-script from CMSFilter script (non-events page).');
       script.removeAttribute('data-swup-ignore-script');
     }
+
+    // Update prevURL to the current URL for the next transition
+    prevURL = window.location.pathname;
   });
 });
 
