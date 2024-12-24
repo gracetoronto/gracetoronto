@@ -1,4 +1,4 @@
-console.log("V1.575");
+console.log("V1.576");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1060,41 +1060,51 @@ document.addEventListener('DOMContentLoaded', initializeShowFirstImage);
 //--- EVENT CARD HIDE END DATE IF IT MATCHES START DATE---
 
 function hideMatchingEndDates() {
-  // Select all collection list items with the class 'eventcard__list'
-  const collectionListItems = document.querySelectorAll('.eventcard__list .eventcard__item');
+  // Select all collection list items within '.eventcard__list'
+  const eventCardItems = document.querySelectorAll('.eventcard__list .eventcard__item');
+  
+  // Select all collection list items within '.eventext'
+  const eventTextItems = document.querySelectorAll('.eventext');
 
-  // Iterate over each collection list item
-  collectionListItems.forEach(function (item) {
-    // Get the start and end date elements within this item
-    const startDateElement = item.querySelector('.date--start');
-    const endDateElement = item.querySelector('.date--end');
-    const dateDash = item.querySelector('.date--dash');
-    const dateDayElement = item.querySelector('.date--day');
-    const dateCommaElement = item.querySelector('.date--comma');
-    
+  // Function to process each set of items
+  function processItems(items) {
+    items.forEach(function (item) {
+      // Get the start and end date elements within this item
+      const startDateElement = item.querySelector('.date--start');
+      const endDateElement = item.querySelector('.date--end');
+      const dateDash = item.querySelector('.date--dash');
+      const dateDayElement = item.querySelector('.date--day');
+      const dateCommaElement = item.querySelector('.date--comma');
 
-    // Check if both start and end date elements exist to avoid errors
-    if (startDateElement && endDateElement) {
-      // Get the text content of the elements
-      const startDateText = startDateElement.textContent.trim();
-      const endDateText = endDateElement.textContent.trim();
+      // Check if both start and end date elements exist to avoid errors
+      if (startDateElement && endDateElement) {
+        // Get the text content of the elements
+        const startDateText = startDateElement.textContent.trim();
+        const endDateText = endDateElement.textContent.trim();
 
-      // Check if the start date is the same as the end date
-      if (startDateText === endDateText) {
-        // Hide the end date element and date dash if they are the same
-        endDateElement.style.display = 'none';
-        if (dateDash) {
-          dateDash.style.display = 'none';
-        }
-      } else {
-        // Hide the date day element if the start date is different from the end date
-        if (dateDayElement) {
-          dateDayElement.style.display = 'none';
-          dateCommaElement.style.display = 'none';
+        // Check if the start date is the same as the end date
+        if (startDateText === endDateText) {
+          // Hide the end date element and date dash if they are the same
+          endDateElement.style.display = 'none';
+          if (dateDash) {
+            dateDash.style.display = 'none';
+          }
+        } else {
+          // Hide the date day element if the start date is different from the end date
+          if (dateDayElement) {
+            dateDayElement.style.display = 'none';
+            if (dateCommaElement) {
+              dateCommaElement.style.display = 'none';
+            }
+          }
         }
       }
-    }
-  });
+    });
+  }
+
+  // Process both '.eventcard__list .eventcard__item' and '.eventext' items
+  processItems(eventCardItems);
+  processItems(eventTextItems);
 }
 
 // Run the function after the DOM content is fully loaded
