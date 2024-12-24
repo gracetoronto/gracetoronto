@@ -1,4 +1,4 @@
-console.log("V1.591");
+console.log("V1.592");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -86,29 +86,43 @@ const swup = new Swup({
 
 //IGNORE CMSFILTER SCRIPT ON EVENT PAGES
 
-// Swup hook to dynamically manage the `data-swup-ignore-script` attribute
-swup.hooks.before('content:replace', (event) => {
-  const currentURL = window.location.pathname; // Current page slug
-  const targetURL = event.detail.url; // Target page slug
-  const script = document.getElementById('cmsfilter-script');
-
-  if (!script) return;
-
-  // Define the conditions for ignoring the script
-  const isCurrentEventsPage = currentURL.startsWith('/events');
-  const isTargetEventsPage = targetURL.startsWith('/events');
-
-  if (
-    (isCurrentEventsPage && isTargetEventsPage) || // Navigating between /events and /events/*
-    (isCurrentEventsPage && targetURL === '/events') || // Navigating back to main events page
-    (currentURL === '/events' && isTargetEventsPage) // Navigating to event details page
-  ) {
-    // Add data attribute to prevent re-evaluation
-    script.setAttribute('data-swup-ignore-script', '');
-  } else {
-    // Remove the attribute for other pages
-    script.removeAttribute('data-swup-ignore-script');
+document.addEventListener('DOMContentLoaded', () => {
+  // Ensure Swup and the ScriptsPlugin are initialized
+  if (typeof swup === 'undefined') {
+    console.error('Swup is not initialized.');
+    return;
   }
+
+  // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute
+  swup.hooks.before('content:replace', (event) => {
+    const currentURL = window.location.pathname; // Current page slug
+    const targetURL = new URL(event.detail.url, window.location.origin).pathname; // Extract pathname
+    const script = document.querySelector('script[src*="cmsfilter.js"]'); // Adjusted to match your CMSFilter script
+
+    // Debugging log
+    console.log('Swup transition detected:', { currentURL, targetURL });
+
+    if (!script) {
+      console.error('CMSFilter script not found!');
+      return;
+    }
+
+    // Define the conditions for ignoring the script
+    const isCurrentEventsPage = currentURL.startsWith('/events');
+    const isTargetEventsPage = targetURL.startsWith('/events');
+
+    if (
+      (isCurrentEventsPage && isTargetEventsPage) || // Navigating between /events and /events/*
+      (isCurrentEventsPage && targetURL === '/events') || // Navigating back to the main events page
+      (currentURL === '/events' && isTargetEventsPage) // Navigating to an event details page
+    ) {
+      console.log('Adding data-swup-ignore-script to CMSFilter script.');
+      script.setAttribute('data-swup-ignore-script', '');
+    } else {
+      console.log('Removing data-swup-ignore-script from CMSFilter script.');
+      script.removeAttribute('data-swup-ignore-script');
+    }
+  });
 });
 
 
