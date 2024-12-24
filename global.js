@@ -1,4 +1,4 @@
-console.log("V1.592");
+console.log("V1.593");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -94,9 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute
-  swup.hooks.before('content:replace', (event) => {
+  swup.hooks.before('content:replace', () => {
     const currentURL = window.location.pathname; // Current page slug
-    const targetURL = new URL(event.detail.url, window.location.origin).pathname; // Extract pathname
+    const targetURL = swup.transition.to; // Swup's built-in property for the target URL
     const script = document.querySelector('script[src*="cmsfilter.js"]'); // Adjusted to match your CMSFilter script
 
     // Debugging log
