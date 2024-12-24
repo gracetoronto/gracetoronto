@@ -73,6 +73,30 @@ html.is-animating .transition-fade {
 }
 
 
+
+
+#fragment-events.is-changing {
+  transition: 350ms ease-in-out;
+}
+
+#fragment-events.is-changing .profile {
+  transition: transform 350ms cubic-bezier(.01,1,.5,1);
+}
+
+#fragment-events.is-animating .profile {
+  transform: translateX(100%);
+}
+
+#fragment-events.is-changing .profile__dim {
+  transition: background-color 250ms;
+}
+
+#fragment-events.is-animating .profile__dim {
+  background-color: rgba(28, 28, 28, 0);
+}
+
+
+
 /* Minstry nav arrow animation */
 
 .ministry__arrow {
