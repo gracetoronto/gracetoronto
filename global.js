@@ -1,4 +1,4 @@
-console.log("V1.577");
+console.log("V1.578");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -168,6 +168,53 @@ swup.hooks.on('content:replace', () => {
     });
   }
 });
+
+
+
+
+
+//UPDATE EVENTS CLOSE LINKS WITH PREVIOUS URL
+
+// Variable to store the previous URL
+let prevEventsURL = '';
+
+// Function to capture and store the previous URL
+function updatePrevEventsURL() {
+  const currentURL = window.location.pathname;
+  const leadershipRegex = /^\/events\/.*/;
+
+  if (!leadershipRegex.test(currentURL)) {
+    prevBulletinURL = currentURL;
+    // console.log('Stored previous URL:', prevURL); // Debugging
+  }
+}
+
+// Capture the URL on page load
+document.addEventListener('DOMContentLoaded', () => {
+  updatePrevEventsURL();
+});
+
+// Capture the URL on Swup navigation
+swup.hooks.before('content:replace', () => {
+  updatePrevEventsURL();
+});
+
+// Update .is--exit links after Swup has replaced content
+swup.hooks.on('content:replace', () => {
+  const currentURL = window.location.pathname;
+  const leadershipRegex = /^\/events\/.*/;
+
+  if (leadershipRegex.test(currentURL)) {
+    const exitLinks = document.querySelectorAll('.is--exit');
+    // console.log('Number of .is--exit links:', exitLinks.length); // Debugging
+
+    exitLinks.forEach(link => {
+      link.href = prevEventsURL; // Update link href to the previously captured URL
+      // console.log('Updated link href to:', link.href); // Debugging
+    });
+  }
+});
+
 
 
 
