@@ -82,6 +82,52 @@ const swup = new Swup({
 
 
 
+//REINIT FINSWEET CMSFILTER SCRIPT WHEN NAVIGATING TO EVENT PAGE
+
+// Store the previous URL
+let lastPageURL = window.location.pathname;
+
+function initCMSFilterOnEventsPage() {
+  // Get the current URL
+  const currentURL = window.location.pathname;
+
+  // Only run if navigating to '/events' and NOT from an event item page like '/events/worship'
+  if (currentURL === '/events' && !(lastPageURL.startsWith('/events/') && lastPageURL !== '/events')) {
+    // Initialize the CMS filter
+    if (window.fsAttributes && window.fsAttributes.cmsfilter) {
+      window.fsAttributes.cmsfilter.init();
+    }
+  }
+}
+
+// Run the function on page load and with Swup.js
+document.addEventListener('DOMContentLoaded', () => {
+  initCMSFilterOnEventsPage();
+
+  // Reinitialize the function on Swup navigation
+  if (typeof swup !== 'undefined') {
+    swup.hooks.before('content:replace', () => {
+      lastPageURL = window.location.pathname; // Update the previous URL before navigation
+    });
+
+    swup.hooks.on('content:replace', () => {
+      initCMSFilterOnEventsPage();
+    });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 //UPDATE PROFILE CLOSE LINKS WITH PREVIOUS URL
 
 // Variable to store the previous URL
