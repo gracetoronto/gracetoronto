@@ -1,4 +1,4 @@
-console.log("V1.583");
+console.log("V1.584");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1910,11 +1910,15 @@ initFilterOptions();
 
 //---CALENDAR FILTER CHECKBOX FUNCTIONALITY---
 
+// Store the previous URL
+let previousPageURL = window.location.pathname;
+
 // Function to initialize checkbox behavior on the /events page
 function initCheckboxBehavior() {
   // Check if the current URL matches exactly /events
-  if (window.location.pathname !== '/events') {
-    return; // Exit if the URL does not match
+  const currentURL = window.location.pathname;
+  if (currentURL !== '/events' || previousPageURL.startsWith('/events/') && previousPageURL !== '/events') {
+    return; // Exit if the URL is not /events or if coming from /events/*
   }
 
   // Check if there is an element with class '.eventcard' on the page
@@ -2017,6 +2021,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Reinitialize the function on Swup navigation
   if (typeof swup !== 'undefined') {
+    swup.hooks.before('content:replace', () => {
+      previousPageURL = window.location.pathname; // Update the previous URL before navigation
+    });
+
     swup.hooks.on('content:replace', () => {
       initCheckboxBehavior();
     });
