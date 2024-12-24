@@ -1,4 +1,4 @@
-console.log("V1.588");
+console.log("V1.589");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -120,8 +120,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+//IGNORE CMSFILTER SCRIPT ON EVENT PAGES
 
+// Swup hook to dynamically manage the `data-swup-ignore-script` attribute
+swup.hooks.before('content:replace', (event) => {
+  const currentURL = window.location.pathname; // Current page slug
+  const targetURL = event.detail.url; // Target page slug
+  const script = document.getElementById('cmsfilter-script');
 
+  if (!script) return;
+
+  // Define the conditions for ignoring the script
+  const isCurrentEventPage = currentURL.startsWith('/event');
+  const isTargetEventPage = targetURL.startsWith('/event');
+
+  if (
+    (isCurrentEventPage && isTargetEventPage) || // Navigating between /event and /event/*
+    (isCurrentEventPage && targetURL === '/event') || // Navigating back to main event page
+    (currentURL === '/event' && isTargetEventPage) // Navigating to event details page
+  ) {
+    // Add data attribute to prevent re-evaluation
+    script.setAttribute('data-swup-ignore-script', '');
+  } else {
+    // Remove the attribute for other pages
+    script.removeAttribute('data-swup-ignore-script');
+  }
+});
 
 
 
