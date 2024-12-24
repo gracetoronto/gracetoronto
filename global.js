@@ -1,4 +1,4 @@
-console.log("V1.584");
+console.log("V1.585");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -78,29 +78,6 @@ const swup = new Swup({
 });
 
 
-
-//STOP SWUP FROM RE-EVALUATING SCRIPTS ON EVENTS PAGES
-
-// Save the plugin instance to re-enable it later
-let scriptsPluginInstance = null;
-
-// Hook into navigation to disable or enable the plugin
-swup.hooks.before('content:replace', (data) => {
-  const destinationURL = new URL(data.url, window.location.origin);
-  const isEventsPage = destinationURL.pathname.startsWith('/events/');
-
-  if (isEventsPage) {
-    // Remove the ScriptsPlugin for /events/* pages
-    swup.unuse(scriptsPluginInstance);
-    console.log('ScriptsPlugin disabled for /events/*');
-  } else {
-    // Add the ScriptsPlugin back for all other pages
-    if (!swup.options.plugins.includes(scriptsPluginInstance)) {
-      swup.use(scriptsPluginInstance);
-      console.log('ScriptsPlugin enabled for other pages');
-    }
-  }
-});
 
 
 
