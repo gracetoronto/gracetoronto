@@ -1,4 +1,4 @@
-console.log("V1.580");
+console.log("V1.581");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -298,7 +298,6 @@ swup.hooks.on('content:replace', () => {
   initializeMinistryNavigation();
   ministryEventCountTag();
   initFilterOptions();
-  initCheckboxBehavior();
   handleEventCardResize();
   initFilterAccordion();
   filterSelectionHover();
@@ -1912,13 +1911,18 @@ initFilterOptions();
 
 //---CALENDAR FILTER CHECKBOX FUNCTIONALITY---
 
+// Function to initialize checkbox behavior on the /events page
 function initCheckboxBehavior() {
+  // Check if the current URL matches exactly /events
+  if (window.location.pathname !== '/events') {
+    return; // Exit if the URL does not match
+  }
 
   // Check if there is an element with class '.eventcard' on the page
   if (!document.querySelector('.eventcard')) {
     return; // Exit the function if no such element exists
   }
-  
+
   // Select the church-wide checkbox using custom attribute
   const churchWideCheckbox = document.querySelector('[fs-cmsfilter-field="church-wide"]');
   
@@ -1930,16 +1934,9 @@ function initCheckboxBehavior() {
   const churchwideDiv = document.querySelector('.eventcard__churchwide');
 
   // Check if elements are found
-  if (!churchWideCheckbox) {
+  if (!churchWideCheckbox || ministryCheckboxLabels.length === 0 || !filtersDiv || !churchwideDiv) {
     return;
   }
-  if (ministryCheckboxLabels.length === 0) {
-    return;
-  }
-  if (!filtersDiv || !churchwideDiv) {
-    return;
-  }
-
 
   // Force checkbox state
   function forceCheckboxState(checkbox, state) {
@@ -1961,7 +1958,7 @@ function initCheckboxBehavior() {
         filtersDiv.style.display = 'flex';
         churchwideDiv.style.display = 'none';
       }
-    }, 350); // Delay for 250ms
+    }, 350); // Delay for 350ms
   }
 
   // Check if any ministry checkboxes are selected
@@ -1973,7 +1970,6 @@ function initCheckboxBehavior() {
   churchWideCheckbox.addEventListener('change', function() {
     updateVisibility();
     if (this.checked) {
-      // Uncheck all ministry checkboxes
       ministryCheckboxLabels.forEach(label => {
         const checkbox = label.querySelector('input[type="checkbox"]');
         if (checkbox) {
@@ -1981,7 +1977,6 @@ function initCheckboxBehavior() {
         }
       });
     } else if (!anyMinistryCheckboxSelected()) {
-      // If the church-wide checkbox is deselected and no ministry checkboxes are selected, select the first ministry checkbox
       const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
       if (firstCheckbox) {
         forceCheckboxState(firstCheckbox, true);
@@ -1995,10 +1990,8 @@ function initCheckboxBehavior() {
     if (checkbox) {
       checkbox.addEventListener('change', function() {
         if (this.checked) {
-          // Deselect the church-wide checkbox
           forceCheckboxState(churchWideCheckbox, false);
         } else if (!anyMinistryCheckboxSelected()) {
-          // If no ministry checkboxes are selected, select the church-wide checkbox
           forceCheckboxState(churchWideCheckbox, true);
         }
       });
@@ -2007,12 +2000,10 @@ function initCheckboxBehavior() {
 
   // Ensure the correct initial state
   if (!anyMinistryCheckboxSelected() && !churchWideCheckbox.checked) {
-    // Select the first ministry checkbox if the church-wide checkbox is not checked and no ministry checkboxes are selected
     const firstCheckbox = ministryCheckboxLabels[0].querySelector('input[type="checkbox"]');
     if (firstCheckbox) {
       forceCheckboxState(firstCheckbox, true);
     } else {
-      // If no ministry checkbox found, select the church-wide checkbox
       forceCheckboxState(churchWideCheckbox, true);
     }
   }
@@ -2021,8 +2012,17 @@ function initCheckboxBehavior() {
   updateVisibility();
 }
 
-// Ensure the function runs after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', initCheckboxBehavior);
+// Run the function on initial load and with Swup.js
+document.addEventListener('DOMContentLoaded', () => {
+  initCheckboxBehavior();
+
+  // Reinitialize the function on Swup navigation
+  if (typeof swup !== 'undefined') {
+    swup.hooks.on('content:replace', () => {
+      initCheckboxBehavior();
+    });
+  }
+});
 
 
 
