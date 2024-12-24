@@ -1,4 +1,4 @@
-console.log("V1.589");
+console.log("V1.590");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -131,13 +131,13 @@ swup.hooks.before('content:replace', (event) => {
   if (!script) return;
 
   // Define the conditions for ignoring the script
-  const isCurrentEventPage = currentURL.startsWith('/event');
-  const isTargetEventPage = targetURL.startsWith('/event');
+  const isCurrentEventsPage = currentURL.startsWith('/events');
+  const isTargetEventsPage = targetURL.startsWith('/events');
 
   if (
-    (isCurrentEventPage && isTargetEventPage) || // Navigating between /event and /event/*
-    (isCurrentEventPage && targetURL === '/event') || // Navigating back to main event page
-    (currentURL === '/event' && isTargetEventPage) // Navigating to event details page
+    (isCurrentEventsPage && isTargetEventsPage) || // Navigating between /events and /events/*
+    (isCurrentEventsPage && targetURL === '/events') || // Navigating back to main events page
+    (currentURL === '/events' && isTargetEventsPage) // Navigating to event details page
   ) {
     // Add data attribute to prevent re-evaluation
     script.setAttribute('data-swup-ignore-script', '');
