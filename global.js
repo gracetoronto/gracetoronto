@@ -1,4 +1,4 @@
-console.log("V1.594");
+console.log("V1.595");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute
   swup.hooks.before('content:replace', () => {
     const currentURL = window.location.pathname; // Current page URL
-    const script = document.querySelector('script[src*="cmsfilter.js"]'); // Locate the cmsfilter.js script
+    const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
 
     if (!script) {
       console.error('CMSFilter script not found!');
