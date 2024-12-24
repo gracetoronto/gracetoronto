@@ -1,4 +1,4 @@
-console.log("V1.593");
+console.log("V1.594");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -95,31 +95,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute
   swup.hooks.before('content:replace', () => {
-    const currentURL = window.location.pathname; // Current page slug
-    const targetURL = swup.transition.to; // Swup's built-in property for the target URL
-    const script = document.querySelector('script[src*="cmsfilter.js"]'); // Adjusted to match your CMSFilter script
-
-    // Debugging log
-    console.log('Swup transition detected:', { currentURL, targetURL });
+    const currentURL = window.location.pathname; // Current page URL
+    const script = document.querySelector('script[src*="cmsfilter.js"]'); // Locate the cmsfilter.js script
 
     if (!script) {
       console.error('CMSFilter script not found!');
       return;
     }
 
-    // Define the conditions for ignoring the script
-    const isCurrentEventsPage = currentURL.startsWith('/events');
-    const isTargetEventsPage = targetURL.startsWith('/events');
-
-    if (
-      (isCurrentEventsPage && isTargetEventsPage) || // Navigating between /events and /events/*
-      (isCurrentEventsPage && targetURL === '/events') || // Navigating back to the main events page
-      (currentURL === '/events' && isTargetEventsPage) // Navigating to an event details page
-    ) {
-      console.log('Adding data-swup-ignore-script to CMSFilter script.');
+    // Check if the current page is within the /events section
+    if (currentURL.startsWith('/events')) {
+      console.log('Adding data-swup-ignore-script to CMSFilter script (events page).');
       script.setAttribute('data-swup-ignore-script', '');
     } else {
-      console.log('Removing data-swup-ignore-script from CMSFilter script.');
+      console.log('Removing data-swup-ignore-script from CMSFilter script (non-events page).');
       script.removeAttribute('data-swup-ignore-script');
     }
   });
