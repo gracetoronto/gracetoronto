@@ -1,4 +1,4 @@
-console.log("V1.579");
+console.log("V1.580");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -75,6 +75,32 @@ const swup = new Swup({
       body: false
     })
   ]
+});
+
+
+
+//STOP SWUP FROM RE-EVALUATING SCRIPTS ON EVENTS PAGES
+
+// Assuming swup is already initialized
+swup.hooks.before('content:replace', (data) => {
+  const destinationURL = new URL(data.url, window.location.origin);
+  const isEventsPage = destinationURL.pathname.startsWith('/events/');
+
+  if (isEventsPage) {
+    // Disable ScriptsPlugin for /events/* pages
+    swup.options.plugins.forEach((plugin) => {
+      if (plugin instanceof SwupScriptsPlugin) {
+        plugin.options.runScripts = false; // Prevent re-evaluating scripts
+      }
+    });
+  } else {
+    // Enable ScriptsPlugin for all other pages
+    swup.options.plugins.forEach((plugin) => {
+      if (plugin instanceof SwupScriptsPlugin) {
+        plugin.options.runScripts = true; // Allow re-evaluating scripts
+      }
+    });
+  }
 });
 
 
