@@ -1,4 +1,4 @@
-console.log("V1.599");
+console.log("V1.600");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1576,45 +1576,15 @@ function startCountdown() {
     const now = new Date();
     const nowEST = getESTDate(now);
 
-    // Define the next Sunday service
     const nextSunday = new Date(nowEST);
     nextSunday.setDate(nowEST.getDate() + (7 - nowEST.getDay()) % 7);
     nextSunday.setHours(9, 15, 0, 0);
 
-    // If the current time is Sunday after the service, set the countdown to the following Sunday
     if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getMinutes() >= 15) {
       nextSunday.setDate(nextSunday.getDate() + 7);
     }
 
-    // Define the Christmas Eve service on December 24 at 4 PM
-    const christmasEve = new Date(nowEST.getFullYear(), 11, 24, 16, 0, 0);
-
-    // If today is past Christmas Eve, set the next Christmas Eve to next year
-    if (nowEST > christmasEve) {
-      christmasEve.setFullYear(nowEST.getFullYear() + 1);
-    }
-
-    let targetDate;
-
-    // Determine which date to count down to
-    if (nowEST.getMonth() === 11 && nowEST.getDate() === 24 && nowEST.getHours() >= 16) {
-      // If it's Christmas Eve and the service has ended, count down to next Sunday
-      targetDate = nextSunday;
-    } else if (
-      nowEST.getMonth() === 11 &&
-      (nowEST.getDate() > 24 || (nowEST.getDate() === 24 && nowEST.getHours() < 16))
-    ) {
-      // If it's December 24th before 4 PM, count down to Christmas Eve
-      targetDate = christmasEve;
-    } else if (nowEST.getMonth() === 11 && nowEST.getDate() < 24) {
-      // If it's December and before Christmas Eve, count down to the next Sunday or Christmas Eve
-      targetDate = nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getMinutes() >= 15 ? christmasEve : nextSunday;
-    } else {
-      // For all other dates, count down to the next Sunday
-      targetDate = nextSunday;
-    }
-
-    const timeDifference = targetDate - nowEST;
+    const timeDifference = nextSunday - nowEST;
 
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
@@ -1626,16 +1596,15 @@ function startCountdown() {
     minuteBox.textContent = minutes;
     secondBox.textContent = seconds;
 
-    // Show "00:00:00" during the live service on Sundays (9:15 AM - 1:30 PM)
-    if (
-      nowEST.getDay() === 0 &&
-      ((nowEST.getHours() >= 9 && nowEST.getHours() < 13) ||
-        (nowEST.getHours() === 13 && nowEST.getMinutes() < 30))
-    ) {
+    if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 10 || nowEST.getMinutes() < 30)) {
       dayBox.textContent = '00';
       hourBox.textContent = '00';
       minuteBox.textContent = '00';
       secondBox.textContent = '00';
+    }
+
+    if (nowEST.getDay() === 0 && nowEST.getHours() === 13 && nowEST.getMinutes() >= 30) {
+      nextSunday.setDate(nextSunday.getDate() + 7);
     }
   }
 
@@ -1643,7 +1612,7 @@ function startCountdown() {
 }
 
 // Start the countdown when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   startCountdown();
 });
 
