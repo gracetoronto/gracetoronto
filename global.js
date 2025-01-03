@@ -1,4 +1,4 @@
-console.log("V1.601");
+console.log("V1.602");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2694,7 +2694,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 //---DELAY MINISTRY LINK TO ALLOW EVENT MOAL TO CLOSE---
 function initDelayedNavigation() {
-  document.querySelectorAll('.event-ministry').forEach(button => {
+  document.querySelectorAll('.is--eventlink').forEach(button => {
     button.addEventListener('click', event => {
       event.preventDefault(); // Prevent immediate navigation
       const targetURL = button.getAttribute('href'); // Get the URL from the href attribute
