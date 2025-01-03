@@ -1,4 +1,4 @@
-console.log("V1.600");
+console.log("V1.601");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -49,7 +49,8 @@ const swup = new Swup({
         {
           from: '/ministries/(.*)',
           to: '/ministries/(.*)',
-          containers: ['#fragment-ministries']
+          containers: ['#fragment-ministries'],
+          scroll: true
         },
         {
           from: ['/updates', '/updates/announcements', '/updates/news', '/updates/highlights'],
@@ -2687,3 +2688,25 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormOverlay();
   setupSwupListener();
 });
+
+
+
+
+//---DELAY MINISTRY LINK TO ALLOW EVENT MOAL TO CLOSE---
+function initDelayedNavigation() {
+  document.querySelectorAll('.event-ministry').forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault(); // Prevent immediate navigation
+      const targetURL = button.getAttribute('href'); // Get the URL from the href attribute
+      setTimeout(() => {
+        window.location.href = targetURL; // Navigate after 300ms
+      }, 300);
+    });
+  });
+}
+
+// Initialize the function when the DOM is ready or on Swup page change
+document.addEventListener('DOMContentLoaded', initDelayedNavigation);
+
+// For Swup compatibility
+swup?.hooks.on('content:replace', initDelayedNavigation);
