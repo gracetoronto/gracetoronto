@@ -1,4 +1,4 @@
-console.log("V1.602");
+console.log("V1.603");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2700,7 +2700,7 @@ function initDelayedNavigation() {
       const targetURL = button.getAttribute('href'); // Get the URL from the href attribute
       setTimeout(() => {
         window.location.href = targetURL; // Navigate after 300ms
-      }, 300);
+      }, 500);
     });
   });
 }
