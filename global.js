@@ -2728,5 +2728,4 @@ function handleEventLinkClicks() {
   });
 }
 
-
 handleEventLinkLCicks();
