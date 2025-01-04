@@ -1,4 +1,4 @@
-console.log("V1.603");
+console.log("V1.604");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -327,6 +327,7 @@ swup.hooks.on('content:replace', () => {
   initSmoothScrollToCareAnchor();
   checkAndToggleLivePageClass();
   initShareLinks();
+  handleEventLinkClicks();
 });
 
 
@@ -2693,20 +2694,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 //---DELAY MINISTRY LINK TO ALLOW EVENT MOAL TO CLOSE---
-function initDelayedNavigation() {
-  document.querySelectorAll('.is--eventlink').forEach(button => {
-    button.addEventListener('click', event => {
-      event.preventDefault(); // Prevent immediate navigation
-      const targetURL = button.getAttribute('href'); // Get the URL from the href attribute
-      setTimeout(() => {
-        window.location.href = targetURL; // Navigate after 300ms
-      }, 500);
-    });
+function handleEventLinkClicks() {
+  let storedURL = null; // Variable to store the URL from the clicked element
+
+  // Add click event listener to elements with class 'is--eventlink'
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('.is--eventlink'); // Ensure we're targeting the correct element
+
+    if (target) {
+      e.preventDefault(); // Prevent default link behavior
+      storedURL = target.href || target.dataset.url; // Store the URL (assumes it is in href or data-url attribute)
+
+      const exitElement = document.querySelector('.is--exit'); // Check for '.is--exit' element
+      if (exitElement) {
+        exitElement.click(); // Trigger the 'exit' action
+
+        // Wait 500ms for the transition to complete
+        setTimeout(() => {
+          if (storedURL) {
+            window.location.href = storedURL; // Navigate to the stored URL
+            storedURL = null; // Clear the variable for future clicks
+          }
+        }, 500);
+      }
+    }
   });
 }
 
-// Initialize the function when the DOM is ready or on Swup page change
-document.addEventListener('DOMContentLoaded', initDelayedNavigation);
-
-// For Swup compatibility
-swup?.hooks.on('content:replace', initDelayedNavigation);
+// Initialize the function (include this in Swup hooks if using Swup.js)
+handleEventLinkClicks();
