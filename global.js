@@ -1,4 +1,4 @@
-console.log("V1.608");
+console.log("V1.609");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2720,7 +2720,7 @@ function handleEventLinkClicks() {
           } else {
             console.error("No stored URL to navigate to."); // Debugging
           }
-        }, 500);
+        }, 600);
       } else {
         console.error("Exit element not found, aborting operation."); // Debugging
       }
