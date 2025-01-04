@@ -2720,7 +2720,7 @@ function handleEventLinkClicks() {
           } else {
             console.error("No stored URL to navigate to."); // Debugging
           }
-        }, 300);
+        }, 500);
       } else {
         console.error("Exit element not found, aborting operation."); // Debugging
       }
