@@ -1,4 +1,4 @@
-console.log("V1.606");
+console.log("V1.607");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2720,7 +2720,7 @@ function handleEventLinkClicks() {
           } else {
             console.error("No stored URL to navigate to."); // Debugging
           }
-        }, 500);
+        }, 300);
       } else {
         console.error("Exit element not found, aborting operation."); // Debugging
       }
@@ -2728,9 +2728,5 @@ function handleEventLinkClicks() {
   });
 }
 
-// Initialize the function (include this in Swup hooks if using Swup.js)
-swup.hooks.on('content:replace', () => {
-  handleEventLinkClicks();
-});
 
 handleEventLinkLCicks();
