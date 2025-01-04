@@ -1,4 +1,4 @@
-console.log("V1.604");
+console.log("V1.605");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2712,7 +2712,8 @@ function handleEventLinkClicks() {
         // Wait 500ms for the transition to complete
         setTimeout(() => {
           if (storedURL) {
-            window.location.href = storedURL; // Navigate to the stored URL
+            // Use Swup's navigate method to handle dynamic navigation
+            swup.navigate(storedURL);
             storedURL = null; // Clear the variable for future clicks
           }
         }, 500);
@@ -2721,5 +2722,4 @@ function handleEventLinkClicks() {
   });
 }
 
-// Initialize the function (include this in Swup hooks if using Swup.js)
-handleEventLinkClicks();
+handleEventLinkLCicks();
