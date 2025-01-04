@@ -1,4 +1,4 @@
-console.log("V1.610");
+console.log("V1.611");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -327,7 +327,6 @@ swup.hooks.on('content:replace', () => {
   initSmoothScrollToCareAnchor();
   checkAndToggleLivePageClass();
   initShareLinks();
-  handleEventLinkClicks();
 });
 
 
