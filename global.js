@@ -1,4 +1,4 @@
-console.log("V1.605");
+console.log("V1.606");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2704,22 +2704,33 @@ function handleEventLinkClicks() {
     if (target) {
       e.preventDefault(); // Prevent default link behavior
       storedURL = target.href || target.dataset.url; // Store the URL (assumes it is in href or data-url attribute)
+      console.log(`Stored URL: ${storedURL}`); // Debugging: Log the stored URL
 
       const exitElement = document.querySelector('.is--exit'); // Check for '.is--exit' element
       if (exitElement) {
+        console.log("Exit element found, triggering click..."); // Debugging
         exitElement.click(); // Trigger the 'exit' action
 
         // Wait 500ms for the transition to complete
         setTimeout(() => {
           if (storedURL) {
-            // Use Swup's navigate method to handle dynamic navigation
-            swup.navigate(storedURL);
+            console.log(`Navigating to stored URL: ${storedURL}`); // Debugging
+            swup.navigate(storedURL); // Use Swup to navigate to the stored URL
             storedURL = null; // Clear the variable for future clicks
+          } else {
+            console.error("No stored URL to navigate to."); // Debugging
           }
         }, 500);
+      } else {
+        console.error("Exit element not found, aborting operation."); // Debugging
       }
     }
   });
 }
+
+// Initialize the function (include this in Swup hooks if using Swup.js)
+swup.hooks.on('content:replace', () => {
+  handleEventLinkClicks();
+});
 
 handleEventLinkLCicks();
