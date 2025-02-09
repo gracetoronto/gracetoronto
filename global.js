@@ -1,4 +1,4 @@
-console.log("V1.614");
+console.log("V1.615");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2586,21 +2586,18 @@ function initFormOverlay() {
   const openButtons = document.querySelectorAll('[data-tf-form]');
   let activeFormId = null;
 
-  // Completely remove and reload Typeform
-  function destroyTypeformEmbed() {
-    console.log("Destroying Typeform...");
+  // Completely reset Typeform
+  function resetTypeform() {
+    console.log("Resetting Typeform...");
 
-    // Remove existing embed container
+    // Remove embed container
     formEmbedContainer.innerHTML = '';
     formEmbedContainer.remove();
 
-    // Remove Typeform script from the document
-    const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
-    if (existingScript) {
-      existingScript.remove();
-    }
+    // Remove Typeform script
+    document.querySelectorAll('script[src*="typeform"]').forEach(script => script.remove());
 
-    // Recreate the embed container
+    // Recreate container
     formEmbedContainer = document.createElement('div');
     formEmbedContainer.classList.add('form__embed-container');
     formWrapper.appendChild(formEmbedContainer);
@@ -2608,10 +2605,10 @@ function initFormOverlay() {
     activeFormId = null;
   }
 
-  // Dynamically load Typeform
+  // Load Typeform script dynamically
   function loadTypeformScript(callback) {
-    if (document.querySelector('script[src="https://embed.typeform.com/embed.js"]')) {
-      console.log("Typeform script already exists, executing callback...");
+    if (document.querySelector('script[src*="typeform"]')) {
+      console.log("Typeform script already loaded.");
       callback();
       return;
     }
@@ -2629,7 +2626,7 @@ function initFormOverlay() {
   }
 
   function createTypeformEmbed(formId) {
-    destroyTypeformEmbed(); // Ensure a fresh start
+    resetTypeform(); // Wipe everything first
 
     // Create new embed container
     const embedDiv = document.createElement('div');
@@ -2637,7 +2634,6 @@ function initFormOverlay() {
     embedDiv.setAttribute('data-tf-inline-on-mobile', true);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Load Typeform script and initialize embed
     loadTypeformScript(() => {
       setTimeout(() => {
         try {
@@ -2676,7 +2672,7 @@ function initFormOverlay() {
 
     setTimeout(() => {
       baseForm.style.display = 'none';
-      destroyTypeformEmbed();
+      resetTypeform(); // Completely wipe it when closed
     }, 250);
   }
 
