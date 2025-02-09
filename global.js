@@ -1,4 +1,4 @@
-console.log("V1.611");
+console.log("V1.612");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2580,7 +2580,7 @@ function initFormOverlay() {
 
   const formDim = baseForm.querySelector('.form__dim');
   const formWrapper = baseForm.querySelector('.form__wrapper');
-  const formEmbedContainer = document.createElement('div');
+  let formEmbedContainer = document.createElement('div');
   formEmbedContainer.classList.add('form__embed-container');
   formWrapper.appendChild(formEmbedContainer);
   const openButtons = document.querySelectorAll('[data-tf-form]');
@@ -2590,7 +2590,22 @@ function initFormOverlay() {
 
   // Helper function to clear the embed and reset Typeform state
   function clearTypeformEmbed() {
-    formEmbedContainer.innerHTML = '';
+    // Remove existing embed container completely
+    if (formEmbedContainer.parentNode) {
+      formEmbedContainer.parentNode.removeChild(formEmbedContainer);
+    }
+
+    // Remove any existing Typeform script
+    const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    // Recreate the embed container
+    formEmbedContainer = document.createElement('div');
+    formEmbedContainer.classList.add('form__embed-container');
+    formWrapper.appendChild(formEmbedContainer);
+
     activeFormId = null;
   }
 
@@ -2679,6 +2694,17 @@ function setupSwupListener() {
     swup.hooks.on('content:replace', () => {
       console.log('Swup navigation detected: reinitializing form overlay...');
       initFormOverlay(); // Reinitialize the form overlay
+    });
+
+    swup.hooks.on('content:replace', () => {
+      console.log('Forcing Typeform script reload...');
+      const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
+      if (existingScript) existingScript.remove();
+
+      const newScript = document.createElement('script');
+      newScript.src = 'https://embed.typeform.com/embed.js';
+      newScript.async = true;
+      document.body.appendChild(newScript);
     });
   }
 }
