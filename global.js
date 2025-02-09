@@ -1,4 +1,4 @@
-console.log("V1.612");
+console.log("V1.613");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2583,14 +2583,19 @@ function initFormOverlay() {
   let formEmbedContainer = document.createElement('div');
   formEmbedContainer.classList.add('form__embed-container');
   formWrapper.appendChild(formEmbedContainer);
+
   const openButtons = document.querySelectorAll('[data-tf-form]');
   const closeButton = document.querySelector('.profile__close');
 
   let activeFormId = null;
+  let typeformInstance = null;
 
-  // Helper function to clear the embed and reset Typeform state
+  // Helper function to fully remove Typeform embed
   function clearTypeformEmbed() {
-    // Remove existing embed container completely
+    if (typeformInstance && typeof typeformInstance.close === 'function') {
+      typeformInstance.close();
+    }
+
     if (formEmbedContainer.parentNode) {
       formEmbedContainer.parentNode.removeChild(formEmbedContainer);
     }
@@ -2601,41 +2606,39 @@ function initFormOverlay() {
       existingScript.remove();
     }
 
-    // Recreate the embed container
+    // Recreate embed container
     formEmbedContainer = document.createElement('div');
     formEmbedContainer.classList.add('form__embed-container');
     formWrapper.appendChild(formEmbedContainer);
 
     activeFormId = null;
+    typeformInstance = null;
   }
 
   // Function to dynamically create and load the Typeform embed
   function createTypeformEmbed(formId) {
-    clearTypeformEmbed();
+    clearTypeformEmbed(); // Fully reset Typeform
 
     const embedDiv = document.createElement('div');
     embedDiv.setAttribute('data-tf-live', formId);
-    embedDiv.setAttribute('data-tf-inline-on-mobile', true); // Optional customization
+    embedDiv.setAttribute('data-tf-inline-on-mobile', true);
     formEmbedContainer.appendChild(embedDiv);
 
-    // Dynamically inject the Typeform script
+    // Inject Typeform script dynamically
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/embed.js';
     script.async = true;
 
     script.onload = () => {
-      console.log('Typeform embed script loaded.');
-      // Reinitialize Typeform explicitly
-      if (window.tf && typeof window.tf.load === 'function') {
-        setTimeout(() => {
-          try {
-            window.tf.load(); // Trigger manual reinitialization
-            console.log('Typeform embed manually reinitialized.');
-          } catch (error) {
-            console.error('Error reinitializing Typeform:', error);
-          }
-        }, 50); // Slight delay to ensure embedDiv is in the DOM
-      }
+      console.log('Typeform script loaded.');
+      setTimeout(() => {
+        try {
+          typeformInstance = window.tf.createWidget(formId, { container: embedDiv });
+          console.log('Typeform instance created.');
+        } catch (error) {
+          console.error('Error initializing Typeform:', error);
+        }
+      }, 50);
     };
 
     document.body.appendChild(script);
@@ -2692,19 +2695,10 @@ function initFormOverlay() {
 function setupSwupListener() {
   if (window.swup) {
     swup.hooks.on('content:replace', () => {
-      console.log('Swup navigation detected: reinitializing form overlay...');
-      initFormOverlay(); // Reinitialize the form overlay
-    });
-
-    swup.hooks.on('content:replace', () => {
-      console.log('Forcing Typeform script reload...');
-      const existingScript = document.querySelector('script[src="https://embed.typeform.com/embed.js"]');
-      if (existingScript) existingScript.remove();
-
-      const newScript = document.createElement('script');
-      newScript.src = 'https://embed.typeform.com/embed.js';
-      newScript.async = true;
-      document.body.appendChild(newScript);
+      console.log('Swup navigation detected: Reinitializing form overlay...');
+      setTimeout(() => {
+        initFormOverlay();
+      }, 50);
     });
   }
 }
