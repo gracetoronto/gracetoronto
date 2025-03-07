@@ -1,4 +1,4 @@
-console.log("V1.621");
+console.log("V1.622");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2763,26 +2763,50 @@ function initGSAPAnimations() {
 
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-  const elements = gsap.utils.toArray(".animate-up");
+  // Animate individual elements without stagger (outside of `.animate-stagger`)
+  gsap.utils.toArray(".animate-up:not(.animate-stagger .animate-up)").forEach((el) => {
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+  });
 
-  gsap.fromTo(
-    elements,
-    { opacity: 0, y: 40 }, // Start state (hidden & lower)
-    {
-      opacity: 1,
-      y: 0,
-      duration: 0.8, // Snappier timing
-      ease: "power3.out", // Smooth acceleration
-      stagger: 0.15, // Each element animates 0.15s after the previous one
-      scrollTrigger: {
-        trigger: elements[0], // Trigger animation based on the first element
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
+  // Animate and stagger elements inside each `.animate-stagger` group
+  document.querySelectorAll(".animate-stagger").forEach((group) => {
+    const items = gsap.utils.toArray(group.querySelectorAll(".animate-up"));
+
+    if (items.length > 0) {
+      gsap.fromTo(
+        items,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.15, // Stagger only within this group
+          scrollTrigger: {
+            trigger: group,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
     }
-  );
+  });
 
-  console.log("GSAP animations initialized with stagger.");
+  console.log("GSAP animations initialized with reusable stagger.");
 }
 
 document.addEventListener("DOMContentLoaded", initGSAPAnimations);
