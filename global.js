@@ -1,4 +1,4 @@
-console.log("V1.620");
+console.log("V1.621");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2763,25 +2763,26 @@ function initGSAPAnimations() {
 
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-  gsap.utils.toArray(".animate-up").forEach((el) => {
-    gsap.fromTo(
-      el,
-      { opacity: 0, y: 40 }, // Start hidden & lower
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8, // Snappier timing
-        ease: "power3.out", // Smooth acceleration
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-  });
+  const elements = gsap.utils.toArray(".animate-up");
 
-  console.log("GSAP animations initialized.");
+  gsap.fromTo(
+    elements,
+    { opacity: 0, y: 40 }, // Start state (hidden & lower)
+    {
+      opacity: 1,
+      y: 0,
+      duration: 0.8, // Snappier timing
+      ease: "power3.out", // Smooth acceleration
+      stagger: 0.15, // Each element animates 0.15s after the previous one
+      scrollTrigger: {
+        trigger: elements[0], // Trigger animation based on the first element
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+    }
+  );
+
+  console.log("GSAP animations initialized with stagger.");
 }
 
 document.addEventListener("DOMContentLoaded", initGSAPAnimations);
