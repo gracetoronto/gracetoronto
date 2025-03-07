@@ -1,4 +1,4 @@
-console.log("V1.619");
+console.log("V1.620");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2770,9 +2770,8 @@ function initGSAPAnimations() {
       {
         opacity: 1,
         y: 0,
-        duration: 0.8, // Faster overall
-        ease: "power3.out", // Smooth & natural easing
-        opacity: { duration: 0.4 }, // Fade-in completes quicker
+        duration: 0.8, // Snappier timing
+        ease: "power3.out", // Smooth acceleration
         scrollTrigger: {
           trigger: el,
           start: "top 80%",
