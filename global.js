@@ -2798,7 +2798,7 @@ function initGSAPAnimations() {
           stagger: 0.15, // Stagger only within this group
           scrollTrigger: {
             trigger: group,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none none",
           },
         }
