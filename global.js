@@ -1,4 +1,4 @@
-console.log("V1.618");
+console.log("V1.619");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2756,28 +2756,26 @@ handleEventLinkClicks();
 //---GSAP ANIMATE UP ANIMATIONS---
 
 function initGSAPAnimations() {
-  // Ensure GSAP and ScrollTrigger are available
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") {
     console.error("GSAP or ScrollTrigger not loaded");
     return;
   }
 
-  // Kill existing ScrollTriggers to prevent duplication issues
   ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-  // Select and animate all elements with 'animate-up' class
   gsap.utils.toArray(".animate-up").forEach((el) => {
     gsap.fromTo(
       el,
-      { opacity: 0, y: 40 }, // Start state (hidden and moved down)
+      { opacity: 0, y: 40 }, // Start hidden & lower
       {
         opacity: 1,
         y: 0,
-        duration: 1,
-        ease: "power2.out",
+        duration: 0.8, // Faster overall
+        ease: "power3.out", // Smooth & natural easing
+        opacity: { duration: 0.4 }, // Fade-in completes quicker
         scrollTrigger: {
           trigger: el,
-          start: "top 80%", // Triggers when element is 80% into viewport
+          start: "top 80%",
           toggleActions: "play none none none",
         },
       }
@@ -2787,12 +2785,7 @@ function initGSAPAnimations() {
   console.log("GSAP animations initialized.");
 }
 
-// Run on initial page load
 document.addEventListener("DOMContentLoaded", initGSAPAnimations);
-
-// Re-run after Swup.js page transitions
-swup.hooks.on("content:replace", () => {
-  initGSAPAnimations();
-});
+swup.hooks.on("content:replace", initGSAPAnimations);
 
 initGSAPAnimations();
