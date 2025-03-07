@@ -2782,3 +2782,5 @@ document.addEventListener("DOMContentLoaded", initGSAPAnimations);
 swup.hooks.on("content:replace", () => {
   initGSAPAnimations();
 });
+
+initGSAPAnimations();
