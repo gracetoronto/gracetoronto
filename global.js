@@ -1,4 +1,4 @@
-console.log("V1.616");
+console.log("V1.617");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2748,7 +2748,7 @@ swup.hooks.on('content:replace', () => {
   handleEventLinkClicks();
 });
 
-handleEventLinkLCicks();
+handleEventLinkClicks();
 
 
 
