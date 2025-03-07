@@ -2789,16 +2789,16 @@ function initGSAPAnimations() {
     if (items.length > 0) {
       gsap.fromTo(
         items,
-        { opacity: 0, y: 40 },
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.7,
           ease: "power3.out",
           stagger: 0.15, // Stagger only within this group
           scrollTrigger: {
             trigger: group,
-            start: "top 85%",
+            start: "top 90%",
             toggleActions: "play none none none",
           },
         }
