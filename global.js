@@ -1,4 +1,4 @@
-console.log("V1.615");
+console.log("V1.616");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2749,3 +2749,36 @@ swup.hooks.on('content:replace', () => {
 });
 
 handleEventLinkLCicks();
+
+
+
+
+//---GSAP ANIMATE UP ANIMATIONS---
+
+function initGSAPAnimations() {
+  // Ensure GSAP and ScrollTrigger are available
+  if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
+
+  // Select all elements with the class 'animate-up'
+  gsap.utils.toArray(".animate-up").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 40, // Moves up 40px
+      duration: 1,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 80%", // Starts when element enters viewport
+        toggleActions: "play none none none",
+      },
+    });
+  });
+}
+
+// Run on initial page load
+document.addEventListener("DOMContentLoaded", initGSAPAnimations);
+
+// Run on Swup page transitions
+swup.hooks.on("content:replace", () => {
+  initGSAPAnimations();
+});
