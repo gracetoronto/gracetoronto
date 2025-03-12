@@ -1,4 +1,4 @@
-console.log("V1.623");
+console.log("V1.624");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2294,6 +2294,8 @@ function initSmoothScrollToCareAnchor() {
 
 // Initialize the function when the DOM content is loaded
 document.addEventListener('DOMContentLoaded', initSmoothScrollToCareAnchor);
+
+swup.hooks.on('content:replace', initSmoothScrollToCareAnchor);
 
 
 
