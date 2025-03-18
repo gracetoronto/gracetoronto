@@ -1,4 +1,4 @@
-console.log("V1.626");
+console.log("V1.627");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2050,7 +2050,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
+initCheckboxBehavior();
 
 
 
