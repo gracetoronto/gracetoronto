@@ -1,4 +1,4 @@
-console.log("V1.627");
+console.log("V1.628");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -94,23 +94,34 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
-  let prevURL = window.location.pathname; // Initialize prevURL with the current page URL
+  let prevURL = window.location.pathname; // Store the initial URL
+  const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
 
-  // Add a Swup hook to dynamically manage the `data-swup-ignore-script` attribute before content is replaced
+  if (!script) {
+    console.error('CMSFilter script not found!');
+    return;
+  }
+
+  // **Ensure the CMSFilter script fires once on the initial page load**
+  console.log('Firing CMSFilter script on initial load.');
+  script.removeAttribute('data-swup-ignore-script'); // Ensure it's not ignored initially
+
+  // **If loaded directly on `/events`, ignore future executions**
+  if (window.location.pathname.startsWith('/events')) {
+    console.log('Direct load on /events. Ignoring CMSFilter script for future Swup transitions.');
+    script.setAttribute('data-swup-ignore-script', '');
+  }
+
+  // **Handle Swup navigation**
   swup.hooks.before('content:replace', () => {
-    const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
+    if (!script) return;
 
-    if (!script) {
-      console.error('CMSFilter script not found!');
-      return;
-    }
-
-    // Check if the previous URL was within the /events section
+    // Check if the previous URL was within `/events`
     if (prevURL.startsWith('/events')) {
-      console.log('Adding data-swup-ignore-script to CMSFilter script (events page).');
+      console.log('Navigating away from /events. Ignoring CMSFilter script.');
       script.setAttribute('data-swup-ignore-script', '');
     } else {
-      console.log('Removing data-swup-ignore-script from CMSFilter script (non-events page).');
+      console.log('Navigating to a new page. Ensuring CMSFilter script runs.');
       script.removeAttribute('data-swup-ignore-script');
     }
 
