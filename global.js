@@ -1,4 +1,4 @@
-console.log("V1.624");
+console.log("V1.625");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2777,7 +2777,7 @@ function initGSAPAnimations() {
         ease: "power3.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 80%",
+          start: "top 90%",
           toggleActions: "play none none none",
         },
       }
