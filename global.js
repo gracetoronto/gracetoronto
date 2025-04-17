@@ -1,4 +1,4 @@
-console.log("V1.630");
+console.log("V1.631");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1553,7 +1553,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY---
+//---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY WITH DATE OVERRIDE---
 
 function startCountdown() {
   const dayBox = document.getElementById('day');
@@ -1561,10 +1561,11 @@ function startCountdown() {
   const minuteBox = document.getElementById('minute');
   const secondBox = document.getElementById('second');
 
-  // Check if countdown elements exist
-  if (!dayBox || !hourBox || !minuteBox || !secondBox) {
-    return; // Exit the function if any element is missing
-  }
+  // Optional: Add your override date here (EST timezone)
+  // Format: 'YYYY-MM-DDTHH:MM:SS'
+  const customOverrideDateString = '2025-04-17T19:00:00'; // April 17, 2025 @ 7:00pm
+
+  if (!dayBox || !hourBox || !minuteBox || !secondBox) return;
 
   function getESTDate(date) {
     const options = { timeZone: 'America/New_York', hour12: false };
@@ -1588,6 +1589,7 @@ function startCountdown() {
     const now = new Date();
     const nowEST = getESTDate(now);
 
+    // Default: countdown to next Sunday at 9:15am EST
     const nextSunday = new Date(nowEST);
     nextSunday.setDate(nowEST.getDate() + (7 - nowEST.getDay()) % 7);
     nextSunday.setHours(9, 15, 0, 0);
@@ -1596,18 +1598,35 @@ function startCountdown() {
       nextSunday.setDate(nextSunday.getDate() + 7);
     }
 
-    const timeDifference = nextSunday - nowEST;
+    let targetDate = nextSunday;
+
+    // Check for override
+    if (customOverrideDateString) {
+      const overrideDate = new Date(customOverrideDateString);
+      const overrideDateEST = getESTDate(overrideDate);
+
+      const isOverrideInFuture = overrideDateEST > nowEST;
+      const isOverrideBeforeSunday = overrideDateEST < nextSunday;
+
+      if (isOverrideInFuture && isOverrideBeforeSunday) {
+        targetDate = overrideDateEST;
+      }
+    }
+
+    const timeDifference = targetDate - nowEST;
 
     const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
     const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
     const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
     const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000).toString().padStart(2, '0');
 
+    // Update UI
     dayBox.textContent = days;
     hourBox.textContent = hours;
     minuteBox.textContent = minutes;
     secondBox.textContent = seconds;
 
+    // Optional zero-out if Sunday livestream is active
     if (nowEST.getDay() === 0 && nowEST.getHours() >= 9 && nowEST.getHours() < 13 && (nowEST.getHours() !== 10 || nowEST.getMinutes() < 30)) {
       dayBox.textContent = '00';
       hourBox.textContent = '00';
