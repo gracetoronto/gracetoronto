@@ -1,4 +1,4 @@
-console.log("V1.635");
+console.log("V1.636");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -109,15 +109,16 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.location.pathname.startsWith('/events')) {
     console.log('Direct load on /events — re-inserting CMSFilter script to force execution.');
 
-    // Clone and replace the script to force execution
+    // Clone and re-insert the script to force execution
     const newScript = document.createElement('script');
     newScript.id = 'cmsfilter-script';
     newScript.src = script.src;
     newScript.async = script.async;
     newScript.defer = script.defer;
 
-    // Replace the old script with the new one
-    script.parentNode.replaceChild(newScript, script);
+    // Remove the original to prevent duplicate handlers
+    script.remove();
+    document.body.appendChild(newScript);
 
     // Add ignore so Swup skips it on future transitions
     newScript.setAttribute('data-swup-ignore-script', '');
