@@ -1,4 +1,4 @@
-console.log("V1.636");
+console.log("V1.637");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -103,41 +103,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('Handling CMSFilter script on initial load.');
 
-  // Remove ignore to ensure future Swup transitions can run the script when needed
+  // Always remove ignore at first — we’ll reapply only when needed
   script.removeAttribute('data-swup-ignore-script');
 
   if (window.location.pathname.startsWith('/events')) {
     console.log('Direct load on /events — re-inserting CMSFilter script to force execution.');
 
-    // Clone and re-insert the script to force execution
+    // Clone and re-insert to force execution
     const newScript = document.createElement('script');
     newScript.id = 'cmsfilter-script';
     newScript.src = script.src;
     newScript.async = script.async;
     newScript.defer = script.defer;
 
-    // Remove the original to prevent duplicate handlers
+    // Remove old script to avoid duplication
     script.remove();
     document.body.appendChild(newScript);
-
-    // Add ignore so Swup skips it on future transitions
-    newScript.setAttribute('data-swup-ignore-script', '');
   }
 
-  // Handle Swup navigation
+  // Swup navigation handling
   swup.hooks.before('content:replace', () => {
     const liveScript = document.getElementById('cmsfilter-script');
     if (!liveScript) return;
 
-    if (prevURL.startsWith('/events')) {
-      console.log('Navigating away from /events. Ignoring CMSFilter script.');
+    const nextURL = window.location.pathname;
+
+    // If we're *leaving* /events, ignore the script in the next page
+    if (prevURL.startsWith('/events') && !nextURL.startsWith('/events')) {
+      console.log('Leaving /events — ignore CMSFilter on next page');
       liveScript.setAttribute('data-swup-ignore-script', '');
     } else {
-      console.log('Navigating to new page. Ensuring CMSFilter script runs.');
+      console.log('Navigating within or to /events — allow CMSFilter to run');
       liveScript.removeAttribute('data-swup-ignore-script');
     }
 
-    prevURL = window.location.pathname;
+    prevURL = nextURL;
   });
 });
 
