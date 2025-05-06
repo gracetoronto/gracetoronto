@@ -1,4 +1,4 @@
-console.log("V1.638");
+console.log("V1.639");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -94,40 +94,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let prevURL = window.location.pathname;
-  const cmsScriptSrc = '/path/to/your/cmsfilter-script.js'; // Adjust this!
+  const script = document.getElementById('cmsfilter-script');
 
-  // Run on direct load of /events
-  if (window.location.pathname.startsWith('/events')) {
-    console.log('Initial load on /events — loading CMSFilter script.');
-    injectCmsFilterScript();
+  if (!script) {
+    console.error('CMSFilter script not found!');
+    return;
   }
 
-  // On Swup navigation
-  swup.hooks.before('content:replace', () => {
-    prevURL = window.location.pathname;
-  });
+  console.log('Handling CMSFilter script on initial load.');
 
-  swup.hooks.on('content:replace', () => {
-    const currentURL = window.location.pathname;
+  // Remove ignore to ensure future Swup transitions can run the script when needed
+  script.removeAttribute('data-swup-ignore-script');
 
-    if (currentURL.startsWith('/events')) {
-      console.log('Swup navigation to /events — injecting CMSFilter script.');
-      injectCmsFilterScript();
-    }
-  });
+  if (window.location.pathname.startsWith('/events')) {
+    console.log('Direct load on /events — re-inserting CMSFilter script to force execution.');
 
-  function injectCmsFilterScript() {
-    // Prevent duplication
-    const existing = document.getElementById('cmsfilter-script');
-    if (existing) existing.remove();
-
+    // Clone and replace the script to force execution
     const newScript = document.createElement('script');
     newScript.id = 'cmsfilter-script';
-    newScript.src = cmsScriptSrc;
-    newScript.async = true;
-    newScript.defer = true;
-    document.body.appendChild(newScript);
+    newScript.src = script.src;
+    newScript.async = script.async;
+    newScript.defer = script.defer;
+
+    // Replace the old script with the new one
+    script.parentNode.replaceChild(newScript, script);
+
+    // Add ignore so Swup skips it on future transitions
+    newScript.setAttribute('data-swup-ignore-script', '');
   }
+
+  // Handle Swup navigation
+  swup.hooks.before('content:replace', () => {
+    const liveScript = document.getElementById('cmsfilter-script');
+    if (!liveScript) return;
+
+    if (prevURL.startsWith('/events')) {
+      console.log('Navigating away from /events. Ignoring CMSFilter script.');
+      liveScript.setAttribute('data-swup-ignore-script', '');
+    } else {
+      console.log('Navigating to new page. Ensuring CMSFilter script runs.');
+      liveScript.removeAttribute('data-swup-ignore-script');
+    }
+
+    prevURL = window.location.pathname;
+  });
 });
 
 
