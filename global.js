@@ -1,4 +1,4 @@
-console.log("V1.637");
+console.log("V1.638");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -94,51 +94,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let prevURL = window.location.pathname;
-  const script = document.getElementById('cmsfilter-script');
+  const cmsScriptSrc = '/path/to/your/cmsfilter-script.js'; // Adjust this!
 
-  if (!script) {
-    console.error('CMSFilter script not found!');
-    return;
+  // Run on direct load of /events
+  if (window.location.pathname.startsWith('/events')) {
+    console.log('Initial load on /events — loading CMSFilter script.');
+    injectCmsFilterScript();
   }
 
-  console.log('Handling CMSFilter script on initial load.');
+  // On Swup navigation
+  swup.hooks.before('content:replace', () => {
+    prevURL = window.location.pathname;
+  });
 
-  // Always remove ignore at first — we’ll reapply only when needed
-  script.removeAttribute('data-swup-ignore-script');
+  swup.hooks.on('content:replace', () => {
+    const currentURL = window.location.pathname;
 
-  if (window.location.pathname.startsWith('/events')) {
-    console.log('Direct load on /events — re-inserting CMSFilter script to force execution.');
+    if (currentURL.startsWith('/events')) {
+      console.log('Swup navigation to /events — injecting CMSFilter script.');
+      injectCmsFilterScript();
+    }
+  });
 
-    // Clone and re-insert to force execution
+  function injectCmsFilterScript() {
+    // Prevent duplication
+    const existing = document.getElementById('cmsfilter-script');
+    if (existing) existing.remove();
+
     const newScript = document.createElement('script');
     newScript.id = 'cmsfilter-script';
-    newScript.src = script.src;
-    newScript.async = script.async;
-    newScript.defer = script.defer;
-
-    // Remove old script to avoid duplication
-    script.remove();
+    newScript.src = cmsScriptSrc;
+    newScript.async = true;
+    newScript.defer = true;
     document.body.appendChild(newScript);
   }
-
-  // Swup navigation handling
-  swup.hooks.before('content:replace', () => {
-    const liveScript = document.getElementById('cmsfilter-script');
-    if (!liveScript) return;
-
-    const nextURL = window.location.pathname;
-
-    // If we're *leaving* /events, ignore the script in the next page
-    if (prevURL.startsWith('/events') && !nextURL.startsWith('/events')) {
-      console.log('Leaving /events — ignore CMSFilter on next page');
-      liveScript.setAttribute('data-swup-ignore-script', '');
-    } else {
-      console.log('Navigating within or to /events — allow CMSFilter to run');
-      liveScript.removeAttribute('data-swup-ignore-script');
-    }
-
-    prevURL = nextURL;
-  });
 });
 
 
