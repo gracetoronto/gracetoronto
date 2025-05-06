@@ -1,4 +1,4 @@
-console.log("V1.633");
+console.log("V1.634");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -88,35 +88,33 @@ const swup = new Swup({
 //IGNORE CMSFILTER SCRIPT ON EVENT PAGES
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Ensure Swup and the ScriptsPlugin are initialized
   if (typeof swup === 'undefined') {
     console.error('Swup is not initialized.');
     return;
   }
 
-  let prevURL = window.location.pathname; // Store the initial URL
-  const script = document.getElementById('cmsfilter-script'); // Target the script by its ID
+  let prevURL = window.location.pathname;
+  const script = document.getElementById('cmsfilter-script');
 
   if (!script) {
     console.error('CMSFilter script not found!');
     return;
   }
 
-  // **Ensure the CMSFilter script fires once on the initial page load**
   console.log('Firing CMSFilter script on initial load.');
-  script.removeAttribute('data-swup-ignore-script'); // Ensure it's not ignored initially
+  script.removeAttribute('data-swup-ignore-script');
 
-  // **If loaded directly on `/events`, ignore future executions**
+  // Allow CMSFilter to run first, then disable it for future navigations if on /events
   if (window.location.pathname.startsWith('/events')) {
-    console.log('Direct load on /events. Ignoring CMSFilter script for future Swup transitions.');
-    script.setAttribute('data-swup-ignore-script', '');
+    setTimeout(() => {
+      console.log('Initial load on /events. Ignoring CMSFilter script for future Swup transitions.');
+      script.setAttribute('data-swup-ignore-script', '');
+    }, 0); // Delay to let script run first
   }
 
-  // **Handle Swup navigation**
   swup.hooks.before('content:replace', () => {
     if (!script) return;
 
-    // Check if the previous URL was within `/events`
     if (prevURL.startsWith('/events')) {
       console.log('Navigating away from /events. Ignoring CMSFilter script.');
       script.setAttribute('data-swup-ignore-script', '');
@@ -125,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
       script.removeAttribute('data-swup-ignore-script');
     }
 
-    // Update prevURL to the current URL for the next transition
     prevURL = window.location.pathname;
   });
 });
