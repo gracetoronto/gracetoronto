@@ -1,4 +1,4 @@
-console.log("V1.639");
+console.log("V1.640");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1043,6 +1043,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 //---ANNOUNCEMENT IMAGE SLIDER---
+
+console.log("Sliders found:", document.querySelectorAll('.anc__slider').length);
 
 if (typeof initSlider === 'undefined') {
   var initSlider = function (sliderContainer) {
