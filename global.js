@@ -1,4 +1,4 @@
-console.log("V1.643");
+console.log("V1.644");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2857,33 +2857,3 @@ document.addEventListener("DOMContentLoaded", initGSAPAnimations);
 swup.hooks.on("content:replace", initGSAPAnimations);
 
 initGSAPAnimations();
-
-
-
-
-
-//---WEBFLOW LIGHTBOX REINIT---
-
-swup.hooks.before('content:replace', () => {
-  if (window.Webflow && typeof Webflow.destroy === 'function') {
-    Webflow.destroy(); // Clean up interactions and widgets
-  }
-});
-
-swup.hooks.on('content:replace', () => {
-  setTimeout(() => {
-    if (window.Webflow && typeof Webflow.ready === 'function') {
-      Webflow.ready();
-    }
-
-    const lightbox = window.Webflow?.require?.('lightbox');
-    if (lightbox && typeof lightbox.ready === 'function') {
-      lightbox.ready();
-    }
-
-    const ix2 = window.Webflow?.require?.('ix2');
-    if (ix2 && typeof ix2.init === 'function') {
-      ix2.init();
-    }
-  }, 50); // delay ensures new DOM is fully painted
-});
