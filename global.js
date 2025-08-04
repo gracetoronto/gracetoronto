@@ -1,4 +1,4 @@
-console.log("V1.641");
+console.log("V1.642");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2864,20 +2864,26 @@ initGSAPAnimations();
 
 //---WEBFLOW LIGHTBOX REINIT---
 
+// BEFORE Swup replaces the content
+swup.hooks.before('content:replace', () => {
+  if (window.Webflow && typeof Webflow.destroy === 'function') {
+    Webflow.destroy(); // Clean up current interactions
+  }
+});
+
+// AFTER Swup replaces the content
 swup.hooks.on('content:replace', () => {
-  // Reinitialize Webflow interactions
-  if (window.Webflow && window.Webflow.require) {
-    try {
-      // Re-run IX2 (Interactions v2, used by Lightbox)
-      Webflow.require('ix2').init();
+  if (window.Webflow && typeof Webflow.ready === 'function') {
+    Webflow.ready(); // Reinitialize all components
+  }
 
-      // Trigger Webflow.ready() again to catch other widgets
-      Webflow.ready();
-
-      // If you have Webflow Lightbox elements specifically:
-      Webflow.require('lightbox') && Webflow.require('lightbox').ready();
-    } catch (e) {
-      console.warn('Webflow reinitialization failed:', e);
+  // Extra boost: reinitialize Lightbox manually
+  try {
+    const lightbox = Webflow.require('lightbox');
+    if (lightbox && typeof lightbox.ready === 'function') {
+      lightbox.ready();
     }
+  } catch (err) {
+    console.warn('Lightbox reinit failed', err);
   }
 });
