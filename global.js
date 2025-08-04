@@ -1,4 +1,4 @@
-console.log("V1.642");
+console.log("V1.643");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -2864,26 +2864,26 @@ initGSAPAnimations();
 
 //---WEBFLOW LIGHTBOX REINIT---
 
-// BEFORE Swup replaces the content
 swup.hooks.before('content:replace', () => {
   if (window.Webflow && typeof Webflow.destroy === 'function') {
-    Webflow.destroy(); // Clean up current interactions
+    Webflow.destroy(); // Clean up interactions and widgets
   }
 });
 
-// AFTER Swup replaces the content
 swup.hooks.on('content:replace', () => {
-  if (window.Webflow && typeof Webflow.ready === 'function') {
-    Webflow.ready(); // Reinitialize all components
-  }
+  setTimeout(() => {
+    if (window.Webflow && typeof Webflow.ready === 'function') {
+      Webflow.ready();
+    }
 
-  // Extra boost: reinitialize Lightbox manually
-  try {
-    const lightbox = Webflow.require('lightbox');
+    const lightbox = window.Webflow?.require?.('lightbox');
     if (lightbox && typeof lightbox.ready === 'function') {
       lightbox.ready();
     }
-  } catch (err) {
-    console.warn('Lightbox reinit failed', err);
-  }
+
+    const ix2 = window.Webflow?.require?.('ix2');
+    if (ix2 && typeof ix2.init === 'function') {
+      ix2.init();
+    }
+  }, 50); // delay ensures new DOM is fully painted
 });
