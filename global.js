@@ -1565,7 +1565,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY WITH DATE OVERRIDE---
+//---LIVESTREAM COUNTDOWN TIMER FUNCTIONALITY WITH DATE OVERRIDEE---
 
 function startCountdown() {
   const dayBox = document.getElementById('day');
