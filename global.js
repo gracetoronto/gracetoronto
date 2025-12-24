@@ -1575,7 +1575,7 @@ function startCountdown() {
 
   // Optional: Add your override date here (EST timezone)
   // Format: 'YYYY-MM-DDTHH:MM:SS'
-  const customOverrideDateString = '2025-12-24T01:00:00'; // April 17, 2025 @ 7:00pm
+  const customOverrideDateString = '2025-12-24T13:00:00'; // April 17, 2025 @ 7:00pm
 
   if (!dayBox || !hourBox || !minuteBox || !secondBox) return;
 
