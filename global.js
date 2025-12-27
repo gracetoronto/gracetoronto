@@ -1,4 +1,4 @@
-console.log("V1.650");
+console.log("V1.651");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1194,6 +1194,9 @@ function hideMatchingEndDates() {
   // Select all carousel event card items
   const carouselItems = document.querySelectorAll('.carousel .eventcard__item');
 
+    // Select all carousel event card items
+  const carouselMobileItems = document.querySelectorAll('.carousel-mobile .eventcard__item');
+
   // Function to process each set of items
   function processItems(items) {
     items.forEach(function (item) {
@@ -1225,6 +1228,7 @@ function hideMatchingEndDates() {
   processItems(eventCardItems);
   processItems(eventTextItems);
   processItems(carouselItems);
+  processItems(carouselMobileItems);
 }
 
 // Initial page load
@@ -1467,8 +1471,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-//--- CAROUSEL FUNCTIONALITY ---
 
 //---CAROUSEL FUNCTIONALITY---
 
