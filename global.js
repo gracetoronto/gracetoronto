@@ -1,4 +1,4 @@
-console.log("V1.648");
+console.log("V1.649");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1468,7 +1468,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//---CAROUSEL FUNCTIONALITY---
+//--- CAROUSEL FUNCTIONALITY ---
 
 function initCarousel() {
   const carousel = document.querySelector('.carousel');
@@ -1476,86 +1476,55 @@ function initCarousel() {
   const leftButton = document.getElementById('carousel-left');
   const rightButton = document.getElementById('carousel-right');
 
-  if (!carousel || !container || !leftButton || !rightButton) {
-    return; // Exit if any of the elements are not found
+  if (!carousel || !container || !leftButton || !rightButton) return;
+
+  // Recalculate sizes AFTER images load
+  const card = carousel.querySelector('.carousel-card');
+  if (!card) return;
+
+  const gap = parseInt(window.getComputedStyle(carousel).gap) || 0;
+  const vw5 = window.innerWidth * 0.05;
+
+  function getMetrics() {
+    const cardWidth = card.offsetWidth;
+    return {
+      cardFullWidth: cardWidth + gap,
+      maxScrollPosition: carousel.scrollWidth - container.offsetWidth
+    };
   }
 
-  const cardWidth = document.querySelector('.carousel-card').offsetWidth;
-  const gap = parseInt(window.getComputedStyle(carousel).gap);
-  const cardFullWidth = cardWidth + gap;
-  const vw5 = window.innerWidth * 0.05;
-  const maxScrollPosition = carousel.scrollWidth - container.offsetWidth;
-
   function updateButtonStates() {
-    const currentScrollPosition = container.scrollLeft;
-    if (currentScrollPosition <= 0) {
-      leftButton.style.opacity = '0.5';
-      leftButton.style.cursor = 'default';
-      leftButton.style.pointerEvents = 'none';
-    } else {
-      leftButton.style.opacity = '1';
-      leftButton.style.cursor = 'pointer';
-      leftButton.style.pointerEvents = 'auto';
-    }
-    if (currentScrollPosition >= maxScrollPosition) {
-      rightButton.style.opacity = '0.5';
-      rightButton.style.cursor = 'default';
-      rightButton.style.pointerEvents = 'none';
-    } else {
-      rightButton.style.opacity = '1';
-      rightButton.style.cursor = 'pointer';
-      rightButton.style.pointerEvents = 'auto';
-    }
+    const { maxScrollPosition } = getMetrics();
+    const scrollLeft = container.scrollLeft;
+
+    leftButton.classList.toggle('is-disabled', scrollLeft <= 0);
+    rightButton.classList.toggle('is-disabled', scrollLeft >= maxScrollPosition - 1);
   }
 
   leftButton.addEventListener('click', () => {
-    let currentScrollPosition = container.scrollLeft;
-    const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
-    currentScrollPosition = nearestCardPosition - cardFullWidth;
-    if (currentScrollPosition < 0) {
-      currentScrollPosition = 0;
-    }
-    container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
-    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
+    const { cardFullWidth } = getMetrics();
+    let pos = container.scrollLeft;
+    pos = Math.max(0, Math.round(pos / cardFullWidth) * cardFullWidth - cardFullWidth);
+    container.scrollTo({ left: pos, behavior: 'smooth' });
+    setTimeout(updateButtonStates, 300);
   });
 
   rightButton.addEventListener('click', () => {
-    let currentScrollPosition = container.scrollLeft;
-    const remainingScroll = maxScrollPosition - currentScrollPosition;
-    if (remainingScroll <= cardFullWidth) {
-      currentScrollPosition = maxScrollPosition + vw5;
-    } else {
-      const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
-      currentScrollPosition = nearestCardPosition + cardFullWidth;
-    }
-    container.scrollTo({ left: currentScrollPosition, behavior: 'smooth' });
-    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
+    const { cardFullWidth, maxScrollPosition } = getMetrics();
+    let pos = container.scrollLeft;
+    pos = Math.min(
+      maxScrollPosition + vw5,
+      Math.round(pos / cardFullWidth) * cardFullWidth + cardFullWidth
+    );
+    container.scrollTo({ left: pos, behavior: 'smooth' });
+    setTimeout(updateButtonStates, 300);
   });
 
-  function adjustScrollToNearestCard() {
-    const currentScrollPosition = container.scrollLeft;
-    const nearestCardPosition = Math.round(currentScrollPosition / cardFullWidth) * cardFullWidth;
-    const adjustedPosition = Math.min(nearestCardPosition, maxScrollPosition + vw5);
-    container.scrollTo({ left: adjustedPosition, behavior: 'smooth' });
-    setTimeout(updateButtonStates, 300); // Ensure state update after scroll animation
-  }
-
-  // Ensure the initial state respects the max width and margin
-  const containerWidth = container.offsetWidth;
-  const totalCarouselWidth = carousel.scrollWidth;
-
-  if (totalCarouselWidth < containerWidth) {
-    carousel.style.justifyContent = 'flex-start';
-  }
-
-  // Initial update on page load
   updateButtonStates();
 }
 
-// Wait for the DOM content to be fully loaded
-document.addEventListener("DOMContentLoaded", function () {
-  initCarousel();
-});
+// DOM ready
+document.addEventListener('DOMContentLoaded', initCarousel);
 
 
 

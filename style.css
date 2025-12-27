@@ -390,5 +390,12 @@ html.is-animating .transition-fade {
 
 
 
+/* Carousel left and right button states */
+
+.is-disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 
 
