@@ -1,4 +1,4 @@
-console.log("V1.647");
+console.log("V1.648");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1188,54 +1188,46 @@ function hideMatchingEndDates() {
   // Select all collection list items within '.eventcard__list'
   const eventCardItems = document.querySelectorAll('.eventcard__list .eventcard__item');
   
-  // Select all collection list items within '.eventext'
+  // Select all event text items
   const eventTextItems = document.querySelectorAll('.eventext');
 
-   // ADDED: Select all items within the carousel
+  // Select all carousel event card items
   const carouselItems = document.querySelectorAll('.carousel .eventcard__item');
 
   // Function to process each set of items
   function processItems(items) {
     items.forEach(function (item) {
-      // Get the start and end date elements within this item
       const startDateElement = item.querySelector('.date--start');
       const endDateElement = item.querySelector('.date--end');
       const dateDash = item.querySelector('.date--dash');
       const dateDayElement = item.querySelector('.date--day');
       const dateCommaElement = item.querySelector('.date--comma');
 
-      // Check if both start and end date elements exist to avoid errors
-      if (startDateElement && endDateElement) {
-        // Get the text content of the elements
-        const startDateText = startDateElement.textContent.trim();
-        const endDateText = endDateElement.textContent.trim();
+      if (!startDateElement || !endDateElement) return;
 
-        // Check if the start date is the same as the end date
-        if (startDateText === endDateText) {
-          // Hide the end date element and date dash if they are the same
-          endDateElement.style.display = 'none';
-          if (dateDash) {
-            dateDash.style.display = 'none';
-          }
-        } else {
-          // Hide the date day element if the start date is different from the end date
-          if (dateDayElement) {
-            dateDayElement.style.display = 'none';
-            if (dateCommaElement) {
-              dateCommaElement.style.display = 'none';
-            }
-          }
-        }
+      const startDateText = startDateElement.textContent.trim();
+      const endDateText = endDateElement.textContent.trim();
+
+      // Same-day event → hide end date + dash
+      if (startDateText === endDateText) {
+        endDateElement.style.display = 'none';
+        if (dateDash) dateDash.style.display = 'none';
+      } 
+      // Multi-day event → hide day label + comma
+      else {
+        if (dateDayElement) dateDayElement.style.display = 'none';
+        if (dateCommaElement) dateCommaElement.style.display = 'none';
       }
     });
   }
 
-  // Process both '.eventcard__list .eventcard__item' and '.eventext' items
+  // Run logic on all groups
   processItems(eventCardItems);
   processItems(eventTextItems);
+  processItems(carouselItems);
 }
 
-// Run the function after the DOM content is fully loaded
+// Initial page load
 document.addEventListener('DOMContentLoaded', hideMatchingEndDates);
 
 
