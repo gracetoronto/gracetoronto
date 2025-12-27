@@ -1,4 +1,4 @@
-console.log("V1.646");
+console.log("V1.647");
 
 //----PAGE TRANSITION FUNCTIONALITY----
 
@@ -1192,7 +1192,7 @@ function hideMatchingEndDates() {
   const eventTextItems = document.querySelectorAll('.eventext');
 
    // ADDED: Select all items within the carousel
-  const carouselItems = document.querySelectorAll('.carousel .carousel-card');
+  const carouselItems = document.querySelectorAll('.carousel .eventcard__item');
 
   // Function to process each set of items
   function processItems(items) {
